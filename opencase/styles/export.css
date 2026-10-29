@@ -1,0 +1,157 @@
+/* Open Case · exporter. What the design system's stylesheet (design/open-case.css) does not
+   have: letter/A4 print rules, covers of the game material, token and card-back sheets, and
+   some components the exporter builds itself. Everything uses the system's tokens; there are
+   no new colours. */
+
+:root{--pagina-ancho:var(--hoja-ancho);--pagina-alto:var(--hoja-alto)}
+html,body{margin:0}
+body{background:var(--mesa);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.oc-mesa{max-width:860px;margin:0 auto;min-height:100vh}
+.oc-mesa--pliegos{max-width:none;align-items:center}
+
+/* Sheets: grids with a fixed number of columns when the block asks for it */
+.oc-fotos[style*="--oc-columnas"],.oc-videos[style*="--oc-columnas"],.oc-celulares[style*="--oc-columnas"],
+.oc-cctvs[style*="--oc-columnas"],.oc-publicaciones[style*="--oc-columnas"]{grid-template-columns:repeat(var(--oc-columnas),minmax(0,1fr))}
+.oc-cctvs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.oc-cctv img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.oc-publicaciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.oc-publicaciones .oc-post{max-width:none}
+.oc-videos .oc-video{max-width:none}
+.oc-celulares .oc-celular{max-width:none}
+.oc-foto figcaption{flex:1}
+.oc-video__meta{color:#aaa;font-size:11.5px}
+.oc-historia{aspect-ratio:1/1;background:#0f0f0f;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;font-family:var(--font-pantalla);font-size:17px;line-height:1.3}
+.oc-hoja code{font-family:var(--font-mono);font-weight:600;font-size:.92em;color:var(--marino);white-space:nowrap}
+.oc-hoja h2 + .oc-pequeno{margin-top:-6px}
+.oc-hoja .oc-mono ul,.oc-hoja .oc-mono ol,.oc-bloque-mono ul{font-family:var(--font-mono);font-size:13.5px}
+.oc-bloque-mono p{font-family:var(--font-mono);font-size:13.5px}
+.oc-dibujo{display:block}
+.oc-dibujo svg{display:block;width:100%;height:auto}
+.oc-imagen{margin:0}
+.oc-imagen img{display:block;max-width:100%}
+.oc-imagen figcaption{font-size:13px;color:var(--tinta-suave);padding-top:4px}
+.oc-leyenda{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12.5px;color:var(--tinta-suave)}
+.oc-leyenda span{display:inline-flex;align-items:center;gap:6px}
+.oc-leyenda i{width:14px;height:10px;display:inline-block;border-radius:2px}
+.oc-nota__cuerpo{display:flex;flex-direction:column;gap:6px}
+.oc-nota__cuerpo p{margin:0}
+.oc-nota__cuerpo ul,.oc-nota__cuerpo ol{margin:0;padding-left:20px}
+.oc-guion[data-label]::before{content:attr(data-label)}
+.oc-quien{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sello);margin-top:6px}
+.oc-tabla--menu td:first-child{width:64px}
+.oc-tabla td.c{font-family:var(--font-mono);font-weight:600;white-space:nowrap;color:var(--marino)}
+.oc-tabla--control td:nth-last-child(-n+2),.oc-tabla--control th:nth-last-child(-n+2){width:56px;text-align:center}
+.oc-tabla--control td{height:26px}
+.oc-tabla--trabajo td{height:44px}
+.oc-tabla--puntaje td:last-child{width:120px}
+.oc-tabla--angosta table{width:auto}
+.oc-tabla--compacta th,.oc-tabla--compacta td{padding:4px 7px;font-size:13px}
+.oc-tabla td > code:first-child:last-child{color:var(--marino)}
+.oc-hoja .oc-firma__trazo{font-size:22px}
+
+/* Cover of the game material (kit, guide): carries the brand */
+.oc-tapa{align-items:center;justify-content:center;text-align:center;gap:18px;min-height:900px}
+.oc-tapa__sello{width:62%;max-width:440px;height:auto;display:block}
+.oc-tapa__caso{font-family:var(--font-display);font-weight:700;font-size:40px;line-height:1.05;letter-spacing:.02em;text-transform:uppercase;color:var(--tinta);max-width:20ch;text-wrap:balance}
+.oc-tapa__doc{font-family:var(--font-mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--marino)}
+.oc-tapa--reservada .oc-tapa__doc{color:var(--sello)}
+.oc-tapa__nota{font-size:14px;color:var(--tinta-suave);max-width:52ch}
+.oc-tapa__lema{font-family:var(--font-display);font-weight:600;font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suave);border-top:1px solid var(--regla);padding-top:10px}
+.oc-tapa .oc-equipo-linea{font-size:14px;padding:8px 16px}
+.oc-tapa__version{font-family:var(--font-mono);font-size:11px;color:var(--tinta-suave);letter-spacing:.08em}
+
+/* Dossier cover (case world: no brand) */
+.oc-caratula h1{font-family:var(--font-sans);font-weight:800;font-size:34px;line-height:1.1;margin:0}
+.oc-caratula__sobre{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--marino)}
+.oc-indice-tabla td:first-child{width:90px}
+
+/* ---------- Card sheets ---------- */
+.oc-pliego{width:var(--pagina-ancho);height:var(--pagina-alto);flex:none;overflow:hidden}
+.oc-pliego .oc-tarjeta--rotada{width:var(--tarjeta-ancho);height:var(--tarjeta-alto);position:relative;overflow:visible;border:0;padding:0;background:none}
+/* A vertical card is turned from a corner, not from its centre, so the unrotated box never
+   sticks out of the sheet (if it does, Chromium splits it over two pages). Rows 1-2 turn from
+   the top, rows 3-4 from the bottom. */
+.oc-tarjeta--rotada > .oc-tarjeta{position:absolute;left:0;top:0;width:var(--tarjeta-alto);height:var(--tarjeta-ancho);transform-origin:0 0;transform:translateY(var(--tarjeta-alto)) rotate(-90deg)}
+.oc-tarjeta--rotada:nth-child(n+5) > .oc-tarjeta{top:auto;bottom:0;transform-origin:0 100%;transform:translateX(var(--tarjeta-ancho)) rotate(-90deg)}
+.oc-tarjeta--vacia{border:1.5px dashed var(--regla);background:var(--blanco)}
+.oc-tarjeta__respuesta p{margin:0 0 4px}
+.oc-tarjeta__respuesta code{font-family:var(--font-mono);font-size:10.5px;line-height:13px}
+.oc-tarjeta--ajuste-1 .oc-tarjeta__respuesta{font-size:12px;line-height:16px}
+.oc-tarjeta--ajuste-2 .oc-tarjeta__respuesta{font-size:11.6px;line-height:15.2px}
+.oc-tarjeta--ajuste-3 .oc-tarjeta__respuesta{font-size:11.34px;line-height:14.6px}
+.oc-tarjeta--ajuste-1 .oc-tarjeta__pregunta,.oc-tarjeta--ajuste-2 .oc-tarjeta__pregunta,.oc-tarjeta--ajuste-3 .oc-tarjeta__pregunta{font-size:11.34px;line-height:14px}
+.oc-tarjeta--desborda{outline:3px solid var(--sello);outline-offset:-3px}
+.oc-tarjeta--comodin .oc-tarjeta__banda{background:var(--regla-fuerte)}
+.oc-tarjeta--comodin .oc-tarjeta__cab b{color:var(--tinta)}
+.oc-tarjeta__retrato-vacio{width:100%;height:22mm;background:var(--foto-marco);display:flex;align-items:center;justify-content:center;margin-top:4px;flex:none}
+.oc-tarjeta__retrato-vacio img{width:15mm;opacity:.5;filter:invert(1)}
+.oc-tarjeta--sospechoso .oc-tarjeta__retrato{margin-top:4px;flex:none}
+.oc-tarjeta--sospechoso .oc-tarjeta__datos div{min-width:0}
+.oc-placa .oc-placa__estrella{width:15mm;height:15mm}
+.oc-placa__mono{width:6mm;height:auto;margin-top:auto;opacity:.7}
+/* Common card back */
+.oc-reverso{align-items:center;justify-content:center;gap:4mm;border-style:dashed}
+.oc-reverso__sello{width:40mm;height:auto;display:block}
+.oc-reverso__caso{font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave);text-align:center}
+/* Token sheet: 5 × 7, 4 mm gutter */
+.oc-pliego--fichas{grid-template-columns:repeat(5,var(--ficha-diametro));grid-auto-rows:var(--ficha-diametro);gap:4mm;justify-content:center;align-content:center;padding:0}
+.oc-pliego--fichas .oc-ficha{width:var(--ficha-diametro);height:var(--ficha-diametro);position:relative}
+.oc-pliego--fichas .oc-ficha::after{content:"";position:absolute;inset:-1.2mm;border:1px dashed var(--regla);border-radius:50%}
+.oc-ficha small{font-family:var(--font-mono);font-size:6.5px;letter-spacing:.06em;margin-top:1px}
+.oc-ficha--reverso{background:var(--laton);border-color:var(--laton)}
+.oc-ficha--reverso img{width:13mm;height:auto}
+.oc-ficha__mono-ahorro{display:none}
+.oc-ficha--vacia{visibility:hidden}
+/* Alibi tokens: dashed border. Team colours (C violet, D copper) come from the design system. */
+.oc-ficha--coartada{border-style:dashed}
+
+/* Card sheets on screen: one centred column on the table */
+@media screen{
+  .oc-pliego{box-shadow:var(--sombra-hoja)}
+  .oc-mesa--pliegos .oc-portada{align-self:stretch;max-width:860px;margin:0 auto;width:100%}
+}
+
+/* ---------- Print ---------- */
+@page{margin:14mm}
+@page pliego{margin:0}
+@media print{
+  body{background:#fff}
+  .oc-mesa{background:#fff;padding:0;gap:0;max-width:none;min-height:0;display:block}
+  .oc-portada,.oc-seccion,.oc-indice{display:none}
+  /* On paper a sheet is a normal block, so Chromium splits it across pages without odd jumps. */
+  .oc-hoja{display:block;background:#fff;box-shadow:none;border-radius:0;padding:0}
+  .oc-hoja > * + *{margin-top:10px}
+  .oc-hoja > .oc-membrete + h2{margin-top:12px}
+  .oc-hoja > h3,.oc-hoja > h2:not(:first-of-type){margin-top:16px}
+  .oc-hoja > h3 + *{margin-top:6px}
+  .oc-hoja + .oc-hoja,.oc-hoja + .oc-pliego,.oc-pliego + .oc-pliego,.oc-pliego + .oc-hoja{break-before:page}
+  .oc-hoja--reservada{border-top:6px solid var(--sello);padding-top:5mm}
+  .oc-hoja--vieja{background:var(--papel-viejo);padding:6mm}
+  .oc-hoja .oc-pequeno{font-size:14px}
+  .oc-hoja.oc-tapa{display:flex;min-height:calc(var(--pagina-alto) - 28.5mm)}
+  .oc-tapa > * + *{margin-top:0}
+  .oc-pliego{page:pliego;box-shadow:none}
+  .oc-tarjeta,.oc-celular,.oc-video,.oc-foto,.oc-post,.oc-cctv,.oc-paso,.oc-nota,.oc-guion,tr,.oc-campo-hoja,
+  .oc-boleta,.oc-bolsa,.oc-correo,.oc-dibujo,.oc-imagen{break-inside:avoid}
+  .oc-hoja h3,.oc-quien{break-after:avoid}
+  .oc-prensa{transform:none}
+  .oc-sello--esquina{top:auto;bottom:0;right:0}
+}
+
+/* Letterhead of the game material: wordmark + case name */
+.oc-membrete__caso{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:5px}
+/* Footer with the brand at the bottom of the sheet (brand_footer in case.yaml) */
+.oc-hoja__marca{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px;border-top:1px solid var(--regla);font-family:var(--font-display);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave)}
+.oc-hoja__marca span:first-child{display:flex;align-items:center;gap:6px}
+.oc-hoja__marca img{width:16px;height:16px}
+.oc-hoja__marca span:last-child{font-family:var(--font-mono);font-weight:600;letter-spacing:.04em}
+/* Prosecutor's notice sheets: amber band */
+.oc-hoja--aviso{border-top:6px solid var(--ambar)}
+@media print{
+  .oc-hoja--aviso{padding-top:5mm}
+  /* A sheet takes at least one page and the brand footer sits at the bottom, in reserved space. */
+  .oc-hoja{min-height:calc(var(--pagina-alto) - 28.5mm)}
+  .oc-hoja:has(.oc-hoja__marca){padding-bottom:8mm}
+  .oc-hoja__marca{position:absolute;left:0;right:0;bottom:0;margin:0}
+  .oc-hoja h2{break-after:avoid}
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Croquis del sector con las parcelas, el camino y el estero" role="img" viewbox="0 0 760 420">
+<rect fill="#f1eee4" height="420" width="760"></rect>
+<rect fill="#cfc6b0" height="34" width="760" x="0" y="232"></rect><text fill="#3b3a35" font-family="monospace" font-size="13" x="12" y="254">Camino Los Copihues (ripio)</text>
+<path d="M610 0 C590 120 640 220 600 300 S620 420 630 420" fill="none" stroke="#7da1c4" stroke-width="12"></path>
+<rect fill="#a69b85" height="46" width="44" x="590" y="226"></rect><text fill="#1d3557" font-family="monospace" font-size="12" x="642" y="214">estero · puente</text>
+<g fill="#1e2224" font-family="monospace" font-size="13">
+<rect fill="#e3e6d4" height="190" stroke="#7b8a5f" width="230" x="20" y="30"></rect><text font-weight="600" x="32" y="52">Parcela Don Hernán</text><rect fill="#c9b99a" height="34" width="50" x="60" y="80"></rect><text font-size="11" x="60" y="132">casa</text>
+<rect fill="#e8e1cf" height="190" stroke="#9a7f55" width="300" x="260" y="30"></rect><text font-weight="600" x="272" y="52">Parcela El Arrayán</text>
+<rect fill="#c9b99a" height="40" width="70" x="440" y="150"></rect><text font-size="11" x="440" y="206">caseta ventas</text>
+<rect fill="#b8ab90" height="36" width="60" x="470" y="70"></rect><text font-size="11" x="470" y="64">galpón Toto</text>
+<rect fill="none" height="60" stroke="#6d5a3a" stroke-dasharray="4 3" width="80" x="290" y="90"></rect><text font-size="11" x="292" y="84">corral</text>
+<circle cx="350" cy="140" fill="#9e2a2b" r="8"></circle><text fill="#9e2a2b" font-size="11" x="362" y="164">cuerpo</text>
+<g fill="#fff" stroke="#555"><circle cx="420" cy="225" r="3"></circle><circle cx="432" cy="225" r="3"></circle><circle cx="444" cy="225" r="3"></circle><circle cx="468" cy="225" r="3"></circle><circle cx="480" cy="225" r="3"></circle></g><text font-size="10" x="398" y="244">piedras blancas</text>
+<rect fill="#6d5a3a" height="6" width="110" x="400" y="218"></rect><text font-size="10" x="514" y="228">portón</text>
+<circle cx="255" cy="110" fill="#1d3557" r="7"></circle><text fill="#1d3557" font-size="11" x="160" y="100">Javiera (cerco)</text>
+<line stroke="#1d3557" stroke-dasharray="3 3" x1="262" x2="342" y1="112" y2="138"></line>
+<rect fill="#e3e6d4" height="90" stroke="#7b8a5f" width="150" x="380" y="290"></rect><text font-weight="600" x="390" y="312">Casa Doña Rosa</text><text font-size="11" x="390" y="330">frente a El Arrayán</text>
+<text font-size="11" x="646" y="254">→ Labranza 3 km</text><text font-size="11" x="646" y="270">(Copec) · Temuco 12</text>
+<text font-size="11" x="12" y="300">← hacia Boroa</text>
+</g>
+</svg>

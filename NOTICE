@@ -1,0 +1,46 @@
+Open Case: what is licensed under what
+======================================
+
+Open Case uses two licenses, one for code and one for content, plus a few things that
+neither license covers.
+
+1. Code and tools: MIT License (see LICENSE)
+   - opencase/        the exporter
+   - export.py, Makefile, requirements.txt, tools/
+   - docs/            the technical documentation
+   - README.md, and the future website
+   You may use, change and distribute them, commercially or not, keeping the copyright
+   notice.
+
+2. Content: Creative Commons BY-NC-SA 4.0 (see LICENSE-CONTENT)
+   - cases/           every case: texts, cards, sheets, diagrams and photos
+   - design/guide/    the design guide
+   - design/logos/, design/icons/, design/open-case.css, design/tokens.json
+                      the visual identity files
+   - assets/          the images of the README
+   You may share and adapt them, giving credit, for non-commercial purposes, and
+   adaptations must keep the same license. If you print a case for friends, a class or
+   a club, that is fine. Selling copies, or using a case in a paid product or event, is not
+   covered: ask first.
+
+3. Not covered by either license
+   - The Open Case name and logo. The license of the logo files lets you copy and adapt
+     them like the rest of the content, but it grants no right to use the name "Open Case"
+     or its logo to identify your own work, your products or a service, or to suggest that
+     something is official or endorsed. Cases by other authors can say they are "for Open
+     Case" or "made with the Open Case format". The name and logo remain reserved to the
+     project.
+   - Fonts (design/fonts/). Each family keeps its own license (SIL OFL 1.1 or Apache 2.0).
+     The texts are in design/fonts/licenses/.
+   - Third-party software the exporter installs (PyYAML, Markdown, Playwright, pypdf and
+     Chromium) is under its own licenses.
+
+About the images of the sample case
+-----------------------------------
+The photos in cases/chupacabras-labranza/photos/ were generated with AI image tools
+(some were then edited by hand) and do not show real places or people. They are covered by
+the content license above. Any case that includes AI-generated images should say so in
+its own folder, as the sample case does.
+
+The people, companies, places and events in the sample case are fictional. Any
+resemblance to real ones is a coincidence.

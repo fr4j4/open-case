@@ -1,0 +1,50 @@
+/* Open Case · ink saver (on by default when exporting).
+   Removes backgrounds and large fills from the printed paper and keeps colour only where it
+   means something: card bands, codes, stamps, token rings, rules and text.
+   Photos print the same. For the full-colour version: --color, or ink_saver: false in
+   case.yaml. It only affects printing: the HTML on screen does not change. */
+@media print{
+  /* Light fill surfaces */
+  .oc-hoja,.oc-hoja--vieja,.oc-tarjeta,.oc-tarjeta--pista,.oc-tarjeta--fallida,.oc-pliego{background:#fff}
+  .oc-hoja--vieja{border:1px solid var(--regla)}
+  .oc-tabla th{background:none;border-bottom:1.5px solid var(--tinta)}
+  .oc-cita,.oc-guion{background:none}
+  .oc-nota,.oc-nota--ok,.oc-nota--aviso{background:none;border-width:1.5px}
+  .oc-paso{background:none}
+  .oc-manuscrito{background:repeating-linear-gradient(transparent,transparent 29px,#c9d6e8 30px)}
+  .oc-manuscrito--carta,.oc-manuscrito--sin-lineas{background:none}
+  .oc-postit{background:none;border:1.5px solid var(--ambar);box-shadow:none}
+  .oc-prensa{background:none}
+  .oc-resaltado{background:none;border-bottom:2.5px solid var(--resaltador);padding:0}
+  /* Imitated screens: no black frame or app backgrounds */
+  .oc-celular{border:1.5px solid var(--tinta-suave);background:#fff}
+  .oc-celular__barra{background:none;color:var(--tinta);border-bottom:1.5px solid var(--chat-cabecera)}
+  .oc-celular__barra small{color:var(--tinta-suave);opacity:1}
+  .oc-msg{box-shadow:none;border:1px solid var(--regla)}
+  .oc-msg--saliente{background:none;border-color:var(--bosque)}
+  .oc-dia{background:none;border:1px solid var(--regla)}
+  .oc-video{background:#fff;color:var(--tinta);border:1.5px solid var(--tinta-suave)}
+  .oc-video__cuadro{background:none}
+  .oc-video__coments,.oc-video__meta{color:var(--tinta-suave)}
+  .oc-video__coments b{color:var(--tinta)}
+  .oc-video__live{background:none;color:var(--video-acento);border:1.5px solid var(--video-acento)}
+  .oc-video__reloj{background:#fff;color:var(--tinta)}
+  .oc-historia{background:#fff;color:var(--tinta);border-bottom:1px solid var(--regla)}
+  .oc-foto,.oc-cctv{background:none}
+  .oc-foto figcaption,.oc-cctv figcaption{background:none}
+  .oc-post__cab i{background:none;border:1.5px solid var(--laton)}
+  .oc-correo__cab{background:none}
+  /* Cut-outs */
+  .oc-ficha{background:#fff}
+  .oc-ficha--a,.oc-ficha--b,.oc-ficha--c,.oc-ficha--d{background:#fff}
+  .oc-ficha--reverso{background:#fff;border:2px solid var(--laton)}
+  .oc-ficha__mono-color{display:none}
+  .oc-ficha__mono-ahorro{display:block}
+  .oc-tarjeta__retrato-vacio{background:none;border:1px solid var(--regla)}
+  .oc-tarjeta__retrato-vacio img{filter:none;opacity:.35}
+  .oc-bolsa__cab{background:none;color:var(--tinta);border-bottom:2px solid var(--tinta)}
+  .oc-equipo{background:none;color:var(--marino);border:1.5px solid var(--marino)}
+  .oc-equipo--b{color:var(--bosque);border-color:var(--bosque)}
+  .oc-equipo--c{color:var(--violeta);border-color:var(--violeta)}
+  .oc-equipo--d{color:var(--cobre);border-color:var(--cobre)}
+}

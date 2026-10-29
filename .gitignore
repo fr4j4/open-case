@@ -1,0 +1,11 @@
+# PDFs and images made by the exporter
+output/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# System
+.DS_Store
+Thumbs.db
