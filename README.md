@@ -41,7 +41,7 @@ Para empezar te basta con:
 5. **Dos carpetas.** Una para los equipos, sin spoilers, y otra para el director, con todo.
 6. **Una prueba antes de la real.** Juégalo con alguien. Los casos se arreglan jugándolos.
 
-Más adelante habrá plantillas y una guía más completa en este repo.
+Cuando lo tengas, pásalo al formato de Open Case (está en [docs/formato-de-casos.md](docs/formato-de-casos.md)) y el exportador arma todo el material impreso. El caso de ejemplo sirve de plantilla: copia la carpeta y ve cambiando.
 
 <br clear="right">
 
@@ -52,30 +52,83 @@ Más adelante habrá plantillas y una guía más completa en este repo.
 - Es policial, no de terror. La tensión viene de la deducción, no de los sustos.
 - El material de los equipos nunca trae la solución.
 
+## Imprimir un caso
+
+Cada caso vive en una carpeta de texto: unos archivos YAML con los datos y una hoja Markdown por cada prueba, cada página del kit y cada página de la guía, más sus fotos. Un script lo convierte todo en PDF listos para imprimir, con el diseño de Open Case.
+
+Necesitas Python 3.10 o más nuevo. La primera vez:
+
+```
+make instalar
+```
+
+Eso crea un entorno en `.venv`, instala las dependencias y descarga el Chromium con el que se arman los PDF. Después, cada vez que quieras exportar:
+
+```
+make exportar                               # el caso de ejemplo
+make exportar CASO=casos/mi-caso            # otro caso
+```
+
+En Windows, o si no tienes `make`:
+
+```
+py -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+.venv\Scripts\python -m playwright install chromium
+.venv\Scripts\python exportar.py casos\chupacabras-labranza
+```
+
+Si ya tienes Chrome o Edge instalado y no quieres bajar otro navegador, sáltate el `playwright install`: el exportador los busca solo. También puedes indicarle uno con la variable `OPENCASE_CHROMIUM`.
+
+Los PDF quedan en `salida/<caso>/`, separados en dos carpetas:
+
+- **equipos/** es lo que reciben los jugadores: el kit, los sobres, las tarjetas de sospechoso, las placas, las fichas, las solicitudes y las etiquetas de los sobres. Nada de esto trae la solución.
+- **director/** es lo que no ven: la guía, el expediente completo con todas las pruebas, las tarjetas de respuesta y su reverso.
+
+Imprime siempre al 100 %, sin "ajustar a la página". Las tarjetas miden 63 × 88 mm y las fichas 30 mm, y solo calzan con las líneas de corte si nadie las escala.
+
+**Ahorro de tinta.** Por defecto los PDF salen sin fondos: hojas blancas y el color solo donde dice algo (bandas de tarjetas, códigos, sellos, filetes). Para la versión a todo color:
+
+```
+make color
+python exportar.py casos/chupacabras-labranza --color
+```
+
+Si un caso se imprime siempre a color, pon `ahorro_de_tinta: false` en su `caso.yaml`.
+
+Otras opciones útiles:
+
+```
+python exportar.py casos/mi-caso --revisar        # revisa el caso sin generar PDF
+python exportar.py casos/mi-caso --solo kit,sobres
+python exportar.py casos/mi-caso --imagenes       # además, un PNG por prueba para mandar por chat
+python exportar.py --help
+```
+
+Cuando algo está mal escrito, el exportador se detiene y dice en qué archivo y en qué línea. Si una tarjeta no cabe o una hoja pasa a una segunda página, lo avisa al final.
+
 ## Estado
 
 <img src="assets/sello-pendiente.svg" alt="Sello: diligencias pendientes" width="230" align="right">
 
-El proyecto está en construcción. Primero hay que definir cómo se ven los expedientes, las fichas y el resto del material, y en eso estamos.
-
-Todavía no hay casos publicados acá. Los vamos a subir cuando el diseño esté cerrado.
+El sistema de diseño está cerrado y el exportador funciona. Ya hay un caso completo, **El Chupacabras de Labranza**, listo para jugar. Sirve también como ejemplo de cómo se escribe uno.
 
 Las imágenes de este README son provisionales.
 
 <br clear="right">
 
-## Cómo se va a ordenar el repo
-
-Es el plan por ahora, y puede cambiar.
+## Cómo está ordenado el repo
 
 ```
 open-case/
-├── docs/          reglas generales, guía para crear casos, identidad visual
-├── plantillas/    expediente, kit del equipo y guía del director
-└── casos/
-    └── <nombre-del-caso>/
-        ├── equipo/    lo que reciben los jugadores
-        └── director/  la solución y todo lo demás
+├── casos/
+│   └── chupacabras-labranza/   el caso de ejemplo, en formato de texto
+├── diseno/        sistema de diseño: CSS, colores, logos, fuentes y la guía de marca
+├── docs/          el formato de los casos
+├── opencase/      el exportador
+├── herramientas/  scripts de mantenimiento (por ejemplo, bajar las fuentes)
+├── exportar.py    el comando para exportar
+└── Makefile
 ```
 
 <p align="center">

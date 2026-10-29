@@ -1,0 +1,11 @@
+# PDF e imágenes generados por el exportador
+salida/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Sistema
+.DS_Store
+Thumbs.db

@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 from .cargar import ErrorCaso, leer_yaml, normalizar_codigo
-from .marcado import e, linea, md, texto_plano
+from .marcado import e, linea, linea_pre, md, texto_plano
 
 FLECHAS = {"entrante": "↘", "saliente": "↗", "perdida": "✕", "perdida entrante": "✕"}
 
@@ -104,11 +104,11 @@ def c_firma(b, ctx):
 
 
 def c_declaracion(b, ctx):
-    return f'<div class="oc-declaracion">{linea(b.contenido.strip())}</div>'
+    return f'<div class="oc-declaracion">{linea_pre(b.contenido)}</div>'
 
 
 def c_cita(b, ctx):
-    return f'<div class="oc-cita">{linea(b.contenido.strip())}</div>'
+    return f'<div class="oc-cita">{linea_pre(b.contenido)}</div>'
 
 
 def c_manuscrito(b, ctx):
@@ -385,7 +385,7 @@ def c_nota_aviso(b, ctx):
 
 def c_guion(b, ctx):
     rot = f' data-rotulo="{e(b.argumento)}"' if b.argumento else ""
-    return f'<div class="oc-guion"{rot}>{linea(b.contenido.strip())}</div>'
+    return f'<div class="oc-guion"{rot}>{linea_pre(b.contenido)}</div>'
 
 
 def c_pasos(b, ctx):

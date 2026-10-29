@@ -52,7 +52,7 @@ def md(texto):
     """Markdown de bloque: párrafos, listas, tablas, títulos."""
     if not texto:
         return ""
-    texto = re.sub(r"(?m)^\{\.(\w[\w-]*)\}\s*$", lambda m: "{: .oc-" + m.group(1) + "}", texto)
+    texto = re.sub(r"(?m)^\{\.(\w[\w-]*)\}[ \t]*$", lambda m: "{: .oc-" + m.group(1) + "}", texto)
     return _despues(_md().convert(str(texto)))
 
 
@@ -70,6 +70,18 @@ def linea(texto):
         htm = re.sub(r"^<p>(.*)</p>$", r"\1", htm.strip(), flags=re.S)
         salida.append(htm)
     return _despues("<br><br>".join(salida) if len(salida) > 1 else salida[0])
+
+
+def linea_pre(texto):
+    """Para bloques que respetan los saltos de línea tal cual (declaraciones, guiones, citas):
+    Markdown en línea en cada renglón, sin agregar <br>."""
+    if texto is None:
+        return ""
+    renglones = []
+    for r in str(texto).strip("\n").split("\n"):
+        htm = _md().convert(r) if r.strip() else ""
+        renglones.append(re.sub(r"^<p>(.*)</p>$", r"\1", htm.strip(), flags=re.S))
+    return _despues("\n".join(renglones))
 
 
 def texto_plano(texto):

@@ -1,0 +1,65 @@
+# Sospechosos del caso. Con estos datos se arman las tarjetas de sospechoso (63 × 88, verticales)
+# y los títulos del menú de preguntas del kit. La letra es la de los códigos (B1, B◆, DEC · B).
+# datos: hasta cinco campos de una línea. retrato: opcional (fotos/...), nunca un rostro reconocible.
+
+sospechosos:
+  - letra: B
+    nombre: Benjamín Ferrada
+    rol: hermano de la víctima
+    datos:
+      Edad: 41
+      Oficio: Ingeniero comercial
+      Relación: Hermano mayor de la víctima
+      Vive en: Torre Alemania, Temuco
+      Descripción: 1,80 m, pelo oscuro corto
+
+  - letra: H
+    nombre: Hernán Carrasco
+    rol: vecino
+    datos:
+      Edad: 71
+      Oficio: Agricultor
+      Relación: Vecino al poniente de El Arrayán
+      Vive en: Parcela propia, Camino Los Copihues
+      Descripción: 1,70 m, canoso, bigote
+
+  - letra: J
+    nombre: Javiera Peña
+    rol: "@misterios.araucania"
+    datos:
+      Edad: 26
+      Oficio: Creadora de contenido
+      Relación: Lo conoció grabando
+      Vive en: Villa en Labranza
+      Descripción: 1,60 m, pelo negro con mechas moradas
+
+  - letra: P
+    nombre: Pía Sandoval
+    rol: ex pareja de la víctima
+    datos:
+      Edad: 34
+      Oficio: Vende quesos en la Feria Pinto
+      Relación: Ex pareja (hasta junio de 2026)
+      Vive en: Pedro de Valdivia, Temuco
+      Descripción: 1,68 m, morena, pelo largo
+
+  - letra: T
+    nombre: Cristián "Toto" Lagos
+    nombre_corto: Toto Lagos
+    rol: cuidador
+    datos:
+      Edad: 24
+      Oficio: Cuidador de El Arrayán, maestro
+      Relación: Trabajaba para la víctima
+      Vive en: Villa en Labranza, con su madre
+      Descripción: 1,75 m, delgado, pelo rapado
+
+  - letra: C
+    nombre: Dra. Camila Rivas
+    rol: veterinaria
+    datos:
+      Edad: 36
+      Oficio: Médica veterinaria
+      Relación: Hizo las necropsias del sector
+      Vive en: Labranza
+      Descripción: 1,65 m, pelo castaño tomado
