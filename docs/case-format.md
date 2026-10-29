@@ -303,6 +303,7 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 
 | Block | What it draws | Content |
 |---|---|---|
+| `columns` | Side-by-side columns, for quick-reference sheets. Argument: minimum width of a column in px (default 230) | Markdown pieces separated by a line with `===` |
 | `note`, `note-ok`, `note-warning` | Plain, green or amber notes. Argument: the label | Markdown |
 | `script` | What the director reads aloud. Optional argument: the label | Free text |
 | `steps` | Numbered steps | List of `title:` and `text:` |
@@ -313,7 +314,7 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 |---|---|---|
 | `fields` | Lines or boxes to write on | List of `label:`, `type: box` and `height:` (or just the label) |
 | `work-table` | An empty table to fill in | `columns:`, `rows:`, `height:`, `schedule: true` for the timeline |
-| `checkboxes` | Boxes to tick off tokens. Optional argument: how many | Nothing; defaults to `tokens_per_team` |
+| `checkboxes` | Boxes to tick off tokens. Optional argument: how many, or `alibi` for the alibi tokens (labelled with `tokens.alibi_code`, C1, C2…) | Nothing; defaults to `tokens_per_team` |
 | `menu` | The question menu, built from `suspects.yaml` and the cards with `menu: true` | Nothing |
 | `html` | HTML as it is, for odd cases | HTML |
 

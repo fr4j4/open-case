@@ -3,7 +3,7 @@ Open Case es la marca y el marco de diseño de una familia de juegos de investig
 ## La idea en tres frases
 
 - **La mesa es oscura y el papel es claro.** En pantalla, cada documento es una hoja de `papel` apoyada en la `mesa`; impreso, es una hoja carta o una tarjeta blanca recortable. Nunca hay un tema oscuro para el papel.
-- **Dos mundos, dos voces.** Los documentos *del caso* (partes, declaraciones, chats, boletas) pertenecen a instituciones y personas ficticias: no llevan la marca y se ven como el objeto real. El material *del juego* (kit, tarjetas, placas, fichas, sobres, guía) lleva Open Case y habla en la voz del juego.
+- **Dos mundos, dos voces.** Los documentos *del caso* (partes, declaraciones, chats, boletas) pertenecen a instituciones y personas ficticias y se ven como el objeto real; la marca solo aparece en el pie de la hoja (`.oc-hoja__marca`: monograma, "Open Case" y el nombre del caso), igual que en las tarjetas. El material *del juego* (kit, tarjetas, placas, fichas, sobres, guía) lleva Open Case en el membrete y habla en la voz del juego.
 - **La escritura dice quién habla.** Lo impreso oficial no miente; lo tipeado a máquina es lo que alguien declaró; lo manuscrito es íntimo o apurado; lo de pantalla es lo que alguien publicó. El jugador reconoce la fuente antes de leerla.
 
 ## Cómo usar esta guía

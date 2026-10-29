@@ -86,8 +86,8 @@ def sheet(h, ctx, defaults=None):
     footer = ""
     if d.get("brand_footer"):
         mono = ctx.design("logos/oc-monograma-tinta.svg")
-        footer = (f'<div class="oc-hoja__marca"><span><img src="{mono}" alt="">{e(ctx.case.get("brand", "Open Case"))} · '
-                  f'{e(ctx.case.title)}</span><span>{e(d.get("code", ""))}</span></div>')
+        footer = (f'<div class="oc-hoja__marca"><img src="{mono}" alt="{e(ctx.case.get("brand", "Open Case"))}">'
+                  f'<span>{e(ctx.case.get("brand", "Open Case"))}</span><span>{e(ctx.case.title)}</span></div>')
     return f'<article class="{" ".join(classes)}" id="{e(h.id)}">{letterhead}{title}{body}{stamp}{footer}</article>'
 
 

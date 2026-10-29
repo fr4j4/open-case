@@ -15,7 +15,7 @@
 
 ## Retícula de la hoja
 
-Una columna de texto de 68 caracteres como máximo (`.oc-hoja p{max-width:68ch}`). Bloques separados por 14 px en pantalla (4 mm en papel). Orden fijo: membrete → título → campos → cuerpo → firma/fuente → sello. Las tablas ocupan el ancho completo; las fotos van en una rejilla de dos columnas (`.oc-fotos`); los celulares en rejilla de dos (`.oc-celulares`); los videos en rejilla de hasta cuatro (`.oc-videos`).
+Una columna de texto de 68 caracteres como máximo (`.oc-hoja p{max-width:68ch}`). Bloques separados por 14 px en pantalla (4 mm en papel). Orden fijo: membrete → título → campos → cuerpo → firma/fuente → sello → pie de marca (`.oc-hoja__marca`). Las tablas ocupan el ancho completo; las fotos van en una rejilla de dos columnas (`.oc-fotos`); los celulares en rejilla de dos (`.oc-celulares`); los videos en rejilla de hasta cuatro (`.oc-videos`).
 
 ## En pantalla
 

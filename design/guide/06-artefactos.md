@@ -1,6 +1,6 @@
 # Catálogo de artefactos
 
-Cada pieza de un caso es uno de estos tipos. La columna "componente" nombra el componente de esta guía (con su ejemplo visual); "código" dice cómo se identifica; "quién la emite" recuerda que los documentos del caso hablan en la voz de una institución ficticia y no llevan la marca.
+Cada pieza de un caso es uno de estos tipos. La columna "componente" nombra el componente de esta guía (con su ejemplo visual); "código" dice cómo se identifica; "quién la emite" recuerda que los documentos del caso hablan en la voz de una institución ficticia; la marca solo va en el pie de la hoja (`.oc-hoja__marca`).
 
 ## Documentos del caso (hojas carta)
 

@@ -3,7 +3,7 @@
 Antes de publicar un caso, cada artefacto pasa esta lista. Si falla un punto, no se publica.
 
 ## Marca
-- [ ] El logotipo aparece solo en material del juego (kit, tarjetas, sobres, placas, fichas, guía) y nunca en documentos del caso.
+- [ ] Toda hoja del caso lleva el pie de marca (`.oc-hoja__marca`: monograma, "Open Case", nombre del caso) y nada más de la marca; el wordmark en el membrete solo va en kit, guía y sobres.
 - [ ] El logotipo es uno de los archivos de `assets/Logos/`, en `tinta`, `sello` o `papel`, sin deformar.
 - [ ] El nombre del caso va siempre después de la marca y en la línea de marca de cada tarjeta.
 

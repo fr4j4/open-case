@@ -426,9 +426,28 @@ def c_work_table(b, ctx):
 
 
 def c_checkboxes(b, ctx):
+    """Boxes to tick off tokens. Argument: a number, or `alibi` for the alibi tokens (C1, C2…)."""
     arg = (b.arg or "").strip()
-    n = int(arg) if arg.isdigit() else int(ctx.case.get("tokens_per_team", 16))
-    return '<div class="oc-casillas">' + "".join(f"<span>{i}</span>" for i in range(1, n + 1)) + "</div>"
+    if arg == "alibi":
+        n = int(ctx.case.get("alibi_tokens_per_team", 0))
+        labels = [ctx.case.t("tokens.alibi_code", i=i) for i in range(1, n + 1)]
+    else:
+        n = int(arg) if arg.isdigit() else int(ctx.case.get("tokens_per_team", 16))
+        labels = [str(i) for i in range(1, n + 1)]
+    return '<div class="oc-casillas">' + "".join(f"<span>{e(l)}</span>" for l in labels) + "</div>"
+
+
+def c_columns(b, ctx):
+    """Side-by-side Markdown pieces (tables, lists) separated by a line with `===`.
+    Argument: the minimum width of a column in px (default 230)."""
+    width = (b.arg or "230").strip()
+    if not width.isdigit():
+        raise CaseError("columns: the argument is the minimum column width in px (for example ```columns 230)",
+                        ctx.sheet.path, b.line)
+    parts = re.split(r"(?m)^===\s*$", b.content)
+    cells = "".join(f"<div>{md(p)}</div>" for p in parts if p.strip())
+    return (f'<div class="oc-columnas-libres" style="display:grid;grid-template-columns:repeat(auto-fit,minmax({width}px,1fr));'
+            f'gap:10px;font-size:11px;line-height:1.3">{cells}</div>')
 
 
 def c_menu(b, ctx):
@@ -463,7 +482,7 @@ COMPONENTS = {
     "photos": c_photos, "cctv": c_cctv, "image": c_image, "svg": c_svg, "legend": c_legend,
     "phones": c_phones, "videos": c_videos, "posts": c_posts,
     "note": c_note, "note-ok": c_note_ok, "note-warning": c_note_warning, "script": c_script, "steps": c_steps,
-    "fields": c_fields, "work-table": c_work_table, "checkboxes": c_checkboxes,
+    "fields": c_fields, "work-table": c_work_table, "checkboxes": c_checkboxes, "columns": c_columns,
     "menu": c_menu, "html": c_html,
 }
 
