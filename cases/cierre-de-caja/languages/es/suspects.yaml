@@ -1,0 +1,43 @@
+# Suspects of the case: suspect cards (63 × 88, vertical) and the headings of the kit's menu.
+# Order: by closeness to the victim (family, neighbour, employees). The culprit is not first.
+# culprit: D
+suspects:
+  - letter: V
+    name: Valeria Ibáñez
+    role: hija de la víctima
+    facts:
+      Edad: 27
+      Oficio: Estudiante de enfermería, último año
+      Relación: Hija única; la madre murió en 2021
+      Vive en: Departamento compartido, Rancagua centro
+      Descripción: 1,65 m, pelo castaño largo, lentes
+
+  - letter: O
+    name: Óscar Peralta
+    role: dueño de la botillería vecina
+    facts:
+      Edad: 61
+      Oficio: Dueño de la botillería Don Óscar
+      Relación: Vecino de local hace 14 años
+      Vive en: Segundo piso de la botillería, pasaje Los Aromos
+      Descripción: 1,72 m, canoso, lentes de marco grueso
+
+  - letter: S
+    name: Sandra Mella
+    role: ex cajera
+    facts:
+      Edad: 38
+      Oficio: Cajera; despedida el lunes 2 de noviembre
+      Relación: Seis años en El Trébol
+      Vive en: Población Santa Elena, a 20 minutos en micro
+      Descripción: 1,60 m, pelo teñido rojizo, chaqueta roja
+
+  - letter: D
+    name: Diego Fuentes
+    role: repartidor
+    facts:
+      Edad: 29
+      Oficio: Repartidor de El Trébol, en moto propia
+      Relación: Dos años en el local; encontró el cuerpo
+      Vive en: Villa El Cobre, a 3 km, con su pareja
+      Descripción: 1,78 m, barba corta, chaqueta de moto negra

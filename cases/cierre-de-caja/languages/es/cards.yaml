@@ -1,0 +1,217 @@
+# Answer cards of "Cierre de caja". Each group prints together and in this order.
+# type: answer (default), follow-up, confrontation, failed, witness, wildcard, notice, press, hint, closing.
+# menu: true  -> the question appears in the kit's menu. At most 420 characters per answer.
+
+groups:
+  - title: Valeria Ibáñez
+    suspect: V
+    who: Valeria Ibáñez
+    short: Valeria
+    cards:
+      - code: V1
+        menu: true
+        question: ¿Dónde estuvo el domingo en la noche?
+        answer: '"En el cumpleaños de la Cami, Camila Toro, en su departamento en el centro. Llegué a las ocho y media con la torta y me fui a la una. Había como quince personas y hay fotos de toda la noche. Pregúntenle a ella."'
+      - code: V2
+        menu: true
+        question: ¿Habló con su papá ese día?
+        answer: '"No. Hace una semana que no hablábamos. Después de la última pelea decidí dejarlo tranquilo un tiempo. Pensé que se le iba a pasar."'
+      - code: V3
+        menu: true
+        question: ¿Por qué peleaban por plata?
+        answer: '"Porque me falta para terminar la carrera y él decía que ya me había ayudado suficiente. En octubre me pasó ciento cincuenta mil, como un favor. Me daba vergüenza pedirle más, pero igual lo hacía."'
+      - code: V4
+        type: confrontation
+        question: '"Usted lo llamó a las nueve y cinco, y hablaron seis minutos."'
+        answer: '"(Se le quiebra la voz.) Sí, lo llamé. Le pedí plata para pagar una cuota y me dijo que no, que me las arreglara sola. Le corté. Fue la última vez que hablamos, ¿entiende? Por eso no quería decirlo."'
+      - code: V5
+        type: confrontation
+        question: '"Usted debe casi dos millones a una casa de préstamos."'
+        answer: '"Pedí plata donde no debía, para pagar la tarjeta. Mi papá no lo sabía. Empeñé el anillo de mi mamá para pagar la primera cuota. Si él lo hubiera sabido… No me mire así, detective."'
+      - code: V✕
+        type: failed
+        answer: '"¿Un post en Instagram? Era una broma, detective. Todo el mundo se queja de sus papás en redes. Eso no dice nada de esa noche."'
+
+  - title: Óscar Peralta
+    suspect: O
+    who: Óscar Peralta
+    short: Óscar
+    cards:
+      - code: O1
+        menu: true
+        question: ¿Dónde estuvo el domingo en la noche?
+        answer: '"Cerré a las diez, como manda la ley, y me acosté. Vivo arriba del local, solo. No escuché nada. Desde el segundo piso no se oye la bodega de Renato."'
+      - code: O2
+        menu: true
+        question: ¿Qué pasaba entre usted y Renato?
+        answer: '"La franja de carga, el ruido de sus camiones, la denuncia que me hizo en septiembre. Me costó una multa de casi medio millón. Lo mandé a la cresta en el grupo, sí. Pero uno dice esas cosas. Catorce años de vecinos."'
+      - code: O3
+        menu: true
+        question: ¿Nos entrega la grabación de su cámara?
+        answer: '"(Duda.) Graba mal de noche, no les va a servir… Ya, tómenla. Pero lo que se vea de mi local se queda entre nosotros, ¿estamos?"'
+        attach: E08
+      - code: O4
+        type: confrontation
+        question: '"Su cámara lo muestra atendiendo hasta las once y media."'
+        answer: '"Ya, cerré a las once y media. Vendo después de hora, ¿contento? Por eso no quería mostrar la cámara, ya me multaron una vez por culpa de Renato. Pero ahí mismo se ve que no me moví del mostrador."'
+      - code: O✕
+        type: failed
+        answer: '"Con Renato peleábamos desde que llegó al pasaje. Si eso fuera motivo para matar a alguien, aquí no quedaría ningún locatario vivo."'
+
+  - title: Sandra Mella
+    suspect: S
+    who: Sandra Mella
+    short: Sandra
+    cards:
+      - code: S1
+        menu: true
+        question: ¿Dónde estuvo el domingo en la noche?
+        answer: '"En mi casa, en Santa Elena, con mis hijos. Toda la tarde y toda la noche. Comimos, vimos tele y nos acostamos."'
+      - code: S2
+        menu: true
+        question: ¿Por qué la despidieron?
+        answer: '"Porque faltaba plata en la caja y yo era la cajera. Seis años y me acusó delante de todo el pasaje. Puse una denuncia en la Inspección del Trabajo. Eso fue lo que hice: pelear con papeles."'
+      - code: S3
+        menu: true
+        question: ¿Quién más tenía acceso a la caja registradora?
+        answer: '"Don Renato, yo… y el Diego, cuando yo salía a almorzar, de una a dos. Él cubría la caja. Pero el Diego es un niño bueno, no me haga decir cosas que no sé."'
+      - code: S4
+        type: confrontation
+        question: '"Usted estuvo en El Trébol a las diez menos diez."'
+        answer: '"(Silencio largo.) Sí, fui. A pedirle mi finiquito en persona. Me gritó, yo le grité. Y después se calmó y me dijo que ya sabía que no había sido yo, que el lunes me pagaba todo. Me fui a las diez y tomé la micro. No lo dije porque iba a quedar como la última que lo vio con vida."'
+        follow_up: S4+
+      - code: S✕
+        type: failed
+        answer: '"Escribir con rabia en Instagram no es delito, detective. Y una denuncia en la Inspección del Trabajo es lo contrario de ir a pegarle a alguien."'
+      - code: S4+
+        type: follow-up
+        question: ¿Le dijo quién se llevaba la plata?
+        answer: '"No. Dijo que no era quien él pensaba, que lo tenía grabado y que el lunes iba a la Fiscalía. Que primero quería hablar con esa persona. Nada más."'
+
+  - title: Diego Fuentes
+    suspect: D
+    who: Diego Fuentes
+    short: Diego
+    cards:
+      - code: D1
+        menu: true
+        question: ¿Dónde estuvo el domingo en la noche?
+        answer: '"En mi casa, en El Cobre. Llegué a las nueve y veinte en la moto y no salí más. Mi pareja estaba de turno en el hospital, así que estaba solo. Vi una película y me dormí."'
+        follow_up: D1+
+      - code: D2
+        menu: true
+        question: ¿Qué sabía de los faltantes de caja?
+        answer: '"Lo que sabía todo el local: que faltaba plata y que Renato pensaba que era la Sandra. A mí me daba pena, pero él estaba seguro. Yo cubría la caja un rato al mediodía, nada más."'
+      - code: D3
+        menu: true
+        question: ¿Habló con Renato después de cerrar?
+        answer: '"No. Bajamos la cortina juntos a las nueve, me dijo ''hasta mañana'' y me fui. No supe nada más de él hasta que lo encontré."'
+      - code: D4
+        type: confrontation
+        question: '"Renato lo llamó a las diez y doce, y hablaron casi dos minutos."'
+        answer: '"…Ah, sí. Me llamó. Se me había olvidado con todo esto. Me preguntó si al día siguiente podía llegar más temprano, porque él tenía que salir. Dos minutos. Nada más que eso."'
+      - code: D5
+        type: confrontation
+        question: '"Su moto estuvo estacionada frente a la bodega entre las 22:27 y las 22:52."'
+        answer: '"(Se demora en contestar.) Ya. Fui. Se me quedó el casco bueno en la bodega y volví a buscarlo. Entré, lo saqué y me fui. Él estaba en la oficina contando plata. Lo saludé desde la puerta y estaba vivo, se lo juro."'
+      - code: D6
+        type: confrontation
+        question: '"Alguien abrió la bodega con su código a las 22:30, y su celular estaba en el sector."'
+        answer: '"Mi código lo sabía medio local. Renato lo tenía anotado en un papel al lado de la puerta, por si venía el proveedor. Cualquiera pudo usarlo. Y esa antena cubre veinte cuadras, detective, ahí vive medio Rancagua."'
+      - code: D7
+        type: confrontation
+        question: '"En su casa hay fajos con las bandas de la recaudación de esta semana."'
+        answer: '"Esa plata es mía. Propinas, repartos que me pagan aparte… Las bandas las sacaba de la basura de la oficina para ordenar mis billetes, Renato las botaba todos los lunes. ¿Eso es delito ahora?"'
+      - code: D8
+        type: confrontation
+        question: '"Usted era administrador de las cámaras y sabía dónde estaba el grabador."'
+        answer: '"(Baja la vista.) Yo instalé esas cámaras con él, el año pasado. Sé dónde está el grabador, claro que sé. Y sé lo que se ve en esos clips. Me quedé con unas monedas, sí. Pero eso no quiere decir que lo haya matado."'
+      - code: D9
+        type: confrontation
+        question: '"Renato lo iba a denunciar el lunes a las nueve."'
+        answer: '"…Me lo dijo por teléfono: ''mañana a las nueve estoy en la Fiscalía con tu nombre, Diego''. Pero yo no fui a matarlo. Fui a pedirle que no lo hiciera, a decirle que se lo devolvía todo. Eso fui a hacer."'
+      - code: D✕
+        type: failed
+        answer: '"Esa antena cubre medio sector. Y motos con caja de reparto hay cincuenta en Rancagua, detective. ¿Qué me quiere decir con eso?"'
+      - code: D1+
+        type: follow-up
+        question: ¿Alguien puede confirmar que estuvo en su casa?
+        answer: '"Nadie, estaba solo. Pero la moto quedó estacionada en la calle toda la noche, pregúntenles a los vecinos del pasaje Las Rosas."'
+
+  - title: Testigos
+    type: witness
+    cards:
+      - code: R1
+        who: Marta Soto, vecina del 1418
+        question: ¿Qué escuchó esa noche?
+        answer: '"Como a las diez menos diez, gritos en la bodega de don Renato: él y una mujer. Después nada. Y como veinte para las once, un golpe seco, fuerte, y un grito corto. Pensé que se le había caído algo. A las once y cinco me asomé y don Óscar estaba fumando en su puerta, con la botillería abierta, como siempre."'
+      - code: R2
+        who: Marta Soto, vecina del 1418
+        question: ¿Vio a alguien?
+        answer: '"A la mujer no la vi, solo la oí. Cuando me asomé después del golpe, como a las once menos cuarto, había una moto estacionada frente a la puerta de la bodega, de esas con caja atrás. No sé de quién. Por este pasaje pasan muchas."'
+      - code: CT1
+        who: Patricio Lillo, contador de El Trébol
+        question: ¿Qué le dijo Renato el domingo?
+        answer: '"Me llamó a las siete y media. Había visto las grabaciones y ya sabía quién se llevaba la plata: ''no era quien yo pensaba, Pato''. El lunes iba a la Fiscalía y después al banco. No me dio el nombre. Dijo que primero quería hablar con la persona, darle la oportunidad de devolverlo."'
+      - code: A1
+        who: Camila Toro, amiga de Valeria
+        question: ¿Estuvo Valeria en su cumpleaños?
+        answer: '"La Vale llegó a las ocho y media con la torta y se fue a la una. No se movió del departamento. Sí, estuvo rara después de hablar por teléfono con el papá, como a las nueve: lloró un rato en el balcón. Aquí están mis historias, salen todas las horas."'
+        attach: E16
+      - code: PER1
+        who: Perito informático del laboratorio
+        question: ¿Qué nos dicen el grabador y la puerta?
+        answer: El grabador se desconectó a las 22:44, catorce minutos después de que alguien abriera la puerta trasera con el código 2. Para sacar el disco hay que saber que el grabador está en el altillo, detrás de las cajas, y tener una llave Torx. No es algo que un ladrón encuentre al pasar.
+
+  - title: Comodines
+    type: wildcard
+    cards:
+      - code: "◆ ✕"
+        type: failed
+        who: Confrontación fallida
+        answer: '"Eso no prueba nada, detective."'
+        note: La persona se mantiene en su declaración.
+      - code: TESTIGO
+        who: Testigo no disponible
+        answer: Esa persona todavía no aparece en el material que tienen. Cuando aparezca nombrada en una prueba, una declaración o una tarjeta, pueden entrevistarla.
+        note: No se cobra la ficha.
+      - code: NADA
+        who: Nada que aportar
+        answer: Esa persona fue entrevistada y no sabe nada útil sobre la noche del domingo.
+        note: No se cobra la ficha.
+
+  - title: Avisos y prensa
+    cards:
+      - code: AVISO 1
+        type: notice
+        who: Minuto 7 · leer a todos
+        answer: Una vecina del pasaje declara haber oído a la víctima discutir a gritos con una mujer cerca de las diez de la noche. Sandra Mella, ex cajera del local, no respondió a la citación de la PDI y fue ubicada en su casa por Carabineros. Dice que "no tiene nada que decir".
+      - code: AVISO 2
+        type: notice
+        who: Minuto 14 · leer a todos
+        answer: La Inspección del Trabajo confirma que Sandra Mella denunció a la víctima el 5 de noviembre por despido sin finiquito. Por otra parte, el banco informa que la hija de la víctima, Valeria Ibáñez, mantiene una deuda con una casa de préstamos informales.
+      - code: PRENSA
+        type: press
+        who: Minuto 14 · después del aviso 2
+        headline: '"¿Quién sigue?"'
+        answer: 'Radio Rancagua, 12:00. Vecinos del pasaje Los Aromos piden más seguridad tras el robo con homicidio en el minimarket El Trébol: "Primero don Renato, ¿quién sigue?". La Fiscalía responde que "hay una persona de interés citada para hoy" y que en diez minutos quiere un nombre.'
+
+  - title: Pistas
+    type: hint
+    cards:
+      - code: PISTA 1
+        who: −1 punto
+        answer: ¿Cómo entró el ladrón, si nada está forzado y la cortina estaba cerrada con llave desde adentro? ¿Qué registra la puerta trasera?
+      - code: PISTA 2
+        who: −1 punto
+        answer: ¿Quién sabía que había cámaras y dónde estaba escondido el grabador? ¿Y por qué se llevó el disco pero dejó el fondo de la caja registradora?
+      - code: PISTA 3
+        who: −2 puntos
+        answer: La víctima llamó a alguien a las 22:12. ¿Dónde estaba esa persona veinte minutos después?
+
+  - title: Cierre
+    cards:
+      - code: CIERRE
+        type: closing
+        who: Para leer al final
+        answer: El robo hormiga de El Trébol se descubrió con una prueba gratis de treinta días. Su dueño quiso dar una última oportunidad, y la oportunidad lo mató.

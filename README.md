@@ -43,6 +43,8 @@ Para empezar te basta con:
 
 Cuando lo tengas, pásalo al formato de Open Case (está en [docs/case-format.md](docs/case-format.md) (en inglés)) y el exportador arma todo el material impreso. El caso de ejemplo sirve de plantilla: copia la carpeta y ve cambiando.
 
+Si prefieres escribirlo conversando con una IA, en [skills/open-case-author/](skills/open-case-author/) hay una skill que la guía de punta a punta: entrevista, documento guía que tú validas, detección de problemas, generación de los archivos, exportación y auditorías. El caso corto **Cierre de caja** salió de ahí.
+
 <br clear="right">
 
 ## Reglas de la casa

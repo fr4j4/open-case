@@ -1,0 +1,67 @@
+# Design rules
+
+These rules come from three rounds of independent audits and two simulated sessions of the sample case, *El Chupacabras de Labranza*, plus the brand guide. Each rule names the failure it prevents. When the person wants something that breaks one, explain the failure in two sentences, offer the closest version that keeps the rule, and if they insist, log the decision in the bible.
+
+## Truth and evidence
+
+1. **One solution, written first.** Who, how, why, when, and the telling detail. Everything else is derived from it. If the truth changes mid-conversation, every dependent section of the bible is re-checked (timeline, paths, cards, guide).
+2. **Official documents never lie; suspects do.** Autopsies, lab reports, logs, cameras, bank statements, cell-tower records and witnesses tell the truth. A red herring is something a character chose to show (a receipt from the wrong hour, a staged footprint), a coincidence, or an honest misreading, never a forged report. *Failure prevented:* teams cannot trust anything, deduction collapses into guessing.
+3. **No sheet convicts alone, and the free material never convicts.** The culprit must not be reachable from envelope 1, the statements and the autopsy without spending tokens. Audit finding: a slip in the culprit's free statement ("who would *hit* him like that", hours before the autopsy revealed a blow) gave a one-token confession path. Keep such slips as a *contradiction point*, never as a confession path, and make every confession path require at least one paid sheet.
+4. **The telling detail is the spine.** It is the thing the culprit could not avoid and nobody else could have done (unlocking the victim's phone with the dead man's finger; using a door code at a time the owner was dead). It is reached by crossing two or three sheets, it is explained by an expert card if players need help reading it, and it is never written out in the free material.
+5. **Every innocent can be discarded.** For each innocent, two pieces of evidence of *different origin* (document, witness, cell tower, camera, digital record) place them away from the scene inside the crime window. Two sheets from the same person or source count as one. A cell tower that covers the scene does not discard anyone. A sighting outside the window does not discard anyone. Audit finding: the discard table listed a tower record that covered the scene and a drone sighting 16 minutes before the window; both had to be removed.
+6. **Register sheets have 6 to 12 rows and the datum is never first or last.** Call logs, tower records, camera logs, bank statements. One or two decoy rows per sheet are fine when they lead somewhere real (a name that unlocks a witness).
+7. **Numbers add up and times are possible.** Distances against travel times (a 3 km gravel road is not two minutes), rain start against wet clothes and photos, counts (7 cases of 13 animals, not "seven animals"), days of the week against dates, instalment maths, who "provided" each sheet against who hands it out in the guide. Run the timeline check in `problem-detection.md` every time the timeline changes.
+
+## Paths to the culprit
+
+8. **At least three independent paths of different type, plus the motive.** Types: *movement* (vehicle, camera, GPS), *alibi broken* (door log, tower, witness), *knowledge* (something only the culprit could know, usually via a confrontation), *physical* (traces on clothes, the weapon, a bag). Each path = sheets → a confrontation card. Paths may share one sheet but not two.
+9. **The confession needs two paths with their ◆ cards, plus a motive sheet or card, plus the name on the accusation sheet.** The confession scores nothing: it is the closing of the story. Say so in the kit, or players will believe they must earn it to win.
+10. **Confrontations: one ◆ request = one card, the most specific combination wins.** The response table lists, for each suspect, which evidence or combination triggers which card. Evidence that is relevant but insufficient triggers a *failed* card that hints at what is missing ("that tower covers half the town"), charged. Irrelevant evidence triggers the wildcard "that proves nothing", charged. Audit finding: the direct contradiction of the culprit's alibi (the door log alone) was missing from the table and fell into "proves nothing"; every single sheet that the guide itself calls a contradiction needs a row.
+11. **Confrontation cards expose, they do not confess.** Each one is a new lie, a partial admission or a deflection, in the suspect's voice, with a stage direction in brackets at most. The culprit admits the whole thing only in the confession text of the guide.
+12. **Witnesses unlock by appearance.** A name must have appeared in the team's material (a sheet, a statement, a card, a call log row) before they can be interviewed. The guide carries an "appears in" table and the rule that the director announces new names aloud. The kit must say that a name in a list or a log counts. Audit finding: players did not know "the caretaker" without a name could be requested; accept role descriptions when the material gives no name.
+13. **Every procedure has a sheet for every valid target.** If the menu offers "vehicle of a person", each suspect has a vehicle sheet, even a short "no findings" one, so that no token is wasted and innocents can be discarded. A generic "other person: no findings" sheet is acceptable for people outside the suspect list.
+14. **Hidden routes are fine only when visible routes exist.** A two-token "recover the deleted message" that is not in the menu is acceptable because the menu also offers "a suspect's phone" that yields the same message. Never make the only route to a path depend on guessing a procedure that is not in the menu.
+
+## Red herrings
+
+15. **One main red herring, pushed by the notices, and three to six smaller ones.** The main one has motive, opportunity and a damning fact (fingerprints on the tool; seen arguing at 21:50), and dissolves with the character's alibi plus a sheet that explains the damning fact innocently (the prints are from using the tool on animals; the shortages happened on her days off).
+16. **Every red herring has at least one sheet that explains it.** The guide lists them in a table (red herring → sheets that explain it), and the kit awards a point per red herring explained with its sheet. A red herring that cannot be explained is a design hole.
+17. **A red herring points at an innocent, never at nothing.** Lights in the sky are a drone; a three-toed print is a plaster cast; a missing brass weight is the murder weapon. Each one closes a loop with the truth.
+18. **Do not list the red herrings in the kit.** Audit finding: the scoring table said "each false clue explained (print, lights, earring, shots...)", revealing on minute zero which clues were false. Say "each false clue you explain with its evidence", nothing more.
+
+## Difficulty and the economy
+
+19. **Count the minimum route.** Knowing exactly what to ask, how many tokens from zero to the confession? It should be at least 40 % of the budget (7 of 16; 4 of 10). Count it honestly, including routes that start from free material. Audit finding: the guide said "about 7 tokens"; the real minimum was 4 because one path used only free sheets.
+20. **The barrier is suspecting, not proving.** Once a team suspects the right person, each path should cost 1–3 tokens. What keeps the game long is that the free material points elsewhere, the menu is wide, and sweeping a procedure across all suspects costs a third of the budget.
+21. **Elimination must work but must not be cheap.** The kit tells players to fill the discard sheet during the investigation and that the culprit is the only person who cannot be discarded. Discarding all innocents should cost 50–65 % of the budget (two sheets each, some shared through witnesses that attach a sheet).
+22. **Scoring rewards the full case, not just the name.** Culprit with evidence 5 (2 without), how 2, why 2, window 1, contradiction 1, each innocent discarded 2 (1 with one sheet), each innocent left blank −1, each red herring explained 1, each token left 0.25, each hint −1 (the last ones −2), wrong accusation −5 and the team cannot win, no accusation: only leftover tokens. Tie-break: fewer tokens spent, then the clearer presentation. Short cases keep the same weights with fewer rows.
+23. **Hints are ordered from soft to strong and cost points.** Three to five, each a question rather than a fact ("what does the autopsy say about the cause? does it fit an animal?"). If an expert card gives the same help for a token, say so in the guide and do not count it as a hint. Use the strongest hint only in the last minutes.
+24. **Notices at fixed minutes push the main red herring and add pressure.** Two notices (and a press card with the second) read aloud to both teams at once, copies left on each table. They never reveal codes or sheets the teams have not earned ("the tool found in the stream", not "E18").
+25. **Time the case with the request rate.** Two teams send about one request per minute. A 30-minute investigation absorbs 25–30 deliveries; the response table must let the director answer any of them in under a minute.
+
+## Spoilers and fairness
+
+26. **The teams' folder never contains the solution.** Read every sheet in `teams/` as a player before shipping: the kit, envelope 1 and 2, suspect cards, envelope labels. Audit findings in the sample: the accusation sheet said "(weapon, what happened to the body)", revealing a staging; the expert question in the menu quoted "who could unlock the phone at 23:18", revealing the key datum; the procedures menu named "the stream under the bridge" and "a petrol station, a building, a clinic, a hospital, a bar", a map of the alibis. Menu wording is neutral: "trace a place (say which)", "cameras or records of a place (say which)".
+27. **Suspect order is not a tell.** Do not list the culprit first everywhere. Alphabetical by surname, or by first appearance in the report.
+28. **Cards carry no director's notes.** "If they show only the tower..." goes in the response table, never on the card. Two confrontation lines never share one card: the team sees both though they showed one.
+29. **Same cards, same answers, both teams.** Two copies of every card. The director alternates between teams when serving requests, one at a time. Accusation and discard sheets are collected before the first presentation, and no changes are accepted after.
+30. **"Free" is a closed list.** The guide names what is free (does X own a car? were there cameras? what does X do for a living?) so the director's mood does not favour one team.
+31. **The kit says everything a player needs.** Costs including off-menu questions, follow-ups, witnesses and expert; what "different origin" means; what the crime window is for (and that any range containing the key minute counts); how the final phase runs (fill 5 min, collect, present 2 min each, the team with more tokens first); the tie-break; what happens if both teams accuse wrong (no winner); that the confession scores nothing; that hints exist, how many and what they cost; that the director decides what is "obvious" and free.
+
+## Director load
+
+32. **The response table covers every code.** Questions, follow-ups, confrontations with their triggers, witnesses with "appears in", every procedure with its target → sheet, and the policy for anything else: no sheet → "no findings", charged; already have it → "you already have that", not charged; redundant or nonsensical procedure → rejected, not charged.
+33. **The solution fits one page**, with a table of what each suspect hides and their real alibi. A novice director should be able to run the case after reading the solution and the script once.
+34. **The control sheet lists every deliverable** with its cost and a column per team, and the score sheet is printable, one per team. The guide tells the director to score one team while the other presents.
+35. **The preparation list is actionable:** number of copies of each piece, what goes in each envelope, what to cut, how long printing and cutting takes, what to put on the wall, timers to set.
+
+## Material and photos
+
+36. **Standard formats only.** Cards 63 × 88 mm, 420 characters, 8 per letter or A4 sheet; tokens Ø 30 mm; one evidence per sheet; nothing printed on a dark background; ink saver on by default.
+37. **Photos: no recognisable faces, no blood, no real people, no app logos.** Captions match what is seen; a camera frame has a clock with seconds; day and night consistent with the story; file names do not reveal content ("e17_b_truck.jpg", never "e16_benja.jpg"). Portraits of suspects from behind, afar or in shadow.
+38. **Images are optional.** A case can ship with sketches as SVG and no photos; the exporter's components (statements, chats, receipts, logs, emails, posts without images) carry most of the evidence. Promise photos only when the person can produce them.
+
+## Localisation and tone
+
+39. **The place lives in the names.** Institutions, streets, food, surnames, currency, plate and date formats. Real public institutions may appear in their normal role; companies, media and people are fictional. Avoid idioms that cannot be translated; the case will be translated.
+40. **Police procedural, not horror.** Tension comes from deduction and lies, never from gore or supernatural confirmation. A "monster" can exist as rumour; the truth is always human.
