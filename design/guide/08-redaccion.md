@@ -15,7 +15,7 @@
 | Testigo | `R1`, `TESTIGO`, `PER1` | según el menú |
 | Aviso, prensa, pista, cierre | palabra + número | `Aviso 1`, `Prensa`, `Pista`, `Cierre` |
 | Sobre | `Sobre` + número en orden de apertura | `Sobre 1` |
-| Equipo | `Equipo A`, `Equipo B` | nunca colores como nombre |
+| Equipo | `Equipo A` … `Equipo D` (de 2 a 4 equipos) | nunca colores como nombre |
 
 El punto medio `·` separa partes de un código y de un membrete ("Brigada de Homicidios · Parte policial"). Las comillas son dobles rectas o tipográficas, pero iguales en todo el caso. Los puntos suspensivos van como un carácter (…).
 
@@ -26,7 +26,7 @@ El punto medio `·` separa partes de un código y de un membrete ("Brigada de Ho
 - **Tarjeta de respuesta**: lo que el sospechoso dice, entre comillas, en su voz; acotaciones entre paréntesis solo en confrontaciones. 420 caracteres.
 - **Chat**: como escribe esa persona: con o sin tildes, con sus muletillas, con los emojis que usaría. Un personaje mayor escribe distinto que uno de 24.
 - **Kit y avisos**: la voz del juego, en "ustedes", directa. "Tienen 16 fichas. Cada pregunta cuesta una."
-- **Guía del director**: en "tú", práctica, sin adornos: "Entrega E06 a los dos equipos. Cobra las fichas."
+- **Guía del director**: en "tú", práctica, sin adornos: "Entrega E06 a todos los equipos. Cobra las fichas."
 
 ## Verdad y mentira
 

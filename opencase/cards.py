@@ -22,7 +22,7 @@ SEPARATE_TYPES = {"notice", "press", "hint", "closing"}
 
 
 def team_modifier(team):
-    """Class that colours a team's badge: A is navy (the default), B green, C red, D amber."""
+    """Class that colours a team's badge: A is navy (the default), B green, C violet, D copper."""
     return f" oc-equipo--{str(team).lower()}" if str(team).upper() in ("B", "C", "D") else ""
 
 

@@ -102,11 +102,7 @@ body{background:var(--mesa);-webkit-print-color-adjust:exact;print-color-adjust:
 .oc-ficha--reverso img{width:13mm;height:auto}
 .oc-ficha__mono-ahorro{display:none}
 .oc-ficha--vacia{visibility:hidden}
-/* Teams C (red) and D (amber), and alibi tokens (dashed border) */
-.oc-equipo--c{background:var(--sello)}
-.oc-equipo--d{background:var(--ambar)}
-.oc-ficha--c{border-color:var(--sello);background:var(--sello-suave);color:var(--sello)}
-.oc-ficha--d{border-color:var(--ambar);background:var(--ambar-suave);color:var(--ambar-texto)}
+/* Alibi tokens: dashed border. Team colours (C violet, D copper) come from the design system. */
 .oc-ficha--coartada{border-style:dashed}
 
 /* Card sheets on screen: one centred column on the table */

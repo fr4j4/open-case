@@ -61,7 +61,7 @@ paper: letter                  # letter or a4
 base_language: es
 languages: [es]
 
-teams: [A, B]                  # up to four: A navy, B green, C red, D amber
+teams: [A, B]                  # up to four: A navy, B green, C violet, D copper
 tokens_per_team: 16
 alibi_tokens_per_team: 0       # optional: extra tokens with a dashed border, coded C1, C2… (A1… in English)
 players_per_team: 7            # badges per team

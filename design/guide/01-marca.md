@@ -2,7 +2,7 @@
 
 **Nombre:** Open Case. Se escribe con dos palabras y mayúsculas iniciales en texto corrido; en el logotipo va en mayúsculas. No se traduce ni se abrevia en texto ("OC" solo en el monograma).
 
-**Lema:** "Dos equipos, un culpable." En inglés, "Two teams, one culprit." Va bajo el sello y en la portada del kit; nunca dentro de un documento del caso.
+**Lema:** "Todos mienten. Las pruebas no." En inglés, "People lie. Evidence doesn't." Va bajo el sello y en la portada del kit; nunca dentro de un documento del caso. Es también la regla central del juego: los sospechosos pueden mentir, los peritajes y documentos oficiales no. Ambas versiones viven en `tokens.json` (`marca.lema`) y como variables `--marca-lema-es` y `--marca-lema-en`.
 
 **Nombre del caso:** cada caso tiene su propio título ("El Chupacabras de Labranza"), siempre en la segunda línea, después de la marca, y en `sans` o `display` según el soporte: la marca es el juego, el caso es la partida. En las tarjetas, el nombre del caso va en la línea de marca inferior, a la derecha.
 
@@ -23,7 +23,7 @@ Tres formas, en `assets/Logos/` (SVG con contornos; usa el archivo, no lo redibu
 
 ## Voz de la marca
 
-Cuando habla el juego (kit, tarjetas de aviso, portadas), habla corto y directo, en segunda persona del plural, sin adjetivos de marketing: "Ustedes son detectives. Otro equipo investiga el mismo caso. Gana el que presente la teoría mejor sustentada." Nunca "¡Prepárate para la aventura!".
+Cuando habla el juego (kit, tarjetas de aviso, portadas), habla corto y directo, en segunda persona del plural, sin adjetivos de marketing: "Ustedes son detectives. Los otros equipos investigan el mismo caso. Gana el que presente la teoría mejor sustentada." Nunca "¡Prepárate para la aventura!".
 
 Cuando habla el mundo del caso, la marca calla y habla la institución: "Policía de Investigaciones de Chile · Brigada de Homicidios". El jugador debe poder olvidar que está leyendo un juego.
 

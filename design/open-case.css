@@ -22,6 +22,10 @@
   --laton-suave:#f6e7c8;
   --bosque:#2f6b3f;
   --bosque-suave:#dcebdc;
+  --violeta:#5a3d8a;
+  --violeta-suave:#e6ddf2;
+  --cobre:#8a4b12;
+  --cobre-suave:#f4e2d0;
   --ambar:#b77a12;
   --ambar-texto:#7a510a;
   --ambar-suave:#fbeccd;
@@ -82,6 +86,8 @@
   --font-prensa:"Playfair Display", Georgia, serif;
   --font-prensa-texto:"Libre Baskerville", Georgia, serif;
   --font-pantalla:Roboto, -apple-system, "Segoe UI", Arial, sans-serif;
+  --marca-lema-es:"Todos mienten. Las pruebas no.";
+  --marca-lema-en:"People lie. Evidence doesn't.";
 }
 .portada{font-family:var(--font-display);font-size:44px;line-height:44px;font-weight:700;letter-spacing:0.02em;}
 .titulo-tarjeta{font-family:var(--font-display);font-size:18px;line-height:20px;font-weight:700;letter-spacing:0.04em;}
@@ -115,12 +121,11 @@
 
 /* Open Case — hoja de estilos de artefactos. Clases con prefijo oc-. Los valores de color, tipo y medidas vienen de tokens.json (tokens.css); abajo solo hay respaldos de especificidad cero por si tokens.css no está cargado. */
 
-
 :where(:root){
   --papel:#f7f5ef;--papel-2:#efece3;--papel-viejo:#efe4c6;--blanco:#ffffff;--mesa:#22282a;--mesa-2:#2f373a;--mesa-texto:#e4e1d8;--mesa-texto-suave:#a3a9a6;
   --tinta:#1e2224;--tinta-suave:#5b6266;--regla:#d2ccbe;--regla-fuerte:#8d9396;
   --marino:#1d3557;--marino-suave:#dbe4ef;--sello:#9e2a2b;--sello-suave:#f3dcd8;--laton:#b48a2c;--laton-oscuro:#7a5d1c;--laton-suave:#f6e7c8;
-  --bosque:#2f6b3f;--bosque-suave:#dcebdc;--ambar:#b77a12;--ambar-texto:#7a510a;--ambar-suave:#fbeccd;--resaltador:#f3e08a;--postit:#fbf0a0;
+  --bosque:#2f6b3f;--bosque-suave:#dcebdc;--violeta:#5a3d8a;--violeta-suave:#e6ddf2;--cobre:#8a4b12;--cobre-suave:#f4e2d0;--marca-lema-es:"Todos mienten. Las pruebas no.";--marca-lema-en:"People lie. Evidence doesn't.";--ambar:#b77a12;--ambar-texto:#7a510a;--ambar-suave:#fbeccd;--resaltador:#f3e08a;--postit:#fbf0a0;
   --boligrafo:#1f3b75;--lapiz:#4a4f52;--plumon:#141516;
   --chat-fondo:#e8e0d4;--chat-entrante:#ffffff;--chat-saliente:#d8f5c4;--chat-cabecera:#1f6b5c;--chat-tinta:#111111;--chat-meta:#4f5a52;
   --video-fondo:#111214;--video-tinta:#f2f2f2;--video-acento:#d3103c;--foto-marco:#3a4144;--cctv-fondo:#0b0c0d;
@@ -182,6 +187,8 @@
 .oc-cinta{display:inline-block;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--blanco);color:var(--tinta);border:1px solid var(--tinta);padding:3px 10px;box-shadow:1px 1px 0 var(--regla-fuerte)}
 .oc-equipo{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;background:var(--marino);color:var(--papel);padding:3px 9px;line-height:1.2}
 .oc-equipo--b{background:var(--bosque)}
+.oc-equipo--c{background:var(--violeta)}
+.oc-equipo--d{background:var(--cobre)}
 .oc-pastilla{display:inline-block;font-family:var(--font-mono);font-size:11px;padding:1px 7px;border-radius:var(--radio-pastilla);white-space:nowrap;background:var(--papel-2);color:var(--tinta)}
 .oc-pastilla--v{background:var(--bosque-suave);color:var(--bosque)}
 .oc-pastilla--m{background:var(--sello-suave);color:var(--sello)}
@@ -364,6 +371,8 @@
 .oc-ficha b{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--tinta);line-height:1;margin-bottom:2px}
 .oc-ficha--a{border-color:var(--marino);background:var(--marino-suave);color:var(--marino)}
 .oc-ficha--b{border-color:var(--bosque);background:var(--bosque-suave);color:var(--bosque)}
+.oc-ficha--c{border-color:var(--violeta);background:var(--violeta-suave);color:var(--violeta)}
+.oc-ficha--d{border-color:var(--cobre);background:var(--cobre-suave);color:var(--cobre)}
 .oc-ficha--reverso{background:var(--laton);color:var(--laton-suave)}
 .oc-ficha--reverso b{color:var(--blanco)}
 .oc-fichas{display:flex;flex-wrap:wrap;gap:var(--space-2)}

@@ -24,13 +24,15 @@ Un solo tema: **Papel**. La mesa oscura existe solo en pantalla, detrás de las 
 | `marino` | #1d3557 | La institución | Subtítulos de hoja, códigos de pregunta, banda de la tarjeta de respuesta, Equipo A, cita del guion. |
 | `laton` | #b48a2c | El juego físico | Marco de placas, anillo de fichas, estrella, tarjeta de pista. Texto a su lado en `laton-oscuro`. |
 | `bosque` | #2f6b3f | Verificado | Pastilla "verdad", sello "Verificado", tarjeta de testigo, Equipo B. |
+| `violeta` | #5a3d8a | Equipo C | Solo cuadro de equipo, placa y fichas del Equipo C. |
+| `cobre` | #8a4b12 | Equipo D | Solo cuadro de equipo, placa y fichas del Equipo D. |
 | `ambar` | #b77a12 | Aviso | Banda de la tarjeta de aviso, notas de alerta del director. Texto en `ambar-texto`. |
 
 Cada uno tiene un tono `-suave` para fondos tenues (`sello-suave`, `marino-suave`, `laton-suave`, `bosque-suave`, `ambar-suave`). Un fondo suave siempre lleva su texto fuerte encima, nunca blanco.
 
 Reglas:
 - Un color de significado por elemento. Una tarjeta tiene una banda; una hoja, una franja; un sello, una tinta.
-- Los equipos se distinguen por color **y** por letra (A en `marino`, B en `bosque`), nunca solo por color.
+- Una partida tiene de 2 a 4 equipos: A en `marino`, B en `bosque`, C en `violeta`, D en `cobre`. Se distinguen por color **y** por letra, nunca solo por color. `violeta` y `cobre` no se usan para nada más.
 - El `sello` no se usa como fondo grande. Lo máximo es la franja de 6 px de la hoja reservada y el reverso de las tarjetas (logotipo sobre blanco).
 
 ## Escritura a mano

@@ -45,6 +45,6 @@
   .oc-bolsa__cab{background:none;color:var(--tinta);border-bottom:2px solid var(--tinta)}
   .oc-equipo{background:none;color:var(--marino);border:1.5px solid var(--marino)}
   .oc-equipo--b{color:var(--bosque);border-color:var(--bosque)}
-  .oc-equipo--c{color:var(--sello);border-color:var(--sello)}
-  .oc-equipo--d{color:var(--ambar-texto);border-color:var(--ambar)}
+  .oc-equipo--c{color:var(--violeta);border-color:var(--violeta)}
+  .oc-equipo--d{color:var(--cobre);border-color:var(--cobre)}
 }

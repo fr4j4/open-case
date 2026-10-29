@@ -22,8 +22,8 @@ De arriba abajo, dentro de un margen de 5 mm:
 | Fallida | `--fallida` | `regla-fuerte`, fondo `papel-2` | `B✕` | El equipo cuya confrontación no sirvió; la ficha se cobra. |
 | Confrontación | `--confrontacion` | `sello` | `B◆ · B5` | El equipo que mostró la prueba correcta. |
 | Testigo | `--testigo` | `bosque` | `R1`, `TESTIGO` | El equipo que entrevistó. |
-| Aviso | `--aviso` | `ambar` | `Aviso 1` | Los dos equipos, en un minuto fijo. |
-| Prensa | `--prensa` | `tinta` | `Prensa` | Los dos equipos, al minuto 20. |
+| Aviso | `--aviso` | `ambar` | `Aviso 1` | Todos los equipos, en un minuto fijo. |
+| Prensa | `--prensa` | `tinta` | `Prensa` | Todos los equipos, al minuto 20. |
 | Pista | `--pista` | `laton`, fondo `laton-suave` | `Pista` | El equipo que la pidió; resta 1 punto. |
 | Cierre o confesión | `--cierre` | `sello`, marco de 2 px | `Cierre` | Se lee en voz alta al final. Texto en `maquina`. |
 | Sospechoso | `--vertical --sospechoso` | `marino` | letra del sospechoso | Ambos equipos, desde el inicio. |
@@ -48,4 +48,4 @@ El pliego (`.oc-pliego`) es la hoja carta con 2 × 4 tarjetas apaisadas y calle 
 
 ## Fichas
 
-Círculo de 30 mm (`.oc-ficha`), anillo de 2 px en `laton`, fondo `laton-suave`, número en `display` y la palabra FICHA en `mono`. Reverso en `laton` liso con el monograma. Variantes por equipo `--a` (`marino`) y `--b` (`bosque`). Se imprimen 35 por hoja en cartulina y se recortan con sacabocados de 30 mm o tijera; también valen fichas de póker siguiendo los mismos colores.
+Círculo de 30 mm (`.oc-ficha`), anillo de 2 px en `laton`, fondo `laton-suave`, número en `display` y la palabra FICHA en `mono`. Reverso en `laton` liso con el monograma. Variantes por equipo `--a` (`marino`), `--b` (`bosque`), `--c` (`violeta`) y `--d` (`cobre`). Se imprimen 35 por hoja en cartulina y se recortan con sacabocados de 30 mm o tijera; también valen fichas de póker siguiendo los mismos colores.
