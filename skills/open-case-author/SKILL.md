@@ -85,6 +85,7 @@ Read the exporter's output: cards over 420 characters, sheets that take two page
 - The director's guide has: preparation list, solution in one page, script with timings, response table for every code, control sheet, scoring sheet with the discard table, confession conditions, confession and closing.
 - The audits ran and their findings are fixed or accepted.
 - Everything is in the case folder; the bible is next to it and is listed nowhere that players get.
+- If the case will be contributed to the repository, it meets `CONTRIBUTING.md`: fictional people and companies, no recognisable faces, a `README.md` in the case folder when images are AI-generated.
 
 ## Files in this skill
 

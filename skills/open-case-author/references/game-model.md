@@ -4,7 +4,7 @@ What a case has to contain, how a session runs, and the numbers that work. Read 
 
 ## A session
 
-One director, two teams (A and B) of 3 to 7 players each, one table per team, far enough apart not to overhear. Both teams get the same material and the same chances; they compete on points.
+One director, two teams (A and B; the exporter allows up to four, A to D) of 3 to 7 players each, one table per team, far enough apart not to overhear. Both teams get the same material and the same chances; they compete on points.
 
 | Phase | Standard case | Short case | What happens |
 |---|---|---|---|

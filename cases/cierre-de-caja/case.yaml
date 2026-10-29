@@ -11,7 +11,7 @@ teams: [A, B]
 tokens_per_team: 10
 players_per_team: 6
 
-brand_footer: [kit, guide]
+brand_footer: [kit, guide, dossier]
 
 dossier:
   sections:

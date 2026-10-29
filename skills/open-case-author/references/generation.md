@@ -14,7 +14,7 @@ Put the bible next to it as `cases/<slug>/bible.md`. The exporter ignores it; `.
 
 ## 1 · Neutral `case.yaml` ← bible §0, §8, §12
 
-`paper`, `base_language`, `languages`, `teams`, `tokens_per_team`, `players_per_team`, `brand_footer`, `ink_saver` (leave the default on), and `dossier.sections`.
+`paper`, `base_language`, `languages`, `teams`, `tokens_per_team`, `players_per_team`, optionally `alibi_tokens_per_team`, `brand_footer` (leave the default), `ink_saver` (leave the default on), and `dossier.sections`.
 
 Sections come from the evidence table (§8): one section per "how obtained" group, in this order: opening (`envelope: 1`), statements (`envelope: 1`), investigation start (`envelope: 2`, the autopsy), handed with an answer, procedures, notices. Every dossier file appears in exactly one section; the exporter refuses duplicates and warns about orphans.
 
@@ -83,4 +83,6 @@ Then read, in `output/<slug>/<lang>/teams/`, every PDF as a player. Then run `va
 - The dossier order is in the neutral `case.yaml`, not in the language file; the titles and notes of sections are in the language file.
 - Suspect order in `suspects.yaml` is the order of the kit's menu and the suspect cards: do not put the culprit first.
 - Ink saver is on by default; never turn it off in `case.yaml` unless the person asks.
-- `brand_footer` default is `[kit, guide]`; add `dossier` only if the person wants the logo on evidence sheets.
+- `brand_footer` default is `[kit, guide, dossier]` (every sheet carries the monogram and the case name, so mixed pages find their case); list fewer documents only if the person asks.
+- `teams` can list up to four (A, B, C, D); `alibi_tokens_per_team` adds extra tokens with a dashed border, for cases that use them. A short case stays with two teams and no alibi tokens.
+- The repository's `CONTRIBUTING.md` applies to any case that will be submitted: fictional people, no recognisable faces, a `README.md` in the case folder if images are AI-generated, licences.

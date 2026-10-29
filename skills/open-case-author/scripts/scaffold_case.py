@@ -74,7 +74,7 @@ teams: [A, B]
 tokens_per_team: {a.tokens}
 players_per_team: 7
 
-brand_footer: [kit, guide]
+brand_footer: [kit, guide, dossier]
 
 dossier:
   sections:
@@ -97,7 +97,7 @@ dossier:
 
     (lang / "case.yaml").write_text(f"""title: {a.title}
 version: Versión 0.1 · TODO mes y año
-tagline: Dos equipos, un culpable
+tagline: Todos mienten. Las pruebas no.
 
 badge:
   title: Detective
