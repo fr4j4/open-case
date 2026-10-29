@@ -13,7 +13,7 @@ tokens_per_team: 16
 players_per_team: 7      # one badge per player
 
 # Footer with the monogram, the brand and the case name at the bottom of each sheet.
-# The brand guide reserves it for the game material; in this case it goes on the dossier too.
+# This is the default (kit, guide and dossier); list fewer documents to leave one out.
 brand_footer: [kit, guide, dossier]
 
 # Order of the dossier and who gets what. `envelope: N` groups sections into the PDF for the teams

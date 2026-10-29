@@ -78,7 +78,7 @@ dossier:
       items: [E12, E13a]
 ```
 
-**brand_footer** says which documents carry, at the bottom of every sheet, the monogram with the brand and the case name. The values are `kit`, `guide` and `dossier`; if you leave it out the default is `[kit, guide]`. The brand guide keeps the dossier free of the logo, because those are papers from the world of the case: a police report does not come with a game's logo. If you would rather mark every sheet (to avoid mixing cases, for example), add `dossier`.
+**brand_footer** says which documents carry, at the bottom of every sheet, the monogram with the brand and the case name. The values are `kit`, `guide` and `dossier`. By default all three do, so no sheet loses its case if the pages get mixed up. To leave one out, list only the others (`brand_footer: [kit, guide]`), or use `brand_footer: []` for none.
 
 **ink_saver** is on by default. It is explained at the end.
 

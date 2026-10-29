@@ -206,8 +206,9 @@ def build_documents(case):
 
 
 def _brand_footer(case, doc):
-    """brand_footer in case.yaml: the documents (kit, guide, dossier) whose sheets carry the brand footer."""
-    value = case.get("brand_footer", ["kit", "guide"])
+    """brand_footer in case.yaml: the documents (kit, guide, dossier) whose sheets carry the brand footer.
+    By default all three do: every sheet shows the logo and the case name at the bottom."""
+    value = case.get("brand_footer", ["kit", "guide", "dossier"])
     if value is True:
         return True
     if not value:

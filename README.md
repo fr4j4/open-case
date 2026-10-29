@@ -137,6 +137,11 @@ open-case/
 └── Makefile
 ```
 
+## Licencias
+
+El código y las herramientas son MIT. Los casos, la guía de diseño y los logos son CC BY-NC-SA 4.0: se pueden compartir y adaptar con crédito y sin fines comerciales. El nombre y el logo de Open Case quedan reservados al proyecto, las tipografías conservan sus licencias y las fotos del caso del chupacabras son generadas con IA. El detalle está en [NOTICE](NOTICE), y si quieres aportar un caso, en [CONTRIBUTING.md](CONTRIBUTING.md).
+
+
 <p align="center">
   <img src="assets/cinta.svg" alt="Cinta policial" width="100%">
 </p>
