@@ -9,7 +9,7 @@ title: Pauta de corrección
 | Asesino | 5 | Nombran a Benjamín Ferrada y citan al menos una prueba que lo vincule. Si lo nombran sin ninguna prueba, 2 puntos. |
 | Cómo | 2 | Mencionan el golpe con la piedra (1) y el montaje de las perforaciones con la herramienta (1). |
 | Por qué | 2 | La venta a Cordillera Sur lo dejaba fuera (1: E13d, E29·P, E29·B, I1, I1+, B7 o E25·a) después de haber puesto su plata o su crédito (1: E15·B, B3+ o CL1). |
-| Ventana | 1 | Cualquier rango dentro de 22:50–23:30 que contenga las 23:15 (el grito) y las 23:18 (a las 23:18 el teléfono ya se desbloquea con el cadáver). |
+| Ventana | 1 | Cualquier rango que empiece a las 22:50 o después, termine a más tardar a las 23:40 y contenga las 23:15 (el grito) y las 23:18 (a las 23:18 el teléfono ya se desbloquea con el cadáver). |
 | Bonus ataques | 3 | Matías pagaba a Toto (1) para bajar los precios (1), y usaba la cuenta anónima o a la veterinaria (1). |
 | Contradicción | 1 | El lapsus de DEC·B ("le pegaría", antes de la autopsia), que B3 dice que Matías llamó y E13a muestra lo contrario, que dice que estuvo en su depto (E14, E26·B, E15·B), o que en B11 dice que dejó la horqueta (T5). |
 | Inocentes descartados | 2 c/u | Por cada inocente de la hoja de descarte con dos pruebas de distinto origen que lo ubican lejos entre 23:10 y 23:24 (tabla de abajo). Con una sola prueba, 1 punto. |

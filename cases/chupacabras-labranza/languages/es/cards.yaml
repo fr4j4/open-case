@@ -70,7 +70,7 @@ groups:
         answer: '"…¿Dije eso? No sé lo que dije, estaba destrozado. Todos hablaban de los hoyos en el cuello y yo… pensé en un golpe, ¿qué sé yo? Cualquiera piensa eso."'
       - code: B✕
         type: failed
-        answer: '"Esa antena cubre medio Labranza, detective. Y el foco está roto desde el lunes, ahí está el presupuesto. ¿Qué me quiere decir con eso?"'
+        answer: '"Esa antena cubre medio Labranza, detective. Y el foco está roto desde el lunes, ahí está el presupuesto. ¿Alguien vio mi camioneta en El Arrayán? ¿No? Entonces no tienen nada."'
       - code: B13
         type: confrontation
         question: '"Hay pintura blanca en sus zapatos y buscó cómo sacar barro de una chaqueta."'

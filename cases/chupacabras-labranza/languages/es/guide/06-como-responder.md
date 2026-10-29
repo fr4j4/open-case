@@ -71,6 +71,7 @@ title: Tabla de respuestas
 | `C◆` | E15·M o E15·C (la transferencia) o E12 (el SAG la contradice) | Tarjeta C5 + E11 |
 | `C◆` | E13b (el chantaje de los 800 mil) | Tarjeta C6 + E22 |
 | `B◆` | Solo E14 (el portón: salió a las 22:31) | Tarjeta B5a (admite que salió, no dice adónde). La ficha se cobra. |
+| `B◆` | E15·B (el crédito y la transferencia de $40 millones) | Tarjeta B3+ (el motivo). La ficha se cobra. |
 | `B◆` | Solo E26·B, solo E17·B, o las dos sin E08 ni E28 | Tarjeta B✕ (fallida, pero le dice al equipo qué le falta cruzar). La ficha se cobra. |
 | `Cualquier ◆` | Cualquier otra prueba | Tarjeta "Eso no prueba nada". La ficha se cobra. |
 
