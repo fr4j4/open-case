@@ -1,7 +1,7 @@
 # Words the exporter prints on the documents, in English. This is the fallback language:
 # any key another language does not define comes from here. A case can override any of
 # them with `strings:` in languages/<lang>/case.yaml.
-tagline: Two teams, one culprit
+tagline: People lie. Evidence doesn't.
 team: "Team {name}"
 team_line: "Team: ____________"
 director_only: Director only

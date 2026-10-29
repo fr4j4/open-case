@@ -93,7 +93,7 @@ Sections with `envelope: 1` are put together in a separate PDF, `teams/02_Envelo
 ```yaml
 title: El Chupacabras de Labranza     # required
 version: Versión 5 · octubre de 2026  # printed on the covers
-tagline: Dos equipos, un culpable
+tagline: Todos mienten. Las pruebas no.
 
 badge:
   title: Detective

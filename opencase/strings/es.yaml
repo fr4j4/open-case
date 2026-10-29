@@ -1,7 +1,7 @@
 # Textos que el exportador imprime en los documentos, en español.
 # Cualquier clave que falte cae al inglés (en.yaml). Un caso puede cambiar cualquiera
 # con `strings:` en languages/<idioma>/case.yaml.
-tagline: Dos equipos, un culpable
+tagline: Todos mienten. Las pruebas no.
 team: "Equipo {name}"
 team_line: "Equipo: ____________"
 director_only: Solo director
