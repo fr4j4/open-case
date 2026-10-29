@@ -36,7 +36,7 @@
   .oc-correo__cab{background:none}
   /* Cut-outs */
   .oc-ficha{background:#fff}
-  .oc-ficha--a,.oc-ficha--b{background:#fff}
+  .oc-ficha--a,.oc-ficha--b,.oc-ficha--c,.oc-ficha--d{background:#fff}
   .oc-ficha--reverso{background:#fff;border:2px solid var(--laton)}
   .oc-ficha__mono-color{display:none}
   .oc-ficha__mono-ahorro{display:block}
@@ -45,4 +45,6 @@
   .oc-bolsa__cab{background:none;color:var(--tinta);border-bottom:2px solid var(--tinta)}
   .oc-equipo{background:none;color:var(--marino);border:1.5px solid var(--marino)}
   .oc-equipo--b{color:var(--bosque);border-color:var(--bosque)}
+  .oc-equipo--c{color:var(--sello);border-color:var(--sello)}
+  .oc-equipo--d{color:var(--ambar-texto);border-color:var(--ambar)}
 }

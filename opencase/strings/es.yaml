@@ -58,6 +58,8 @@ menu:
   confront_default: Confrontar con una prueba (indiquen cuál)
 tokens:
   token: Ficha
+  alibi: Coartada
+  alibi_code: "C{i}"
   spare: reserva
   front_footer: "{title} · Fichas · hoja {k} de {total} · frente · cartulina, imprimir al 100 %"
   back_footer: "{title} · Fichas · hoja {k} de {total} · dorso (opcional)"

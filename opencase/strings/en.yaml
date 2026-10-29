@@ -58,6 +58,8 @@ menu:
   confront_default: Confront with a piece of evidence (say which)
 tokens:
   token: Token
+  alibi: Alibi
+  alibi_code: "A{i}"
   spare: spare
   front_footer: "{title} · Tokens · sheet {k} of {total} · front · card stock, print at 100 %"
   back_footer: "{title} · Tokens · sheet {k} of {total} · back (optional)"

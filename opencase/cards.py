@@ -21,6 +21,11 @@ TYPES = {
 SEPARATE_TYPES = {"notice", "press", "hint", "closing"}
 
 
+def team_modifier(team):
+    """Class that colours a team's badge: A is navy (the default), B green, C red, D amber."""
+    return f" oc-equipo--{str(team).lower()}" if str(team).upper() in ("B", "C", "D") else ""
+
+
 def brand(case, right=None):
     return (f'<div class="oc-tarjeta__marca"><span>{e(case.get("brand", "Open Case"))}</span>'
             f'<span>{e(right or case.title)}</span></div>')
@@ -93,7 +98,7 @@ def badge(case, ctx, team):
     b = case.get("badge", {}) or {}
     unit = b.get("unit", "")
     unit = "<br>".join(e(x) for x in unit if x) if isinstance(unit, list) else e(unit).replace("\n", "<br>")
-    mod = " oc-equipo--b" if team == "B" else ""
+    mod = team_modifier(team)
     return ('<div class="oc-tarjeta oc-tarjeta--vertical oc-placa">'
             f'{STAR}<div class="oc-placa__titulo">{e(b.get("title", case.t("badge.title")))}</div>'
             f'<div class="oc-placa__unidad">{unit}</div><span class="oc-equipo{mod}">{e(case.t("team", name=team))}</span>'
@@ -116,7 +121,7 @@ def request_card(case):
 
 def envelope_label(env, case, team):
     items = "".join(f"<li>{line(x)}</li>" for x in env.get("contents", []) or [])
-    mod = " oc-equipo--b" if team == "B" else ""
+    mod = team_modifier(team)
     who = f'<span class="oc-equipo{mod}">{e(case.t("team", name=team))}</span>' if team else "<span></span>"
     footer = f'<span class="oc-tarjeta__pie oc-tarjeta__pie--seg">{line(env["footer"])}</span>' if env.get("footer") else ""
     desc = f'<div class="oc-tarjeta__pregunta">{line(env["description"])}</div>' if env.get("description") else ""
@@ -163,14 +168,19 @@ def card_sheets(cards, case, label, codes=None, vertical=False):
 
 
 def token_sheets(case, ctx):
-    """Sheets of 35 tokens (5 × 7): each team's numbered, with spares to fill the sheet; plus a back for each."""
+    """Sheets of 35 tokens (5 × 7): each team's numbered (and alibi) tokens, with spares to fill the sheet; plus a back for each."""
     n = int(case.get("tokens_per_team", 16))
+    alibis = int(case.get("alibi_tokens_per_team", 0))
     teams = case.get("teams", ["A", "B"])
     tokens = []
     for team in teams:
-        mod = " oc-ficha--a" if team == "A" else " oc-ficha--b" if team == "B" else ""
-        tokens += [f'<span class="oc-ficha{mod}"><b>{i}</b>{e(case.t("tokens.token"))}<small>{e(case.t("team", name=team))}</small></span>'
+        mod = f" oc-ficha--{str(team).lower()}" if str(team).upper() in ("A", "B", "C", "D") else ""
+        team_label = e(case.t("team", name=team))
+        tokens += [f'<span class="oc-ficha{mod}"><b>{i}</b>{e(case.t("tokens.token"))}<small>{team_label}</small></span>'
                    for i in range(1, n + 1)]
+        # Alibi tokens: dashed border, coded C1, C2... (see `alibi_tokens_per_team` in docs/case-format.md)
+        tokens += [f'<span class="oc-ficha{mod} oc-ficha--coartada"><b>{e(case.t("tokens.alibi_code", i=i))}</b>'
+                   f'{e(case.t("tokens.alibi"))}<small>{team_label}</small></span>' for i in range(1, alibis + 1)]
     fronts = []
     for i in range(0, len(tokens), 35):
         batch = tokens[i:i + 35]
