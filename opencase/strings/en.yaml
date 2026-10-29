@@ -1,0 +1,115 @@
+# Words the exporter prints on the documents, in English. This is the fallback language:
+# any key another language does not define comes from here. A case can override any of
+# them with `strings:` in languages/<lang>/case.yaml.
+tagline: Two teams, one culprit
+team: "Team {name}"
+team_line: "Team: ____________"
+director_only: Director only
+reserved: Reserved
+guide_kicker: Reserved · for the director only
+print_100: print at 100 %
+sheet_of: "Sheet {n} of {total}"
+evidence: Evidence
+deleted_message: "⊘ This message was deleted"
+live: LIVE
+envelope: "Envelope {n}"
+
+calls:
+  incoming: incoming
+  outgoing: outgoing
+  missed: missed
+email:
+  from: From
+  to: To
+  cc: CC
+  date: Date
+  subject: Subject
+pills:
+  is_true: "true"
+  is_false: "false"
+  key: key
+  red_herring: red herring
+  attached: attached
+  procedure: procedure
+  pending: pending
+
+card_types:
+  follow_up: follow-up
+  confrontation: confrontation
+  failed: failed confrontation
+cards:
+  attached: Attached
+  follow_up_available: Follow-up available
+  questions: Questions
+  suspect_label: "suspect {letter}"
+badge:
+  title: Detective
+  name: Name
+request:
+  title: Request
+  help: 1 token per question · procedures as per the menu
+  team: Team
+  code: Code
+  evidence: Evidence we show / from whom
+  why: Why
+  token_here: Token here
+  number: "Request No. ____"
+menu:
+  confront_default: Confront with a piece of evidence (say which)
+tokens:
+  token: Token
+  spare: spare
+  front_footer: "{title} · Tokens · sheet {k} of {total} · front · card stock, print at 100 %"
+  back_footer: "{title} · Tokens · sheet {k} of {total} · back (optional)"
+
+# Labels that go in the footer of each sheet
+labels:
+  cards: Cards
+  notices: Notices, press and hints
+  card_backs: "Common back: print on the back of each sheet"
+  suspects: Suspects
+  badges: "Badges for team {name}"
+  requests: Requests
+  envelope_labels: Envelope labels
+
+# Documents: name = PDF name, title = on-screen and cover title, page = title of the HTML page
+docs:
+  envelope_file: "Envelope_{n}"
+  kit: {name: Team_kit, title: Team kit, page: Team kit}
+  guide: {name: Directors_guide, title: Director's guide, page: Director's guide}
+  dossier: {name: Complete_dossier, title: Dossier, page: Dossier}
+  cards:
+    name: Answer_cards
+    title: Answer cards
+    page: Cards
+    note: Letter sheets of 8 cards, 88 × 63 mm. Print at 100 % on card stock, one copy per team.
+  card_backs: {name: Card_backs, title: Common card back, page: Card back}
+  suspects: {name: Suspect_cards, title: Suspects, page: Suspects, note: One copy per team.}
+  badges: {name: Badges, title: Detective badges, page: Badges}
+  tokens: {name: Tokens, title: Tokens, page: Tokens}
+  requests: {name: Requests, title: Requests, page: Requests}
+  envelope_labels: {name: Envelope_labels, title: Envelope labels, page: Envelopes}
+
+readme_name: README.txt
+readme_ink_saver: "Ink-saver mode: no backgrounds. For the full-colour version, export with --color."
+readme_color: "Full-colour version, with backgrounds. Without --color the PDFs come out in ink-saver mode."
+readme: |
+  {title}
+  Material made by the Open Case exporter ({date}).
+
+  teams/     What the teams may see. No spoilers.
+    01_Team_kit              One copy per team. Sheets on regular paper.
+    02… (envelopes)          What they get at the start. One copy per team.
+    10_Suspect_cards, 11_Badges, 12_Tokens, 13_Requests, 14_Envelope_labels
+                             Cut-outs, on 200–250 g card stock.
+
+  director/  Only for whoever runs the game. Never hand it complete to a team.
+    01_Directors_guide       The solution, diagrams, script and guidelines.
+    02_Complete_dossier      Every piece of evidence, by section. Handed out one at a time.
+    03_Answer_cards          Sheets of 8 cards. One copy per team.
+    04_Card_backs            Optional: print it on the back of each sheet.
+
+  Always print at 100 % ("actual size"), never "fit to page": cards must measure
+  88 × 63 mm and tokens 30 mm across.
+
+  {mode}

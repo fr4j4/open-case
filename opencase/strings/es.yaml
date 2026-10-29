@@ -1,0 +1,115 @@
+# Textos que el exportador imprime en los documentos, en español.
+# Cualquier clave que falte cae al inglés (en.yaml). Un caso puede cambiar cualquiera
+# con `strings:` en languages/<idioma>/case.yaml.
+tagline: Dos equipos, un culpable
+team: "Equipo {name}"
+team_line: "Equipo: ____________"
+director_only: Solo director
+reserved: Reservado
+guide_kicker: Reservado · solo para el director
+print_100: imprimir al 100 %
+sheet_of: "Pliego {n} de {total}"
+evidence: Evidencia
+deleted_message: "⊘ Se eliminó este mensaje"
+live: EN VIVO
+envelope: "Sobre {n}"
+
+calls:
+  incoming: entrante
+  outgoing: saliente
+  missed: perdida
+email:
+  from: De
+  to: Para
+  cc: CC
+  date: Fecha
+  subject: Asunto
+pills:
+  is_true: verdad
+  is_false: mentira
+  key: clave
+  red_herring: pista falsa
+  attached: adjunta
+  procedure: diligencia
+  pending: pendiente
+
+card_types:
+  follow_up: seguimiento
+  confrontation: confrontación
+  failed: confrontación fallida
+cards:
+  attached: Adjunta
+  follow_up_available: Seguimiento disponible
+  questions: Preguntas
+  suspect_label: "sospechoso {letter}"
+badge:
+  title: Detective
+  name: Nombre
+request:
+  title: Solicitud
+  help: 1 ficha por pregunta · diligencias según menú
+  team: Equipo
+  code: Código
+  evidence: Prueba que mostramos / de quién
+  why: Por qué
+  token_here: Ficha aquí
+  number: "Solicitud N° ____"
+menu:
+  confront_default: Confrontar con una prueba (indiquen cuál)
+tokens:
+  token: Ficha
+  spare: reserva
+  front_footer: "{title} · Fichas · hoja {k} de {total} · frente · cartulina, imprimir al 100 %"
+  back_footer: "{title} · Fichas · hoja {k} de {total} · dorso (opcional)"
+
+# Etiquetas que van en el pie de cada pliego
+labels:
+  cards: Tarjetas
+  notices: Avisos, prensa y pistas
+  card_backs: "Reverso común: imprimir en el dorso de cada pliego"
+  suspects: Sospechosos
+  badges: "Placas del equipo {name}"
+  requests: Solicitudes
+  envelope_labels: Etiquetas de sobre
+
+# Documentos: name = nombre del PDF, title = título en pantalla y en la tapa, page = título de la página HTML
+docs:
+  envelope_file: "Sobre_{n}"
+  kit: {name: Kit_del_equipo, title: Kit del equipo, page: Kit del equipo}
+  guide: {name: Guia_del_director, title: Guía del director, page: Guía del director}
+  dossier: {name: Expediente_completo, title: Expediente, page: Expediente}
+  cards:
+    name: Tarjetas_de_respuesta
+    title: Tarjetas de respuesta
+    page: Tarjetas
+    note: Pliegos carta de 8 tarjetas de 88 × 63 mm. Imprimir al 100 % en cartulina, una copia por equipo.
+  card_backs: {name: Reverso_de_tarjetas, title: Reverso común, page: Reverso}
+  suspects: {name: Tarjetas_de_sospechosos, title: Sospechosos, page: Sospechosos, note: Una copia por equipo.}
+  badges: {name: Placas, title: Placas de detective, page: Placas}
+  tokens: {name: Fichas, title: Fichas, page: Fichas}
+  requests: {name: Solicitudes, title: Solicitudes, page: Solicitudes}
+  envelope_labels: {name: Etiquetas_de_sobre, title: Etiquetas de sobre, page: Sobres}
+
+readme_name: LEEME.txt
+readme_ink_saver: "Modo ahorro de tinta: sin fondos. Para la versión a todo color, exporta con --color."
+readme_color: "Versión a todo color, con fondos. Sin --color sale en modo ahorro de tinta."
+readme: |
+  {title}
+  Material generado por el exportador de Open Case ({date}).
+
+  teams/     Lo que pueden ver los equipos. Sin spoilers.
+    01_Kit_del_equipo        Una copia por equipo. Hojas en papel normal.
+    02… (sobres)             Lo que reciben al comenzar. Una copia por equipo.
+    10_Tarjetas_de_sospechosos, 11_Placas, 12_Fichas, 13_Solicitudes, 14_Etiquetas_de_sobre
+                             Recortables en cartulina de 200 a 250 g.
+
+  director/  Solo para quien dirige. Nunca se entrega completo a un equipo.
+    01_Guia_del_director     La solución, los diagramas, el guion y las pautas.
+    02_Expediente_completo   Todas las pruebas, ordenadas por sección. Se entregan de a una.
+    03_Tarjetas_de_respuesta Pliegos de 8 tarjetas. Una copia por equipo.
+    04_Reverso_de_tarjetas   Opcional: imprímelo en el dorso de cada pliego.
+
+  Imprime siempre al 100 % ("tamaño real"), nunca "ajustar a la página": las tarjetas
+  deben medir 88 × 63 mm y las fichas 30 mm de diámetro.
+
+  {mode}

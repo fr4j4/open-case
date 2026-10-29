@@ -1,34 +1,36 @@
-# Open Case · atajos para exportar casos a PDF.
-#   make instalar                     prepara el entorno (una sola vez)
-#   make exportar                     exporta el caso de ejemplo en modo ahorro de tinta
-#   make exportar CASO=casos/mi-caso  exporta otro caso
-#   make color                        lo mismo, pero a todo color
-#   make revisar                      revisa los archivos del caso sin generar PDF
-#   make imagenes                     PDF + una imagen por prueba para mandar por chat
-#   make limpiar                      borra la carpeta salida/
+# Open Case · shortcuts to export cases to PDF.
+#   make install                      set up the environment (once)
+#   make export                       export the sample case in ink-saver mode
+#   make export CASE=cases/my-case    export another case
+#   make export ARGS="--lang en"      pass any option of export.py (see python3 export.py --help)
+#   make color                        same, but in full colour
+#   make check                        check the case files without making PDFs
+#   make images                       PDFs + one image per evidence sheet to send through a chat
+#   make clean                        delete the output/ folder
 
-CASO ?= casos/chupacabras-labranza
+CASE ?= cases/chupacabras-labranza
+ARGS ?=
 VENV ?= .venv
 PY := $(if $(wildcard $(VENV)/bin/python),$(VENV)/bin/python,python3)
 
-.PHONY: instalar exportar color revisar imagenes limpiar
+.PHONY: install export color check images clean
 
-instalar:
+install:
 	python3 -m venv $(VENV)
 	$(VENV)/bin/pip install -r requirements.txt
 	$(VENV)/bin/python -m playwright install chromium
 
-exportar:
-	$(PY) exportar.py $(CASO)
+export:
+	$(PY) export.py $(CASE) $(ARGS)
 
 color:
-	$(PY) exportar.py $(CASO) --color
+	$(PY) export.py $(CASE) $(ARGS) --color
 
-revisar:
-	$(PY) exportar.py $(CASO) --revisar
+check:
+	$(PY) export.py $(CASE) $(ARGS) --check
 
-imagenes:
-	$(PY) exportar.py $(CASO) --imagenes
+images:
+	$(PY) export.py $(CASE) $(ARGS) --images
 
-limpiar:
-	rm -rf salida
+clean:
+	rm -rf output

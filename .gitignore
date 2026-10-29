@@ -1,11 +1,11 @@
-# PDF e imágenes generados por el exportador
-salida/
+# PDFs and images made by the exporter
+output/
 
 # Python
 __pycache__/
 *.pyc
 .venv/
 
-# Sistema
+# System
 .DS_Store
 Thumbs.db

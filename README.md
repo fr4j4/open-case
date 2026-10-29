@@ -41,7 +41,7 @@ Para empezar te basta con:
 5. **Dos carpetas.** Una para los equipos, sin spoilers, y otra para el director, con todo.
 6. **Una prueba antes de la real.** Juégalo con alguien. Los casos se arreglan jugándolos.
 
-Cuando lo tengas, pásalo al formato de Open Case (está en [docs/formato-de-casos.md](docs/formato-de-casos.md)) y el exportador arma todo el material impreso. El caso de ejemplo sirve de plantilla: copia la carpeta y ve cambiando.
+Cuando lo tengas, pásalo al formato de Open Case (está en [docs/case-format.md](docs/case-format.md) (en inglés)) y el exportador arma todo el material impreso. El caso de ejemplo sirve de plantilla: copia la carpeta y ve cambiando.
 
 <br clear="right">
 
@@ -59,14 +59,15 @@ Cada caso vive en una carpeta de texto: unos archivos YAML con los datos y una h
 Necesitas Python 3.10 o más nuevo. La primera vez:
 
 ```
-make instalar
+make install
 ```
 
 Eso crea un entorno en `.venv`, instala las dependencias y descarga el Chromium con el que se arman los PDF. Después, cada vez que quieras exportar:
 
 ```
-make exportar                               # el caso de ejemplo
-make exportar CASO=casos/mi-caso            # otro caso
+make export                                  # el caso de ejemplo
+make export CASE=cases/mi-caso               # otro caso
+make export ARGS="--lang en"                 # otro idioma del caso
 ```
 
 En Windows, o si no tienes `make`:
@@ -75,14 +76,14 @@ En Windows, o si no tienes `make`:
 py -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 .venv\Scripts\python -m playwright install chromium
-.venv\Scripts\python exportar.py casos\chupacabras-labranza
+.venv\Scripts\python export.py cases\chupacabras-labranza
 ```
 
 Si ya tienes Chrome o Edge instalado y no quieres bajar otro navegador, sáltate el `playwright install`: el exportador los busca solo. También puedes indicarle uno con la variable `OPENCASE_CHROMIUM`.
 
-Los PDF quedan en `salida/<caso>/`, separados en dos carpetas:
+Los PDF quedan en `output/<caso>/<idioma>/`, separados en dos carpetas:
 
-- **equipos/** es lo que reciben los jugadores: el kit, los sobres, las tarjetas de sospechoso, las placas, las fichas, las solicitudes y las etiquetas de los sobres. Nada de esto trae la solución.
+- **teams/** es lo que reciben los jugadores: el kit, los sobres, las tarjetas de sospechoso, las placas, las fichas, las solicitudes y las etiquetas de los sobres. Nada de esto trae la solución.
 - **director/** es lo que no ven: la guía, el expediente completo con todas las pruebas, las tarjetas de respuesta y su reverso.
 
 Imprime siempre al 100 %, sin "ajustar a la página". Las tarjetas miden 63 × 88 mm y las fichas 30 mm, y solo calzan con las líneas de corte si nadie las escala.
@@ -91,21 +92,23 @@ Imprime siempre al 100 %, sin "ajustar a la página". Las tarjetas miden 63 × 8
 
 ```
 make color
-python exportar.py casos/chupacabras-labranza --color
+python export.py cases/chupacabras-labranza --color
 ```
 
-Si un caso se imprime siempre a color, pon `ahorro_de_tinta: false` en su `caso.yaml`.
+Si un caso se imprime siempre a color, pon `ink_saver: false` en su `case.yaml`.
+
+**Idiomas.** Un caso puede tener varios: cada idioma es una carpeta dentro de `languages/` con los mismos archivos traducidos, y las fotos y los códigos se comparten. `--lang en` exporta uno y `--lang all` todos. El exportador revisa que la traducción tenga las mismas pruebas y tarjetas que el idioma base. Los detalles están en [docs/case-format.md](docs/case-format.md).
 
 Otras opciones útiles:
 
 ```
-python exportar.py casos/mi-caso --revisar        # revisa el caso sin generar PDF
-python exportar.py casos/mi-caso --solo kit,sobres
-python exportar.py casos/mi-caso --imagenes       # además, un PNG por prueba para mandar por chat
-python exportar.py --help
+python export.py cases/mi-caso --check            # revisa el caso sin generar PDF
+python export.py cases/mi-caso --only kit,envelopes
+python export.py cases/mi-caso --images           # además, un PNG por prueba para mandar por chat
+python export.py --help
 ```
 
-Cuando algo está mal escrito, el exportador se detiene y dice en qué archivo y en qué línea. Si una tarjeta no cabe o una hoja pasa a una segunda página, lo avisa al final.
+Cuando algo está mal escrito, el exportador se detiene y dice en qué archivo y en qué línea. Si una tarjeta no cabe o una hoja pasa a una segunda página, lo avisa al final. Los mensajes del programa y los nombres de las opciones están en inglés; el texto de los casos puede estar en cualquier idioma.
 
 ## Estado
 
@@ -121,13 +124,16 @@ Las imágenes de este README son provisionales.
 
 ```
 open-case/
-├── casos/
-│   └── chupacabras-labranza/   el caso de ejemplo, en formato de texto
-├── diseno/        sistema de diseño: CSS, colores, logos, fuentes y la guía de marca
+├── cases/
+│   └── chupacabras-labranza/   el caso de ejemplo
+│       ├── case.yaml           datos neutros: papel, equipos, orden del expediente
+│       ├── photos/ diagrams/   imágenes compartidas por todos los idiomas
+│       └── languages/es/       textos, tarjetas, kit, expediente y guía en español
+├── design/        sistema de diseño: CSS, colores, logos, fuentes y la guía de marca
 ├── docs/          el formato de los casos
 ├── opencase/      el exportador
-├── herramientas/  scripts de mantenimiento (por ejemplo, bajar las fuentes)
-├── exportar.py    el comando para exportar
+├── tools/         scripts de mantenimiento (por ejemplo, bajar las fuentes)
+├── export.py      el comando para exportar
 └── Makefile
 ```
 

@@ -1,0 +1,66 @@
+# El Chupacabras de Labranza: textos en español.
+# Con case.yaml (datos neutros), suspects.yaml, cards.yaml y las carpetas kit/, dossier/ y guide/,
+# es todo lo que lee el exportador. Ver docs/case-format.md.
+
+title: El Chupacabras de Labranza
+version: Versión 5 · octubre de 2026
+tagline: Dos equipos, un culpable
+
+badge:
+  title: Detective
+  unit: [Brigada de Homicidios, Temuco]
+
+kit:
+  description: >-
+    Una copia por equipo. Trae las reglas, el menú de preguntas y diligencias y las hojas de trabajo.
+    No incluye respuestas ni pruebas: esas las entrega el director.
+  cover_note: Una copia por equipo. No incluye respuestas ni pruebas.
+
+guide:
+  description: >-
+    Todo lo necesario para dirigir el caso: preparación, la solución, dos diagramas de control,
+    guion por fases, cómo responder cada solicitud y cómo evaluar la acusación.
+  cover_note: Contiene la solución. No la muestres ni la mandes a los equipos.
+
+dossier:
+  title: Expediente El Arrayán
+  kicker: PDI · Brigada de Homicidios Temuco · RUC 2601184427-3
+  description: >-
+    Muerte de Matías Ferrada Soto, sábado 31 de octubre de 2026, sector Camino Los Copihues, Labranza.
+    Cada hoja es una prueba: se imprime una por página o se manda por WhatsApp al equipo que la pidió.
+  printed_description: >-
+    Muerte de Matías Ferrada Soto, sábado 31 de octubre de 2026, sector Camino Los Copihues, Labranza.
+    Índice de pruebas para el director. Cada prueba se entrega por separado, solo al equipo que la pidió.
+  sections:
+    start:
+      title: Sobre 1
+      note: Se entrega a ambos equipos al comenzar
+    statements:
+      title: Declaraciones iniciales
+      note: Van en el sobre 1 · gratis
+    investigation:
+      title: Comienzo de la investigación
+      note: Sobre 2 · gratis para ambos equipos
+    with-answer:
+      title: Pruebas que se entregan junto con una respuesta
+      note: Solo al equipo que hizo la pregunta o pidió la diligencia
+    procedures:
+      title: Diligencias
+      note: Se entregan al equipo que paga la ficha
+    notices:
+      title: Avisos de la Fiscalía
+      note: El director los lee a todos los equipos a la vez
+
+# Etiquetas para pegar en los sobres (una por equipo).
+envelope_labels:
+  - number: 1
+    when: se entrega al comenzar
+    description: Lo que sabemos hasta ahora. No incluye respuestas.
+    contents: [E01 Parte policial, E02 Set fotográfico, E03 Redes sociales, E04 Grupo de vecinos,
+               E05 Croquis, E07 Clima, "DEC · B, H, J, P, T, C", Kit del equipo]
+    footer: 16 fichas · 1 placa por jugador
+  - number: 2
+    when: al investigar
+    description: Se abre al comenzar la investigación.
+    contents: [E06 Informe de autopsia]
+    footer: Al comenzar la investigación
