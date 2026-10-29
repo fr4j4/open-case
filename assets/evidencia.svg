@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="210" viewBox="0 0 460 210" role="img" aria-label="Etiqueta de evidencia en blanco para tu propio caso">
+  <path d="M40 10 H450 V200 H40 L10 105 Z" fill="#f4efe3" stroke="#8a7350" stroke-width="2"/>
+  <circle cx="48" cy="105" r="9" fill="#fff" stroke="#8a7350" stroke-width="2"/>
+  <path d="M39 105 C 20 105, 8 90, 0 80" fill="none" stroke="#9c7b4a" stroke-width="2"/>
+  <rect x="70" y="22" width="368" height="34" fill="#b3261e"/>
+  <text x="254" y="46" text-anchor="middle" font-family="'Arial Black', Impact, 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="20" letter-spacing="4" fill="#f4efe3">EVIDENCIA</text>
+  <g font-family="'Courier New', Courier, monospace" font-size="16" fill="#3b2d16">
+    <text x="78" y="86">Caso:</text>
+    <text x="78" y="120">Lugar:</text>
+    <text x="78" y="154">Recogida por:</text>
+    <text x="78" y="188">Fecha:</text>
+  </g>
+  <g stroke="#a89878" stroke-width="1">
+    <line x1="140" y1="89" x2="430" y2="89"/>
+    <line x1="150" y1="123" x2="430" y2="123"/>
+    <line x1="218" y1="157" x2="430" y2="157"/>
+    <line x1="150" y1="191" x2="430" y2="191"/>
+  </g>
+  <text x="150" y="85" font-family="'Courier New', Courier, monospace" font-size="16" font-style="italic" fill="#1f3f8a">el tuyo</text>
+  <text x="228" y="153" font-family="'Courier New', Courier, monospace" font-size="16" font-style="italic" fill="#1f3f8a">tú</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="48" viewBox="0 0 900 48" role="img" aria-label="Cinta policial: no pasar">
+  <defs>
+    <pattern id="rayas" width="28" height="48" patternUnits="userSpaceOnUse" patternTransform="skewX(-35)">
+      <rect width="14" height="48" fill="#1d1d1b"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="48" fill="#f2c230"/>
+  <rect width="900" height="6" fill="url(#rayas)"/>
+  <rect y="42" width="900" height="6" fill="url(#rayas)"/>
+  <text x="450" y="31" text-anchor="middle" font-family="'Arial Black', Impact, 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="17" textLength="860" lengthAdjust="spacingAndGlyphs" fill="#1d1d1b">NO PASAR · ESCENA EN INVESTIGACIÓN · NO PASAR · ESCENA EN INVESTIGACIÓN · NO PASAR</text>
+</svg>
