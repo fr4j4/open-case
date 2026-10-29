@@ -26,6 +26,12 @@ title: Diligencias
 Tachen una casilla por cada ficha gastada.
 {.small}
 
-<!-- Una casilla por ficha: el número sale de fichas_por_equipo en caso.yaml. -->
+<!-- One box per token: the number comes from tokens_per_team in case.yaml. -->
 ```checkboxes
+```
+
+Fichas de coartada:
+{.small}
+
+```checkboxes alibi
 ```

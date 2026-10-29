@@ -156,6 +156,9 @@
 .oc-hoja{background:var(--papel);color:var(--tinta);font-family:var(--font-sans);font-size:15px;line-height:1.5;border-radius:var(--radio-hoja);box-shadow:var(--sombra-hoja);padding:var(--space-7) clamp(18px,4vw,var(--space-10)) 30px;display:flex;flex-direction:column;gap:14px;min-width:0;position:relative}
 .oc-hoja--reservada{border-top:6px solid var(--sello)}
 .oc-hoja--vieja{background:var(--papel-viejo)}
+.oc-hoja__marca{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:6px;border-top:1px solid var(--regla);font-family:var(--font-display);font-weight:600;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave)}
+.oc-hoja__marca img{width:22px;height:22px;display:block;opacity:.75}
+.oc-hoja__marca span:last-child{margin-left:auto}
 .oc-hoja--carta{width:var(--hoja-ancho);min-height:var(--hoja-alto);padding:var(--margen-hoja);border-radius:0;box-shadow:none;font-size:14px;line-height:20px}
 .oc-hoja h2,.oc-h2{font-size:22px;font-weight:800;line-height:1.2;margin:0;text-wrap:balance}
 .oc-hoja h3,.oc-h3{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--marino);margin:0}

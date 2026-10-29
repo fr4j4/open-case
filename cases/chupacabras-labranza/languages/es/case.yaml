@@ -58,7 +58,7 @@ envelope_labels:
     description: Lo que sabemos hasta ahora. No incluye respuestas.
     contents: [E01 Parte policial, E02 Set fotográfico, E03 Redes sociales, E04 Grupo de vecinos,
                E05 Croquis, E07 Clima, "DEC · B, H, J, P, T, C", Kit del equipo]
-    footer: 16 fichas · 1 placa por jugador
+    footer: 16 fichas + 3 de coartada · 1 placa por jugador
   - number: 2
     when: al investigar
     description: Se abre al comenzar la investigación.

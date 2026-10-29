@@ -56,7 +56,7 @@ title: Tabla de respuestas
 | `B◆` | E13d, E29·P o E29·B (el mensaje recuperado, o que Benjamín lo leyó a las 22:16 y llamó a las 22:17) | Tarjeta B7 |
 | `B◆` | Solo la llamada de E13a (22:17, la hizo él) | Tarjeta B7a (admite la llamada, no el motivo) |
 | `B◆` | E13b o E13a (el borrado o el desbloqueo de las 23:18) | Tarjeta B9 ("yo no tenía su teléfono") |
-| `B◆` | E13b (el chat del galpón) junto con T5 (Toto dijo que el hermano estuvo solo en el galpón) | Tarjeta B11 (vio la horqueta, dice que la dejó) |
+| `B◆` | T5 (Toto dijo que el hermano estuvo solo en el galpón), sola o junto con E13b (el chat del galpón) | Tarjeta B11 (vio la horqueta, dice que la dejó) |
 | `B◆` | E18 (la bolsa del Copec) | Tarjeta B8 |
 | `B◆` | DEC·B junto con E06 (habló del golpe antes de la autopsia) | Tarjeta B12 |
 | `B◆` | E19·B (la pintura blanca en las suelas) o E29·B (la búsqueda del barro) | Tarjeta B13 |
@@ -71,7 +71,7 @@ title: Tabla de respuestas
 | `C◆` | E15·M o E15·C (la transferencia) o E12 (el SAG la contradice) | Tarjeta C5 + E11 |
 | `C◆` | E13b (el chantaje de los 800 mil) | Tarjeta C6 + E22 |
 | `B◆` | Solo E14 (el portón: salió a las 22:31) | Tarjeta B5a (admite que salió, no dice adónde). La ficha se cobra. |
-| `B◆` | E15·B (el crédito y la transferencia de $40 millones) | Tarjeta B3+ (el motivo). La ficha se cobra. |
+| `B◆` | E15·B (el crédito y la transferencia de 40 millones) | Tarjeta B3+ (admite que puso la plata; no dice nada de la venta). La ficha se cobra. |
 | `B◆` | Solo E26·B, solo E17·B, o las dos sin E08 ni E28 | Tarjeta B✕ (fallida, pero le dice al equipo qué le falta cruzar). La ficha se cobra. |
 | `Cualquier ◆` | Cualquier otra prueba | Tarjeta "Eso no prueba nada". La ficha se cobra. |
 

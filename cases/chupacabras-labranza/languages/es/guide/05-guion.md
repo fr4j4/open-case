@@ -6,13 +6,13 @@ title: Fase por fase
 
 ```steps
 - title: 0 · Preparación · 5 min
-  text: Arma los equipos y entrega a cada uno el kit, 16 fichas y una placa por jugador. Lee en voz alta "Cómo se juega" (está en el kit).
+  text: Arma los equipos y entrega a cada uno el kit, 16 fichas, 3 fichas de coartada y una placa por jugador. Lee en voz alta "Cómo se juega" (está en el kit).
 - title: 1 · La escena · 10 min
   text: Lee el parte (abajo). Entrega el sobre 1. Ellos leen; tú no respondes preguntas todavía.
 - title: 2 · Investigación · 30 min
-  text: "Entrega E06 a los dos equipos. Recibe las solicitudes, cobra las fichas, entrega las tarjetas y marca todo en la hoja de control. Minuto 10: aviso 1. Minuto 20: aviso 2 y tarjeta de prensa."
+  text: "Entrega E06 a todos los equipos. Recibe las solicitudes, cobra las fichas, entrega las tarjetas y marca todo en la hoja de control. Minuto 10: aviso 1. Minuto 20: aviso 2 y tarjeta de prensa."
 - title: 3 · Acusación · 15 min
-  text: 5 min para llenar la hoja. Recoge las hojas de acusación y de descarte de los dos equipos antes de que alguien exponga. Luego 2 min por equipo para exponer (empieza el que tenga más fichas); mientras uno expone, puntúa la hoja del otro con la hoja de puntaje. Después lee la confesión si corresponde y el cierre (5 a 10 min).
+  text: 5 min para llenar la hoja. Recoge las hojas de acusación y de descarte de todos los equipos antes de que alguien exponga. Luego 2 min por equipo para exponer (empieza el que tenga más fichas); mientras uno expone, puntúa la hoja de otro con la hoja de puntaje. Después lee la confesión si corresponde y el cierre (5 a 10 min).
 ```
 
 ### Para leer al comenzar la escena
@@ -34,7 +34,7 @@ Aviso de la Fiscalía: Cristián "Toto" Lagos no llegó a su citación de hoy. U
 ### Aviso 2 de la Fiscalía (al minuto 20)
 
 ```script
-Aviso de la Fiscalía: el Laboratorio de Criminalística informa que las huellas parciales del mango de una herramienta encontrada en el estero corresponden a Cristián "Toto" Lagos.
+Aviso de la Fiscalía: el Laboratorio de Criminalística informa que las huellas parciales del mango de una herramienta encontrada en el estero corresponden a Cristián "Toto" Lagos. Para formalizar a alguien, la Fiscalía pide dos líneas de prueba distintas (por ejemplo, su vehículo y su ropa), cada una enfrentada con esa persona (◆), y el motivo.
 ```
 
 Los dos avisos empujan hacia Toto a propósito. Es la pista falsa principal: se resuelve con T5 (la horqueta desapareció el martes, cuando Benjamín estuvo solo en el galpón) y con su coartada (E21, M1, E28). Si ningún equipo ha investigado a Toto al minuto 10, el aviso 1 los obliga a mirarlo.

@@ -40,7 +40,7 @@ body{background:var(--mesa);-webkit-print-color-adjust:exact;print-color-adjust:
 .oc-quien{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sello);margin-top:6px}
 .oc-tabla--menu td:first-child{width:64px}
 .oc-tabla td.c{font-family:var(--font-mono);font-weight:600;white-space:nowrap;color:var(--marino)}
-.oc-tabla--control td:nth-last-child(-n+2),.oc-tabla--control th:nth-last-child(-n+2){width:56px;text-align:center}
+.oc-tabla--control td:nth-last-child(-n+4),.oc-tabla--control th:nth-last-child(-n+4){width:44px;text-align:center}
 .oc-tabla--control td{height:26px}
 .oc-tabla--trabajo td{height:44px}
 .oc-tabla--puntaje td:last-child{width:120px}
@@ -140,18 +140,14 @@ body{background:var(--mesa);-webkit-print-color-adjust:exact;print-color-adjust:
 
 /* Letterhead of the game material: wordmark + case name */
 .oc-membrete__caso{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:5px}
-/* Footer with the brand at the bottom of the sheet (brand_footer in case.yaml) */
-.oc-hoja__marca{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px;border-top:1px solid var(--regla);font-family:var(--font-display);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave)}
-.oc-hoja__marca span:first-child{display:flex;align-items:center;gap:6px}
-.oc-hoja__marca img{width:16px;height:16px}
-.oc-hoja__marca span:last-child{font-family:var(--font-mono);font-weight:600;letter-spacing:.04em}
+/* The brand footer (.oc-hoja__marca) comes from the design CSS; below it is only pinned to the page bottom in print. */
 /* Prosecutor's notice sheets: amber band */
 .oc-hoja--aviso{border-top:6px solid var(--ambar)}
 @media print{
   .oc-hoja--aviso{padding-top:5mm}
   /* A sheet takes at least one page and the brand footer sits at the bottom, in reserved space. */
   .oc-hoja{min-height:calc(var(--pagina-alto) - 28.5mm)}
-  .oc-hoja:has(.oc-hoja__marca){padding-bottom:8mm}
+  .oc-hoja:has(.oc-hoja__marca){padding-bottom:9mm}
   .oc-hoja__marca{position:absolute;left:0;right:0;bottom:0;margin:0}
   .oc-hoja h2{break-after:avoid}
 }

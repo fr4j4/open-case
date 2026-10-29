@@ -18,14 +18,15 @@ Tres formas, en `assets/Logos/` (SVG con contornos; usa el archivo, no lo redibu
 
 - La tinta del logotipo es `tinta` sobre papel y blanco, `sello` en portadas y pliegos, `papel` sobre la `mesa`. Nunca otro color, nunca degradado, sombra ni contorno.
 - El sello ya viene girado −4°; no se gira más ni se endereza. Zona de respeto: la altura de la pestaña de la carpeta.
-- El logotipo no aparece en documentos del mundo del caso (partes, boletas, chats, cartas): esos pertenecen a una institución ficticia. Sí aparece en kit, tarjetas, sobres, placas, fichas y guía.
+- En los documentos del mundo del caso (partes, declaraciones, informes, cartas) el logotipo va **solo en el pie de la hoja** (`.oc-hoja__marca`): el monograma a 6 mm, "Open Case" y el nombre del caso en `display` 9 px y `tinta-suave`, sobre un filete `regla`. Es el mismo pie que llevan las tarjetas. Nunca en el membrete ni en el cuerpo de esos documentos, que pertenecen a una institución ficticia. Las capturas de pantalla y las fotos sueltas no llevan pie de marca: lo lleva la hoja que las contiene.
+- En el material del juego (kit, guía, sobres, placas, fichas) el wordmark va en el membrete y el sello en las portadas.
 - Sobre fotografía solo la versión `papel` dentro de una franja `mesa`, nunca directo sobre la imagen.
 
 ## Voz de la marca
 
 Cuando habla el juego (kit, tarjetas de aviso, portadas), habla corto y directo, en segunda persona del plural, sin adjetivos de marketing: "Ustedes son detectives. Los otros equipos investigan el mismo caso. Gana el que presente la teoría mejor sustentada." Nunca "¡Prepárate para la aventura!".
 
-Cuando habla el mundo del caso, la marca calla y habla la institución: "Policía de Investigaciones de Chile · Brigada de Homicidios". El jugador debe poder olvidar que está leyendo un juego.
+Cuando habla el mundo del caso, la marca se queda en el pie y habla la institución: "Policía de Investigaciones de Chile · Brigada de Homicidios". El jugador debe poder olvidar que está leyendo un juego.
 
 ## Lo que no se hace
 

@@ -8,8 +8,9 @@ paper: letter            # letter or a4
 base_language: es
 languages: [es]
 
-teams: [A, B]
+teams: [A, B, C, D]       # the game works with 2 to 4 teams; this prints material for four
 tokens_per_team: 16
+alibi_tokens_per_team: 3
 players_per_team: 7      # one badge per player
 
 # Footer with the monogram, the brand and the case name at the bottom of each sheet.

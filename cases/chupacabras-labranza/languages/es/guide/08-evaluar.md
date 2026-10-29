@@ -14,10 +14,10 @@ title: Pauta de corrección
 | Contradicción | 1 | El lapsus de DEC·B ("le pegaría", antes de la autopsia), que B3 dice que Matías llamó y E13a muestra lo contrario, que dice que estuvo en su depto (E14, E26·B, E15·B), o que en B11 dice que dejó la horqueta (T5). |
 | Inocentes descartados | 2 c/u | Por cada inocente de la hoja de descarte con dos pruebas de distinto origen que lo ubican lejos entre 23:10 y 23:24 (tabla de abajo). Con una sola prueba, 1 punto. |
 | Inocentes sin explicar | −1 c/u | Por cada inocente que quede en blanco o descartado sin prueba. |
-| Fichas | 0,25 c/u | Las que les sobren. |
+| Fichas | 0,25 c/u | Las que les sobren (las de coartada no cuentan). |
 | Pistas pedidas | −1 c/u | Por cada pista que le diste al equipo; la 4ª y la 5ª restan 2. |
 | Sin acusación | — | Los puntos de descartes y de pistas falsas solo se suman si el equipo entregó una acusación con nombre. |
-| Acusar a otra persona | −5 | Y el equipo no puede ganar, aunque sume más puntos. Si los dos acusan mal, no hay ganador. |
+| Acusar a otra persona | −5 | Y el equipo no puede ganar, aunque sume más puntos. Si todos acusan mal, no hay ganador. |
 
 ### Hoja de descarte: qué prueba vale para cada inocente
 
@@ -42,7 +42,7 @@ Que alguien "no tenga motivo" o "no tenga auto" no cuenta como descarte, y la de
 | Huella de tres dedos | E03 (misma grieta), E19·J, E15·J, J◆ |
 | Disparos y escopeta de Don Hernán | E06 (sin heridas de bala), E19·H (pólvora: sí disparó, a los perros), E20 |
 | Amenaza y multa de Don Hernán | E25 o H◆ (había firmado y la muerte lo perjudica), E20, E26·H |
-| Aro, story y mensaje de Pía | E13a (vivo a las 22:17), CO1, E23, F1, P◆, E29·P (ella no tenía el teléfono a las 23:18) |
+| Aro, story y mensaje de Pía | E13a (vivo a las 22:17), CO1, R2, E23, F1, P◆, E29·P (ella no tenía el teléfono a las 23:18) |
 | Seguro de vida de Pía | E24 |
 | Herramienta, huellas, fuga y moto de Toto | T5 (la horqueta desapareció el martes), E19·T, E17·T o E08 (dos luces traseras), E21, M1, E28 |
 | Soborno y chantaje a la veterinaria | E22, PS1, E28 |
@@ -52,11 +52,11 @@ Que alguien "no tenga motivo" o "no tenga auto" no cuenta como descarte, y la de
 ### Cuándo confiesa Benjamín
 
 ```note-ok
-Benjamín confiesa si el equipo que lo acusa cumple tres condiciones. **(1)** Pruebas y tarjeta de confrontación de **al menos dos de estos cuatro caminos**: **A · vehículo** = E08 o E28, más E17·B, y la tarjeta B6 o B10; **B · coartada** = E14 y E26·B (las dos), y la tarjeta B5; **C · lo que sabía** = la tarjeta B11 (E13b junto con T5: Toto dijo que el hermano estuvo solo en el galpón); B12 (el lapsus) vale como contradicción, no como camino; **D · lo físico** = la tarjeta B13 (E19·B o E29·B) o B8 (E18). **(2)** El motivo con una prueba o tarjeta: E13d, E29·P, I1, I1+, B7 o E25·a. **(3)** Lo nombran en la hoja de acusación. Sin la tarjeta ◆ correspondiente, el camino no cuenta. Entonces lees la confesión.
+Benjamín confiesa si el equipo que lo acusa cumple tres condiciones. **(1)** Pruebas y tarjeta de confrontación de **al menos dos de estos cuatro caminos**: **A · vehículo** = E08 o E28, más E17·B, y la tarjeta B6 o B10; **B · coartada** = E14 y E26·B (las dos), y la tarjeta B5; **C · lo que sabía** = la tarjeta B11 (T5, sola o junto con E13b: Toto dijo que el hermano estuvo solo en el galpón); B12 (el lapsus) vale como contradicción, no como camino; **D · lo físico** = la tarjeta B13 (E19·B o E29·B) o B8 (E18). **(2)** El motivo con una prueba o tarjeta: E13d, E29·P, I1, I1+, B7 o E25·a. **(3)** Lo nombran en la hoja de acusación. Sin la tarjeta ◆ correspondiente, el camino no cuenta. Entonces lees la confesión.
 ```
 
 ```note-warning
-Si no cumplen las tres condiciones, Benjamín responde: *"No tienen nada. Quiero un abogado."* El equipo igual gana los puntos de la pauta, pero no hay confesión en la acusación. Si los dos equipos lo acusan y uno cumple, la confesión se lee una vez, al final. Si ninguno cumple, igual la lees después del puntaje, como parte del cierre ("esa noche, en la unidad, Benjamín pidió hablar con el fiscal"): la historia se cierra para todos, y la diferencia para el equipo que cumplió es haberla arrancado en la mesa.
+Si no cumplen las tres condiciones, Benjamín responde: *"No tienen nada. Quiero un abogado."* El equipo igual gana los puntos de la pauta, pero no hay confesión en la acusación. Si varios equipos lo acusan y alguno cumple, la confesión se lee una vez, al final. Si ninguno cumple, igual la lees después del puntaje, como parte del cierre ("esa noche, en la unidad, Benjamín pidió hablar con el fiscal"): la historia se cierra para todos, y la diferencia para el equipo que cumplió es haberla arrancado en la mesa.
 ```
 
 ### Desempate
@@ -82,5 +82,5 @@ Gana el equipo con más puntos. Si empatan, gana el que gastó menos fichas; si 
 | **Total** |  |  |
 ```
 
-Mientras un equipo expone, ve puntuando la hoja del otro. Si los dos acusan a la persona equivocada, no hay ganador: lee igual el cierre.
+Mientras un equipo expone, ve puntuando la hoja de otro. Si todos acusan a la persona equivocada, no hay ganador: lee igual el cierre.
 {.small}
