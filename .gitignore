@@ -9,3 +9,7 @@ __pycache__/
 # System
 .DS_Store
 Thumbs.db
+
+# Website
+_site/
+.site-work/

@@ -39,3 +39,13 @@ dossier:
               E24, E25, E26-B, E26-T, E26-P, E26-C, E26-H, E26-J, E28, E29-P, E29-B, E29-X]
     - id: notices
       items: [AVISO1, AVISO2]
+
+# What the website shows about the case (see opencase/site.py). Summary and cover_alt are in languages/<lang>/case.yaml.
+site:
+  author: Open Case
+  license: CC BY-NC-SA 4.0
+  date: 2026-10-29
+  cover: photos/e09_2250.jpg
+  min_teams: 2
+  duration_minutes: [60, 70]
+  players_per_team: [5, 7]

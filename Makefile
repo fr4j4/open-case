@@ -6,6 +6,7 @@
 #   make color                        same, but in full colour
 #   make check                        check the case files without making PDFs
 #   make images                       PDFs + one image per evidence sheet to send through a chat
+#   make site                         build the website in _site/ (PDFs, zips, cases.json and the page)
 #   make clean                        delete the output/ folder
 
 CASE ?= cases/chupacabras-labranza
@@ -13,7 +14,7 @@ ARGS ?=
 VENV ?= .venv
 PY := $(if $(wildcard $(VENV)/bin/python),$(VENV)/bin/python,python3)
 
-.PHONY: install export color check images clean
+.PHONY: install export color check images site clean
 
 install:
 	python3 -m venv $(VENV)
@@ -32,5 +33,8 @@ check:
 images:
 	$(PY) export.py $(CASE) $(ARGS) --images
 
+site:
+	$(PY) -m opencase.site $(ARGS)
+
 clean:
-	rm -rf output
+	rm -rf output _site .site-work
