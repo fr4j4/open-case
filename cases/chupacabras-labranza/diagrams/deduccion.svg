@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Tres caminos de pruebas que llevan a Benjamín, más la base común y el motivo" role="img" viewbox="0 0 760 560">
+<rect fill="#f8f6f0" height="560" width="760"></rect>
+<defs><marker id="ar" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0 0 L10 5 L0 10z" fill="#5b6266"></path></marker><marker id="arr" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0 0 L10 5 L0 10z" fill="#9e2a2b"></path></marker></defs>
+<g fill="#5b6266" font-family="IBM Plex Mono, monospace" font-size="11"><text x="10" y="20">BASE · TODOS LLEGAN AQUÍ</text><text x="10" y="148">TRES CAMINOS (+ EL FÍSICO: B13 o B8) · CONFESIÓN = DOS CON SU TARJETA ◆ + EL MOTIVO</text><text x="10" y="422">MOTIVO</text></g>
+<g font-family="Public Sans, Arial, sans-serif" font-size="11.5">
+<rect fill="#dbe4ef" height="84" rx="4" width="236" x="10" y="30"></rect><text fill="#1d3557" font-weight="700" x="18" y="50">1. No fue un animal</text><text fill="#1d3557" x="18" y="68">E11 · E12 · C4</text><text fill="#1d3557" x="18" y="84">herramienta de 2 puntas a 4,5 cm</text><text fill="#5b6266" x="18" y="100">C◆ con E15·M, E15·C o E13b</text>
+<rect fill="#dbe4ef" height="84" rx="4" width="236" x="262" y="30"></rect><text fill="#1d3557" font-weight="700" x="270" y="50">2. Fue un montaje</text><text fill="#1d3557" x="270" y="68">E06 (gratis) · E02 foto 3</text><text fill="#1d3557" x="270" y="84">golpe con piedra; perforaciones</text><text fill="#1d3557" x="270" y="100">post mortem · E18 piedra y horqueta</text>
+<rect fill="#dbe4ef" height="84" rx="4" width="236" x="514" y="30"></rect><text fill="#1d3557" font-weight="700" x="522" y="50">3. Ventana 23:10 a 23:24</text><text fill="#1d3557" x="522" y="68">E08 live · E09 dron · E07 + E02</text><text fill="#1d3557" x="522" y="84">E13a: vivo a las 22:17</text><text fill="#5b6266" x="522" y="100">el SML (21:00–01:00) no basta</text>
+<rect fill="#fff" height="200" rx="4" stroke="#9e2a2b" stroke-width="2" width="236" x="10" y="158"></rect>
+<text fill="#9e2a2b" font-weight="700" x="18" y="178">A · El vehículo</text>
+<text fill="#1d2123" x="18" y="198">E08: llega una luz blanca,</text><text fill="#1d2123" x="18" y="214">se va con dos rojas a 1,5 m</text>
+<text fill="#1d2123" x="18" y="234">E17·T: la moto tiene una sola</text><text fill="#1d2123" x="18" y="250">luz trasera, no es Toto</text>
+<text fill="#1d2123" x="18" y="270">E28 Copec: camioneta gris, un foco,</text><text fill="#1d2123" x="18" y="286">va 22:53 y vuelve 23:41 (sin patente)</text>
+<text fill="#1d2123" x="18" y="306">E17·B (foco roto) + E14 o E15·B: es la suya</text>
+<text fill="#5b6266" x="18" y="334">confrontación: B6 o B10</text>
+<rect fill="#fff" height="200" rx="4" stroke="#9e2a2b" stroke-width="2" width="236" x="262" y="158"></rect>
+<text fill="#9e2a2b" font-weight="700" x="270" y="178">B · La coartada falsa</text>
+<text fill="#1d2123" x="270" y="198">B1 + E30: "en mi depto", delivery 21:40</text>
+<text fill="#1d2123" x="270" y="218">E14 portón (L1): sale 22:31,</text><text fill="#1d2123" x="270" y="234">vuelve 00:06 mojado</text>
+<text fill="#1d2123" x="270" y="254">E26·B: Labranza poniente 23:05–23:35</text>
+<text fill="#1d2123" x="270" y="274">E15·B: crédito de $40 M (motivo)</text>
+<text fill="#1d2123" x="270" y="294">E13a vs B3: la llamada fue suya</text>
+<text fill="#1d2123" x="270" y="314">E29·B: teléfono sin uso 22:31–23:58</text>
+<text fill="#5b6266" x="270" y="334">B5 exige E14 y E26·B juntas</text>
+<rect fill="#fff" height="200" rx="4" stroke="#9e2a2b" stroke-width="2" width="236" x="514" y="158"></rect>
+<text fill="#9e2a2b" font-weight="700" x="522" y="178">C · Lo que sabía</text>
+<text fill="#1d2123" x="522" y="198">E13b: "Lo que vi en el galpón…"</text>
+<text fill="#1d2123" x="522" y="218">T4 / T4+: la horqueta se perdió</text><text fill="#1d2123" x="522" y="234">el martes</text>
+<text fill="#1d2123" x="522" y="254">T5: "vino el hermano y estuvo</text><text fill="#1d2123" x="522" y="270">solo en el galpón"</text>
+<text fill="#1d2123" x="522" y="290">DEC·B 11:20: "le pegaría", antes del SML</text>
+<text fill="#1d2123" x="522" y="310">E19·B: pintura blanca en las suelas</text>
+<text fill="#5b6266" x="522" y="334">B11 (T5, sola o con E13b). B12 vale como contradicción</text>
+<rect fill="#fff" height="100" rx="4" stroke="#d2ccbe" width="488" x="10" y="432"></rect>
+<text fill="#1d2123" font-weight="700" x="18" y="452">La venta lo dejaba fuera y endeudado</text>
+<text fill="#1d2123" x="18" y="472">E13b: mensaje del grupo borrado a las 23:18 desde el teléfono de Matías</text>
+<text fill="#1d2123" x="18" y="490">E13a + E06: desbloqueo con el índice del muerto (barro en la yema)</text>
+<text fill="#1d2123" x="18" y="508">E29·P o E13d: "Benja, Pía: ustedes quedan fuera" · F1 da la pista</text>
+<text fill="#5b6266" x="18" y="524">refuerzan: E15·B crédito de $40 M · E25·a · I1 · I1+ · CL1 · B3+</text>
+<rect fill="#9e2a2b" height="84" rx="6" width="190" x="560" y="440"></rect><text fill="#fff" font-size="15" font-weight="800" text-anchor="middle" x="655" y="474">BENJAMÍN</text><text fill="#fff" font-size="11" text-anchor="middle" x="655" y="494">FERRADA</text><text fill="#fff" font-size="10" text-anchor="middle" x="655" y="512">confiesa con 2 caminos + motivo</text>
+<g fill="none" stroke="#9e2a2b" stroke-width="1.6"><path d="M128 358 C128 400 560 420 600 438" marker-end="url(#arr)"></path><path d="M380 358 C380 400 600 410 640 438" marker-end="url(#arr)"></path><path d="M632 358 L660 438" marker-end="url(#arr)"></path><path d="M498 482 L558 482" marker-end="url(#arr)"></path></g>
+</g>
+</svg>

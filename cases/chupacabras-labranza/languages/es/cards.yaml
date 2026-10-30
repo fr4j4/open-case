@@ -1,0 +1,397 @@
+# Answer cards. Each group prints together and in this order.
+# type: answer (default), follow-up, confrontation, failed, witness, wildcard, notice, press, hint, closing.
+# menu: true  -> the question appears in the team kit's menu.
+# At most 420 characters per answer (card standard). If it does not fit, the exporter warns.
+
+groups:
+  - title: Benjamín Ferrada
+    suspect: B
+    who: Benjamín Ferrada
+    short: Benjamín
+    cards:
+      - code: B1
+        menu: true
+        question: ¿Dónde estuvo el viernes entre las 22:00 y la 01:00?
+        answer: '"En mi departamento, en la Torre Alemania. Pedí sushi, vi series y me quedé dormido temprano. Aquí está la boleta del delivery, si no me creen. O pregúntenle al conserje del edificio."'
+        attach: E30
+        follow_up: B1+
+      - code: B2
+        menu: true
+        question: ¿Qué papel tenía usted en el negocio de su hermano?
+        answer: '"Lo apoyé desde el principio. Éramos socios, de palabra. Entre hermanos no se firma nada, ¿o sí?"'
+      - code: B3
+        menu: true
+        question: ¿Cuándo habló con Matías por última vez?
+        answer: '"El viernes, como a las diez. Me llamó para pelear por plata, como siempre. Le corté."'
+        follow_up: B3+
+      - code: B4
+        menu: true
+        question: ¿Qué cree que le pasó a su hermano?
+        answer: '"No sé. Lo del bicho no me lo creo. Yo miraría al viejo Carrasco, que lo amenazó por escrito, o al Toto, que siempre anda raro."'
+      - code: B5
+        type: confrontation
+        question: '"Usted estuvo en Labranza esa noche."'
+        answer: '"Ya, sí… fui. Quería hablar con él, pero no entré. Lo vi por la ventana de la caseta y me arrepentí. Me devolví."'
+      - code: B5a
+        type: confrontation
+        question: '"Su edificio registra que usted salió a las 22:31."'
+        answer: '"Salí a dar una vuelta, me dio hambre. No dije que anduviera en Labranza. Después volví a dormir."'
+      - code: B6
+        type: confrontation
+        question: '"A las 23:10 llegó a El Arrayán un vehículo con un foco roto."'
+        answer: '"…Llegué, hablamos dos minutos en el portón y me fui. Cuando me fui estaba vivo, se lo juro por mi mamá."'
+      - code: B7
+        type: confrontation
+        question: '"Matías le escribió que lo dejaba fuera, y usted lo llamó."'
+        answer: '"Sí, me escribió eso. Y lo llamé para decirle lo que pensaba de él, ¿y qué? Los hermanos pelean. Eso no significa nada."'
+      - code: B7a
+        type: confrontation
+        question: '"Usted dice que Matías lo llamó, pero fue usted quien lo llamó a las 22:17."'
+        answer: '"…Ya, lo llamé yo, no me acordaba. Para pelear por plata, como siempre. Los hermanos se llaman, ¿o ahora es delito?"'
+      - code: B8
+        type: confrontation
+        question: '"Encontramos una bolsa del Copec en el estero."'
+        answer: '"¿Una bolsa del Copec? Hay miles de bolsas del Copec, detective. Yo cargo bencina como todo el mundo."'
+      - code: B9
+        type: confrontation
+        question: '"Alguien borró el mensaje del grupo desde el teléfono de Matías a las 23:18."'
+        answer: '"¿Y yo qué sé? Yo no tenía su teléfono. Ese mensaje… ni lo leí."'
+      - code: B10
+        type: confrontation
+        question: '"Su camioneta cargó en el Copec a las 22:52 y volvió a las 23:41."'
+        answer: (Larga pausa.) "…Fui a hablar con él. Me quedé un rato estacionado en el camino, pensando si entrar o no. Discutimos en el portón y me fui. Cuando me fui, estaba vivo."
+      - code: B11
+        type: confrontation
+        question: '"El martes usted estuvo solo en el galpón y vio algo."'
+        answer: "(Se le endurece la cara.) \"Vi la horqueta afilada y entendí todo: los animales eran cosa de él, para bajar los precios. Le dije que estaba loco. Y no, no me la llevé… La dejé ahí.\""
+      - code: B12
+        type: confrontation
+        question: '"A las 11:20 usted habló de un golpe. La autopsia fue a las 14:30."'
+        answer: '"…¿Dije eso? No sé lo que dije, estaba destrozado. Todos hablaban de los hoyos en el cuello y yo… pensé en un golpe, ¿qué sé yo? Cualquiera piensa eso."'
+      - code: B✕
+        type: failed
+        answer: '"Esa antena cubre medio Labranza, detective. Y el foco está roto desde el lunes, ahí está el presupuesto. ¿Alguien vio mi camioneta en El Arrayán? ¿No? Entonces no tienen nada."'
+      - code: B13
+        type: confrontation
+        question: '"Hay pintura blanca en sus zapatos y buscó cómo sacar barro de una chaqueta."'
+        answer: '"Barro hay en todo Temuco, detective. Y la chaqueta la lavo todos los sábados. ¿Ahora es delito googlear?"'
+      - code: B1+
+        type: follow-up
+        question: ¿A qué hora se durmió?
+        answer: '"Temprano, como a las diez y media. No salí, se lo juro."'
+      - code: B3+
+        type: follow-up
+        question: ¿De qué plata peleaban?
+        answer: '"De la plata del proyecto. Yo puse cuarenta millones hace un año y medio. Él decía que era un préstamo; yo digo que era mi parte."'
+
+  - title: Don Hernán Carrasco
+    suspect: H
+    who: Hernán Carrasco
+    short: Hernán
+    cards:
+      - code: H1
+        menu: true
+        question: ¿Dónde estuvo el viernes en la noche?
+        answer: '"En el hospital, con la Elena. Le dio un dolor en el pecho. Entramos como a las diez y salimos de madrugada. El papel lo tiene el hospital, pídanselo."'
+      - code: H2
+        menu: true
+        question: ¿Por qué amenazó a Matías en el grupo de vecinos?
+        answer: '"Porque me tenía chato. Venía todas las semanas con su plata. Amenazar no es matar, mijo."'
+        follow_up: H2+
+      - code: H3
+        menu: true
+        question: ¿Disparó esa noche?
+        answer: '"Al aire, a unos perros, como a las nueve y media. Andan en jauría. Pregúntenle al SAG si no me creen."'
+      - code: H4
+        menu: true
+        question: ¿Ha pensado en vender su parcela?
+        answer: '"¡Jamás! Ahí he vivido toda mi vida. Que les quede claro."'
+      - code: H5
+        type: confrontation
+        question: '"Usted firmó una promesa de venta."'
+        answer: '"…No le digan a la Elena. Ni a la Claudia. Me asusté con los ataques y él me ofreció noventa millones. Y ahora que se murió, ¿quién me paga? Si yo era el más interesado en que ese hombre siguiera vivo."'
+      - code: H6
+        type: confrontation
+        question: '"Usted quiso arrepentirse y le cobraban 20 millones."'
+        answer: '"…Sí. Veinte millones que no tengo. Pero esa noche estuve en el hospital con la Elena, sentado en la sala de espera hasta las dos. Ahí está el papel."'
+      - code: H2+
+        type: follow-up
+        question: ¿Qué papeles le pidió devolver a Matías?
+        answer: '"…¿Qué papeles? No sé de qué me habla, mijo." (Se pone nervioso.)'
+
+  - title: Javiera Peña
+    suspect: J
+    who: Javiera Peña
+    short: Javiera
+    cards:
+      - code: J1
+        menu: true
+        question: ¿Dónde estuvo el viernes en la noche?
+        answer: '"¡En vivo! Desde el cerco de Don Hernán, de 22:30 a 00:30. Tengo todo grabado. Pregúntenme qué quieren ver."'
+      - code: J2
+        menu: true
+        question: ¿Qué vio a las 23:10?
+        answer: '"Llegó algo con una sola luz, pensé que era una moto. Después escuché un grito. Se fue como a las 23:24. No me acerqué porque había perros. Miren las capturas."'
+        attach: E08
+      - code: J3
+        menu: true
+        question: ¿Cómo supo que tenía que ir a El Arrayán?
+        answer: |
+          "Tengo fuentes. Un vecino me avisa por DM, siempre le achunta. Miren:"
+
+          `@vecino_asustado_lab · 13/10: "Revisa la parcela de Carrasco." · 18/10: "Mañana pasa por Los Maitenes." · 29/10: "Mañana revisa El Arrayán. Algo pasó esta noche."`
+        follow_up: J3+
+      - code: J4
+        menu: true
+        question: ¿Qué eran las luces en el cielo?
+        answer: '"No sé. Mis seguidores dicen que es un ovni. Yo no afirmo nada, solo muestro."'
+      - code: J5
+        type: confrontation
+        question: '"Las dos huellas tienen la misma grieta."'
+        answer: '"…Ya, es un molde de yeso. Lo compré por internet. Pero los animales muertos son reales, eso yo no lo inventé. Y el grito también lo escuché."'
+      - code: J6
+        type: confrontation
+        question: '"Matías la vio poner la huella y la amenazó."'
+        answer: '"Sí, me amenazó y me dio rabia. Pero yo estuve en vivo dos horas, sin moverme del cerco. Miles de personas me estaban mirando."'
+      - code: J3+
+        type: follow-up
+        question: ¿Sabía quién era @vecino_asustado_lab?
+        answer: '"No. Nunca me dijo. Y nunca pregunté, me convenía."'
+
+  - title: Pía Sandoval
+    suspect: P
+    who: Pía Sandoval
+    short: Pía
+    cards:
+      - code: P1
+        menu: true
+        question: ¿Dónde estuvo el viernes en la noche?
+        answer: '"En un karaoke en el centro de Temuco con mi amiga Fernanda, desde las once menos cuarto. La Fer tiene todas las historias, pregúntenle."'
+      - code: P2
+        menu: true
+        question: ¿Cuándo vio a Matías por última vez?
+        answer: '"Hace semanas. Terminamos en junio."'
+        follow_up: P2+
+      - code: P3
+        menu: true
+        question: ¿Qué publicó en Instagram ese viernes?
+        answer: '"Ah, la story de que hay gente que se va a arrepentir. Era por un cliente de la feria que no me pagó. Nada que ver."'
+      - code: P4
+        menu: true
+        question: ¿Seguía en contacto con Matías por algún chat o grupo?
+        answer: '"No. Bueno, había un grupo que armó él cuando yo puse plata, hace más de un año. Hace meses que nadie escribe ahí. Ni lo tengo abierto."'
+      - code: P5
+        type: confrontation
+        question: '"Usted estuvo en El Arrayán esa noche."'
+        answer: '"Sí. Fui a las nueve a pedirle mis tres millones. Me dijo que volviera con él, le tiré un vaso y me fui llorando. Tomé el colectivo antes de las diez. Estaba vivo, gritando como siempre."'
+      - code: P6
+        type: confrontation
+        question: '"Usted leyó el mensaje del grupo a las 22:15."'
+        answer: '"Sí. Nos dejó fuera a Benja y a mí. Le escribí a la Fer y me fui a cantar para no pensar. Y alguien lo borró después, mientras yo estaba en La Tarima. Yo no tenía su teléfono. ¿Quién lo tenía?"'
+      - code: P2+
+        type: follow-up
+        question: ¿Por qué lo llamó a las 18:05 del viernes?
+        answer: '"Para cobrarle. Me debía plata. Pero no me contestó, como siempre."'
+
+  - title: Toto Lagos
+    suspect: T
+    who: Toto Lagos
+    short: Toto
+    cards:
+      - code: T1
+        menu: true
+        question: ¿Dónde estuvo el viernes en la noche?
+        answer: '"En la fiesta de la Maca, en la villa. Llegué tipo once menos cuarto y me quedé dormido ahí. La Maca subió fotos, pregúntenle."'
+      - code: T2
+        menu: true
+        question: ¿Cómo encontró el cuerpo?
+        answer: '"A las siete fui a darles comida a los animales. Estaba al lado del corral. Llamé al 133 altiro, ni lo toqué."'
+      - code: T3
+        menu: true
+        question: ¿Qué sabe de los animales muertos?
+        answer: '"Nada, jefe. Será el chupacabras, como dicen."'
+      - code: T4
+        menu: true
+        question: ¿Qué herramientas usa en la parcela?
+        answer: '"Las del galpón no más: palas, horquetas… El martes se me perdió una cosa, pero nada importante."'
+        follow_up: T4+
+      - code: T5
+        type: confrontation
+        question: '"Sabemos lo de los animales."'
+        answer: (Llorando) "Don Matías, el jefe, me pagaba cincuenta lucas por salida. Hice la cuestión con una horqueta. Pero a él no lo toqué, se lo juro. El martes la herramienta desapareció. Ese día vino el hermano y estuvo harto rato solo en el galpón."
+      - code: T6
+        type: confrontation
+        question: '"Usted lo amenazó con ir a la PDI." / "Sus huellas están en la horqueta."'
+        answer: '"Sí, le escribí por la plata, me debía tres salidas. Y sí, la horqueta es mía, la usé pa'' los animales. Pero desde el martes que no la tenía. A las once yo estaba en la fiesta, pregúntenle a la Maca."'
+      - code: T7
+        type: confrontation
+        question: '"¿Qué era ''lo de hoy'' y qué le debía Matías?"'
+        answer: '"Lo de hoy era la oveja del jueves, jefe. Esa la hice con dos clavos en una tabla, porque la horqueta ya no estaba. Me pagaba cincuenta lucas por salida y me debía tres, ciento cincuenta lucas. Por eso le escribí lo de la PDI. Pero el viernes yo estaba en la fiesta de la Maca, de las once menos cuarto hasta que me quedé dormido. Pregúntenle a ella."'
+      - code: T4+
+        type: follow-up
+        question: ¿Qué cosa se le perdió el martes?
+        answer: '"Una horqueta vieja, cortada, que usaba pa'' los arreglos. Desapareció del galpón el martes en la tarde."'
+
+  - title: Dra. Camila Rivas
+    suspect: C
+    who: Dra. Camila Rivas
+    short: Dra. Rivas
+    cards:
+      - code: C1
+        menu: true
+        question: ¿Dónde estuvo el viernes en la noche?
+        answer: '"En la clínica. Me llamaron a las once menos dos por una perrita atropellada y operé hasta pasada la medianoche. La clínica tiene cámara."'
+      - code: C2
+        menu: true
+        question: ¿A qué conclusión llegó con las necropsias?
+        answer: '"Lesiones de origen indeterminado. Está en mi informe."'
+        attach: E10
+      - code: C3
+        menu: true
+        question: ¿Qué relación tenía con Matías?
+        answer: '"Lo conocía de vista. Me consultó por los animales de su parcela."'
+        follow_up: C3+
+      - code: C4
+        menu: true
+        question: ¿Pudo haber sido un perro?
+        answer: '"Los perros desgarran y comen. En estos animales no falta tejido… No puedo afirmar más."'
+      - code: C5
+        type: confrontation
+        question: '"Usted sabía que no era un animal."'
+        answer: '"…Iba a informar al SAG y él me pidió que no alarmara a la gente. Me pagó. Necesitaba la plata para la clínica. Aquí están mis notas originales."'
+        attach: E11
+      - code: C6
+        type: confrontation
+        question: '"Matías la estaba chantajeando con los 800 mil."'
+        answer: '"…Sí. Me tenía agarrada. Pero esa noche estaba operando a Canela, desde las once. Está la cámara de la clínica."'
+        attach: E22
+      - code: C3+
+        type: follow-up
+        question: ¿Matías le pagó alguna vez por algo?
+        answer: '"…Una asesoría. Por los animales. Nada raro."'
+
+  - title: Testigos
+    type: witness
+    cards:
+      - code: R1
+        who: Rosa Huenchumilla
+        question: ¿Qué escuchó esa noche?
+        answer: '"A las nueve y media, balazos: era el vecino con los perros. A las once y diez, un auto. Después un portazo y los perros ladrando. Se fue antes de la lluvia, como a las once y media. Ah, y el Kevin, mi nieto, andaba con ese aparato volador que le regalaron."'
+      - code: R2
+        who: Rosa Huenchumilla
+        question: ¿Vio a alguien?
+        answer: '"A la niña morena, la que era polola del caballero, salir caminando al camino como a las diez para las diez. Llorando iba. Me imagino que tomó el colectivo, el de don Juan pasa a esa hora."'
+      - code: K1
+        who: Kevin Huenchumilla
+        question: ¿Qué eran las luces en el cielo?
+        answer: '"¡Era mi dron! Lo volé de 22:45 a 22:55. No le digan a mi abuela."'
+        attach: E09
+      - code: EL1
+        who: Elena Mardones
+        question: ¿Cómo ha estado Don Hernán últimamente?
+        answer: '"Raro. Hace unas semanas lo vi guardando unos papeles con timbre de notaría. Me dijo que eran del banco. Pregúntenle a la Claudia, mi hija, que él a ella le cuenta todo."'
+      - code: CL1
+        who: Claudia Carrasco
+        question: ¿Qué opina de Matías?
+        answer: '"Que quería robarnos el campo. Una vez me dijo, riéndose, que su hermano Benjamín era ''el que ponía la plata y no mandaba''."'
+      - code: L1
+        who: Luis Riquelme, conserje
+        question: ¿Registró movimientos del depto. 1204 el viernes?
+        answer: '"Aquí está mi libro. Treinta años en esto, joven: yo anoto todo."'
+        attach: E14
+      - code: M1
+        who: Macarena Vidal
+        question: ¿A qué hora llegó y se fue Toto?
+        answer: '"Llegó a las 22:45, disfrazado de Scream. A la una y media estaba durmiendo en el sillón. No salió en toda la noche. Aquí están mis historias."'
+        attach: E21
+      - code: PS1
+        who: Patricio Sepúlveda
+        question: ¿Quién atendió a Canela y a qué hora?
+        answer: '"La doctora Rivas. Llegó a las once y tres y no se fue hasta que Canela estuvo estable, como a las doce y media."'
+      - code: CO1
+        who: Juan Cifuentes, colectivero
+        question: ¿Llevó a alguien desde el Camino Los Copihues el viernes?
+        answer: '"A una niña llorando, como a las 21:50. La dejé en Temuco a las diez y diez. En este colectivo se sabe todo, jefe."'
+      - code: PER1
+        who: Perito informático, LACRIM
+        question: ¿Quién pudo desbloquear el teléfono de Matías a las 23:18?
+        answer: '"Eso no lo dice el teléfono. Lo que sí le digo: se abrió con la huella del índice derecho del titular, y el SML registró barro fresco solo en esa yema, con el resto de la mano limpia y el cuerpo sin mover. Saquen ustedes la cuenta de quién tenía esa mano a esa hora."'
+      - code: I1
+        who: Rodrigo Iturra
+        question: ¿Qué iba a firmar el sábado?
+        answer: '"La compra del proyecto completo. Ferrada se presentó como único dueño y nunca mencionó a un socio. Esa noche cené en el hotel hasta las 23:30. Muerto no me sirve de nada."'
+        attach: E27
+        follow_up: I1+
+      - code: I1+
+        type: follow-up
+        who: Iturra · seguimiento
+        question: ¿Ferrada le habló de algún socio o de algún problema familiar?
+        answer: '"Me dijo que su hermano ''se iba a enojar'' cuando supiera que firmaba solo. Lo dijo riéndose."'
+      - code: F1
+        who: Fernanda Ortiz
+        question: ¿Cómo llegó Pía al karaoke?
+        answer: '"Llegó a las 22:45 con los ojos rojos. Dijo que venía de ''arreglar un tema'' en Labranza. Me contó que, recién llegada a Temuco, como a las diez y cuarto, le llegó un mensaje del grupo de Matías y se puso a llorar. Me lo mostró en su celular, pero después ese mensaje ya no estaba. Las historias de esa noche las tengo guardadas."'
+        attach: E23
+
+  - title: Comodines
+    type: wildcard
+    cards:
+      - code: "◆ ✕"
+        type: failed
+        who: Confrontación fallida
+        answer: '"Eso no prueba nada, detective."'
+        note: La persona se mantiene en su declaración.
+      - code: SIN HALLAZGOS
+        who: Diligencia
+        answer: La diligencia se realizó y no arrojó información útil.
+      - code: TESTIGO
+        who: No disponible
+        answer: '"Todavía no tienen cómo saber de esa persona. Pidan un testigo que haya aparecido en alguna prueba o declaración."'
+        note: No se cobra ficha.
+      - code: NADA QUE APORTAR
+        who: Testigo
+        answer: '"Lo que sé ya está en el expediente. No tengo nada más que agregar."'
+        note: No se cobra ficha.
+
+  - title: Avisos, prensa y pistas
+    cards:
+      - code: Aviso 1
+        type: notice
+        who: Fiscalía · minuto 10
+        answer: Cristián "Toto" Lagos no llegó a su citación de hoy. Un vecino de la villa lo vio cargando un bolso en la moto. Carabineros lo ubicó en el terminal de buses de Labranza y lo trajo de vuelta. Toto dice que "no tiene nada que ver".
+        footer: Se lee a todos los equipos a la vez
+      - code: Aviso 2
+        type: notice
+        who: Fiscalía · minuto 20
+        answer: El Laboratorio de Criminalística informa que las huellas parciales del mango de una herramienta encontrada en el estero corresponden a Cristián "Toto" Lagos. Para formalizar a alguien, la Fiscalía pide dos líneas de prueba distintas (por ejemplo, su vehículo y su ropa), cada una enfrentada con esa persona (◆), y el motivo.
+        footer: Se lee a todos los equipos a la vez
+      - code: Prensa
+        type: press
+        who: Minuto 20 · después del aviso 2
+        headline: Última hora
+        answer: "Radio local: \"@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas.\" La Fiscalía llama: \"Comisario, en diez minutos quiero un nombre en mi escritorio\"."
+      - code: Pista 1
+        type: hint
+        who: Pista guiada
+        answer: '"¿Qué dice el SML de la causa de muerte? ¿Calza con un animal?"'
+        footer: Resta 1 punto al equipo que la pidió
+      - code: Pista 2
+        type: hint
+        who: Pista guiada
+        answer: '"¿A qué hora empezó a llover, y cómo estaba el cuerpo por debajo?"'
+        footer: Resta 1 punto al equipo que la pidió
+      - code: Pista 3
+        type: hint
+        who: Pista guiada
+        answer: '"El live muestra un vehículo. ¿Cuántas luces se ven cuando se va?"'
+        footer: Resta 1 punto al equipo que la pidió
+      - code: Pista 4
+        type: hint
+        who: Pista guiada
+        answer: '"El teléfono de Matías se desbloqueó a las 23:18. ¿Con qué dedo, y quién lo tenía en la mano?"'
+        footer: Resta 2 puntos al equipo que la pidió
+      - code: Pista 5
+        type: hint
+        who: Pista guiada
+        answer: '"Alguien dijo que estuvo toda la noche en su casa. ¿Lo comprobaron?"'
+        footer: Resta 2 puntos al equipo que la pidió

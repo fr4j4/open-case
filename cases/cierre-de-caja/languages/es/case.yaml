@@ -1,0 +1,67 @@
+# Cierre de caja: textos en español.
+title: Cierre de caja
+version: Versión 1 · noviembre de 2026
+tagline: Todos mienten. Las pruebas no.
+
+badge:
+  title: Detective
+  unit: [Brigada de Robos, Rancagua]
+
+kit:
+  description: >-
+    Una copia por equipo. Reglas, menú de preguntas y diligencias y hojas de trabajo.
+    No incluye respuestas ni pruebas: esas las entrega el director.
+  cover_note: Una copia por equipo. No incluye respuestas ni pruebas.
+
+guide:
+  description: >-
+    Todo lo necesario para dirigir el caso en 45 minutos: preparación, la solución en una página,
+    guion por fases, cómo responder cada solicitud y cómo evaluar la acusación.
+  cover_note: Contiene la solución. No la muestres ni la mandes a los equipos.
+
+dossier:
+  title: Expediente El Trébol
+  kicker: PDI · Brigada de Robos Rancagua · RUC 2601197730-1
+  description: >-
+    Muerte de Renato Ibáñez Cornejo, dueño del minimarket El Trébol, noche del domingo 8 de noviembre de 2026,
+    pasaje Los Aromos. Cada hoja es una prueba: se entrega por separado, solo al equipo que la pidió.
+  printed_description: >-
+    Muerte de Renato Ibáñez Cornejo, noche del domingo 8 de noviembre de 2026, pasaje Los Aromos, Rancagua.
+    Índice de pruebas para el director. Cada prueba se entrega por separado, solo al equipo que la pidió.
+  sections:
+    start:
+      title: Sobre 1
+      note: Se entrega a ambos equipos al comenzar
+    statements:
+      title: Declaraciones iniciales
+      note: Van en el sobre 1 · gratis
+    investigation:
+      title: Comienzo de la investigación
+      note: Sobre 2 · gratis para ambos equipos
+    with-answer:
+      title: Pruebas que se entregan junto con una respuesta
+      note: Solo al equipo que hizo la pregunta
+    procedures:
+      title: Diligencias
+      note: Se entregan al equipo que paga la ficha
+    notices:
+      title: Avisos de la Fiscalía
+      note: El director los lee a todos los equipos a la vez
+
+envelope_labels:
+  - number: 1
+    when: se entrega al comenzar
+    description: Lo que sabemos hasta ahora. No incluye respuestas.
+    contents: [E01 Parte policial, E02 Croquis del local, E03 Grupo de locatarios, E04 Redes sociales,
+               "DEC · V, O, S, D", Kit del equipo]
+    footer: 10 fichas · 1 placa por jugador
+  - number: 2
+    when: al investigar
+    description: Se abre al comenzar la investigación.
+    contents: [E05 Informe de autopsia]
+    footer: Al comenzar la investigación
+
+# Shown on the website.
+summary: >-
+  El dueño de un minimarket aparece muerto en su bodega con la caja fuerte abierta y vacía.
+  Cuatro sospechosos, una puerta que cierra sola y las cámaras sin disco duro. Caso corto, de 45 a 50 minutos.

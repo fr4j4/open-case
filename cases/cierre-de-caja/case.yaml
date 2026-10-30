@@ -1,0 +1,42 @@
+# Cierre de caja: neutral data of the case (what does not change between languages).
+# Short case (45–50 min, 10 tokens, 4 suspects) written with skills/open-case-author as its worked example.
+# Format reference: docs/case-format.md
+brand: Open Case
+paper: letter
+
+base_language: es
+languages: [es]
+
+teams: [A, B]
+tokens_per_team: 10
+players_per_team: 6
+
+brand_footer: [kit, guide, dossier]
+
+dossier:
+  sections:
+    - id: start
+      envelope: 1
+      items: [E01, E02, E03, E04]
+    - id: statements
+      envelope: 1
+      items: [DEC-V, DEC-O, DEC-S, DEC-D]
+    - id: investigation
+      envelope: 2
+      items: [E05]
+    - id: with-answer
+      items: [E16]
+    - id: procedures
+      items: [E06, E07, E08, E09, E10-V, E10-O, E10-S, E10-D, E11-D, E11-X, E12-D, E12-S, E12-X,
+              E13-V, E13-O, E13-S, E13-D, E14, E15, E17-S, E17-X]
+    - id: notices
+      items: [AVISO1, AVISO2]
+
+# What the website shows about the case (see opencase/site.py). Summary is in languages/<lang>/case.yaml.
+site:
+  author: Open Case
+  license: CC BY-NC-SA 4.0
+  date: 2026-10-29
+  min_teams: 2
+  duration_minutes: [45, 50]
+  players_per_team: [4, 6]

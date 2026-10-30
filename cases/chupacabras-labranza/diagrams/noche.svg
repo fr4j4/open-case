@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Línea de tiempo con la ubicación de cada persona entre las 21:00 y la 01:00" role="img" viewbox="0 0 760 420">
+<rect fill="#f8f6f0" height="420" width="760" x="0" y="0"></rect>
+<rect fill="#9e2a2b" height="372" opacity=".16" width="35" x="465" y="28"></rect>
+<text fill="#9e2a2b" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle" x="482" y="20">23:10–23:24</text>
+<g fill="#5b6266" font-family="IBM Plex Mono, monospace" font-size="11">
+<line stroke="#9aa0a3" x1="140" x2="740" y1="400" y2="400"></line>
+<g stroke="#d2ccbe"><line x1="140" x2="140" y1="30" y2="400"></line><line x1="215" x2="215" y1="30" y2="400"></line><line x1="290" x2="290" y1="30" y2="400"></line><line x1="365" x2="365" y1="30" y2="400"></line><line x1="440" x2="440" y1="30" y2="400"></line><line x1="515" x2="515" y1="30" y2="400"></line><line x1="590" x2="590" y1="30" y2="400"></line><line x1="665" x2="665" y1="30" y2="400"></line><line x1="740" x2="740" y1="30" y2="400"></line></g>
+<text text-anchor="middle" x="140" y="414">21:00</text><text text-anchor="middle" x="215" y="414">21:30</text><text text-anchor="middle" x="290" y="414">22:00</text><text text-anchor="middle" x="365" y="414">22:30</text><text text-anchor="middle" x="440" y="414">23:00</text><text text-anchor="middle" x="515" y="414">23:30</text><text text-anchor="middle" x="590" y="414">00:00</text><text text-anchor="middle" x="665" y="414">00:30</text><text text-anchor="middle" x="740" y="414">01:00</text>
+</g>
+<g fill="#1d2123" font-family="Public Sans, Arial, sans-serif" font-size="12.5" font-weight="600">
+<text x="8" y="56">Matías</text><text x="8" y="100">Benjamín</text><text x="8" y="144">Don Hernán</text><text x="8" y="188">Javiera</text><text x="8" y="232">Pía</text><text x="8" y="276">Toto</text><text x="8" y="320">Dra. Rivas</text><text x="8" y="364">Clima</text>
+</g>
+<g font-family="Public Sans, Arial, sans-serif" font-size="10.5">
+<!-- Matías -->
+<rect fill="#dbe4ef" height="20" rx="3" width="337" x="140" y="42"></rect><text fill="#1d3557" x="146" y="56">vivo en El Arrayán · 22:15 WhatsApp · 22:17 llamada</text>
+<path d="M471 46 l12 12 M483 46 l-12 12" stroke="#9e2a2b" stroke-width="3"></path><text fill="#9e2a2b" font-weight="700" x="490" y="57">muerte ~23:15</text>
+<!-- Benjamín -->
+<rect fill="#e6e2d8" height="20" rx="3" width="227" x="140" y="86"></rect><text fill="#1d2123" x="146" y="100">depto Av. Alemania</text>
+<rect fill="#f6e7c8" height="20" rx="3" width="96" x="368" y="86"></rect><text fill="#7a510a" x="372" y="100">Copec · E28</text>
+<rect fill="#9e2a2b" height="20" rx="3" width="35" x="465" y="86"></rect><circle cx="485" cy="80" fill="#9e2a2b" r="3"></circle><text fill="#9e2a2b" font-size="9.5" x="458" y="76">23:18 borra</text>
+<rect fill="#f6e7c8" height="20" rx="3" width="103" x="501" y="86"></rect><text fill="#7a510a" x="505" y="100">estero · Copec 23:41</text>
+<rect fill="#e6e2d8" height="20" rx="3" width="135" x="605" y="86"></rect><text fill="#1d2123" x="611" y="100">depto (portón 00:06)</text>
+<!-- Hernán -->
+<rect fill="#e6e2d8" height="20" rx="3" width="104" x="140" y="130"></rect><text fill="#1d2123" x="146" y="144">parcela · 21:28</text>
+<rect fill="#f6e7c8" height="20" rx="3" width="52" x="245" y="130"></rect><text fill="#7a510a" x="249" y="144">ruta</text>
+<rect fill="#dcebdc" height="20" rx="3" width="442" x="298" y="130"></rect><text fill="#2f6b3f" x="304" y="144">urgencias HHHA con Elena (hasta 02:10) · E20, E26·H</text>
+<!-- Javiera -->
+<rect fill="#dcebdc" height="20" rx="3" width="300" x="365" y="174"></rect><text fill="#2f6b3f" x="371" y="188">live desde el cerco de Don Hernán · E08</text>
+<!-- Pía -->
+<rect fill="#f3dcd8" height="20" rx="3" width="100" x="140" y="218"></rect><text fill="#9e2a2b" x="146" y="232">con Matías</text>
+<rect fill="#f6e7c8" height="20" rx="3" width="50" x="265" y="218"></rect><text fill="#7a510a" x="268" y="232">colect.</text>
+<rect fill="#dcebdc" height="20" rx="3" width="262" x="403" y="218"></rect><text fill="#2f6b3f" x="409" y="232">karaoke en Temuco · E23, F1</text>
+<!-- Toto -->
+<rect fill="#f6e7c8" height="20" rx="3" width="27" x="375" y="262"></rect><text fill="#7a510a" x="377" y="276">moto</text>
+<rect fill="#dcebdc" height="20" rx="3" width="337" x="403" y="262"></rect><text fill="#2f6b3f" x="409" y="276">fiesta de Maca (hasta 01:30) · E21, M1 · Copec 22:38 (E28)</text>
+<!-- Rivas -->
+<circle cx="435" cy="316" fill="#b77a12" r="4"></circle><rect fill="#dcebdc" height="20" rx="3" width="287" x="453" y="306"></rect><text fill="#2f6b3f" x="459" y="320">clínica, cirugía de Canela · E22, PS1</text>
+<!-- Clima -->
+<rect fill="#bcd0e6" height="20" rx="3" width="225" x="515" y="350"></rect><text fill="#1d3557" x="521" y="364">lluvia desde 23:28 · E07</text>
+<text fill="#5b6266" x="146" y="364">seco · dron 22:45–22:55 (solo la SUV) · E09</text>
+</g>
+</svg>

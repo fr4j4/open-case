@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Croquis del minimarket El Trébol, la botillería vecina y el pasaje Los Aromos" role="img" viewBox="0 0 760 420">
+<rect fill="#f1eee4" height="420" width="760"/>
+<!-- avenida -->
+<rect fill="#cfc6b0" height="60" width="760" x="0" y="0"/>
+<text fill="#3b3a35" font-family="monospace" font-size="13" x="12" y="36">Avenida (paraderos de micro a 150 m) →</text>
+<!-- pasaje vertical -->
+<rect fill="#ddd6c3" height="360" width="90" x="335" y="60"/>
+<text fill="#3b3a35" font-family="monospace" font-size="12" transform="rotate(90 380 120)" x="380" y="120">Pasaje Los Aromos (sin salida)</text>
+<!-- contenedor -->
+<rect fill="#8a7f6b" height="40" width="70" x="345" y="365"/>
+<text fill="#1e2224" font-family="monospace" font-size="11" x="430" y="390">contenedor de escombros (obra)</text>
+<g fill="#1e2224" font-family="monospace" font-size="13">
+<!-- El Trébol -->
+<rect fill="#e8e1cf" height="230" stroke="#9a7f55" width="260" x="70" y="80"/>
+<text font-weight="600" x="82" y="102">Minimarket El Trébol (1420)</text>
+<rect fill="none" height="90" stroke="#6d5a3a" stroke-dasharray="4 3" width="236" x="82" y="112"/>
+<text font-size="11" x="90" y="128">sala de ventas · caja registradora</text>
+<text font-size="11" x="90" y="196">cortina metálica a la calle (cerrada)</text>
+<rect fill="#dcd3bd" height="90" stroke="#6d5a3a" width="150" x="82" y="212"/>
+<text font-size="11" x="90" y="230">bodega · altillo (DVR)</text>
+<rect fill="#dcd3bd" height="90" stroke="#6d5a3a" width="86" x="232" y="212"/>
+<text font-size="11" x="238" y="230">oficina</text>
+<rect fill="#c9b99a" height="14" width="30" x="282" y="262"/><text font-size="10" x="248" y="292">caja fuerte · balanza</text>
+<circle cx="236" cy="268" fill="#9e2a2b" r="8"/>
+<text fill="#9e2a2b" font-size="11" x="176" y="305">cuerpo</text>
+<!-- puerta trasera -->
+<rect fill="#b48a2c" height="26" width="8" x="326" y="236"/>
+<text fill="#b48a2c" font-size="11" x="250" y="330">puerta trasera · teclado</text>
+<!-- casa de Renato -->
+<rect fill="#e3e6d4" height="80" stroke="#7b8a5f" width="260" x="70" y="325"/>
+<text font-weight="600" x="82" y="347">Casa de Renato Ibáñez</text>
+<text font-size="11" x="82" y="365">acceso por la bodega</text>
+<!-- botillería -->
+<rect fill="#e3e6d4" height="150" stroke="#7b8a5f" width="260" x="430" y="80"/>
+<text font-weight="600" x="442" y="102">Botillería Don Óscar (1424)</text>
+<text font-size="11" x="442" y="122">primer piso: local · segundo piso: vivienda</text>
+<rect fill="#dcd3bd" height="40" stroke="#6d5a3a" width="110" x="442" y="170"/>
+<text font-size="11" x="448" y="195">mostrador</text>
+<circle cx="434" cy="150" fill="#1d3557" r="7"/>
+<text fill="#1d3557" font-size="11" x="448" y="150">cámara → pasaje</text>
+<rect fill="#b48a2c" height="26" width="8" x="430" y="200"/>
+<text fill="#b48a2c" font-size="11" x="444" y="224">puerta lateral</text>
+<!-- vecina -->
+<rect fill="#e3e6d4" height="110" stroke="#7b8a5f" width="260" x="430" y="250"/>
+<text font-weight="600" x="442" y="272">Casa de Marta Soto (1418)</text>
+<text font-size="11" x="442" y="290">ventana del dormitorio hacia el pasaje</text>
+<text font-size="11" x="30" y="408">sin escala</text>
+</g>
+</svg>
