@@ -54,6 +54,8 @@ strings:
 
 ## Website data (`site:`)
 
+By default every case in `cases/` is published on the website. A case that has not been validated (played with real teams) is kept in the repository but hidden with `published: false` in the neutral `case.yaml`: the site build leaves it out of `cases.json`, the zips and the page, and does not need a `site:` block for it. `python3 -m opencase.site --include-unpublished` builds it anyway, to preview it locally. Cases written with `skills/open-case-author` start with `published: false`. Exporting PDFs with `export.py` is not affected.
+
 The website (`python3 -m opencase.site`, `make site`) draws one card per case. Its data lives in the neutral `case.yaml`:
 
 ```yaml

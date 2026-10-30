@@ -70,6 +70,10 @@ paper: {a.paper}
 base_language: {a.lang}
 languages: [{a.lang}]
 
+# Hidden from the website until the case has been played with real teams. Remove this line (or set it
+# to true) and fill `site:` and the language `summary` once it is validated. See docs/case-format.md.
+published: false
+
 teams: [A, B]
 tokens_per_team: {a.tokens}
 players_per_team: 7

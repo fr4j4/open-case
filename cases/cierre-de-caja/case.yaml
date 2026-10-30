@@ -32,6 +32,9 @@ dossier:
     - id: notices
       items: [AVISO1, AVISO2]
 
+# Not published on the website until it is validated by playing it (`python3 -m opencase.site --include-unpublished` previews it).
+published: false
+
 # What the website shows about the case (see opencase/site.py). Summary is in languages/<lang>/case.yaml.
 site:
   author: Open Case
