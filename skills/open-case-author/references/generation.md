@@ -14,7 +14,7 @@ Put the bible next to it as `cases/<slug>/bible.md`. The exporter ignores it; `.
 
 ## 1 · Neutral `case.yaml` ← bible §0, §8, §12
 
-`paper`, `base_language`, `languages`, `teams`, `tokens_per_team`, `players_per_team`, optionally `alibi_tokens_per_team`, `brand_footer` (leave the default), `ink_saver` (leave the default on), and `dossier.sections`.
+`paper`, `base_language`, `languages`, `published: false` (the scaffold writes it: a new case stays off the website until it has been validated by playing it with real people; never set it to true yourself, and tell the person that this is the step that publishes it), `teams`, `tokens_per_team`, `players_per_team`, optionally `alibi_tokens_per_team`, `brand_footer` (leave the default), `ink_saver` (leave the default on), and `dossier.sections`.
 
 Sections come from the evidence table (§8): one section per "how obtained" group, in this order: opening (`envelope: 1`), statements (`envelope: 1`), investigation start (`envelope: 2`, the autopsy), handed with an answer, procedures, notices. Every dossier file appears in exactly one section; the exporter refuses duplicates and warns about orphans.
 

@@ -1,6 +1,6 @@
 """Builds the website: python3 -m opencase.site [--out _site]
 
-For every case in cases/ and every language it declares, the build
+For every published case in cases/ (those without `published: false`) and every language it declares, the build
   1. exports the PDFs (the same ones as `export.py`),
   2. packs them into two zips: the teams' material (no solution) and the director's material,
   3. and writes cases.json, the list the web page reads to draw one card per case.
@@ -46,6 +46,8 @@ def main(argv=None):
     p.add_argument("--pdf-dir", help="use PDFs already exported in this folder (output/<case>/<lang>/…) "
                                      "instead of exporting them again")
     p.add_argument("--color", action="store_true", help="full-colour PDFs instead of ink-saver mode")
+    p.add_argument("--include-unpublished", action="store_true",
+                   help="also build the cases that have `published: false` (to preview them locally)")
     p.add_argument("--check", action="store_true", help="only check the case metadata and the page, without PDFs")
     a = p.parse_args(argv)
 
@@ -53,8 +55,17 @@ def main(argv=None):
     out = Path(a.out)
     wanted = {x.strip() for x in a.only.split(",")} if a.only else None
     folders = sorted(d for d in cases_dir.iterdir() if (d / "case.yaml").exists() and (not wanted or d.name in wanted))
+    try:
+        hidden = [d for d in folders if not is_published(d)]
+    except CaseError as ex:
+        print(f"Error: {ex}", file=sys.stderr)
+        return 2
+    if not a.include_unpublished:
+        folders = [d for d in folders if d not in hidden]
+        for d in hidden:
+            print(f"skip  {d.name}  (published: false)")
     if not folders:
-        print(f"Error: no cases found in {cases_dir}", file=sys.stderr)
+        print(f"Error: no published cases found in {cases_dir}", file=sys.stderr)
         return 2
 
     try:
@@ -88,6 +99,14 @@ def main(argv=None):
     total = sum(f.stat().st_size for f in out.rglob("*") if f.is_file())
     print(f"Site ready: {out}/  ({len(entries)} cases, {total / 1e6:.1f} MB)")
     return 0
+
+
+def is_published(folder):
+    """A case is published unless its case.yaml says `published: false`."""
+    value = read_yaml_file(folder / "case.yaml").get("published", True)
+    if not isinstance(value, bool):
+        raise CaseError("published must be true or false", folder / "case.yaml")
+    return value
 
 
 def read_meta(folder):
