@@ -63,6 +63,8 @@ The bible is written for a human to read and approve. Tables for suspects, timel
 
 Only after gate 4. Follow `references/generation.md`, which maps each bible section to the files of `docs/case-format.md` and gives the order: neutral `case.yaml` → language `case.yaml` → `suspects.yaml` → dossier (free material first) → `cards.yaml` → kit → guide. Use `scripts/scaffold_case.py` to create the folder with placeholder files, then fill them. Copy from the sample case `cases/chupacabras-labranza/` whenever the format is unclear: it uses almost every block.
 
+A generated case is born with `published: false` in its neutral `case.yaml`, so it stays off the website. Publishing is a later decision of the person, after the case has been played with real teams; do not change it yourself, and say so when you hand the case over.
+
 Then, always:
 
 ```
