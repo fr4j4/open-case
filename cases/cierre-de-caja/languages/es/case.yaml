@@ -60,3 +60,8 @@ envelope_labels:
     description: Se abre al comenzar la investigación.
     contents: [E05 Informe de autopsia]
     footer: Al comenzar la investigación
+
+# Shown on the website.
+summary: >-
+  El dueño de un minimarket aparece muerto en su bodega con la caja fuerte abierta y vacía.
+  Cuatro sospechosos, una puerta que cierra sola y las cámaras sin disco duro. Caso corto, de 45 a 50 minutos.

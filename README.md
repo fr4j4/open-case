@@ -112,6 +112,18 @@ python export.py --help
 
 Cuando algo está mal escrito, el exportador se detiene y dice en qué archivo y en qué línea. Si una tarjeta no cabe o una hoja pasa a una segunda página, lo avisa al final. Los mensajes del programa y los nombres de las opciones están en inglés; el texto de los casos puede estar en cualquier idioma.
 
+## El sitio web
+
+El sitio (`site/`) se sirve en GitHub Pages bajo `/open-case/`. Lista los casos de `cases/` y ofrece, por caso e idioma, dos zips: el material de los equipos y el del director (este trae la solución). Todo se genera en cada publicación:
+
+```
+make site                      # PDFs, zips, cases.json y la página en _site/
+python3 tools/validate_site.py _site
+python3 -m http.server -d _site   # verlo en http://localhost:8000
+```
+
+Para que un caso aparezca solo hay que agregarlo a `cases/`: el bloque `site:` de su `case.yaml` (autoría, licencia, portada, duración, jugadores) y `summary` y `cover_alt` en `languages/<idioma>/case.yaml` alimentan la tarjeta. Está explicado en [docs/case-format.md](docs/case-format.md). La Action `.github/workflows/site.yml` construye y valida en cada push y PR, y despliega a Pages solo desde `main`; en `development` el sitio queda como artefacto `site` de la ejecución, para probarlo antes. Ajuste único: en Settings > Pages, Source: *GitHub Actions*.
+
 ## Estado
 
 <img src="assets/sello-pendiente.svg" alt="Sello: diligencias pendientes" width="230" align="right">
@@ -127,15 +139,18 @@ Las imágenes de este README son provisionales.
 ```
 open-case/
 ├── cases/
-│   └── chupacabras-labranza/   el caso de ejemplo
+│   ├── chupacabras-labranza/   el caso principal
+│   └── cierre-de-caja/         caso corto, hecho con la skill
 │       ├── case.yaml           datos neutros: papel, equipos, orden del expediente
 │       ├── photos/ diagrams/   imágenes compartidas por todos los idiomas
 │       └── languages/es/       textos, tarjetas, kit, expediente y guía en español
+├── site/          el sitio web (HTML, CSS y JS sin frameworks)
 ├── design/        sistema de diseño: CSS, colores, logos, fuentes y la guía de marca
 ├── docs/          el formato de los casos
-├── opencase/      el exportador
+├── opencase/      el exportador y el build del sitio (site.py)
 ├── tools/         scripts de mantenimiento (por ejemplo, bajar las fuentes)
 ├── export.py      el comando para exportar
+├── .github/workflows/site.yml   build y despliegue del sitio
 └── Makefile
 ```
 

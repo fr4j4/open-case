@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Open Case · Todos mienten. Las pruebas no.</title>
+<meta name="description" content="Open Case: juegos de misterio impresos para dos a cuatro equipos de detectives. Descarga El Chupacabras de Labranza y juégalo en una mesa.">
+<meta name="theme-color" content="#05090f">
+<meta property="og:title" content="Open Case · Todos mienten. Las pruebas no.">
+<meta property="og:description" content="Juegos de investigación policial impresos. Código abierto: cualquiera puede aportar un caso.">
+<meta property="og:image" content="img/hero.jpg">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="fonts/site-fonts.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-cases="cases.json">
+
+
+<header class="nav">
+  <div class="in">
+    <a class="nav__logo" href="#inicio" aria-label="Open Case, inicio"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 366 80" role="img" aria-label="Open Case">
+<path d="M0.0 16.96 h24.32 l3.84 -6.4 h35.84 v55.04 h-64.0 z" fill="currentColor" fill-opacity=".55"/><path d="M0 33.6 L64.0 27.2 V65.6 H0 z" fill="currentColor"/>
+<path transform="translate(80 63)" d="M2.176 -12.16V-32.64Q2.176 -38.4 5.696000000000001 -41.855999999999995Q9.216000000000001 -45.312 15.104000000000001 -45.312Q20.992 -45.312 24.544 -41.855999999999995Q28.096 -38.4 28.096 -32.64V-12.16Q28.096 -6.4 24.544 -2.944Q20.992 0.512 15.104000000000001 0.512Q9.216000000000001 0.512 5.696000000000001 -2.944Q2.176 -6.4 2.176 -12.16ZM19.072 -11.776V-33.024Q19.072 -35.072 17.984 -36.32Q16.896 -37.568 15.104000000000001 -37.568Q13.312000000000001 -37.568 12.256 -36.32Q11.200000000000001 -35.072 11.200000000000001 -33.024V-11.776Q11.200000000000001 -9.728 12.256 -8.48Q13.312000000000001 -7.232 15.104000000000001 -7.232Q16.896 -7.232 17.984 -8.48Q19.072 -9.728 19.072 -11.776Z M61.952 -31.232Q61.952 -25.28 58.752 -21.696Q55.55200000000001 -18.112000000000002 50.368 -18.112000000000002H45.568Q45.248000000000005 -18.112000000000002 45.248000000000005 -17.792V-0.768Q45.248000000000005 -0.448 45.024 -0.224Q44.8 0.0 44.480000000000004 0.0H36.992000000000004Q36.672000000000004 0.0 36.44800000000001 -0.224Q36.224000000000004 -0.448 36.224000000000004 -0.768V-44.096000000000004Q36.224000000000004 -44.416000000000004 36.44800000000001 -44.64Q36.672000000000004 -44.864000000000004 36.992000000000004 -44.864000000000004H49.92Q53.44 -44.864000000000004 56.192 -43.136Q58.944 -41.408 60.448 -38.304Q61.952 -35.2 61.952 -31.232ZM52.928 -31.04Q52.928 -33.856 51.68 -35.456Q50.432 -37.056 48.384 -37.056H45.568Q45.248000000000005 -37.056 45.248000000000005 -36.736000000000004V-25.472Q45.248000000000005 -25.152 45.568 -25.152H48.384Q50.432 -25.152 51.68 -26.72Q52.928 -28.288 52.928 -31.04Z M91.968 -37.056H78.592Q78.272 -37.056 78.272 -36.736000000000004V-26.624000000000002Q78.272 -26.304000000000002 78.592 -26.304000000000002H86.272Q86.592 -26.304000000000002 86.816 -26.080000000000002Q87.04 -25.856 87.04 -25.536V-19.328Q87.04 -19.008 86.816 -18.784Q86.592 -18.56 86.272 -18.56H78.592Q78.272 -18.56 78.272 -18.240000000000002V-8.064Q78.272 -7.744 78.592 -7.744H91.968Q92.28800000000001 -7.744 92.512 -7.52Q92.736 -7.296 92.736 -6.976V-0.768Q92.736 -0.448 92.512 -0.224Q92.28800000000001 0.0 91.968 0.0H70.016Q69.696 0.0 69.47200000000001 -0.224Q69.248 -0.448 69.248 -0.768V-44.032000000000004Q69.248 -44.352000000000004 69.47200000000001 -44.57600000000001Q69.696 -44.800000000000004 70.016 -44.800000000000004H91.968Q92.28800000000001 -44.800000000000004 92.512 -44.57600000000001Q92.736 -44.352000000000004 92.736 -44.032000000000004V-37.824Q92.736 -37.504 92.512 -37.28Q92.28800000000001 -37.056 91.968 -37.056Z M119.552 -44.800000000000004H126.976Q127.296 -44.800000000000004 127.52000000000001 -44.57600000000001Q127.744 -44.352000000000004 127.744 -44.032000000000004V-0.768Q127.744 -0.448 127.52000000000001 -0.224Q127.296 0.0 126.976 0.0H118.528Q117.888 0.0 117.696 -0.64L109.76 -25.408Q109.696 -25.6 109.536 -25.568Q109.376 -25.536 109.376 -25.344L109.44 -0.768Q109.44 -0.448 109.21600000000001 -0.224Q108.992 0.0 108.672 0.0H101.248Q100.928 0.0 100.70400000000001 -0.224Q100.48 -0.448 100.48 -0.768V-44.032000000000004Q100.48 -44.352000000000004 100.70400000000001 -44.57600000000001Q100.928 -44.800000000000004 101.248 -44.800000000000004H109.632Q110.272 -44.800000000000004 110.464 -44.160000000000004L118.464 -19.392Q118.528 -19.2 118.688 -19.232Q118.848 -19.264 118.848 -19.456L118.784 -44.032000000000004Q118.784 -44.352000000000004 119.00800000000001 -44.57600000000001Q119.232 -44.800000000000004 119.552 -44.800000000000004Z M153.856 -12.096V-32.832Q153.856 -38.528 157.344 -41.92Q160.832 -45.312 166.592 -45.312Q172.416 -45.312 175.904 -41.92Q179.392 -38.528 179.392 -32.832V-32.128Q179.392 -31.808 179.168 -31.584Q178.94400000000002 -31.36 178.624 -31.36L171.136 -31.04Q170.368 -31.04 170.368 -31.744V-33.408Q170.368 -35.264 169.344 -36.416Q168.32 -37.568 166.592 -37.568Q164.928 -37.568 163.904 -36.416Q162.88 -35.264 162.88 -33.408V-11.328Q162.88 -9.472 163.904 -8.352Q164.928 -7.232 166.592 -7.232Q168.32 -7.232 169.344 -8.352Q170.368 -9.472 170.368 -11.328V-13.056000000000001Q170.368 -13.376 170.59199999999998 -13.6Q170.816 -13.824 171.136 -13.824L178.624 -13.504Q178.94400000000002 -13.504 179.168 -13.280000000000001Q179.392 -13.056000000000001 179.392 -12.736V-12.096Q179.392 -6.336 175.872 -2.912Q172.352 0.512 166.592 0.512Q160.832 0.512 157.344 -2.912Q153.856 -6.336 153.856 -12.096Z M205.37600000000003 -0.704 204.35200000000003 -6.848Q204.35200000000003 -7.168 203.96800000000002 -7.168H195.84000000000003Q195.45600000000002 -7.168 195.45600000000002 -6.848L194.43200000000002 -0.704Q194.36800000000002 0.0 193.60000000000002 0.0H186.11200000000002Q185.28000000000003 0.0 185.472 -0.8320000000000001L194.88000000000002 -44.096000000000004Q195.008 -44.800000000000004 195.71200000000002 -44.800000000000004H204.35200000000003Q205.056 -44.800000000000004 205.18400000000003 -44.096000000000004L214.52800000000002 -0.8320000000000001L214.592 -0.5760000000000001Q214.592 0.0 213.88800000000003 0.0H206.20800000000003Q205.44000000000003 0.0 205.37600000000003 -0.704ZM196.99200000000002 -14.144H202.752Q203.07200000000003 -14.144 203.00800000000004 -14.464L200.00000000000003 -31.936Q199.93600000000004 -32.128 199.80800000000005 -32.128Q199.68000000000004 -32.128 199.616 -31.936L196.73600000000002 -14.464Q196.73600000000002 -14.144 196.99200000000002 -14.144Z M220.544 -11.200000000000001V-13.056000000000001Q220.544 -13.376 220.76800000000003 -13.6Q220.99200000000002 -13.824 221.312 -13.824H228.67200000000003Q228.99200000000002 -13.824 229.216 -13.6Q229.44000000000003 -13.376 229.44000000000003 -13.056000000000001V-11.648Q229.44000000000003 -9.664 230.46400000000003 -8.448Q231.48800000000003 -7.232 233.02400000000003 -7.232Q234.56000000000003 -7.232 235.58400000000003 -8.384Q236.60800000000003 -9.536 236.60800000000003 -11.392Q236.60800000000003 -13.312000000000001 235.32800000000003 -14.688Q234.04800000000003 -16.064 230.336 -18.752Q227.13600000000002 -21.056 225.15200000000004 -22.848Q223.16800000000003 -24.64 221.76000000000005 -27.264000000000003Q220.35200000000003 -29.888 220.35200000000003 -33.344Q220.35200000000003 -38.784 223.74400000000003 -42.048Q227.13600000000002 -45.312 232.70400000000004 -45.312Q238.336 -45.312 241.76000000000002 -41.92Q245.18400000000003 -38.528 245.18400000000003 -33.024V-31.488Q245.18400000000003 -31.168 244.96000000000004 -30.944Q244.73600000000002 -30.72 244.41600000000003 -30.72H237.05600000000004Q236.73600000000002 -30.72 236.512 -30.944Q236.288 -31.168 236.288 -31.488V-33.216Q236.288 -35.2 235.29600000000002 -36.384Q234.30400000000003 -37.568 232.70400000000004 -37.568Q231.16800000000003 -37.568 230.20800000000003 -36.448Q229.24800000000002 -35.328 229.24800000000002 -33.344Q229.24800000000002 -31.424 230.46400000000003 -29.951999999999998Q231.68000000000004 -28.48 235.264 -25.856Q239.23200000000003 -22.912 241.24800000000002 -21.088Q243.264 -19.264 244.38400000000001 -17.056Q245.50400000000002 -14.848 245.50400000000002 -11.776Q245.50400000000002 -6.144 242.048 -2.816Q238.592 0.512 232.96000000000004 0.512Q229.24800000000002 0.512 226.43200000000002 -0.96Q223.616 -2.432 222.08 -5.088Q220.544 -7.744 220.544 -11.200000000000001Z M275.776 -37.056H262.40000000000003Q262.08 -37.056 262.08 -36.736000000000004V-26.624000000000002Q262.08 -26.304000000000002 262.40000000000003 -26.304000000000002H270.08Q270.40000000000003 -26.304000000000002 270.624 -26.080000000000002Q270.848 -25.856 270.848 -25.536V-19.328Q270.848 -19.008 270.624 -18.784Q270.40000000000003 -18.56 270.08 -18.56H262.40000000000003Q262.08 -18.56 262.08 -18.240000000000002V-8.064Q262.08 -7.744 262.40000000000003 -7.744H275.776Q276.096 -7.744 276.32 -7.52Q276.544 -7.296 276.544 -6.976V-0.768Q276.544 -0.448 276.32 -0.224Q276.096 0.0 275.776 0.0H253.824Q253.50400000000002 0.0 253.28000000000003 -0.224Q253.056 -0.448 253.056 -0.768V-44.032000000000004Q253.056 -44.352000000000004 253.28000000000003 -44.57600000000001Q253.50400000000002 -44.800000000000004 253.824 -44.800000000000004H275.776Q276.096 -44.800000000000004 276.32 -44.57600000000001Q276.544 -44.352000000000004 276.544 -44.032000000000004V-37.824Q276.544 -37.504 276.32 -37.28Q276.096 -37.056 275.776 -37.056Z" fill="currentColor"/>
+</svg></a>
+    <nav class="nav__links" aria-label="Secciones">
+      <a href="#trailer">Tráiler</a>
+      <a href="#caso">El caso</a>
+      <a href="#juego">Cómo se juega</a>
+      <a href="#descargas">Descargas</a>
+      <a href="#contribuir">Contribuir</a>
+      <a href="https://github.com/fr4j4/open-case">GitHub</a>
+    </nav>
+    <span class="nav__idioma" title="English version coming soon"><b>ES</b> · EN</span>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="hero__fondo" aria-hidden="true"><img class="duo--claro" src="img/hero.jpg" width="900" height="678" alt=""></div>
+  <div class="in">
+    <div>
+      <div class="hero__sello" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 140" role="img" aria-label="Open Case. Todos mienten. Las pruebas no.">
+<g transform="translate(12.3 22.0) rotate(-4 147.7 48.0)" fill="currentColor" stroke="currentColor">
+<rect x="1.5" y="1.5" width="292.4" height="93.0" rx="3" fill="none" stroke-width="3"/>
+<rect x="8" y="8" width="279.4" height="80.0" rx="2" fill="none" stroke-width="1.5"/>
+<path transform="translate(24.0 60)" d="M1.9040000000000001 -10.64V-28.560000000000002Q1.9040000000000001 -33.6 4.984 -36.624Q8.064 -39.648 13.216000000000001 -39.648Q18.368000000000002 -39.648 21.476 -36.624Q24.584 -33.6 24.584 -28.560000000000002V-10.64Q24.584 -5.6000000000000005 21.476 -2.576Q18.368000000000002 0.448 13.216000000000001 0.448Q8.064 0.448 4.984 -2.576Q1.9040000000000001 -5.6000000000000005 1.9040000000000001 -10.64ZM16.688 -10.304V-28.896Q16.688 -30.688000000000002 15.736 -31.78Q14.784 -32.872 13.216000000000001 -32.872Q11.648 -32.872 10.724 -31.78Q9.8 -30.688000000000002 9.8 -28.896V-10.304Q9.8 -8.512 10.724 -7.42Q11.648 -6.328 13.216000000000001 -6.328Q14.784 -6.328 15.736 -7.42Q16.688 -8.512 16.688 -10.304Z M54.768 -27.328Q54.768 -22.12 51.968 -18.984Q49.168 -15.848 44.632 -15.848H40.432Q40.152 -15.848 40.152 -15.568V-0.672Q40.152 -0.392 39.956 -0.196Q39.76 0.0 39.48 0.0H32.928Q32.647999999999996 0.0 32.452 -0.196Q32.256 -0.392 32.256 -0.672V-38.584Q32.256 -38.864000000000004 32.452 -39.06Q32.647999999999996 -39.256 32.928 -39.256H44.239999999999995Q47.32 -39.256 49.727999999999994 -37.744Q52.135999999999996 -36.232 53.452 -33.516Q54.768 -30.8 54.768 -27.328ZM46.872 -27.16Q46.872 -29.624000000000002 45.78 -31.024Q44.688 -32.424 42.896 -32.424H40.432Q40.152 -32.424 40.152 -32.144V-22.288Q40.152 -22.008 40.432 -22.008H42.896Q44.688 -22.008 45.78 -23.38Q46.872 -24.752 46.872 -27.16Z M81.592 -32.424H69.888Q69.608 -32.424 69.608 -32.144V-23.296Q69.608 -23.016000000000002 69.888 -23.016000000000002H76.608Q76.888 -23.016000000000002 77.084 -22.82Q77.28 -22.624 77.28 -22.344V-16.912Q77.28 -16.632 77.084 -16.436Q76.888 -16.240000000000002 76.608 -16.240000000000002H69.888Q69.608 -16.240000000000002 69.608 -15.96V-7.056Q69.608 -6.776 69.888 -6.776H81.592Q81.872 -6.776 82.068 -6.58Q82.264 -6.384 82.264 -6.104V-0.672Q82.264 -0.392 82.068 -0.196Q81.872 0.0 81.592 0.0H62.384Q62.104 0.0 61.908 -0.196Q61.711999999999996 -0.392 61.711999999999996 -0.672V-38.528Q61.711999999999996 -38.808 61.908 -39.004000000000005Q62.104 -39.2 62.384 -39.2H81.592Q81.872 -39.2 82.068 -39.004000000000005Q82.264 -38.808 82.264 -38.528V-33.096000000000004Q82.264 -32.816 82.068 -32.620000000000005Q81.872 -32.424 81.592 -32.424Z M106.288 -39.2H112.78399999999999Q113.064 -39.2 113.25999999999999 -39.004000000000005Q113.45599999999999 -38.808 113.45599999999999 -38.528V-0.672Q113.45599999999999 -0.392 113.25999999999999 -0.196Q113.064 0.0 112.78399999999999 0.0H105.392Q104.832 0.0 104.66399999999999 -0.56L97.72 -22.232Q97.664 -22.400000000000002 97.524 -22.372Q97.384 -22.344 97.384 -22.176000000000002L97.44 -0.672Q97.44 -0.392 97.244 -0.196Q97.048 0.0 96.768 0.0H90.27199999999999Q89.99199999999999 0.0 89.79599999999999 -0.196Q89.6 -0.392 89.6 -0.672V-38.528Q89.6 -38.808 89.79599999999999 -39.004000000000005Q89.99199999999999 -39.2 90.27199999999999 -39.2H97.60799999999999Q98.16799999999999 -39.2 98.336 -38.64L105.336 -16.968Q105.392 -16.8 105.532 -16.828000000000003Q105.672 -16.856 105.672 -17.024L105.616 -38.528Q105.616 -38.808 105.812 -39.004000000000005Q106.008 -39.2 106.288 -39.2Z M136.864 -10.584V-28.728Q136.864 -33.712 139.916 -36.68000000000001Q142.96800000000002 -39.648 148.008 -39.648Q153.104 -39.648 156.156 -36.68000000000001Q159.208 -33.712 159.208 -28.728V-28.112000000000002Q159.208 -27.832 159.012 -27.636000000000003Q158.816 -27.44 158.536 -27.44L151.984 -27.16Q151.312 -27.16 151.312 -27.776V-29.232Q151.312 -30.856 150.416 -31.864Q149.52 -32.872 148.008 -32.872Q146.55200000000002 -32.872 145.656 -31.864Q144.76000000000002 -30.856 144.76000000000002 -29.232V-9.912Q144.76000000000002 -8.288 145.656 -7.308Q146.55200000000002 -6.328 148.008 -6.328Q149.52 -6.328 150.416 -7.308Q151.312 -8.288 151.312 -9.912V-11.424Q151.312 -11.704 151.508 -11.9Q151.704 -12.096 151.984 -12.096L158.536 -11.816Q158.816 -11.816 159.012 -11.620000000000001Q159.208 -11.424 159.208 -11.144V-10.584Q159.208 -5.5440000000000005 156.128 -2.548Q153.048 0.448 148.008 0.448Q142.96800000000002 0.448 139.916 -2.548Q136.864 -5.5440000000000005 136.864 -10.584Z M182.504 -0.616 181.608 -5.992Q181.608 -6.272 181.272 -6.272H174.16Q173.824 -6.272 173.824 -5.992L172.928 -0.616Q172.872 0.0 172.2 0.0H165.648Q164.92000000000002 0.0 165.088 -0.728L173.32 -38.584Q173.43200000000002 -39.2 174.048 -39.2H181.608Q182.224 -39.2 182.336 -38.584L190.512 -0.728L190.568 -0.504Q190.568 0.0 189.952 0.0H183.232Q182.56 0.0 182.504 -0.616ZM175.168 -12.376H180.208Q180.488 -12.376 180.43200000000002 -12.656L177.8 -27.944Q177.744 -28.112000000000002 177.632 -28.112000000000002Q177.52 -28.112000000000002 177.464 -27.944L174.94400000000002 -12.656Q174.94400000000002 -12.376 175.168 -12.376Z M196.336 -9.8V-11.424Q196.336 -11.704 196.532 -11.9Q196.728 -12.096 197.008 -12.096H203.448Q203.728 -12.096 203.924 -11.9Q204.12 -11.704 204.12 -11.424V-10.192Q204.12 -8.456 205.01600000000002 -7.3919999999999995Q205.912 -6.328 207.256 -6.328Q208.6 -6.328 209.49599999999998 -7.336Q210.392 -8.344 210.392 -9.968Q210.392 -11.648 209.272 -12.852Q208.15200000000002 -14.056000000000001 204.904 -16.408Q202.104 -18.424 200.368 -19.991999999999997Q198.632 -21.56 197.4 -23.856Q196.168 -26.152 196.168 -29.176000000000002Q196.168 -33.936 199.13600000000002 -36.792Q202.104 -39.648 206.976 -39.648Q211.904 -39.648 214.9 -36.68000000000001Q217.89600000000002 -33.712 217.89600000000002 -28.896V-27.552Q217.89600000000002 -27.272000000000002 217.70000000000002 -27.076Q217.50400000000002 -26.88 217.22400000000002 -26.88H210.784Q210.50400000000002 -26.88 210.308 -27.076Q210.112 -27.272000000000002 210.112 -27.552V-29.064Q210.112 -30.8 209.244 -31.836Q208.376 -32.872 206.976 -32.872Q205.632 -32.872 204.792 -31.892Q203.952 -30.912 203.952 -29.176000000000002Q203.952 -27.496000000000002 205.01600000000002 -26.208000000000002Q206.08 -24.92 209.216 -22.624Q212.68800000000002 -20.048000000000002 214.452 -18.452Q216.216 -16.856 217.19600000000003 -14.924000000000001Q218.17600000000002 -12.992 218.17600000000002 -10.304Q218.17600000000002 -5.376 215.15200000000002 -2.464Q212.12800000000001 0.448 207.20000000000002 0.448Q203.952 0.448 201.488 -0.8400000000000001Q199.024 -2.128 197.68 -4.452Q196.336 -6.776 196.336 -9.8Z M245.224 -32.424H233.51999999999998Q233.24 -32.424 233.24 -32.144V-23.296Q233.24 -23.016000000000002 233.51999999999998 -23.016000000000002H240.24Q240.51999999999998 -23.016000000000002 240.716 -22.82Q240.912 -22.624 240.912 -22.344V-16.912Q240.912 -16.632 240.716 -16.436Q240.51999999999998 -16.240000000000002 240.24 -16.240000000000002H233.51999999999998Q233.24 -16.240000000000002 233.24 -15.96V-7.056Q233.24 -6.776 233.51999999999998 -6.776H245.224Q245.504 -6.776 245.7 -6.58Q245.896 -6.384 245.896 -6.104V-0.672Q245.896 -0.392 245.7 -0.196Q245.504 0.0 245.224 0.0H226.016Q225.736 0.0 225.54 -0.196Q225.344 -0.392 225.344 -0.672V-38.528Q225.344 -38.808 225.54 -39.004000000000005Q225.736 -39.2 226.016 -39.2H245.224Q245.504 -39.2 245.7 -39.004000000000005Q245.896 -38.808 245.896 -38.528V-33.096000000000004Q245.896 -32.816 245.7 -32.620000000000005Q245.504 -32.424 245.224 -32.424Z" stroke="none"/>
+<text x="147.7" y="80.5" text-anchor="middle" font-family="Anton, Arial Narrow, sans-serif" font-weight="400" font-size="12" letter-spacing="1.4" stroke="none">TODOS MIENTEN. LAS PRUEBAS NO.</text>
+</g>
+</svg></div>
+      <p class="hero__kicker">Juegos de investigación por equipos</p>
+      <h1>Todos mienten.<em>Las pruebas no.</em></h1>
+      <p class="hero__lead">Open Case es un juego de misterio impreso. De dos a cuatro equipos de detectives investigan el mismo caso en paralelo, con un director que hace de comisario y de los sospechosos. Gana el que presente la teoría mejor sustentada.</p>
+      <div class="hero__cta">
+        <a class="btn btn--sello" href="#trailer">Ver el tráiler</a>
+        <a class="btn" href="#descargas">Descargar un caso</a>
+      </div>
+    </div>
+    <div class="hero__ficha" aria-label="Datos del juego">
+      <div class="cab">Ficha técnica <span>Caso 01 · Labranza, 2026</span></div>
+      <div><b>2 a 4</b><span>equipos</span></div>
+      <div><b>5 a 7</b><span>por equipo</span></div>
+      <div><b>60 a 70</b><span>minutos</span></div>
+      <div><b>6</b><span>sospechosos</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec trailer" id="trailer">
+  <div class="in">
+    <div class="sec__cab">
+      <div>
+        <span class="rotulo">Tráiler · Caso 01</span>
+        <h2>El Chupacabras de Labranza<i>Nadie vio nada. Todos tienen una versión.</i></h2>
+      </div>
+      <p>Lo que sabe la prensa, lo que vio una vecina y lo que encontró la Brigada de Homicidios la mañana siguiente. Sin revelar nada que los equipos tengan que descubrir solos.</p>
+    </div>
+
+    <article class="prensa anim" aria-label="Recorte de prensa">
+      <span class="cinta" aria-hidden="true"></span>
+      <div class="prensa__kicker"><span>La Voz de la Frontera · Policial</span><span>Viernes 30-10-2026</span></div>
+      <h3>¿Volvió el chupacabras? Tercer animal muerto en una semana en Labranza</h3>
+      <div class="prensa__cuerpo">
+        <p>LABRANZA. Vecinos del sector Camino Los Copihues denunciaron el hallazgo de una oveja muerta con dos perforaciones en el cuello, la tercera en siete días. "No era perro, eso lo sabe cualquiera que haya criado animales", dijo un lugareño que pidió reserva de su nombre.</p>
+        <p>Carabineros descartó intervención de terceros. En redes sociales, una transmisión en vivo desde el lugar superaba anoche las 1.400 personas conectadas.</p>
+      </div>
+    </article>
+
+    <div class="tablero">
+      <div class="escena anim">
+        <span class="pin" aria-hidden="true"></span>
+        <figure class="escena__foto escena__foto--v">
+          <span class="escena__chincheta" aria-hidden="true"></span>
+          <div class="marco vineta"><img loading="lazy" decoding="async" class="duo" src="img/escena-animales.jpg" width="720" height="960" alt="Gallinero revuelto, lleno de plumas, con la reja rota"><span class="escena__hora">JUE 29 · 06:40</span></div>
+          <figcaption class="escena__rotulo">Gallinero · parcela vecina</figcaption>
+        </figure>
+        <div class="ficha-ind">
+          <p class="escena__n">Escena 1 · Los animales</p>
+          <p class="escena__txt">Primero fueron las gallinas. Después, una oveja en el corral de El Arrayán. Dos perforaciones en el cuello y casi nada de sangre. <strong>En el grupo de vecinos ya nadie habla de perros.</strong></p>
+        </div>
+      </div>
+
+      <div class="escena anim">
+        <span class="pin" aria-hidden="true"></span>
+        <figure class="escena__foto escena__foto--v">
+          <span class="escena__chincheta" aria-hidden="true"></span>
+          <div class="marco vineta"><img loading="lazy" decoding="async" class="duo" src="img/escena-live.jpg" width="720" height="960" alt="El corral y la caseta de noche; en el cielo, dos luces pequeñas"><span class="escena__hora">VIE 30 · 22:48 · EN VIVO</span></div>
+          <figcaption class="escena__rotulo">Captura del live · @misterios.araucania</figcaption>
+        </figure>
+        <div class="ficha-ind">
+          <p class="escena__n">Escena 2 · El live</p>
+          <p class="escena__txt">Una creadora de contenido transmite en vivo desde el camino. Dos luces en el cielo, una caseta con la luz prendida y 1.400 personas mirando. <strong>A las 23:30 empieza a llover y se corta la señal.</strong></p>
+        </div>
+      </div>
+
+      <div class="escena anim">
+        <span class="pin" aria-hidden="true"></span>
+        <figure class="escena__foto">
+          <span class="escena__chincheta" aria-hidden="true"></span>
+          <div class="marco vineta"><img loading="lazy" decoding="async" class="duo" src="img/escena-hallazgo.jpg" width="720" height="540" alt="Vista general del corral con el cuerpo a distancia y la SUV al fondo, con testigos numerados de la policía"><span class="escena__hora">SÁB 31 · 08:15 · FOTOGRAFÍA FORENSE</span></div>
+          <figcaption class="escena__rotulo">E02 · F1 · Vista general del corral</figcaption>
+        </figure>
+        <div class="ficha-ind">
+          <p class="escena__n">Escena 3 · El hallazgo</p>
+          <p class="escena__txt">A las 07:10 el cuidador llega a alimentar a los animales y encuentra a Matías Ferrada, corredor de propiedades, junto al corral. Dos perforaciones en el cuello. <strong>La tierra bajo el cuerpo está seca. Llovió toda la noche.</strong></p>
+        </div>
+      </div>
+
+      <div class="escena anim">
+        <span class="pin" aria-hidden="true"></span>
+        <figure class="escena__foto">
+          <span class="escena__chincheta" aria-hidden="true"></span>
+          <div class="marco vineta"><img loading="lazy" decoding="async" class="duo" src="img/escena-huella.jpg" width="720" height="540" alt="Huella grande de tres dedos en el barro, junto a un testigo métrico"><span class="escena__hora">SÁB 31 · 08:40 · E02</span></div>
+          <figcaption class="escena__rotulo">E02 · F4 · Huella a 4 m del cuerpo</figcaption>
+        </figure>
+        <div class="ficha-ind">
+          <p class="escena__n">Escena 4 · La huella</p>
+          <p class="escena__txt">A cuatro metros, una huella de tres dedos. En redes sociales ya tienen al culpable. <strong>La Brigada de Homicidios, no.</strong></p>
+        </div>
+      </div>
+
+      <div class="escena anim">
+        <span class="pin" aria-hidden="true"></span>
+        <figure class="escena__foto escena__foto--dos">
+          <span class="escena__chincheta" aria-hidden="true"></span>
+          <div class="marco"><img loading="lazy" decoding="async" class="duo" src="img/coartada-fiesta.jpg" width="520" height="520" alt="Grupo bailando con luces de colores en una fiesta de Halloween"><img loading="lazy" decoding="async" class="duo" src="img/coartada-karaoke.jpg" width="520" height="520" alt="Mujer cantando en el escenario de un karaoke"></div>
+          <figcaption class="escena__rotulo">Coartadas · fiesta y karaoke, Temuco</figcaption>
+        </figure>
+        <div class="ficha-ind">
+          <p class="escena__n">Escena 5 · Esa misma noche, en Temuco</p>
+          <p class="escena__txt">Seis sospechosos. Seis versiones de dónde estaban. Una fiesta, un karaoke, una boleta, un chat, un registro de llamadas. <strong>Alguien miente, y los peritajes no.</strong></p>
+        </div>
+      </div>
+
+      <div class="escena escena--cierre anim">
+        <div class="cierre">
+          <p class="escena__n">Ustedes entran aquí</p>
+          <p class="escena__txt">Ustedes son detectives. Los otros equipos investigan el mismo caso en las mesas de al lado. Tienen 16 fichas, 30 minutos y un director que sabe la verdad. <strong>Gana el que presente la teoría mejor sustentada.</strong></p>
+          <div class="cierre__cta">
+            <a class="btn btn--sello" href="#caso">Conocer el caso</a>
+            <a class="btn" href="#descargas">Descargar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--papel" id="caso">
+  <div class="in">
+    <div class="sec__cab">
+      <div>
+        <span class="rotulo">Caso publicado · 01</span>
+        <h2>Lo que hay en la carpeta<i>Se imprime en casa. Se juega en una mesa.</i></h2>
+      </div>
+      <p>Un caso de Open Case es una carpeta de papel: un kit por equipo, los sobres con las pruebas, tarjetas de respuesta de 63 × 88 mm, placas, fichas y una guía para quien dirige.</p>
+    </div>
+
+    <div class="caso__grid">
+      <div class="carpeta">
+        <span class="carpeta__pestana">Expediente N° 4471 · El Arrayán</span>
+        <div class="carpeta__hoja">
+          <div class="membrete">
+            <div class="inst">Open Case · Ficha del caso<b>El Chupacabras de Labranza</b></div>
+          </div>
+          <span class="sello-ok">Validado v8</span>
+          <h3>Muerte en la parcela El Arrayán</h3>
+          <p>Un corredor de propiedades aparece muerto junto a su corral, en la misma semana en que el sector habla de un chupacabras. Seis sospechosos, una vecina que lo vio todo a medias y una noche de lluvia que no cuadra con nada.</p>
+          <dl>
+            <dt>Lugar</dt><dd>Labranza, Temuco, Chile. Octubre de 2026.</dd>
+            <dt>Jugadores</dt><dd>De 2 a 4 equipos de 5 a 7 personas y un director.</dd>
+            <dt>Duración</dt><dd>Escena 10 min · Investigación 30 min · Acusación 15 min.</dd>
+            <dt>Material</dt><dd>Kit del equipo, 2 sobres de pruebas, 30 pruebas, 6 declaraciones, tarjetas de respuesta, placas, fichas y sobres para los equipos A a D.</dd>
+            <dt>Pruebas</dt><dd>Fotos forenses, un live, un dron, chats, boletas, registros de llamadas y peritajes del SML.</dd>
+            <dt>Tono</dt><dd>Policial, sin terror ni sangre. Personajes, empresas y medios ficticios.</dd>
+            <dt>Idioma</dt><dd>Español. <span class="pastilla pastilla--pend">Inglés próximamente</span></dd>
+          </dl>
+          <div class="carpeta__cta">
+            <a class="btn btn--sello" href="#descargas">Descargar el caso</a>
+            <a class="btn btn--tinta" href="https://github.com/fr4j4/open-case">Ver las fuentes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mesa-muestra" aria-label="Muestra del material impreso">
+        <div class="oc-tarjeta oc-tarjeta--vertical oc-tarjeta--sospechoso">
+          <div class="oc-tarjeta__banda"></div>
+          <div class="oc-tarjeta__cab"><b>H</b><span>Sospechoso</span></div>
+          <img loading="lazy" decoding="async" class="oc-tarjeta__retrato" src="img/retrato-sospechoso.jpg" alt="">
+          <div class="oc-tarjeta__nombre">Hernán Carrasco</div>
+          <div class="oc-tarjeta__rol">Vecino · Parcela colindante</div>
+          <div class="oc-tarjeta__datos">
+            <span>Edad</span><div>58 años</div>
+            <span>Relación</span><div>Litigio por el cerco con la víctima</div>
+            <span>Dice</span><div>"Yo con ese caballero no hablaba."</div>
+            <span>Preguntas</span><div>H1 a H4 · H◆</div>
+          </div>
+          <div class="oc-tarjeta__marca"><span>Open Case</span><span>El Chupacabras de Labranza</span></div>
+        </div>
+
+        <div class="oc-tarjeta oc-tarjeta--aviso">
+          <div class="oc-tarjeta__banda"></div>
+          <div class="oc-tarjeta__cab"><b>Aviso 1</b><span>Fiscalía Local de Temuco · minuto 10</span></div>
+          <div class="oc-tarjeta__pregunta">El director lo lee en voz alta a todos los equipos.</div>
+          <div class="oc-tarjeta__respuesta">"El Servicio Médico Legal adelanta que la hora de muerte está entre las 22:30 y la 01:00. Las perforaciones no corresponden a una mordida animal. Se dispone peritaje de la herramienta."</div>
+          <div class="oc-tarjeta__pie">Adjunta E06 · Informe preliminar SML</div>
+          <div class="oc-tarjeta__marca"><span>Open Case</span><span>El Chupacabras de Labranza</span></div>
+        </div>
+
+        <div class="oc-tarjeta oc-tarjeta--vertical oc-placa">
+          <svg class="oc-placa__estrella" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,6 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38" fill="none" stroke="#b48a2c" stroke-width="4" stroke-linejoin="round"/><circle cx="50" cy="52" r="12" fill="none" stroke="#b48a2c" stroke-width="3"/></svg>
+          <div class="oc-placa__titulo">Detective</div>
+          <div class="oc-placa__unidad">PDI · Brigada de Homicidios<br>Temuco · Equipo A</div>
+          <div class="oc-placa__nombre"></div>
+          <div class="oc-placa__nombre-rotulo">Nombre</div>
+          <div class="oc-tarjeta__marca"><span>Open Case</span><span>Chupacabras</span></div>
+        </div>
+
+        <div class="oc-fichas" aria-label="Fichas">
+          <span class="oc-ficha oc-ficha--a"><b>1</b>ficha</span>
+          <span class="oc-ficha oc-ficha--b"><b>1</b>ficha</span>
+          <span class="oc-ficha"><b>1</b>ficha</span>
+        </div>
+        <p class="mesa-muestra__pie">Tarjetas de 63 × 88 mm · fichas de 30 mm · se imprimen en hoja carta, 8 por pliego</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec juego" id="juego">
+  <div class="in">
+    <div class="sec__cab">
+      <div>
+        <span class="rotulo">Reglas en una página</span>
+        <h2>Cómo se juega<i>Cuatro actos, una acusación.</i></h2>
+      </div>
+      <p>El director hace de comisario y de todos los sospechosos. Juegan de dos a cuatro equipos, que no se hablan entre sí. Todo lo que reciben está impreso o les llega por el grupo de WhatsApp de su equipo.</p>
+    </div>
+    <div class="actos">
+      <div class="acto">
+        <div class="acto__n">Acto primero</div>
+        <div class="acto__t">La escena</div>
+        <div class="acto__min">10 minutos</div>
+        <p>Cada equipo abre el <code>Sobre 1</code>: parte policial, fotos de la escena, redes sociales, croquis, clima y las declaraciones de los seis sospechosos. Leen, anotan y se reparten el trabajo.</p>
+      </div>
+      <div class="acto">
+        <div class="acto__n">Acto segundo</div>
+        <div class="acto__t">La investigación</div>
+        <div class="acto__min">30 minutos · 16 fichas</div>
+        <p>Preguntan a los sospechosos, piden diligencias y confrontan con pruebas. Cada solicitud va escrita y cuesta una ficha. Los sospechosos pueden mentir; los peritajes, no.</p>
+      </div>
+      <div class="acto">
+        <div class="acto__n">Acto tercero</div>
+        <div class="acto__t">Los avisos</div>
+        <div class="acto__min">Minutos fijos</div>
+        <p>La Fiscalía manda novedades a todos los equipos a la vez, y a los 20 minutos la prensa publica algo que cambia la conversación. Quien se atasca puede pedir una pista, a cambio de un punto.</p>
+      </div>
+      <div class="acto">
+        <div class="acto__n">Acto final</div>
+        <div class="acto__t">La acusación</div>
+        <div class="acto__min">15 minutos</div>
+        <p>Cada equipo entrega su hoja de acusación: quién, cómo, por qué y con qué pruebas. El director puntúa. Acusar a la persona equivocada resta cinco puntos y deja al equipo fuera.</p>
+      </div>
+    </div>
+    <div class="necesitan">
+      <span class="rotulo">Qué necesitan</span>
+      <ul>
+        <li>Una impresora y tijeras</li>
+        <li>De dos a cuatro equipos de 5 a 7 personas, con una mesa cada uno</li>
+        <li>Un director que lea la guía antes (contiene la solución)</li>
+        <li>Opcional: un grupo de WhatsApp por equipo para mandar las pruebas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--papel descargas" id="descargas">
+  <div class="in">
+    <div class="sec__cab">
+      <div>
+        <span class="rotulo">Casos publicados</span>
+        <h2>Descargas<i>Dos paquetes por caso. Uno trae la solución.</i></h2>
+      </div>
+      <p>El material de los equipos lo puede abrir cualquiera. El del director es solo para quien dirige. Los PDF vienen listos para imprimir en hoja carta, en modo ahorro de tinta.</p>
+    </div>
+
+    <div class="casos" id="lista-casos" aria-live="polite">
+      <p class="casos__estado" id="casos-estado">Cargando los casos…</p>
+      <article class="caso-card caso-card--proximo">
+        <h3>Próximo caso</h3>
+        <p>Los casos nuevos aparecen aquí en cuanto entran al repositorio oficial. Puede ser el tuyo.</p>
+        <a class="btn btn--tinta" href="#contribuir">Aportar un caso</a>
+      </article>
+    </div>
+
+    <div class="build">
+      <div>
+        <h4>Cómo se alimenta esta lista</h4>
+        <p>La página no sabe nada de los casos por su cuenta. En cada publicación, el exportador genera los PDF de cada carpeta de <code>cases/</code>, los comprime en dos zips por idioma y escribe un <code>cases.json</code> con el título, el resumen, el tamaño y el enlace de cada paquete. La página lee ese archivo y dibuja una tarjeta por caso. Agregar un caso al repositorio es agregarlo al sitio.</p>
+        <p><a href="cases.json">Ver el cases.json de este sitio</a></p>
+      </div>
+      <pre><span class="k">// cases.json · generado en cada publicación</span>
+{ <span class="k">"cases"</span>: [{
+  <span class="k">"slug"</span>: <span class="s">"chupacabras-labranza"</span>,
+  <span class="k">"author"</span>: <span class="s">"Open Case"</span>,
+  <span class="k">"license"</span>: <span class="s">"CC BY-NC-SA 4.0"</span>,
+  <span class="k">"teams"</span>: [<span class="s">2</span>, <span class="s">4</span>], <span class="k">"duration_minutes"</span>: [<span class="s">60</span>, <span class="s">70</span>],
+  <span class="k">"languages"</span>: { <span class="k">"es"</span>: {
+    <span class="k">"title"</span>: <span class="s">"El Chupacabras de Labranza"</span>,
+    <span class="k">"teams_zip"</span>:    { <span class="k">"file"</span>: <span class="s">"downloads/…-teams.zip"</span>,    <span class="k">"bytes"</span>: … },
+    <span class="k">"director_zip"</span>: { <span class="k">"file"</span>: <span class="s">"downloads/…-director.zip"</span>, <span class="k">"bytes"</span>: … }
+  } }
+}] }</pre>
+    </div>
+  </div>
+</section>
+
+<section class="sec os" id="contribuir">
+  <div class="in">
+    <div class="sec__cab">
+      <div>
+        <span class="rotulo">Proyecto de código abierto</span>
+        <h2>Cualquiera puede escribir un caso<i>Y verlo publicado con su nombre.</i></h2>
+      </div>
+      <p>Open Case es un proyecto abierto. El exportador, el sistema de diseño y los casos están en GitHub, y los casos que pasen la revisión se publican en el repositorio oficial con el nombre de quien los escribió.</p>
+    </div>
+    <div class="os__cols">
+      <div class="os__col">
+        <h3>El formato</h3>
+        <p>Un caso es una carpeta: un archivo de datos con los equipos y las fichas, un idioma por carpeta con los sospechosos, las tarjetas y las hojas en Markdown, y una carpeta de fotos. El exportador convierte eso en los PDF de equipos y de director.</p>
+        <div class="arbol"><b>cases/mi-caso/</b>
+├── case.yaml
+├── photos/
+└── languages/
+    └── es/
+        ├── case.yaml
+        ├── suspects.yaml
+        ├── cards.yaml
+        ├── kit/
+        ├── dossier/
+        └── guide/</div>
+        <p style="margin-top:12px"><a href="https://github.com/fr4j4/open-case/blob/main/docs/case-format.md">Leer el formato completo</a></p>
+      </div>
+      <div class="os__col">
+        <h3>Cómo contribuir</h3>
+        <ul>
+          <li>Hacer un fork del repositorio y escribir el caso en <code>cases/</code>.</li>
+          <li>Correr <code>make check</code> y <code>make export</code>, e idealmente jugarlo una vez.</li>
+          <li>Seguir la <a href="https://github.com/fr4j4/open-case/tree/main/design/guide">guía de diseño y de redacción</a>: sin personas reales, sin terror, sin pueblos ni religiones usados como monstruo.</li>
+          <li>Abrir un pull request. Se revisa que el caso se resuelva con las pruebas y que las tarjetas quepan en 63 × 88 mm.</li>
+        </ul>
+        <p style="margin-top:12px"><a href="https://github.com/fr4j4/open-case/blob/main/CONTRIBUTING.md">Guía para contribuir</a></p>
+      </div>
+      <div class="os__col">
+        <h3>Herramientas</h3>
+        <ul>
+          <li><a href="https://github.com/fr4j4/open-case">Exportador PDF</a>: <code>make install</code>, <code>make export</code>. Usa Chromium para imprimir las hojas.</li>
+          <li><a href="https://github.com/fr4j4/open-case/tree/main/design">Sistema de diseño</a>: colores, tipografías, componentes y la norma de tarjetas.</li>
+          <li><a href="https://github.com/fr4j4/open-case/tree/main/skills/open-case-author">Skill <code>open-case-author</code></a>: para escribir casos con un asistente, siguiendo el formato y la guía de redacción.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="licencias" id="licencias">
+      <span class="rotulo">Licencias</span>
+      <ul>
+        <li><b>Código, scripts y sitio:</b> licencia MIT.</li>
+        <li><b>Casos, guía de diseño y logos:</b> CC BY-NC-SA 4.0. Se pueden compartir y adaptar sin fines comerciales, citando la autoría y con la misma licencia.</li>
+        <li>El nombre y el logo «Open Case» están reservados.</li>
+        <li>Las fotos del caso El Chupacabras de Labranza fueron generadas con inteligencia artificial. Los personajes son ficticios.</li>
+      </ul>
+      <p><a href="https://github.com/fr4j4/open-case/blob/main/NOTICE">Leer el aviso completo de licencias</a></p>
+    </div>
+  </div>
+</section>
+
+<footer class="pie">
+  <div class="in">
+    <div class="pie__marca"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 366 80" role="img" aria-label="Open Case">
+<path d="M0.0 16.96 h24.32 l3.84 -6.4 h35.84 v55.04 h-64.0 z" fill="currentColor" fill-opacity=".55"/><path d="M0 33.6 L64.0 27.2 V65.6 H0 z" fill="currentColor"/>
+<path transform="translate(80 63)" d="M2.176 -12.16V-32.64Q2.176 -38.4 5.696000000000001 -41.855999999999995Q9.216000000000001 -45.312 15.104000000000001 -45.312Q20.992 -45.312 24.544 -41.855999999999995Q28.096 -38.4 28.096 -32.64V-12.16Q28.096 -6.4 24.544 -2.944Q20.992 0.512 15.104000000000001 0.512Q9.216000000000001 0.512 5.696000000000001 -2.944Q2.176 -6.4 2.176 -12.16ZM19.072 -11.776V-33.024Q19.072 -35.072 17.984 -36.32Q16.896 -37.568 15.104000000000001 -37.568Q13.312000000000001 -37.568 12.256 -36.32Q11.200000000000001 -35.072 11.200000000000001 -33.024V-11.776Q11.200000000000001 -9.728 12.256 -8.48Q13.312000000000001 -7.232 15.104000000000001 -7.232Q16.896 -7.232 17.984 -8.48Q19.072 -9.728 19.072 -11.776Z M61.952 -31.232Q61.952 -25.28 58.752 -21.696Q55.55200000000001 -18.112000000000002 50.368 -18.112000000000002H45.568Q45.248000000000005 -18.112000000000002 45.248000000000005 -17.792V-0.768Q45.248000000000005 -0.448 45.024 -0.224Q44.8 0.0 44.480000000000004 0.0H36.992000000000004Q36.672000000000004 0.0 36.44800000000001 -0.224Q36.224000000000004 -0.448 36.224000000000004 -0.768V-44.096000000000004Q36.224000000000004 -44.416000000000004 36.44800000000001 -44.64Q36.672000000000004 -44.864000000000004 36.992000000000004 -44.864000000000004H49.92Q53.44 -44.864000000000004 56.192 -43.136Q58.944 -41.408 60.448 -38.304Q61.952 -35.2 61.952 -31.232ZM52.928 -31.04Q52.928 -33.856 51.68 -35.456Q50.432 -37.056 48.384 -37.056H45.568Q45.248000000000005 -37.056 45.248000000000005 -36.736000000000004V-25.472Q45.248000000000005 -25.152 45.568 -25.152H48.384Q50.432 -25.152 51.68 -26.72Q52.928 -28.288 52.928 -31.04Z M91.968 -37.056H78.592Q78.272 -37.056 78.272 -36.736000000000004V-26.624000000000002Q78.272 -26.304000000000002 78.592 -26.304000000000002H86.272Q86.592 -26.304000000000002 86.816 -26.080000000000002Q87.04 -25.856 87.04 -25.536V-19.328Q87.04 -19.008 86.816 -18.784Q86.592 -18.56 86.272 -18.56H78.592Q78.272 -18.56 78.272 -18.240000000000002V-8.064Q78.272 -7.744 78.592 -7.744H91.968Q92.28800000000001 -7.744 92.512 -7.52Q92.736 -7.296 92.736 -6.976V-0.768Q92.736 -0.448 92.512 -0.224Q92.28800000000001 0.0 91.968 0.0H70.016Q69.696 0.0 69.47200000000001 -0.224Q69.248 -0.448 69.248 -0.768V-44.032000000000004Q69.248 -44.352000000000004 69.47200000000001 -44.57600000000001Q69.696 -44.800000000000004 70.016 -44.800000000000004H91.968Q92.28800000000001 -44.800000000000004 92.512 -44.57600000000001Q92.736 -44.352000000000004 92.736 -44.032000000000004V-37.824Q92.736 -37.504 92.512 -37.28Q92.28800000000001 -37.056 91.968 -37.056Z M119.552 -44.800000000000004H126.976Q127.296 -44.800000000000004 127.52000000000001 -44.57600000000001Q127.744 -44.352000000000004 127.744 -44.032000000000004V-0.768Q127.744 -0.448 127.52000000000001 -0.224Q127.296 0.0 126.976 0.0H118.528Q117.888 0.0 117.696 -0.64L109.76 -25.408Q109.696 -25.6 109.536 -25.568Q109.376 -25.536 109.376 -25.344L109.44 -0.768Q109.44 -0.448 109.21600000000001 -0.224Q108.992 0.0 108.672 0.0H101.248Q100.928 0.0 100.70400000000001 -0.224Q100.48 -0.448 100.48 -0.768V-44.032000000000004Q100.48 -44.352000000000004 100.70400000000001 -44.57600000000001Q100.928 -44.800000000000004 101.248 -44.800000000000004H109.632Q110.272 -44.800000000000004 110.464 -44.160000000000004L118.464 -19.392Q118.528 -19.2 118.688 -19.232Q118.848 -19.264 118.848 -19.456L118.784 -44.032000000000004Q118.784 -44.352000000000004 119.00800000000001 -44.57600000000001Q119.232 -44.800000000000004 119.552 -44.800000000000004Z M153.856 -12.096V-32.832Q153.856 -38.528 157.344 -41.92Q160.832 -45.312 166.592 -45.312Q172.416 -45.312 175.904 -41.92Q179.392 -38.528 179.392 -32.832V-32.128Q179.392 -31.808 179.168 -31.584Q178.94400000000002 -31.36 178.624 -31.36L171.136 -31.04Q170.368 -31.04 170.368 -31.744V-33.408Q170.368 -35.264 169.344 -36.416Q168.32 -37.568 166.592 -37.568Q164.928 -37.568 163.904 -36.416Q162.88 -35.264 162.88 -33.408V-11.328Q162.88 -9.472 163.904 -8.352Q164.928 -7.232 166.592 -7.232Q168.32 -7.232 169.344 -8.352Q170.368 -9.472 170.368 -11.328V-13.056000000000001Q170.368 -13.376 170.59199999999998 -13.6Q170.816 -13.824 171.136 -13.824L178.624 -13.504Q178.94400000000002 -13.504 179.168 -13.280000000000001Q179.392 -13.056000000000001 179.392 -12.736V-12.096Q179.392 -6.336 175.872 -2.912Q172.352 0.512 166.592 0.512Q160.832 0.512 157.344 -2.912Q153.856 -6.336 153.856 -12.096Z M205.37600000000003 -0.704 204.35200000000003 -6.848Q204.35200000000003 -7.168 203.96800000000002 -7.168H195.84000000000003Q195.45600000000002 -7.168 195.45600000000002 -6.848L194.43200000000002 -0.704Q194.36800000000002 0.0 193.60000000000002 0.0H186.11200000000002Q185.28000000000003 0.0 185.472 -0.8320000000000001L194.88000000000002 -44.096000000000004Q195.008 -44.800000000000004 195.71200000000002 -44.800000000000004H204.35200000000003Q205.056 -44.800000000000004 205.18400000000003 -44.096000000000004L214.52800000000002 -0.8320000000000001L214.592 -0.5760000000000001Q214.592 0.0 213.88800000000003 0.0H206.20800000000003Q205.44000000000003 0.0 205.37600000000003 -0.704ZM196.99200000000002 -14.144H202.752Q203.07200000000003 -14.144 203.00800000000004 -14.464L200.00000000000003 -31.936Q199.93600000000004 -32.128 199.80800000000005 -32.128Q199.68000000000004 -32.128 199.616 -31.936L196.73600000000002 -14.464Q196.73600000000002 -14.144 196.99200000000002 -14.144Z M220.544 -11.200000000000001V-13.056000000000001Q220.544 -13.376 220.76800000000003 -13.6Q220.99200000000002 -13.824 221.312 -13.824H228.67200000000003Q228.99200000000002 -13.824 229.216 -13.6Q229.44000000000003 -13.376 229.44000000000003 -13.056000000000001V-11.648Q229.44000000000003 -9.664 230.46400000000003 -8.448Q231.48800000000003 -7.232 233.02400000000003 -7.232Q234.56000000000003 -7.232 235.58400000000003 -8.384Q236.60800000000003 -9.536 236.60800000000003 -11.392Q236.60800000000003 -13.312000000000001 235.32800000000003 -14.688Q234.04800000000003 -16.064 230.336 -18.752Q227.13600000000002 -21.056 225.15200000000004 -22.848Q223.16800000000003 -24.64 221.76000000000005 -27.264000000000003Q220.35200000000003 -29.888 220.35200000000003 -33.344Q220.35200000000003 -38.784 223.74400000000003 -42.048Q227.13600000000002 -45.312 232.70400000000004 -45.312Q238.336 -45.312 241.76000000000002 -41.92Q245.18400000000003 -38.528 245.18400000000003 -33.024V-31.488Q245.18400000000003 -31.168 244.96000000000004 -30.944Q244.73600000000002 -30.72 244.41600000000003 -30.72H237.05600000000004Q236.73600000000002 -30.72 236.512 -30.944Q236.288 -31.168 236.288 -31.488V-33.216Q236.288 -35.2 235.29600000000002 -36.384Q234.30400000000003 -37.568 232.70400000000004 -37.568Q231.16800000000003 -37.568 230.20800000000003 -36.448Q229.24800000000002 -35.328 229.24800000000002 -33.344Q229.24800000000002 -31.424 230.46400000000003 -29.951999999999998Q231.68000000000004 -28.48 235.264 -25.856Q239.23200000000003 -22.912 241.24800000000002 -21.088Q243.264 -19.264 244.38400000000001 -17.056Q245.50400000000002 -14.848 245.50400000000002 -11.776Q245.50400000000002 -6.144 242.048 -2.816Q238.592 0.512 232.96000000000004 0.512Q229.24800000000002 0.512 226.43200000000002 -0.96Q223.616 -2.432 222.08 -5.088Q220.544 -7.744 220.544 -11.200000000000001Z M275.776 -37.056H262.40000000000003Q262.08 -37.056 262.08 -36.736000000000004V-26.624000000000002Q262.08 -26.304000000000002 262.40000000000003 -26.304000000000002H270.08Q270.40000000000003 -26.304000000000002 270.624 -26.080000000000002Q270.848 -25.856 270.848 -25.536V-19.328Q270.848 -19.008 270.624 -18.784Q270.40000000000003 -18.56 270.08 -18.56H262.40000000000003Q262.08 -18.56 262.08 -18.240000000000002V-8.064Q262.08 -7.744 262.40000000000003 -7.744H275.776Q276.096 -7.744 276.32 -7.52Q276.544 -7.296 276.544 -6.976V-0.768Q276.544 -0.448 276.32 -0.224Q276.096 0.0 275.776 0.0H253.824Q253.50400000000002 0.0 253.28000000000003 -0.224Q253.056 -0.448 253.056 -0.768V-44.032000000000004Q253.056 -44.352000000000004 253.28000000000003 -44.57600000000001Q253.50400000000002 -44.800000000000004 253.824 -44.800000000000004H275.776Q276.096 -44.800000000000004 276.32 -44.57600000000001Q276.544 -44.352000000000004 276.544 -44.032000000000004V-37.824Q276.544 -37.504 276.32 -37.28Q276.096 -37.056 275.776 -37.056Z" fill="currentColor"/>
+</svg><span class="pie__lema">Todos mienten. Las pruebas no.</span></div>
+    <nav class="pie__links" aria-label="Enlaces">
+      <a href="https://github.com/fr4j4/open-case">GitHub</a>
+      <a href="https://github.com/fr4j4/open-case/tree/main/design">Sistema de diseño</a>
+      <a href="#contribuir">Contribuir</a>
+      <a href="#licencias">Licencias</a>
+      <a href="#descargas">Descargas</a>
+    </nav>
+    <p class="pie__nota">Open Case es un juego de ficción. Personajes, empresas y medios son inventados; las instituciones públicas aparecen solo en su función normal. Las fotos de los casos fueron generadas con IA. Código bajo licencia MIT; casos, diseño y logos bajo CC BY-NC-SA 4.0.</p>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>

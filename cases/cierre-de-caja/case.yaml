@@ -31,3 +31,12 @@ dossier:
               E13-V, E13-O, E13-S, E13-D, E14, E15, E17-S, E17-X]
     - id: notices
       items: [AVISO1, AVISO2]
+
+# What the website shows about the case (see opencase/site.py). Summary is in languages/<lang>/case.yaml.
+site:
+  author: Open Case
+  license: CC BY-NC-SA 4.0
+  date: 2026-10-29
+  min_teams: 2
+  duration_minutes: [45, 50]
+  players_per_team: [4, 6]

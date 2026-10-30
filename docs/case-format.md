@@ -52,6 +52,26 @@ strings:
     title: Solicitud de diligencia
 ```
 
+## Website data (`site:`)
+
+The website (`python3 -m opencase.site`, `make site`) draws one card per case. Its data lives in the neutral `case.yaml`:
+
+```yaml
+site:
+  author: Open Case                # required
+  license: CC BY-NC-SA 4.0         # required
+  date: 2026-10-29                 # shown on the card
+  cover: photos/e09_2250.jpg       # optional: image of the card (a spoiler-free one)
+  min_teams: 2                     # the maximum is the length of `teams`
+  duration_minutes: [60, 70]       # a number or [min, max]
+  players_per_team: [5, 7]         # a number or [min, max]
+  slug: my-case                    # optional: defaults to the folder name
+```
+
+and, in every `languages/<lang>/case.yaml`, `summary` (two or three spoiler-free sentences) and `cover_alt` (description of the cover; required when there is a cover).
+
+The build exports the PDFs of every language and packs two reproducible zips per case and language (`<slug>-<lang>-teams.zip`, without the solution, and `<slug>-<lang>-director.zip`, with it), then writes `cases.json`, the list the page reads. Check the metadata alone with `python3 -m opencase.site --check`.
+
 ## case.yaml (neutral)
 
 ```yaml
