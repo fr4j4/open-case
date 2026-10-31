@@ -97,7 +97,9 @@ def where(case):
 
 def index_rows(case):
     """Rows of the evidence index, the annex of the guide: a heading per section, then its sheets (the
-    sections of the Evidence file by code, as they are printed)."""
+    sections of the Evidence file by code, as they are printed). Sheets in a row that print the same code
+    (E13b and E13b-2, one piece of evidence on two sheets) share one row: ("sheet", [sheets], place)."""
+    from .loader import normalize_code
     places = where(case)
     rows = []
     for sec in case.sections:
@@ -105,7 +107,14 @@ def index_rows(case):
         if sec.get("envelope") is None:
             items.sort(key=lambda pid: (natural_key(case.dossier[pid].get("code", pid)), natural_key(pid)))
         rows.append(("section", sec, None))
-        rows += [("sheet", case.dossier[pid], places[pid]) for pid in items]
+        for pid in items:
+            s = case.dossier[pid]
+            last = rows[-1]
+            if (last[0] == "sheet" and last[2] == places[pid]
+                    and normalize_code(last[1][0].get("code", last[1][0].id)) == normalize_code(s.get("code", pid))):
+                last[1].append(s)
+            else:
+                rows.append(("sheet", [s], places[pid]))
     return rows
 
 

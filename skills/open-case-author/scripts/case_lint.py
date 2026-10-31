@@ -10,7 +10,8 @@ are checked by the exporter itself: run export.py --check too.)
 Warnings (exit 0):
   - a suspect has fewer than 2 menu questions or no confrontation card
   - a suspect has no statement file (DEC-<letter>.md)
-  - a card code or a dossier code that is never mentioned in the guide (no row to answer it)
+  - a card code or a dossier code that is never mentioned in the guide (no row to answer it; a sheet counts as
+    mentioned when the code it prints is, so E13b-2.md with `code: E13b` is covered by E13b)
   - a code written in backticks in the kit or the guide that is neither a card, a dossier sheet nor a DG code of the kit
     (or of procedures.yaml)
   - a kit sheet that mentions a dossier code that is not in an envelope section (possible spoiler)
@@ -56,6 +57,14 @@ def tokens_in_ticks(text):
 def load_yaml(path):
     with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
+
+
+def printed_code(path):
+    """The code a dossier sheet prints (`code:` in its front matter; the file name by default). E13b-2.md
+    prints E13b: the second sheet of the same piece of evidence."""
+    m = re.match(r"---\s*\n(.*?)\n---\s*(?:\n|$)", path.read_text(encoding="utf-8"), re.S)
+    data = (yaml.safe_load(m.group(1)) or {}) if m else {}
+    return norm(data.get("code") or path.stem) if isinstance(data, dict) else norm(path.stem)
 
 
 def main():
@@ -146,7 +155,8 @@ def main():
     for code in sorted(norm(x) for x in dossier_files):
         if code in free or code.upper().startswith(("AVISO", "NOTICE")):
             continue
-        if code.casefold() not in guide_norm:
+        printed = printed_code(L / "dossier" / f"{code}.md") if (L / "dossier" / f"{code}.md").exists() else code
+        if code.casefold() not in guide_norm and printed.casefold() not in guide_norm:
             warnings.append(f"dossier sheet {code} is never mentioned in the guide")
 
     # Kit: DG codes, spoiler scan, tokens

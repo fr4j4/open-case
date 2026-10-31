@@ -262,7 +262,11 @@ def _index_sheets(case, dossier):
         if kind == "section":
             rows.append(f'<tr><th colspan="3">{e(item.get("title", ""))}</th></tr>')
         else:
-            rows.append(f'<tr><td class="c">{e(item.get("code", item.id))}</td><td>{line(item.get("title", ""))}</td>'
+            first = item[0]
+            title = line(first.get("title", ""))
+            if len(item) > 1:
+                title += e(case.t("print.index.sheets", n=len(item)))
+            rows.append(f'<tr><td class="c">{e(first.get("code", first.id))}</td><td>{title}</td>'
                         f'<td>{e(place)}</td></tr>')
     per = printing.INDEX_ROWS_PER_SHEET
     chunks = [rows[i:i + per] for i in range(0, len(rows), per)]

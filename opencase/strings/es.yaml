@@ -128,6 +128,7 @@ print:
     code: Código
     sheet: Hoja
     where: Dónde está
+    sheets: " · {n} hojas"
   team_package: Paquete de cada equipo
   team_package_note: Se arma antes de jugar y se entrega entero.
   director_package: Paquete del director
