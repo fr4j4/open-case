@@ -5,6 +5,7 @@
 #   make export ARGS="--lang en"      pass any option of export.py (see python3 export.py --help)
 #   make color                        same, but in full colour
 #   make check                        check the case files without making PDFs
+#   make signatures                   draw the pen strokes of the signers that have none (cases/<case>/signatures.yaml)
 #   make images                       PDFs + one image per evidence sheet to send through a chat
 #   make export ARGS="--teams 2"      material for the first 2 teams only (the print plan counts 2 copies)
 #   make export ARGS="--chat"         the Evidence file goes through the chat: 0 copies in the plan, images made
@@ -25,7 +26,7 @@ HEAD ?=
 VENV ?= .venv
 PY := $(if $(wildcard $(VENV)/bin/python),$(VENV)/bin/python,python3)
 
-.PHONY: install export color check images site test test-update lint print-check snapshot compare clean
+.PHONY: install export color check signatures images site test test-update lint print-check snapshot compare clean
 
 install:
 	python3 -m venv $(VENV)
@@ -40,6 +41,9 @@ color:
 
 check:
 	$(PY) export.py $(CASE) $(ARGS) --check
+
+signatures:
+	$(PY) tools/signatures.py $(CASE) $(ARGS)
 
 images:
 	$(PY) export.py $(CASE) $(ARGS) --images

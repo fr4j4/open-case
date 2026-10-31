@@ -97,11 +97,29 @@ def c_meta(b, ctx):
     return f'<div class="oc-meta">{rows}</div>'
 
 
+def read_items(b, sheet):
+    """The items of a ```signature block (a list), read the same way for drawing and for checking."""
+    data = read_yaml(b.content, sheet.path if sheet else None, b.line)
+    if data is None:
+        return []
+    if not isinstance(data, list):
+        raise CaseError("the signature block must be a list (lines starting with '- ')", sheet.path if sheet else None,
+                        b.line)
+    return data
+
+
 def c_signature(b, ctx):
+    from . import signatures
     parts = []
-    for it in _data(b, ctx, list):
-        if isinstance(it, dict) and ("scrawl" in it or "label" in it):
-            scrawl = f'<span class="oc-firma__trazo">{e(it.get("scrawl", ""))}</span>' if it.get("scrawl") else ""
+    for it in read_items(b, ctx.sheet):
+        if isinstance(it, dict) and ("scrawl" in it or "label" in it or "signer" in it):
+            name = it.get("scrawl") or ctx.case.signatures.get(str(it.get("signer")), {}).get("name", "")
+            label = ctx.case.t("signatures.label", name=name) if name else ctx.case.t("signatures.label_plain")
+            drawn = signatures.svg(ctx.case, it["signer"], label) if it.get("signer") is not None else None
+            if drawn:
+                scrawl = f'<span class="oc-firma__trazo oc-firma__trazo--svg">{drawn}</span>'
+            else:
+                scrawl = f'<span class="oc-firma__trazo">{e(it.get("scrawl", ""))}</span>' if it.get("scrawl") else ""
             parts.append(f'<div>{scrawl}<span>{line(it.get("label", ""))}</span></div>')
         else:
             if isinstance(it, dict):

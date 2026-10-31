@@ -11,6 +11,7 @@ cases/my-case/
 ├── case.yaml            neutral data: paper, teams, tokens, order of the dossier, languages
 ├── procedures.yaml      optional: the procedures of the team's menu and what each one hands out
 ├── locations.yaml       optional: the places a team may ask about and their sources (camera, register)
+├── signatures.yaml      optional: the pen strokes of the people who sign the sheets
 ├── photos/              images shared by every language (.jpg / .png)
 ├── diagrams/            drawings shared by every language (.svg)
 ├── styles.css           optional: extra CSS only for this case
@@ -343,6 +344,38 @@ The `locations` block draws the guide's table of places: which source each one h
 
 The export stops when a procedure has an unknown kind or field, both or neither of `gives` and `targets`, a result that is not a sheet of the dossier, a target with no name, or a text for a code or target that does not exist. It warns when `alibi: true` is on a kind that does not show where someone was or the case has no alibi tokens, when a camera procedure hands out a sheet for a place without sources (or finds nothing at a place that has one), when a sheet outside the envelopes can be got neither by a procedure nor with a card, and when a follow-up's `unlocked_by` or a witness's `appears_in` is a sheet no team can get. `--check` also compares the texts of procedures.yaml between languages.
 
+## Signatures
+
+A signature at the bottom of a sheet can be drawn as the strokes of a ballpoint pen, so each person of the case signs in a hand of their own and two signatures can be compared. The engine knows how to draw one; the case brings the strokes of its signers in `signatures.yaml` (neutral: a signature does not change with the language):
+
+```yaml
+# signatures.yaml (neutral)
+signatures:
+  B:                          # the id a signature block names with `signer: B`
+    name: Benjamín Ferrada Soto
+    width: 1.7                # pen width, in units of the viewbox (optional, 1.5)
+    viewbox: 0 0 53 40        # the box the strokes are drawn in (optional, 0 0 120 40)
+    strokes:                  # SVG path data, one stroke of the pen each
+      - "M3 27.9C5 23.7 12.9 3.1 14.9 3C17 2.9 13.7 25.3 15.5 27.4"
+      - "M3.3 37L38 35.3"
+      - "M49.2 34.9h0.6"      # a dot
+```
+
+And in the sheet:
+
+````markdown
+```signature
+- {signer: B, scrawl: Benjamín Ferrada Soto, label: Firma del declarante}
+- Detective a cargo
+```
+````
+
+The strokes are printed in the pen's ink colour at the height of the signature line, whatever the viewbox. A signer with no strokes in `signatures.yaml` is printed as before, with its `scrawl` in the handwriting font, so a case can draw some signatures and not others. The ids are free: a suspect's letter is the usual one, and anyone else who signs (`painemal`) gets a word.
+
+You do not need to draw them by hand. `python3 tools/signatures.py cases/my-case` (or `make signatures`) reads the signature blocks, draws the signers that have no strokes yet from their `scrawl` and writes them in `signatures.yaml`. Each one comes from a hand movement (a flowing name, a scribble, zig-zags, a wave...) that no other person of the case shares while there are movements left; the details come from the name and a seed. `--redo B` draws B again with the next seed, `--family` picks the movement, and `--preview page.html` shows them all side by side. What it writes is plain data: retouch the paths, or paste the paths of a signature drawn in a vector editor. The exporter only reads the file, so a signature never changes by itself.
+
+The export stops when a stroke is not SVG path data, a viewbox is not four numbers, or a signer has neither strokes nor `scrawl`; it warns when a signature of `signatures.yaml` signs no sheet.
+
 ## Sheets: kit, dossier and guide
 
 Each `.md` file is one sheet. At the top there is a YAML header between `---` and below it the content:
@@ -404,7 +437,7 @@ One YAML detail worth knowing: if a text has `: ` or `#` in it, or starts with a
 | Block | What it draws | Content |
 |---|---|---|
 | `meta` | The data grid at the top of a report | `Label: value`, one per line |
-| `signature` | Signatures at the bottom | List of `{scrawl: I. Painemal, label: Comisario a cargo}`, or plain texts |
+| `signature` | Signatures at the bottom | List of `{signer: painemal, scrawl: I. Painemal, label: Comisario a cargo}`, or plain texts. `signer` draws the strokes of `signatures.yaml`; without strokes, `scrawl` is printed with the handwriting font (see "Signatures") |
 | `statement` | A statement, in typewriter type | Free text, keeps its line breaks |
 | `quote` | A highlighted quote | Free text |
 | `handwritten` | Handwriting. Optional argument: `notebook`, `scribble`, `pencil`, `letter`, `no-lines` | Free text |
