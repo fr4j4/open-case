@@ -318,6 +318,8 @@ def validate(case):
     """Checks cross references. Errors stop the export; warnings do not."""
     case_file = case.root / "case.yaml"
     case.figures  # a misspelt key or a figure that is not one stops here, also with --check
+    from .acronyms import glossary
+    glossary(case)  # a glossary that is not ACRONYM: long form stops here
     seen = {}
     for sec in case.sections:
         for pid in sec.get("items", []) or []:

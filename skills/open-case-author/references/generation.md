@@ -20,7 +20,7 @@ Sections come from the evidence table (§8): one section per "how obtained" grou
 
 ## 2 · `languages/<lang>/case.yaml` ← bible §0, §13
 
-`title`, `version` ("Versión 1 · <month year>"), `tagline` (the brand's), `badge` (title and two-line unit), `kit.description` and `kit.cover_note`, `guide.description` and `guide.cover_note`, `dossier.title`, `kicker`, `description`, `printed_description`, `dossier.sections.<id>` with `title` and `note` for every section id of the neutral file, `envelope_labels` (one per envelope: number, when, description, contents, footer).
+`title`, `version` ("Versión 1 · <month year>"), `tagline` (the brand's), `badge` (title and two-line unit), `kit.description` and `kit.cover_note`, `guide.description` and `guide.cover_note`, `dossier.title`, `kicker`, `description`, `printed_description`, `dossier.sections.<id>` with `title` and `note` for every section id of the neutral file, `envelope_labels` (one per envelope: number, when, description, contents, footer), `glossary` (every acronym of the case with its long form; see `writing.md`, "Acronyms").
 
 ## 3 · `suspects.yaml` ← bible §4
 

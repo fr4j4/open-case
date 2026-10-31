@@ -160,8 +160,22 @@ score_texts:                   # required when the neutral case.yaml has score_b
   bonus: Explicar qué pasó con los ataques a los animales y por qué
   bonus_short: Bonus ataques   # optional: the shorter text of the director's score sheet
 
+glossary:                      # optional: the acronyms the sheets use (see "Acronyms" below)
+  PDI: Policía de Investigaciones de Chile
+  SUV: {long: vehículo utilitario deportivo, expand: false}
+glossary_ignore: [BIRO]        # optional: words in capitals that are not acronyms
+
 strings: …                     # optional: replaces words the exporter prints
 ```
+
+### Acronyms
+
+An acronym is defined once, as data of the case, and the engine does the rest: the director's guide gets a table of the glossary (sheet "Siglas del caso", at the end), and `--check` (and `case_lint.py`) warns about two things.
+
+- **An acronym used before its long form.** In the order a team reads: the kit, then the sheets of the envelopes in the order of the sections of `case.yaml` (inside a sheet, its front matter first). Write it out the first time (`Servicio Agrícola y Ganadero (SAG)`, or `SAG` right before `(Servicio Agrícola y Ganadero)`). A sheet that comes with an answer, and each card, are checked on their own against what the teams already read. What a person says does not count: chats, statements (`phones`, `posts`, `statement`, `quote`, `handwritten` blocks) and quoted answers on the cards.
+- **A word that looks like an acronym but is in no glossary** (2 to 6 capitals, not part of a heading in capitals, not the prefix of a code such as `E` or `DEC`). Add it to `glossary`, or to `glossary_ignore` when it is not one (`BIRO`).
+
+An entry written as `{long: …, expand: false}` is an acronym everybody knows (SUV, ADN): it is in the director's table, but the sheets do not have to write it out. The glossary changes with the language, so it is in `languages/<lang>/case.yaml`; a translation brings its own. To show the table to the teams, put a ` ```acronyms ` block in a sheet of the kit (`only: [PDI, SAG]` limits it to some).
 
 ## suspects.yaml
 
@@ -359,6 +373,7 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 | `control` | The director's control table: one column per team, the case's rows, then the notices, other questions, hints, tokens left and alibi tokens used | `rows:`, a list of `[code, what it is, tokens]` |
 | `notices` | What the director reads for each notice and press card, with its suggested minute, from the cards of type `notice` and `press` | Nothing |
 | `hints` | The hints in order, with what each one costs, from the cards of type `hint` | Nothing |
+| `acronyms` | The glossary of the case as a table of acronym and long form | Optional `only: [PDI, SAG]` |
 | `discard-rule` | The kit's paragraph on ruling innocents out and what each discard is worth | Nothing |
 | `score-sheet` | The director's score sheet, one column per team, with the tie-break | Nothing |
 
