@@ -30,11 +30,12 @@ from . import cards as C
 from . import documents, followups, printing, procedures, templates, witnesses
 from .components import Context
 from .loader import CaseError, as_list, card_kind, case_languages, display_code, iter_cards, load_case, read_yaml_file
+from .loader import read_yaml
 from .markup import plain_text, use_strings
 from .i18n import Strings
 
 ROOT = Path(__file__).resolve().parent.parent
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 SCHEMA_DIR = ROOT / "docs" / "web-schema"
 
 # --- Names of files and of assets ---------------------------------------------------------------
@@ -230,6 +231,34 @@ def _envelopes(case):
     return out
 
 
+def _forms(case, kit):
+    """The sheets of the team kit the team fills in and hands to the director (the accusation and the discard sheet):
+    every kit sheet with a `fields` block or a work table, except the one with the schedule (the timeline is the team's
+    own working sheet, not something it hands in). The app draws them as forms, in the order and with the labels of the
+    sheet, and the director receives the answers."""
+    out = []
+    for h in kit:
+        parts = []
+        if any(b.type == "work-table" and (read_yaml(b.content, h.path, b.line) or {}).get("schedule") for b in h.blocks):
+            continue
+        for b in h.blocks:
+            if b.type == "fields":
+                data = read_yaml(b.content, h.path, b.line) or []
+                items = []
+                for c in data:
+                    c = {"label": c} if isinstance(c, str) else c
+                    items.append({"label": _text(c.get("label", "")), "type": "box" if c.get("type") == "box" else "line"})
+                parts.append({"kind": "fields", "items": items})
+            elif b.type == "work-table":
+                data = read_yaml(b.content, h.path, b.line) or {}
+                parts.append({"kind": "table", "columns": [_text(c) for c in data.get("columns", [])],
+                              "rows": [_text(r) for r in data.get("rows", [])]})
+        if parts:
+            out.append({"id": h.id, "title": _text(h.get("title") or h.get("institution", "")),
+                        "file": f"sheets/kit-{file_slug(h.id)}.html", "parts": parts})
+    return out
+
+
 def team_json(case, slug, ctx, kit):
     return {
         "schema_version": SCHEMA_VERSION, "kind": "team", "case": _case_info(case, slug),
@@ -237,6 +266,7 @@ def team_json(case, slug, ctx, kit):
         "suspects": _suspects(case, ctx), "menu": _menu(case), "follow_ups": _follow_ups_team(case),
         "procedures": [_procedure_team(case, p) for p in case.procedures],
         "envelopes": _envelopes(case),
+        "forms": _forms(case, kit),
         "kit": [{"id": h.id, "title": _text(h.get("title") or h.get("institution", "")), "file": f}
                 for f, doc, h in _sheet_files(case, kit) if doc == "kit"],
         "texts": {"title": case.title, "tagline": str(case.get("tagline", case.t("tagline")))},
