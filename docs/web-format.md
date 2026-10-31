@@ -45,7 +45,7 @@ play/
 
 ## `schema_version`
 
-All the JSON carries `schema_version` (today **1**). The JSON Schemas in `docs/web-schema/` (`team`, `director`,
+All the JSON carries `schema_version` (today **2**). The JSON Schemas in `docs/web-schema/` (`team`, `director`,
 `manifest`) describe every field and are checked by `tests/test_web.py` against the real files. They have
 `additionalProperties: false`: adding a field is a change of the contract. To change the schema:
 
@@ -97,7 +97,15 @@ what is not yet handed out out of the way, in good faith, as agreed in the plan.
 What is needed to charge and give tokens back:
 
 - `tokens_per_team`, `alibi_tokens_per_team`;
-- `costs`: `question`, `witness`, `confrontation` and `follow_up` (1 token each);
+- `costs`: `question`, `witness`, `confrontation` and `follow_up`, from `figures.costs` of `opencase/defaults.yaml`
+  (a case may change them; the kit, the guide and the follow-up box print the same number);
+- `requests`: for each kind of request (`question`, `witness`, `follow_up`, `confrontation`, `procedure`, `source`) its
+  `cost` (null for a procedure, which has its own, and for `source`, which is free) and `answers`: every answer the
+  director can give and whether it **charges** (`give`, `obvious`, `unavailable`, `nothing_to_add`, `locked`,
+  `failed`, `no_basis`, `nothing_found`, `already_have`, `yes`, `no`; the meaning of each is in
+  `opencase/procedures.py`, `REQUESTS`). A follow-up has `unlock: "any"`: one of its `unlocked_by` is enough;
+- `wildcards`: the code of the card that answers in the engine's name (`role:` of a wildcard card in `cards.yaml`:
+  `no_findings`, `unavailable`, `nothing_to_add`, `confrontation_failed`), or null when the case has none;
 - `procedure_kinds`: for each kind of procedure, what its target is (`target`), whether it shows where someone was
   (`locates`, so an alibi token can pay it) and whether it reads a source a place has (`source`, so asking if the
   place has one is free);
@@ -106,22 +114,27 @@ What is needed to charge and give tokens back:
 
 The cost of a procedure is in `procedures[].cost` (and `costs`, when a target costs more).
 
-### What is still only text (pending for F4a)
+### How the app applies them (`site/play/js/rules.js`)
 
-These rules exist only as sentences of the engine's templates (`opencase/templates/<lang>/kit/20-rules.md` and
-`guide/`) or in the strings, so the app cannot apply them from data yet. `rules.costs` repeats the 1-token costs
-as constants of `opencase/web.py` (`QUESTION_COST`, `WITNESS_COST`, `CONFRONTATION_COST`, `FOLLOW_UP_COST`). F4a
-turns them into data and a test that the kit and the app say the same:
+The module is pure (no DOM, no network) and reads only these fields and the cards, sheets, procedures and witnesses of
+`director.json`; it has no number or code of its own. For each request it offers the director's buttons
+(`answers`) and applies one (`resolve`), which returns the new state or an error and never leaves a negative balance.
 
-- A question without a basis is rejected and not charged; a request for something the team already has is
-  answered without charging; "tiene base pero no hay nada" is charged (`special: none`).
-- The obvious questions inside the story are answered for free.
-- A witness can be interviewed only when their name has appeared in the material (`appears_in`, `aliases`).
-- A confrontation hands out one card and can be repeated with other evidence; a wrong one is charged and answered
-  with the `failed` card.
-- An alibi token pays only a procedure that shows where someone was; spare numbered tokens score
-  `score.spare_token`, alibi tokens do not.
-- Rule 7 of the kit (what places a person) is judged by the director.
+| Rule of the kit | Where it is data | What `rules.js` does |
+|---|---|---|
+| 1 Questions cost `costs.question`, also off the menu; the obvious is free | `requests.question.answers` (`give` charges, `obvious` does not) | charges `give`; `obvious` keeps the tokens |
+| 1 Only in the investigation | the app (F5) opens the phase | — |
+| 2 A witness only once named | `witnesses[].appears_in` | `give` is refused (`unavailable`) until a sheet or card of `appears_in` is held; one card per question, in order; then `nothing_to_add` |
+| 3 A confrontation hands out one card; a wrong one is charged | `requests.confrontation`, `cards[]` (`confrontation`, `failed`) | `give` with a card of that suspect, or `failed` (their `failed` card, else `wildcards.confrontation_failed`); the same card twice is `already_have` |
+| 4 Procedures: no basis is free, "sin hallazgos" is charged, what they already have is free | `requests.procedure`, `procedures[].targets` (`special`) | `nothing_found` only where the result is `none` or `material`; `give` of a held sheet is `already_have`; `no_basis` is free |
+| 5 Asking if a place has a source is free | `free_source_procedures`, `locations[].sources` | `source` answers `yes` or `no` (the one the place suggests) without charging |
+| 6 Alibi tokens | `alibi_procedures`, `procedure_kinds[].locates` | an alibi token pays only a charged answer of a procedure in `alibi_procedures`; spare numbered tokens score `figures.score.spare_token`, alibi ones do not |
+| 7 What places a person | — | judged by the director (it stays text) |
+
+`tests/web/test_rules.py` runs `tests/web/rules.test.mjs` with node: the 100 % of the menu questions, follow-ups,
+witnesses, confrontations and procedure–target pairs of the Chupacabras give in JS the cards, sheets and cost that
+pytest works out from the loaded case (`requests` in `tests/web_expected/<case>.json`), and every kind of request
+with every button is run against the balance (never below 0, spent + left = initial).
 
 ## `manifest.json`
 

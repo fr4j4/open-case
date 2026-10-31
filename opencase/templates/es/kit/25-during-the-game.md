@@ -18,7 +18,7 @@ Es solo para su equipo: no se lo muestren a los demás. **Los sospechosos pueden
 
 ### Seguimientos
 
-Algunas tarjetas traen al pie un recuadro de seguimiento: un código terminado en +. Se pide como cualquier pregunta y cuesta 1 ficha.{{ ' Si el recuadro dice "si ya tienen" una prueba, solo se puede pedir cuando la tengan.' if follow_ups|selectattr("unlocked_by")|list else "" }}
+Algunas tarjetas traen al pie un recuadro de seguimiento: un código terminado en +. Se pide como cualquier pregunta y cuesta {{ m.tok(f.costs.follow_up) }}.{{ ' Si el recuadro dice "si ya tienen" una prueba, solo se puede pedir cuando la tengan.' if follow_ups|selectattr("unlocked_by")|list else "" }}
 
 {% if notice_minutes %}
 ### Avisos

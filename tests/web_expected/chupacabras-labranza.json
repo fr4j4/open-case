@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "teams": {
     "A": {
       "tokens": 16,
@@ -630,5 +630,1209 @@
       2,
       2
     ]
-  }
+  },
+  "requests": [
+    {
+      "kind": "question",
+      "code": "B1",
+      "cost": 1,
+      "cards": [
+        "B1"
+      ],
+      "sheets": [
+        "E30"
+      ]
+    },
+    {
+      "kind": "question",
+      "code": "B2",
+      "cost": 1,
+      "cards": [
+        "B2"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "B3",
+      "cost": 1,
+      "cards": [
+        "B3"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "B4",
+      "cost": 1,
+      "cards": [
+        "B4"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B5",
+      "cost": 1,
+      "cards": [
+        "B5"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B5a",
+      "cost": 1,
+      "cards": [
+        "B5a"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B6",
+      "cost": 1,
+      "cards": [
+        "B6"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B7",
+      "cost": 1,
+      "cards": [
+        "B7"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B7a",
+      "cost": 1,
+      "cards": [
+        "B7a"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B8",
+      "cost": 1,
+      "cards": [
+        "B8"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B9",
+      "cost": 1,
+      "cards": [
+        "B9"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B10",
+      "cost": 1,
+      "cards": [
+        "B10"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B11",
+      "cost": 1,
+      "cards": [
+        "B11"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B12",
+      "cost": 1,
+      "cards": [
+        "B12"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "B",
+      "card": "B13",
+      "cost": 1,
+      "cards": [
+        "B13"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "follow_up",
+      "code": "B1+",
+      "cost": 1,
+      "cards": [
+        "B1+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "B1"
+      ],
+      "unlocked_by": []
+    },
+    {
+      "kind": "follow_up",
+      "code": "B3+",
+      "cost": 1,
+      "cards": [
+        "B3+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "B3"
+      ],
+      "unlocked_by": []
+    },
+    {
+      "kind": "question",
+      "code": "H1",
+      "cost": 1,
+      "cards": [
+        "H1"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "H2",
+      "cost": 1,
+      "cards": [
+        "H2"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "H3",
+      "cost": 1,
+      "cards": [
+        "H3"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "H4",
+      "cost": 1,
+      "cards": [
+        "H4"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "H",
+      "card": "H5",
+      "cost": 1,
+      "cards": [
+        "H5"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "H",
+      "card": "H6",
+      "cost": 1,
+      "cards": [
+        "H6"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "follow_up",
+      "code": "H2+",
+      "cost": 1,
+      "cards": [
+        "H2+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "H2"
+      ],
+      "unlocked_by": [
+        "E13b"
+      ]
+    },
+    {
+      "kind": "question",
+      "code": "J1",
+      "cost": 1,
+      "cards": [
+        "J1"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "J2",
+      "cost": 1,
+      "cards": [
+        "J2"
+      ],
+      "sheets": [
+        "E08"
+      ]
+    },
+    {
+      "kind": "question",
+      "code": "J3",
+      "cost": 1,
+      "cards": [
+        "J3"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "J4",
+      "cost": 1,
+      "cards": [
+        "J4"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "J",
+      "card": "J5",
+      "cost": 1,
+      "cards": [
+        "J5"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "J",
+      "card": "J6",
+      "cost": 1,
+      "cards": [
+        "J6"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "follow_up",
+      "code": "J3+",
+      "cost": 1,
+      "cards": [
+        "J3+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "J3"
+      ],
+      "unlocked_by": []
+    },
+    {
+      "kind": "question",
+      "code": "P1",
+      "cost": 1,
+      "cards": [
+        "P1"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "P2",
+      "cost": 1,
+      "cards": [
+        "P2"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "P3",
+      "cost": 1,
+      "cards": [
+        "P3"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "P4",
+      "cost": 1,
+      "cards": [
+        "P4"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "P",
+      "card": "P5",
+      "cost": 1,
+      "cards": [
+        "P5"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "P",
+      "card": "P6",
+      "cost": 1,
+      "cards": [
+        "P6"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "follow_up",
+      "code": "P2+",
+      "cost": 1,
+      "cards": [
+        "P2+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "P2"
+      ],
+      "unlocked_by": [
+        "E13a"
+      ]
+    },
+    {
+      "kind": "question",
+      "code": "T1",
+      "cost": 1,
+      "cards": [
+        "T1"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "T2",
+      "cost": 1,
+      "cards": [
+        "T2"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "T3",
+      "cost": 1,
+      "cards": [
+        "T3"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "T4",
+      "cost": 1,
+      "cards": [
+        "T4"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "T",
+      "card": "T5",
+      "cost": 1,
+      "cards": [
+        "T5"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "T",
+      "card": "T6",
+      "cost": 1,
+      "cards": [
+        "T6"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "T",
+      "card": "T7",
+      "cost": 1,
+      "cards": [
+        "T7"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "follow_up",
+      "code": "T4+",
+      "cost": 1,
+      "cards": [
+        "T4+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "T4"
+      ],
+      "unlocked_by": []
+    },
+    {
+      "kind": "question",
+      "code": "C1",
+      "cost": 1,
+      "cards": [
+        "C1"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "C2",
+      "cost": 1,
+      "cards": [
+        "C2"
+      ],
+      "sheets": [
+        "E10"
+      ]
+    },
+    {
+      "kind": "question",
+      "code": "C3",
+      "cost": 1,
+      "cards": [
+        "C3"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "question",
+      "code": "C4",
+      "cost": 1,
+      "cards": [
+        "C4"
+      ],
+      "sheets": []
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "C",
+      "card": "C5",
+      "cost": 1,
+      "cards": [
+        "C5"
+      ],
+      "sheets": [
+        "E11"
+      ]
+    },
+    {
+      "kind": "confrontation",
+      "suspect": "C",
+      "card": "C6",
+      "cost": 1,
+      "cards": [
+        "C6"
+      ],
+      "sheets": [
+        "E22"
+      ]
+    },
+    {
+      "kind": "follow_up",
+      "code": "C3+",
+      "cost": 1,
+      "cards": [
+        "C3+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "C3"
+      ],
+      "unlocked_by": [
+        "E15·M",
+        "E15·C"
+      ]
+    },
+    {
+      "kind": "follow_up",
+      "code": "I1+",
+      "cost": 1,
+      "cards": [
+        "I1+"
+      ],
+      "sheets": [],
+      "mothers": [
+        "I1"
+      ],
+      "unlocked_by": []
+    },
+    {
+      "kind": "witness",
+      "who": "Rosa Huenchumilla",
+      "cost": 1,
+      "appears_in": [
+        "E01",
+        "E04"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "R1"
+          ],
+          "sheets": []
+        },
+        {
+          "cards": [
+            "R2"
+          ],
+          "sheets": []
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Kevin Huenchumilla",
+      "cost": 1,
+      "appears_in": [
+        "R1"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "K1"
+          ],
+          "sheets": [
+            "E09"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Elena Mardones",
+      "cost": 1,
+      "appears_in": [
+        "E04",
+        "E20",
+        "H1"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "EL1"
+          ],
+          "sheets": []
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Claudia Carrasco",
+      "cost": 1,
+      "appears_in": [
+        "EL1",
+        "H5"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "CL1"
+          ],
+          "sheets": []
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Luis Riquelme, conserje",
+      "cost": 1,
+      "appears_in": [
+        "B1"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "L1"
+          ],
+          "sheets": [
+            "E14"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Macarena Vidal",
+      "cost": 1,
+      "appears_in": [
+        "DEC·T",
+        "T1"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "M1"
+          ],
+          "sheets": [
+            "E21"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Patricio Sepúlveda",
+      "cost": 1,
+      "appears_in": [
+        "E22"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "PS1"
+          ],
+          "sheets": []
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Juan Cifuentes, colectivero",
+      "cost": 1,
+      "appears_in": [
+        "R2"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "CO1"
+          ],
+          "sheets": []
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Perito informático, LACRIM",
+      "cost": 1,
+      "appears_in": [
+        "E13a",
+        "E13b"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "PER1"
+          ],
+          "sheets": []
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Rodrigo Iturra",
+      "cost": 1,
+      "appears_in": [
+        "E13a",
+        "E25"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "I1"
+          ],
+          "sheets": [
+            "E27"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "witness",
+      "who": "Fernanda Ortiz",
+      "cost": 1,
+      "appears_in": [
+        "DEC·P",
+        "P1"
+      ],
+      "sequence": [
+        {
+          "cards": [
+            "F1"
+          ],
+          "sheets": [
+            "E23"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "procedure",
+      "code": "DG1",
+      "target": null,
+      "cost": 1,
+      "sheets": [
+        "E12"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG2",
+      "target": null,
+      "cost": 1,
+      "sheets": [
+        "E13a"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG2W",
+      "target": null,
+      "cost": 1,
+      "sheets": [
+        "E13b"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG2C",
+      "target": null,
+      "cost": 1,
+      "sheets": [
+        "E13c"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG3",
+      "target": "B",
+      "cost": 1,
+      "sheets": [
+        "E15·B"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG3",
+      "target": "T",
+      "cost": 1,
+      "sheets": [
+        "E15·T"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG3",
+      "target": "C",
+      "cost": 1,
+      "sheets": [
+        "E15·C"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG3",
+      "target": "P",
+      "cost": 1,
+      "sheets": [
+        "E15·P"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG3",
+      "target": "H",
+      "cost": 1,
+      "sheets": [
+        "E15·H"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG3",
+      "target": "J",
+      "cost": 1,
+      "sheets": [
+        "E15·J"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG3",
+      "target": "M",
+      "cost": 1,
+      "sheets": [
+        "E15·M"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG4",
+      "target": null,
+      "cost": 1,
+      "sheets": [
+        "E16"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG5",
+      "target": "B",
+      "cost": 1,
+      "sheets": [
+        "E17·B"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG5",
+      "target": "T",
+      "cost": 1,
+      "sheets": [
+        "E17·T"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG5",
+      "target": "H",
+      "cost": 1,
+      "sheets": [
+        "E17·H"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG5",
+      "target": "C",
+      "cost": 1,
+      "sheets": [
+        "E17·C"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG5",
+      "target": "P",
+      "cost": 1,
+      "sheets": [
+        "E17·P"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG5",
+      "target": "J",
+      "cost": 1,
+      "sheets": [
+        "E17·J"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG6",
+      "target": "stream",
+      "cost": 1,
+      "sheets": [
+        "E18"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG6",
+      "target": "other",
+      "cost": 1,
+      "sheets": [],
+      "special": "none"
+    },
+    {
+      "kind": "procedure",
+      "code": "DG7",
+      "target": "T",
+      "cost": 1,
+      "sheets": [
+        "E19·T"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG7",
+      "target": "B",
+      "cost": 1,
+      "sheets": [
+        "E19·B"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG7",
+      "target": "J",
+      "cost": 1,
+      "sheets": [
+        "E19·J"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG7",
+      "target": "P",
+      "cost": 1,
+      "sheets": [
+        "E19·P"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG7",
+      "target": "H",
+      "cost": 1,
+      "sheets": [
+        "E19·H"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG7",
+      "target": "C",
+      "cost": 1,
+      "sheets": [
+        "E19·C"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG8",
+      "target": "desk",
+      "cost": 1,
+      "sheets": [
+        "E24"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG8",
+      "target": "safe",
+      "cost": 1,
+      "sheets": [
+        "E25"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG9",
+      "target": "B",
+      "cost": 1,
+      "sheets": [
+        "E26·B"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG9",
+      "target": "T",
+      "cost": 1,
+      "sheets": [
+        "E26·T"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG9",
+      "target": "P",
+      "cost": 1,
+      "sheets": [
+        "E26·P"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG9",
+      "target": "C",
+      "cost": 1,
+      "sheets": [
+        "E26·C"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG9",
+      "target": "H",
+      "cost": 1,
+      "sheets": [
+        "E26·H"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG9",
+      "target": "J",
+      "cost": 1,
+      "sheets": [
+        "E26·J"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG11",
+      "target": "copec",
+      "cost": 1,
+      "sheets": [
+        "E28"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG11",
+      "target": "building",
+      "cost": 1,
+      "sheets": [
+        "E14"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG11",
+      "target": "clinic",
+      "cost": 1,
+      "sheets": [
+        "E22"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG11",
+      "target": "hospital",
+      "cost": 1,
+      "sheets": [
+        "E20"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG11",
+      "target": "karaoke",
+      "cost": 1,
+      "sheets": [],
+      "special": "none"
+    },
+    {
+      "kind": "procedure",
+      "code": "DG12",
+      "target": "P",
+      "cost": 1,
+      "sheets": [
+        "E29·P"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG12",
+      "target": "B",
+      "cost": 1,
+      "sheets": [
+        "E29·B"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG12",
+      "target": "J",
+      "cost": 1,
+      "sheets": [
+        "E29·J",
+        "E08"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG12",
+      "target": "other",
+      "cost": 1,
+      "sheets": [
+        "E29·X"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG10",
+      "target": "deleted_message",
+      "cost": 2,
+      "sheets": [
+        "E13d"
+      ],
+      "special": null
+    },
+    {
+      "kind": "procedure",
+      "code": "DG10",
+      "target": "other",
+      "cost": 1,
+      "sheets": [],
+      "special": "material"
+    }
+  ]
 }

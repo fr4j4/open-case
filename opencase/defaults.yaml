@@ -6,6 +6,11 @@
 
 tokens_per_team: 16          # numbered tokens for questions and procedures
 alibi_tokens_per_team: 0     # dashed tokens that only check where a suspect was (0: the case has none)
+costs:                       # tokens each kind of request costs (a procedure has its own cost, in procedures.yaml)
+  question: 1                # a question to a suspect, from the menu or not
+  witness: 1                 # a question to a witness
+  confrontation: 1           # showing evidence to a suspect (◆), also when it proves nothing
+  follow_up: 1               # a follow-up question
 team_size_min: 2             # play in teams of 2 or more, so there is talk inside each team
 
 phases:                      # minutes of each phase

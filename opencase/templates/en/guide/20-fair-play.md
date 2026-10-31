@@ -12,7 +12,7 @@ As the narrator you never lie and never make up a new clue. If they ask somethin
 ```
 
 - **Serve in order of arrival, taking turns between teams.** Answer each request before taking the next; if a team piles up several, answer one and move on to the next team.
-- **Questions only in the investigation,** never in the scene. Suspects can be interviewed from its start, at 1 token per question; the statement in envelope 1 is not an interview.
+- **Questions only in the investigation,** never in the scene. Suspects can be interviewed from its start, at {{ m.tok(f.costs.question) }} per question; the statement in envelope 1 is not an interview.
 - **Witnesses:** they can be asked for once their name has appeared in the team's material, even in a list or a register. The first time a new name appears in something you hand out, say it aloud: "you can interview that person now". If it has not appeared yet, hand out the witness-not-available card and do not charge. Witnesses tell the truth.
 - **A confrontation gives one card only.** If several apply, give the most specific one.
 - **Procedures:** with no grounds in what they have seen (the cameras of a bank no document mentions), turn the request down and do not charge. With grounds but nothing to find (the cameras of a pharmacy in the report that has none), answer "no findings" and the token is spent. If they ask for something they already have: "you already have that", no charge.

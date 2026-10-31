@@ -9,8 +9,8 @@ import jsonschema
 import pytest
 
 from opencase import cards as C
-from opencase import documents, web
-from opencase.loader import iter_cards, load_case, normalize_code
+from opencase import documents, followups, web, witnesses
+from opencase.loader import as_list, card_kind, display_code, iter_cards, load_case, normalize_code
 from opencase.markup import use_strings
 
 REPO = Path(__file__).resolve().parent.parent
@@ -230,7 +230,41 @@ def test_the_schemas_have_the_version_of_the_module():
         assert schema["properties"]["schema_version"]["const"] == web.SCHEMA_VERSION
 
 
-def expected(team, director):
+def requests_expected(case):
+    """What every request of the Chupacabras earns and costs, worked out from the loaded case (cards.yaml,
+    procedures.yaml), not from the JSON: site/play/js/rules.js must give the same (tests/web/test_rules.py)."""
+    costs = case.figures["costs"]
+    shown = lambda c: [display_code(case, a) for a in as_list(c.get("attach"))]  # noqa: E731
+    mothers = {f["code"]: f["mothers"] for f in followups.follow_ups(case)}
+    appears = {w["who"]: w["appears_in_shown"] for w in witnesses.witnesses(case)}
+    out = []
+    for c, g in iter_cards(case):
+        kind = card_kind(c, g)
+        code = str(c["code"])
+        if kind == "answer" and c.get("menu"):
+            out.append({"kind": "question", "code": code, "cost": costs["question"], "cards": [code], "sheets": shown(c)})
+        elif kind == "follow-up":
+            out.append({"kind": "follow_up", "code": code, "cost": costs["follow_up"], "cards": [code], "sheets": shown(c),
+                        "mothers": mothers[code], "unlocked_by": [display_code(case, x) for x in as_list(c.get("unlocked_by"))]})
+        elif kind == "confrontation":
+            out.append({"kind": "confrontation", "suspect": str(c.get("suspect", g.get("suspect"))), "card": code,
+                        "cost": costs["confrontation"], "cards": [code], "sheets": shown(c)})
+    by_who = {}
+    for c, g in iter_cards(case):
+        if card_kind(c, g) == "witness":
+            by_who.setdefault(str(c.get("who") or g.get("who")), []).append(c)
+    for who, cs in by_who.items():
+        # one card per question, in the order of cards.yaml; the card's own sheets come with it
+        out.append({"kind": "witness", "who": who, "cost": costs["witness"], "appears_in": appears[who],
+                    "sequence": [{"cards": [str(c["code"])], "sheets": shown(c)} for c in cs]})
+    for p in case.procedures:
+        for r in ([dict(p["gives"], key=None)] if p["gives"] else p["targets"]):
+            out.append({"kind": "procedure", "code": p["code"], "target": r["key"], "cost": r["cost"],
+                        "sheets": list(r["shown"]), "special": r["special"]})
+    return out
+
+
+def expected(team, director, case=None):
     """The facts of a compiled case the JS tests check against: small, readable, and changed only by the case or the
     engine (not by the layout of a sheet)."""
     return {
@@ -251,14 +285,15 @@ def expected(team, director):
         "hint_penalties": {h["code"]: h["penalty"] for h in director["hints"]},
         "witnesses": sorted(w["name"] for w in director["witnesses"]),
         "score": director["score"],
+        **({"requests": requests_expected(case)} if case is not None else {}),
     }
 
 
 def test_expected_values_of_the_chupacabras(site, request):
     """The facts the JS tests rely on (tests/web_expected/<case>.json); rewrite with --update-snapshots."""
-    folder, _, _ = site
+    folder, case, _ = site
     team, director = _json(folder, "team.json"), _json(folder, "director.json")
-    got = expected(team, director)
+    got = expected(team, director, case)
     path = EXPECTED / f"{CASE}.json"
     if request.config.getoption("--update-snapshots") or not path.exists():
         path.parent.mkdir(exist_ok=True)

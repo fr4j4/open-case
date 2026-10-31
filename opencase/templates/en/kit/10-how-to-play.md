@@ -2,6 +2,7 @@
 place: anchor
 join: true
 ---
+{% import "_macros.j2" as m %}
 {% set alibi = f.alibi_tokens_per_team %}
 
 ### How to play
@@ -20,7 +21,7 @@ You start with **{{ f.tokens_per_team }} tokens**{% if alibi %}, **{{ alibi }} a
 ### Words of the game
 
 ```small
-- **Question:** what you ask a person. It costs 1 token and you ask it with a code from the menu (for example, a suspect's letter and a number).
+- **Question:** what you ask a person. It costs {{ m.tok(f.costs.question) }} and you ask it with a code from the menu (for example, a suspect's letter and a number).
 - **Procedure:** a request to the police or a lab, such as searching a phone, getting camera footage or examining an object. Write what you are looking for and why. It costs what the menu says.
 - **Request slip:** where you write the code and why you ask for it. Hand it to the director with the tokens it costs, and you get the answer card or the evidence.
 - **Alibi:** where a person says they were when the crime happened, and what can prove it.{{ " **Alibi tokens** (dashed border) are only good for that, and spare ones do not score." if alibi else "" }}

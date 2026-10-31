@@ -371,18 +371,22 @@ groups:
     type: wildcard
     cards:
       - code: "◆ ✕"
+        role: confrontation_failed
         type: failed
         who: Confrontación fallida
         answer: '"Eso no prueba nada, detective."'
         note: La persona se mantiene en su declaración.
       - code: SIN HALLAZGOS
+        role: no_findings
         who: Diligencia
         answer: La diligencia se realizó y no arrojó información útil.
       - code: TESTIGO
+        role: unavailable
         who: No disponible
         answer: '"Todavía no tienen cómo saber de esa persona. Pidan un testigo que haya aparecido en alguna prueba o declaración."'
         note: No se cobra ficha.
       - code: NADA QUE APORTAR
+        role: nothing_to_add
         who: Testigo
         answer: '"Lo que sé ya está en el expediente. No tengo nada más que agregar."'
         note: No se cobra ficha.
