@@ -13,6 +13,7 @@ Front matter keys that only the engine reads (they are removed before drawing th
   place: anchor          after the case's anchor sheet (engine_sheets.<doc>.after, default its first sheet)
   place: end             after the case's last sheet
   place: after-block X   after the case's sheet that holds a ```X block (or at the end if none does)
+  optional: true         left out when it draws nothing in this case (an empty glossary)
   join: true             its blocks go at the bottom of the sheet right before it instead of on a new page
 """
 import sys
@@ -25,7 +26,7 @@ from .acronyms import table_rows
 from .loader import CaseError, Sheet, as_list, parse_sheet, read_yaml
 
 TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
-ENGINE_KEYS = ("place", "join")
+ENGINE_KEYS = ("place", "join", "optional")
 
 
 def language_dir(lang):
@@ -243,7 +244,7 @@ def sheets_for(case, doc, own):
         if Path(name).stem in skip:
             continue
         sheet = render_sheet(case, f"{doc}/{name}")
-        if not sheet.blocks:   # a sheet that has nothing to say in this case (an empty glossary)
+        if sheet.data.get("optional") and not sheet.blocks:   # nothing to say in this case (an empty glossary)
             continue
         place = str(sheet.data.get("place", "anchor")).strip()
         groups.setdefault(place, []).append(sheet)

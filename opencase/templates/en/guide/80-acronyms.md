@@ -1,5 +1,6 @@
 ---
 place: end
+optional: true
 institution: Rules for running the game
 description: To say them right out loud
 title: Acronyms of the case

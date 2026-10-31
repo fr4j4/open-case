@@ -206,12 +206,12 @@ def main():
         from opencase.templates import sheets_for
         try:
             c = load_case(root, lang)
-            check_acronyms(c, sheets_for(c, "kit", c.kit) if c.kit else [], sheets_for(c, "guide", c.guide) if c.guide else [])
-            warnings += [w for w in c.warnings if "acronym" in w or "glossary" in w or "long form" in w]
+            warnings += check_acronyms(c, sheets_for(c, "kit", c.kit) if c.kit else [],
+                                       sheets_for(c, "guide", c.guide) if c.guide else [])
         except CaseError as ex:
             errors.append(str(ex))
-    except ImportError:
-        info.append("acronyms were not checked (the exporter is not next to this script)")
+    except ImportError as ex:
+        info.append(f"acronyms were not checked (the exporter could not be imported: {ex})")
 
     for e in errors:
         print("!! " + e)

@@ -26,6 +26,7 @@ glossary:
   ADN: {long: ácido desoxirribonucleico, expand: false}
   GPS: {long: sistema de posicionamiento global, expand: false}
   DVR: {long: grabador de video digital, expand: false}
+  RUC: {long: Rol Único de Causa, expand: false}
 glossary_ignore: [BIRO, AM]
 
 dossier:

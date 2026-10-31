@@ -27,6 +27,8 @@ SKIP_KEYS = {"code", "place", "join", "tag", "image", "logo", "notice", "brand_f
 PROSE_BLOCKS = {"md", "table", "note", "note-ok", "note-warning", "meta", "fields", "mono", "legend", "columns",
                 "script", "steps", "work-table", "menu", "signature"}
 
+COMMON = {"OK", "TV", "AM", "PM"}
+_ROMAN = re.compile(r"[IVXLCDM]+")
 _WORD = r"(?<![\w·\-/@#])%s(?![\w·\-/])"
 _CANDIDATE = re.compile(r"(?<![\w·\-/@#])[A-ZÁÉÍÓÚÑ]{2,6}(?![\w·\-/])")
 _QUOTED = re.compile(r'"[^"\n]*"|“[^”\n]*”|«[^»\n]*»')
@@ -38,6 +40,9 @@ def glossary(case):
     it: it goes in the director's table but nothing asks the sheets to write it out."""
     raw = case.get("glossary")
     path = case.lang_root / "case.yaml"
+    ignored = case.get("glossary_ignore")
+    if ignored is not None and not isinstance(ignored, list):
+        raise CaseError("'glossary_ignore' must be a list of words", path)
     if raw is None:
         return {}
     if not isinstance(raw, dict):
@@ -60,9 +65,6 @@ def glossary(case):
         if not isinstance(expand, bool):
             raise CaseError(f"glossary.{abbr}.expand must be true or false", path)
         out[abbr] = {"long": long.strip(), "expand": expand}
-    ignored = case.get("glossary_ignore")
-    if ignored is not None and not isinstance(ignored, list):
-        raise CaseError("'glossary_ignore' must be a list of words", path)
     return out
 
 
@@ -84,6 +86,35 @@ def _text(sheet):
     return "\n".join(parts)
 
 
+def _strings(obj, skip=()):
+    """Every text inside a YAML value (dicts, lists), except the fields named in `skip`."""
+    if isinstance(obj, str):
+        yield obj
+    elif isinstance(obj, dict):
+        for k, v in obj.items():
+            if k not in skip:
+                yield from _strings(v, skip)
+    elif isinstance(obj, (list, tuple)):
+        for v in obj:
+            yield from _strings(v, skip)
+
+
+CARD_SKIP = {"code", "type", "suspect", "attach", "follow_up", "unlocked_by", "image", "menu"}
+DATA_SKIP = {"glossary", "glossary_ignore", "strings", "language", "paper", "brand", "site"}
+
+
+def _presented(sheet):
+    """Acronyms a sheet shows in an ```acronyms block (all of them, or the ones in `only`): the reader has
+    them in front of them, so the sheets after it need not write them out."""
+    from .loader import read_yaml
+    out = set()
+    for b in sheet.blocks:
+        if b.type == "acronyms":
+            only = (read_yaml(b.content) or {}).get("only") if b.content.strip() else None
+            out |= set(map(str, only)) if only else {"*"}
+    return out
+
+
 def _name(sheet):
     return str(sheet.get("code", sheet.id)).strip() or sheet.id
 
@@ -91,6 +122,10 @@ def _name(sheet):
 def _first(pattern, text, flags=0):
     m = re.search(pattern, text, flags)
     return m.start() if m else None
+
+
+def _introduce(reader, entries, names):
+    reader.introduced |= set(entries) if "*" in names else (names & set(entries))
 
 
 class _Reader:
@@ -139,9 +174,10 @@ def check(case, kit, guide):
                 (in_envelope if sec.get("envelope") is not None else loose).append(case.dossier[pid])
     teams = _Reader(entries)
     sequence = [("kit", s) for s in kit] + [("envelope", s) for s in in_envelope]
-    seen_texts = []
+    seen_texts, quoted_texts = [], []
     for kind, s in sequence:
         text = _text(s)
+        _introduce(teams, entries, _presented(s))
         teams.read(text, f"{kind} {_name(s)}")
         seen_texts.append((f"{kind} {_name(s)}", text))
     late = list(teams.late)
@@ -150,17 +186,23 @@ def check(case, kit, guide):
     for s in loose:
         text = _text(s)
         r = _Reader(entries, teams.introduced)
+        _introduce(r, entries, _presented(s))
         r.read(text, f"dossier {_name(s)}")
         late += r.late
         seen_texts.append((f"dossier {_name(s)}", text))
     for g in case.card_groups:
         for c in g.get("cards", []) or []:
-            text = _QUOTED.sub(" ", "\n".join(str(c.get(k, "")) for k in ("question", "answer", "headline", "who")))
+            raw = "\n".join(_strings(c, CARD_SKIP))
+            text = _QUOTED.sub(" ", raw)
             where = f"card {c.get('code', '?')}"
             r = _Reader(entries, teams.introduced)
             r.read(text, where)
             late += r.late
             seen_texts.append((where, text))
+            quoted_texts.append(raw)
+    # What case.yaml and suspects.yaml say: only checked for words in no glossary.
+    for where, obj in (("case.yaml", case.data), ("suspects.yaml", case.suspects)):
+        seen_texts.append((where, "\n".join(_strings(obj, DATA_SKIP))))
 
     # The guide: its own glossary table counts as the long form.
     director = _Reader(entries, entries.keys())
@@ -180,14 +222,14 @@ def check(case, kit, guide):
         spoken_out = _QUOTED.sub(" ", text)
         for m in _CANDIDATE.finditer(spoken_out):
             word = m.group()
-            if word in known or _in_capitals_run(spoken_out, m):
+            if word in known or word in COMMON or _ROMAN.fullmatch(word) or _in_capitals_run(spoken_out, m, known):
                 continue
             unknown.setdefault(word, where)
     for word, where in sorted(unknown.items()):
         warnings.append(f"{word} in {where} looks like an acronym but is in no glossary: add it to glossary in "
                         f"languages/{case.lang}/case.yaml, or to glossary_ignore if it is not one")
-    everything = "\n".join([t for _, t in seen_texts] + [_voice_text(s) for s in
-                                                          list(case.dossier.values()) + case.kit + case.guide])
+    everything = "\n".join([t for _, t in seen_texts] + quoted_texts + [_voice_text(s) for s in
+                                                                         list(case.dossier.values()) + case.kit + case.guide])
     unused = [a for a in entries if not re.search(_WORD % re.escape(a), everything)]
     for a in unused:
         warnings.append(f"glossary: {a} is never used in the case")
@@ -201,8 +243,9 @@ def _voice_text(sheet):
     return "\n".join(b.content for b in sheet.blocks if b.type in VOICE_BLOCKS)
 
 
-def _in_capitals_run(text, m):
-    """A heading or an overlay written in capitals (TESTIGO NO DISPONIBLE) is not an acronym."""
-    before = text[max(0, m.start() - 12):m.start()]
-    after = text[m.end():m.end() + 12]
-    return bool(re.search(r"[A-ZÁÉÍÓÚÑ]{2,}[ \t\u00a0]$", before) or re.match(r"[ \t\u00a0][A-ZÁÉÍÓÚÑ]{2,}", after))
+def _in_capitals_run(text, m, known=()):
+    """A heading or an overlay written in capitals (TESTIGO NO DISPONIBLE) is not an acronym. Two acronyms
+    side by side (ADN SML) are not a heading: a neighbour that is itself known does not make a run."""
+    before = re.search(r"([A-ZÁÉÍÓÚÑ]{2,})[ \t\u00a0]$", text[max(0, m.start() - 12):m.start()])
+    after = re.match(r"[ \t\u00a0]([A-ZÁÉÍÓÚÑ]{2,})", text[m.end():m.end() + 12])
+    return any(n and n.group(1) not in known for n in (before, after))

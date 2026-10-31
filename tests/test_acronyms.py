@@ -143,3 +143,36 @@ def test_block_with_an_unknown_acronym_stops_the_export(case_dir):
     with_glossary(case_dir, {"SAG": SAG})
     with pytest.raises(CaseError):
         build(case_dir)
+
+
+def test_unused_check_reads_case_yaml_and_quoted_card_text(case_dir):
+    edit_yaml(lang_case(case_dir), lambda d: d.update(glossary={"RUC": {"long": "Rol Único de Causa", "expand": False},
+                                                                  "DM": {"long": "mensaje directo", "expand": False}},
+                                                      title="Caso RUC"))
+    edit_yaml(case_dir / "languages" / "es" / "cards.yaml",
+              lambda d: d["groups"][0]["cards"][0].update(answer='"Me avisan por DM."'))
+    case, _ = build(case_dir)
+    assert warnings_of(case) == []
+
+
+def test_acronyms_block_in_the_kit_presents_them(case_dir):
+    write(case_dir / "languages" / "es" / "kit" / "01-mision.md",
+          "---\ntitle: Misión\n---\n\n```acronyms\nonly: [SAG]\n```\n")
+    write(case_dir / "languages" / "es" / "dossier" / "E01.md", sheet("E01", "Parte", "El SAG informa."))
+    with_glossary(case_dir, {"SAG": SAG})
+    case, _ = build(case_dir)
+    assert warnings_of(case) == []
+
+
+def test_glossary_ignore_must_be_a_list_even_without_glossary(case_dir):
+    edit_yaml(lang_case(case_dir), lambda d: d.update(glossary_ignore="PDI"))
+    with pytest.raises(CaseError, match="glossary_ignore"):
+        load_case(case_dir)
+
+
+def test_roman_numerals_are_not_acronyms_and_two_acronyms_in_a_row_are_checked(case_dir):
+    write(case_dir / "languages" / "es" / "dossier" / "E01.md", sheet("E01", "Parte", "Tomo XIV. Informan XYZ ADN."))
+    with_glossary(case_dir, {"ADN": {"long": "ácido desoxirribonucleico", "expand": False}})
+    case, _ = build(case_dir)
+    assert any("XYZ in envelope E01" in w for w in case.warnings)
+    assert not any("XIV" in w for w in case.warnings)

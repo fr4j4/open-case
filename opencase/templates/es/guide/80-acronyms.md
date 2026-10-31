@@ -1,5 +1,6 @@
 ---
 place: end
+optional: true
 institution: Reglas para dirigir
 description: Para decirlas bien en voz alta
 title: Siglas del caso
