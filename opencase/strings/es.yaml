@@ -668,3 +668,57 @@ web:
       points: "Puntos"
       requests: "Solicitudes ({n})"
       handed: "Lo que se le entregó"
+
+  # --- F6a: backup file and recovery of a lost game (site/play/js/recover.js, director/recuperar.js, equipo/app.js) ---
+  recover:
+    phone:
+      title: "Si el director perdió su aparato"
+      text: "Este enlace deja que el director recupere la partida desde un aparato nuevo. Mándaselo solo a él (o muéstrale el QR): abre la sala de tu equipo."
+      copy: "Copiar enlace"
+      copied: "Enlace copiado"
+      copy_failed: "No pude copiar el enlace."
+    backup:
+      button: "Respaldar"
+      title: "Respaldo de la partida"
+      text: "Descarga un archivo con toda la partida: entregas, solicitudes, saldos, reloj, puntaje marcado y la sala. Guárdalo en otro aparato o envíatelo; el archivo tiene el PIN y las salas de los equipos, así que trátalo como la partida misma."
+      download: "Descargar respaldo"
+      saved: "Respaldo descargado."
+      last: "Último respaldo: {time}"
+      never: "Aún no descargas ningún respaldo en este aparato."
+      load: "Cargar un respaldo (archivo .json)"
+      confirm: "Cargar un respaldo reemplaza la partida de este aparato. ¿Seguimos?"
+      loaded: "Partida cargada desde el respaldo."
+      error:
+        format: "Ese archivo no es un respaldo de Open Case."
+        version: "Ese respaldo es de otra versión de la app y no puedo leerlo."
+        shape: "El respaldo está dañado o incompleto."
+    start:
+      title: "Recuperar una partida"
+      text: "Si perdiste el aparato del director, abre esto en uno nuevo. Pega el enlace de recuperación que muestra el teléfono de cada equipo (pestaña Sala), o escanea su QR. Los equipos te dicen lo que saben y tú eliges."
+      codes: "Enlaces o códigos de recuperación (uno por equipo)"
+      go: "Recuperar desde los equipos"
+      scan: "Escanear QR"
+      scan_stop: "Cerrar cámara"
+      no_camera: "No pude abrir la cámara. Pega el enlace."
+      or_backup: "¿Tienes un archivo de respaldo? Cárgalo aquí: es la forma completa, porque guarda también el puntaje que habías marcado."
+      bad_codes: "{n} código(s) no se pudieron leer."
+      error:
+        none: "No encontré ningún código de recuperación."
+        mixed: "Los códigos son de partidas distintas (otro PIN u otro caso)."
+        twice: "Hay dos códigos distintos para un mismo equipo."
+    panel:
+      title: "Recuperando la partida"
+      help: "Los teléfonos de cada equipo me cuentan lo que tienen. Nada se les envía hasta que elijas. Si dos teléfonos de un equipo no coinciden, tú decides con cuál seguir: no se mezclan solos."
+      waiting: "Esperando los teléfonos del equipo…"
+      reading: "Leyendo lo que tiene el teléfono…"
+      phones:
+        one: "{n} teléfono conectado · {read} leído(s)"
+        other: "{n} teléfonos conectados · {read} leído(s)"
+      counts: "{delivered} entregadas · {answered} respondidas · {pending} esperando · {tokens} fichas"
+      only: "solo este tiene {delivered} entregadas, {answered} respuestas, {pending} esperando"
+      differ: "Los teléfonos de este equipo no coinciden. Revisa cuál tiene más y elige."
+      marks_lost: "El puntaje que habías marcado no está en los teléfonos: tendrás que volver a marcarlo (un respaldo en archivo sí lo guarda)."
+      missing: "Sin información de {teams}: esos equipos empiezan de cero."
+      apply: "Recuperar con esta selección"
+      cancel: "Cancelar"
+      done: "Partida recuperada. Los teléfonos reciben su carpeta, su saldo y el reloj."

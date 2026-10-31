@@ -45,7 +45,7 @@ approved for the room it comes through.
 | `js/log.js` | event log in IndexedDB |
 | `director/app.js`, `equipo/app.js` | *Room* tab, approval, delivery over the network; PIN form, status, folder replaced on a move |
 
-Requests and the balance travel through the same team rooms (`web-requests.md`); the clock, the sheets handed in and the score, in `web-game.md`.
+If the director's device is lost, the team rooms are found again from the phones (`web-recover.md`). Requests and the balance travel through the same team rooms (`web-requests.md`); the clock, the sheets handed in and the score, in `web-game.md`.
 
 Words: `web.room` in `opencase/strings/es.yaml` and `en.yaml`.
 

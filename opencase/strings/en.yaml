@@ -668,3 +668,57 @@ web:
       points: "Points"
       requests: "Requests ({n})"
       handed: "What it was handed"
+
+  # --- F6a: backup file and recovery of a lost game (site/play/js/recover.js, director/recuperar.js, equipo/app.js) ---
+  recover:
+    phone:
+      title: "If the director lost their device"
+      text: "This link lets the director recover the game on a new device. Send it only to them (or show the QR): it opens your team's room."
+      copy: "Copy link"
+      copied: "Link copied"
+      copy_failed: "I could not copy the link."
+    backup:
+      button: "Back up"
+      title: "Game backup"
+      text: "Downloads a file with the whole game: deliveries, requests, balances, clock, the score you ticked and the room. Keep it on another device or send it to yourself; the file holds the PIN and the teams' rooms, so treat it like the game itself."
+      download: "Download backup"
+      saved: "Backup downloaded."
+      last: "Last backup: {time}"
+      never: "You have not downloaded a backup on this device yet."
+      load: "Load a backup (.json file)"
+      confirm: "Loading a backup replaces the game on this device. Go on?"
+      loaded: "Game loaded from the backup."
+      error:
+        format: "That file is not an Open Case backup."
+        version: "That backup is from another version of the app and I cannot read it."
+        shape: "The backup is damaged or incomplete."
+    start:
+      title: "Recover a game"
+      text: "If you lost the director's device, open this on a new one. Paste the recovery link that each team's phone shows (Room tab), or scan its QR. The teams tell you what they know and you choose."
+      codes: "Recovery links or codes (one per team)"
+      go: "Recover from the teams"
+      scan: "Scan QR"
+      scan_stop: "Close camera"
+      no_camera: "I could not open the camera. Paste the link."
+      or_backup: "Do you have a backup file? Load it here: it is the complete way, because it also keeps the score you ticked."
+      bad_codes: "{n} code(s) could not be read."
+      error:
+        none: "I did not find any recovery code."
+        mixed: "The codes are from different games (another PIN or another case)."
+        twice: "There are two different codes for one team."
+    panel:
+      title: "Recovering the game"
+      help: "Each team's phones tell me what they have. Nothing is sent to them until you choose. If two phones of a team do not agree, you decide which one to follow: they are never merged by themselves."
+      waiting: "Waiting for the team's phones…"
+      reading: "Reading what the phone has…"
+      phones:
+        one: "{n} phone connected · {read} read"
+        other: "{n} phones connected · {read} read"
+      counts: "{delivered} handed out · {answered} answered · {pending} waiting · {tokens} tokens"
+      only: "only this one has {delivered} handed out, {answered} answers, {pending} waiting"
+      differ: "This team's phones do not agree. Check which has more and choose."
+      marks_lost: "The score you had ticked is not on the phones: you will have to tick it again (a backup file does keep it)."
+      missing: "No information from {teams}: those teams start from scratch."
+      apply: "Recover with this selection"
+      cancel: "Cancel"
+      done: "Game recovered. The phones get their folder, balance and clock."

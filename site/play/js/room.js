@@ -11,6 +11,7 @@
 //   director → phone (vestibule)  {k:'wait'} | {k:'approved', team, room, c, l, v} | {k:'denied'}
 //   director → phone (team room)  {k:'sync'|'deliver', c, l, v, t, s, i}    same shape as the QR's message (delivery.js)
 //                                 {k:'room', room}  the team room changed    {k:'out'}  the director took the phone out
+//                                 {k:'recover', rid} a new director asks for the phone's registro (F6a); the phone answers {k:'reg', rid, i, n, d} (recover.js)
 //                                 {k:'bal', …} the balance (F4b)   {k:'clock', phase, running, elapsedMs} the phases (F5)   {k:'formok', id} a sheet arrived (F5)
 //
 // Nothing here is a secret that protects the game from a determined player (the PIN is short and the site is public):
@@ -73,6 +74,9 @@ export class DirectorRoom {
     this.log = openLog(`director-${game.created || 0}`);
     if (!game.room) game.room = { pin: newPin(), id: newId(), teamRooms: {}, devices: {} };
     this.r = game.room;
+    if (!this.r.adopt) this.r.adopt = [];     // teams whose room was recovered (F6a): whoever comes in with the room's name is theirs
+    this.quiet = new Set();                   // teams being recovered: nothing is sent to their phones until their registros are read
+    this.onRecoverPeer = null;
   }
 
   get pin() { return this.r.pin; }
@@ -192,19 +196,52 @@ export class DirectorRoom {
     await c.connect();
   }
 
+  // F6a: a team whose room the director got back from a phone: the phones that come in with the name of the room are approved by
+  // that (the name is what only the team knows), since this device never saw them join.
+  _adopt(team, id, name = '') {
+    if (!this.r.adopt.includes(team) || this.r.devices[id] || !/^[a-z0-9]{6,24}$/.test(id)) return;
+    this.r.devices[id] = { id, name: String(name).slice(0, 40), team, status: 'approved', joined: Date.now(), seen: Date.now() };
+    this.log.append('adopt', { device: id, team });
+  }
+
   // Only a device the director approved for this team gets anything from the team room.
   _teamPeer(team, p) {
+    if (p.role !== 'director') this._adopt(team, p.id, p.name);
     const d = this.r.devices[p.id];
     if (!d || d.status !== 'approved' || d.team !== team) return;
+    if (p.name && !d.name) d.name = String(p.name).slice(0, 40);
     d.seen = Date.now();
     this.online.set(d.id, Date.now());
     this.log.append('online', { device: d.id, team });
+    if (this.quiet.has(team)) { this.onRecoverPeer?.(team, d.id); this._changed(); return; }     // first its registro is read
     this._sync(team, d.id);
     this.onOnline?.(team, d.id);
     this._changed();
   }
 
+  // The team rooms of a recovered game (F6a): open them quietly. Nothing goes to a phone until `endRecovery`, because what the phone
+  // holds is what the new game is made of.
+  async recover(rooms) {
+    for (const [team, name] of Object.entries(rooms)) {
+      this.r.teamRooms[team] = name;
+      if (!this.r.adopt.includes(team)) this.r.adopt.push(team);
+      this.quiet.add(team);
+    }
+    await Promise.all(Object.keys(rooms).map((t) => this._openTeam(t)));
+    this._changed();
+  }
+
+  // The game is back: the phones of these teams get what they are owed (the folder, the balance, the clock).
+  endRecovery(teams) {
+    for (const team of teams) {
+      this.quiet.delete(team);
+      for (const d of this.members(team)) if (this.online.has(d.id)) { this._sync(team, d.id); this.onOnline?.(team, d.id); }
+    }
+    this._changed();
+  }
+
   _teamMessage(team, from, m) {
+    if (!this.r.devices[from] && m && typeof m === 'object') this._adopt(team, from);
     const d = this.r.devices[from];
     if (!d || d.status !== 'approved' || d.team !== team) return;     // not one of ours: ignored
     d.seen = Date.now();
@@ -336,7 +373,7 @@ export class DeviceRoom {
     }
     if (m.k === 'approved') return this._vestibuleMessage(m);     // moved to another team
     if (m.k === 'out') { this.session = null; this.onSession(null); this.team?.close(); this.team = null; this._set('out'); return; }
-    if (m.k === 'bal' || m.k === 'clock' || m.k === 'formok') { this.onData(m); return; }
+    if (m.k === 'bal' || m.k === 'clock' || m.k === 'formok' || m.k === 'recover') { this.onData(m); return; }
     if (m.k === 'deliver' || m.k === 'sync') {
       const msg = validate({ c: m.c, l: m.l, v: m.v, t: m.t, s: m.s, i: m.i });
       if (!msg || (this.session && msg.team !== this.session.team)) return;      // a message for another team is never used
