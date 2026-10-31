@@ -4,10 +4,11 @@
 //   the app itself (pages, scripts…)   network first with a short wait, the last copy otherwise
 // Nothing is cached ahead of time except the app's own pages: which pages of a case a device keeps is decided by
 // the app (a team's device downloads only what the team may have; the director's file is never asked for there).
-const SHELL = 'oc-play-shell-1';
+const SHELL = 'oc-play-shell-2';
 const CASES = 'oc-play-cases-1';
 const APP = ['./', './equipo/', './director/', './css/play.css', './js/dom.js', './js/store.js', './js/i18n.js', './js/delivery.js',
-  './js/qr.js', './js/viewer.js', './equipo/app.js', './director/app.js', './vendor/qrcode-generator.js'];
+  './js/qr.js', './js/viewer.js', './js/canal.js', './js/room.js', './js/log.js', './js/transport/config.js', './js/transport/index.js',
+  './js/transport/transport.js', './js/transport/broadcast.js', './js/transport/relay.js', './js/transport/trystero.js', './equipo/app.js', './director/app.js', './vendor/qrcode-generator.js'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil((async () => {

@@ -4,64 +4,19 @@ The site is built into a temporary folder (the app + the Chupacabras compiled by
 http://localhost, because module scripts and service workers do not run from file://. Every test uses a fresh
 browser context per device: the IndexedDB and the cache of one phone are not the other's.
 """
-import functools
-import http.server
 import json
 import shutil
-import threading
 import time
 from pathlib import Path
 
 import pytest
 
-from opencase import web
 
 REPO = Path(__file__).resolve().parent.parent.parent
 CASE = "chupacabras-labranza"
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 pytestmark = pytest.mark.web
-
-
-class _Handler(http.server.SimpleHTTPRequestHandler):
-    def log_message(self, *args):
-        pass
-
-
-def _serve(folder):
-    handler = functools.partial(_Handler, directory=str(folder))
-    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
-    threading.Thread(target=server.serve_forever, daemon=True).start()
-    return server
-
-
-@pytest.fixture(scope="module")
-def built(tmp_path_factory):
-    """The site as the CI deploys it, without the PDFs: site/ (the app) + the compiled case."""
-    out = tmp_path_factory.mktemp("site")
-    shutil.copytree(REPO / "site", out, dirs_exist_ok=True)
-    web.build_cases([REPO / "cases" / CASE], out)
-    return out
-
-
-@pytest.fixture
-def site(built, tmp_path):
-    """A private copy of the built site (some tests change it, as a new deployment would) and its URL."""
-    folder = tmp_path / "site"
-    shutil.copytree(built, folder)
-    server = _serve(folder)
-    yield folder, f"http://localhost:{server.server_address[1]}/"
-    server.shutdown()
-
-
-@pytest.fixture(scope="module")
-def browser():
-    from playwright.sync_api import sync_playwright
-    from opencase.pdf import open_browser
-    with sync_playwright() as p:
-        b, _ = open_browser(p)
-        yield b
-        b.close()
 
 
 def _index(folder):

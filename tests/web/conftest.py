@@ -6,6 +6,7 @@ carry the `web` mark (`pytest -m web` runs only them).
 """
 import functools
 import http.server
+import shutil
 import threading
 from pathlib import Path
 
@@ -64,3 +65,38 @@ def pytest_collection_modifyitems(items):
     for item in items:
         if "tests/web/" in str(item.fspath).replace("\\", "/") or "tests\\web\\" in str(item.fspath):
             item.add_marker(pytest.mark.web)
+
+
+# --- The built site: the app + the compiled case, as the CI deploys it (without the PDFs) ---------------------------
+
+class _PlainHandler(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, *args):
+        pass
+
+
+def serve_folder(folder):
+    """Serve `folder` over http://localhost in a thread. Returns the server (call .shutdown() when done)."""
+    handler = functools.partial(_PlainHandler, directory=str(folder))
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return server
+
+
+@pytest.fixture(scope="session")
+def built(tmp_path_factory):
+    """site/ (the app) + the Chupacabras compiled by opencase.web, in a temporary folder."""
+    from opencase import web
+    out = tmp_path_factory.mktemp("site")
+    shutil.copytree(SITE, out, dirs_exist_ok=True)
+    web.build_cases([REPO / "cases" / "chupacabras-labranza"], out)
+    return out
+
+
+@pytest.fixture
+def site(built, tmp_path):
+    """A private copy of the built site (some tests change it, as a new deployment would) and its URL."""
+    folder = tmp_path / "site"
+    shutil.copytree(built, folder)
+    server = serve_folder(folder)
+    yield folder, f"http://localhost:{server.server_address[1]}/"
+    server.shutdown()

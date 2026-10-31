@@ -6,6 +6,7 @@ import * as store from '../js/store.js';
 import { decode, kindOf, naturalCompare } from '../js/delivery.js';
 import { decodeFile, scanCamera } from '../js/qr.js';
 import { openViewer } from '../js/viewer.js';
+import { DeviceRoom, keepAwake, newId, normalizePin, validPin, pinFromHash } from '../js/room.js';
 
 const app = document.getElementById('app');
 let state = null;          // what this device knows (also saved in IndexedDB under 'team')
@@ -14,6 +15,10 @@ let filter = 'all';
 let tab = 'folder';
 let busy = null;           // {done, total} while downloading
 let online = navigator.onLine;
+let room = null;           // the live room (js/room.js) this phone is in, if any
+let deviceId = null;       // this phone's id in rooms; kept, so a reload is the same phone
+let stopAwake = null;
+let netQueue = Promise.resolve();
 
 const caseUrl = (version, file = '') => new URL(`cases/${state.slug}/${state.lang}/${version}/${file}`, PLAY_ROOT);
 const save = () => store.set('team', state);
@@ -152,7 +157,7 @@ async function start(msg) {
   await downloadAll(items);
 }
 
-async function receive(msg) {
+async function receive(msg, quiet = false) {
   if (!state) { await start(msg); }
   else if (state.slug !== msg.slug || state.lang !== msg.lang || state.team !== msg.team) {
     return askSwitch(msg);
@@ -163,6 +168,7 @@ async function receive(msg) {
     if (state.items[file]) continue;
     const it = { file, code, label: '', kind: kindOf(file), group: 'folder', origin: 'delivery', v: msg.version, status: 'pending', seen: false, at: Date.now() };
     state.items[file] = it;
+    (state.order = state.order || []).push(file);     // the order things arrived in
     fresh.push(it);
   }
   state.seq = Math.max(state.seq || 0, msg.seq);
@@ -171,7 +177,7 @@ async function receive(msg) {
   if (fresh.length) {
     toast(plural('team.toast.received', fresh.length));
     await downloadAll(fresh);
-  } else toast(t('team.toast.nothing_new'));
+  } else if (!quiet) toast(t('team.toast.nothing_new'));
 }
 
 function askSwitch(msg) {
@@ -199,6 +205,65 @@ function fail(text) {
   render(text);
 }
 
+// --- The live room --------------------------------------------------------------------------------------------
+
+function netReceive(msg, kind) {
+  netQueue = netQueue.then(async () => {
+    if (state && (state.team !== msg.team || state.slug !== msg.slug || state.lang !== msg.lang)) {
+      // The director moved this phone to another team: its folder is replaced, with no question.
+      await store.del('team'); await store.del('teamjson');
+      state = null; teamJson = null;
+      toast(t('room.join.other_team', { team: msg.team }), 6000);
+    }
+    await receive(msg, kind === 'sync');
+    render();
+  }).catch((e) => console.error(e));
+  return netQueue;
+}
+
+async function joinRoom(pin, session = null) {
+  pin = normalizePin(pin);
+  if (!validPin(pin)) return toast(t('room.join.bad_pin'));
+  await leaveRoom(false);
+  const nameInput = document.getElementById('oc-room-name');
+  const name = ((nameInput && nameInput.value) || (await store.get('devicename')) || '').trim().slice(0, 40);
+  if (name) await store.set('devicename', name);
+  room = new DeviceRoom({
+    id: deviceId, name, pin, session,
+    onStatus: () => render(),
+    onMessage: (msg, kind) => netReceive(msg, kind),
+    onSession: (sess) => { if (sess) store.set('session', sess); else store.del('session'); },
+  });
+  stopAwake = keepAwake();
+  render();
+  await room.start();
+  render();
+}
+
+async function leaveRoom(forget = true) {
+  if (room) { await room.stop(); room = null; }
+  if (stopAwake) { stopAwake(); stopAwake = null; }
+  if (forget) { await store.del('session'); render(); }
+}
+
+function roomStatusText() {
+  if (!room) return '';
+  if (room.status === 'approved') return room.connected ? t('room.join.approved') : t('room.join.director_away');
+  return t(`room.join.${room.status}`);
+}
+
+function roomBox() {
+  if (!room) {
+    return h('form', { class: 'oc-field', id: 'oc-room-form', onsubmit: (e) => { e.preventDefault(); joinRoom(document.getElementById('oc-room-pin').value); } },
+      h('h2', {}, t('room.join.title')), h('p', {}, t('room.join.text')),
+      h('label', { class: 'oc-field' }, t('room.join.pin'), h('input', { class: 'oc-input', id: 'oc-room-pin', autocomplete: 'off', autocapitalize: 'characters', maxlength: '8', inputmode: 'text', style: 'letter-spacing:.2em;text-transform:uppercase' })),
+      h('label', { class: 'oc-field' }, t('room.join.name'), h('input', { class: 'oc-input', id: 'oc-room-name', autocomplete: 'off', maxlength: '40' })),
+      h('button', { class: 'oc-btn', type: 'submit', id: 'oc-room-enter' }, t('room.join.enter')));
+  }
+  return h('div', { class: `oc-notice${room.status === 'denied' || room.status === 'out' ? ' oc-notice--bad' : ''}`, id: 'oc-room-status', dataset: { status: room.status, connected: String(room.connected) } },
+    roomStatusText(), ' ', h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', id: 'oc-room-leave', onclick: () => leaveRoom() }, t('room.join.leave')));
+}
+
 // --- Drawing --------------------------------------------------------------------------------------------------
 
 function render(error) {
@@ -209,12 +274,14 @@ function render(error) {
   app.append(main);
   if (!store.store.persistent) main.append(h('div', { class: 'oc-notice' }, t('team.no_storage')));
   if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) main.append(h('div', { class: 'oc-notice', id: 'oc-nosw' }, t('team.no_offline')));
+  if (room) main.append(roomBox());
   if (!state) return main.append(joinScreen(error));
   if (state.notice === 'updated') main.append(h('div', { class: 'oc-notice' }, t('team.notice.updated')));
   if (state.notice === 'format') main.append(h('div', { class: 'oc-notice oc-notice--bad' }, t('team.notice.format')));
   if (busy) main.append(h('div', {}, h('p', {}, t('team.downloading')), h('div', { class: 'oc-progress' }, h('i', {}))));
   main.append(tabs());
   if (tab === 'folder') main.append(folderView());
+  else if (tab === 'room') main.append(room ? h('p', { class: 'oc-muted' }, roomStatusText()) : roomBox());
   else if (tab === 'kit') main.append(listView(group('kit'), false));
   else main.append(listView(group('suspects'), false));
   updateProgress();
@@ -232,6 +299,7 @@ function header() {
 
 function joinScreen(error) {
   return h('div', {},
+    room ? null : roomBox(),
     h('h1', {}, t('team.join.title')),
     h('p', {}, t('team.join.text')),
     error ? h('div', { class: 'oc-notice oc-notice--bad' }, error) : null,
@@ -243,7 +311,7 @@ function joinScreen(error) {
 
 function tabs() {
   const mk = (id, text) => h('button', { class: 'oc-tab', role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
-  return h('div', { class: 'oc-tabs', role: 'tablist' }, mk('folder', t('team.tab.folder')), mk('kit', t('team.tab.kit')), mk('suspects', t('team.tab.suspects')));
+  return h('div', { class: 'oc-tabs', role: 'tablist' }, mk('folder', t('team.tab.folder')), mk('kit', t('team.tab.kit')), mk('suspects', t('team.tab.suspects')), mk('room', t('room.tab')));
 }
 
 const group = (g) => Object.values(state.items).filter((i) => i.group === g);
@@ -324,6 +392,10 @@ function openScanner() {
 
 async function main() {
   const fragment = decode(location.hash);
+  const hashPin = pinFromHash(location.hash);
+  deviceId = await store.get('device');
+  if (!deviceId) { deviceId = newId(); await store.set('device', deviceId); }
+  const session = (await store.get('session')) || null;
   state = (await store.get('team')) || null;
   teamJson = state ? (await store.get('teamjson')) || null : null;
   const lang = (fragment && fragment.lang) || (state && state.lang) || navigator.language.slice(0, 2);
@@ -332,6 +404,8 @@ async function main() {
   window.addEventListener('online', () => { online = true; retryPending(); });
   window.addEventListener('offline', () => { online = false; render(); });
   window.addEventListener('hashchange', async () => {   // a link opened while the app is already open
+    const pin = pinFromHash(location.hash);
+    if (pin) { history.replaceState(null, '', location.pathname + location.search); await joinRoom(pin); return; }
     const msg = decode(location.hash);
     if (location.hash.startsWith('#oc')) history.replaceState(null, '', location.pathname + location.search);
     if (msg) { await receive(msg); render(); } else if (location.hash.startsWith('#oc')) toast(t('team.error.bad_link'));
@@ -341,10 +415,18 @@ async function main() {
   if (fragment) {
     history.replaceState(null, '', location.pathname + location.search);   // the link's data is not kept in the address bar
     await receive(fragment);
+  } else if (location.hash.startsWith('#sala') && !hashPin) {
+    history.replaceState(null, '', location.pathname + location.search);
+    toast(t('team.error.bad_link'));
   } else if (location.hash.startsWith('#oc')) {
     history.replaceState(null, '', location.pathname + location.search);
     toast(t('team.error.bad_link'));
   }
+  if (hashPin) {
+    history.replaceState(null, '', location.pathname + location.search);
+    if (!session || session.pin !== hashPin) { await store.del('session'); await joinRoom(hashPin); }
+  }
+  if (!room && session) await joinRoom(session.pin, session);
   if (state) retryPending();
   render();
 }
