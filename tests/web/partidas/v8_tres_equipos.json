@@ -1,0 +1,289 @@
+{
+ "source": "/mnt/project-files/chupacabras/auditoria/v8_registro.md, rondas 1 a 3: 3 equipos, 21 solicitudes",
+ "steps": [
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG9",
+    "text": "antenas de Benjamín: ¿dónde estuvo?",
+    "target": "B",
+    "alibi": 1
+   },
+   "button": "give",
+   "gives": [
+    "E26·B"
+   ]
+  },
+  {
+   "team": "C",
+   "request": {
+    "kind": "procedure",
+    "code": "DG2",
+    "text": "llamadas y calendario"
+   },
+   "button": "give",
+   "gives": [
+    "E13a"
+   ]
+  },
+  {
+   "team": "B",
+   "request": {
+    "kind": "procedure",
+    "code": "DG6",
+    "text": "junto al camino",
+    "target": "other"
+   },
+   "button": "nothing_found",
+   "gives": [
+    "SIN HALLAZGOS"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG2",
+    "text": "llamadas y calendario"
+   },
+   "button": "give",
+   "gives": [
+    "E13a"
+   ]
+  },
+  {
+   "team": "C",
+   "request": {
+    "kind": "procedure",
+    "code": "DG6",
+    "text": "alrededores de la escena",
+    "target": "other"
+   },
+   "button": "nothing_found",
+   "gives": [
+    "SIN HALLAZGOS"
+   ]
+  },
+  {
+   "team": "B",
+   "request": {
+    "kind": "procedure",
+    "code": "DG2",
+    "text": "llamadas y calendario"
+   },
+   "button": "give",
+   "gives": [
+    "E13a"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG4",
+    "text": "registro de la caseta"
+   },
+   "button": "give",
+   "gives": [
+    "E16"
+   ]
+  },
+  {
+   "team": "C",
+   "request": {
+    "kind": "procedure",
+    "code": "DG4",
+    "text": "registro de la caseta"
+   },
+   "button": "give",
+   "gives": [
+    "E16"
+   ]
+  },
+  {
+   "team": "B",
+   "request": {
+    "kind": "procedure",
+    "code": "DG11",
+    "text": "cámaras del hospital",
+    "target": "hospital",
+    "alibi": 1
+   },
+   "button": "give",
+   "gives": [
+    "E20"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG5",
+    "text": "la camioneta",
+    "target": "B"
+   },
+   "button": "give",
+   "gives": [
+    "E17·B"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG7",
+    "text": "ropa de Pía",
+    "target": "P"
+   },
+   "button": "give",
+   "gives": [
+    "E19·P"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "witness",
+    "who": "Iturra",
+    "detail": "E13a",
+    "text": "¿Qué sabe de la deuda?"
+   },
+   "button": "give",
+   "gives": [
+    "I1",
+    "E27"
+   ]
+  },
+  {
+   "team": "C",
+   "request": {
+    "kind": "procedure",
+    "code": "DG7",
+    "text": "ropa de Toto",
+    "target": "T"
+   },
+   "button": "give",
+   "gives": [
+    "E19·T"
+   ]
+  },
+  {
+   "team": "C",
+   "request": {
+    "kind": "confrontation",
+    "suspect": "P",
+    "evidence": [
+     [
+      "E02",
+      "f6"
+     ],
+     [
+      "E16",
+      "registro"
+     ]
+    ]
+   },
+   "button": "give",
+   "gives": [
+    "P5"
+   ],
+   "choice": {
+    "card": "P5"
+   }
+  },
+  {
+   "team": "C",
+   "request": {
+    "kind": "witness",
+    "who": "Iturra",
+    "detail": "E13a",
+    "text": "¿Qué sabe de la deuda?"
+   },
+   "button": "give",
+   "gives": [
+    "I1",
+    "E27"
+   ]
+  },
+  {
+   "team": "B",
+   "request": {
+    "kind": "procedure",
+    "code": "DG9",
+    "text": "antenas de Toto",
+    "target": "T",
+    "alibi": 1
+   },
+   "button": "give",
+   "gives": [
+    "E26·T"
+   ]
+  },
+  {
+   "team": "B",
+   "request": {
+    "kind": "procedure",
+    "code": "DG2W",
+    "text": "WhatsApp"
+   },
+   "button": "give",
+   "gives": [
+    "E13b"
+   ]
+  },
+  {
+   "team": "B",
+   "request": {
+    "kind": "procedure",
+    "code": "DG9",
+    "text": "antenas de Benjamín",
+    "target": "B"
+   },
+   "button": "give",
+   "gives": [
+    "E26·B"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG7",
+    "text": "ropa de Benjamín",
+    "target": "B"
+   },
+   "button": "give",
+   "gives": [
+    "E19·B"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG7",
+    "text": "ropa de Toto",
+    "target": "T"
+   },
+   "button": "give",
+   "gives": [
+    "E19·T"
+   ]
+  },
+  {
+   "team": "A",
+   "request": {
+    "kind": "procedure",
+    "code": "DG11",
+    "text": "cámaras del hospital",
+    "target": "hospital",
+    "alibi": 1
+   },
+   "button": "give",
+   "gives": [
+    "E20"
+   ]
+  }
+ ]
+}

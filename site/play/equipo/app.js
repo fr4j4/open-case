@@ -7,6 +7,8 @@ import { decode, kindOf, naturalCompare } from '../js/delivery.js';
 import { decodeFile, scanCamera } from '../js/qr.js';
 import { openViewer } from '../js/viewer.js';
 import { DeviceRoom, keepAwake, newId, normalizePin, validPin, pinFromHash } from '../js/room.js';
+import { createGame } from '../js/requests.js';
+import { askView, historyView } from './pedir.js';
 
 const app = document.getElementById('app');
 let state = null;          // what this device knows (also saved in IndexedDB under 'team')
@@ -19,6 +21,8 @@ let room = null;           // the live room (js/room.js) this phone is in, if an
 let deviceId = null;       // this phone's id in rooms; kept, so a reload is the same phone
 let stopAwake = null;
 let netQueue = Promise.resolve();
+let rgame = null;          // the rules (js/rules.js) over team.json: costs and what can be asked
+let reqs = { pending: [], bal: null };   // F4b: requests sent and not answered yet, and the last balance the director sent
 
 const caseUrl = (version, file = '') => new URL(`cases/${state.slug}/${state.lang}/${version}/${file}`, PLAY_ROOT);
 const save = () => store.set('team', state);
@@ -142,8 +146,11 @@ async function start(msg) {
     const manifest = await fetchJson(caseUrl(v, 'manifest.json'));
     state.schema = manifest.schema_version;
     teamJson = await fetchJson(caseUrl(v, 'team.json'));
+    rgame = createGame(teamJson);
+    reqs = { pending: [], bal: null };
+    await saveRequests();
   } catch (e) {
-    busy = null; state = null; teamJson = null;
+    busy = null; state = null; teamJson = null; rgame = null;
     return fail(e.status === 404 ? t('team.error.gone') : t('team.error.offline'));
   }
   await store.set('teamjson', teamJson);
@@ -187,7 +194,7 @@ function askSwitch(msg) {
       h('h2', {}, t('team.switch.title')),
       h('p', {}, t('team.switch.text', { current: state.team, other: msg.team })),
       h('div', { class: 'oc-row' },
-        h('button', { class: 'oc-btn', type: 'button', onclick: close(async () => { await store.del('team'); state = null; await receive(msg); resolve(); }) }, t('team.switch.yes', { team: msg.team })),
+        h('button', { class: 'oc-btn', type: 'button', onclick: close(async () => { await store.del('team'); await store.del('requests'); state = null; rgame = null; reqs = { pending: [], bal: null }; await receive(msg); resolve(); }) }, t('team.switch.yes', { team: msg.team })),
         h('button', { class: 'oc-btn oc-btn--ghost', type: 'button', onclick: close(resolve) }, t('team.switch.no')))));
     document.body.append(modal);
   });
@@ -211,8 +218,8 @@ function netReceive(msg, kind) {
   netQueue = netQueue.then(async () => {
     if (state && (state.team !== msg.team || state.slug !== msg.slug || state.lang !== msg.lang)) {
       // The director moved this phone to another team: its folder is replaced, with no question.
-      await store.del('team'); await store.del('teamjson');
-      state = null; teamJson = null;
+      await store.del('team'); await store.del('teamjson'); await store.del('requests');
+      state = null; teamJson = null; rgame = null; reqs = { pending: [], bal: null };
       toast(t('room.join.other_team', { team: msg.team }), 6000);
     }
     await receive(msg, kind === 'sync');
@@ -233,6 +240,8 @@ async function joinRoom(pin, session = null) {
     onStatus: () => render(),
     onMessage: (msg, kind) => netReceive(msg, kind),
     onSession: (sess) => { if (sess) store.set('session', sess); else store.del('session'); },
+    onData: (m) => onBalance(m),
+    onDirector: () => flushRequests(),
   });
   stopAwake = keepAwake();
   render();
@@ -264,6 +273,48 @@ function roomBox() {
     roomStatusText(), ' ', h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', id: 'oc-room-leave', onclick: () => leaveRoom() }, t('room.join.leave')));
 }
 
+// --- Requests (F4b) --------------------------------------------------------------------------------------------
+
+const saveRequests = () => store.set('requests', reqs);
+
+function startBalance() {
+  const rules = rgame.rules;
+  const team = rgame.teams.find((x) => x.id === state.team) || rgame.teams[0] || {};
+  const tokens = (team.tokens || []).length || rules.tokens_per_team;
+  const alibi = (team.alibi_tokens || []).length;
+  return { t: state.team, tokens, alibi, initial: { tokens, alibi }, hist: [], open: [] };
+}
+
+const balance = () => reqs.bal || startBalance();
+
+// The director sends the balance with every answer, and again when this phone connects.
+async function onBalance(m) {
+  if (!state || !m || m.t !== state.team || !Number.isInteger(m.tokens) || !Number.isInteger(m.alibi) || !Array.isArray(m.hist)) return;
+  const answered = new Set(m.hist.map((e) => e && e.id));
+  reqs.bal = { t: m.t, tokens: m.tokens, alibi: m.alibi, initial: m.initial, hist: m.hist, open: Array.isArray(m.open) ? m.open : [] };
+  reqs.pending = reqs.pending.filter((r) => !answered.has(r.id));
+  await saveRequests();
+  render();
+}
+
+async function sendRequests(list) {
+  reqs.pending.push(...list);
+  await saveRequests();
+  await flushRequests();
+}
+
+// What the director has not answered is sent again each time it connects; it takes a request it already has as the same one.
+async function flushRequests() {
+  if (!room || !reqs.pending.length) return;
+  for (const r of [...reqs.pending]) await room.sendToDirector({ k: 'req', r });
+}
+
+function requestsUi() {
+  const folder = Object.values(state.items).filter((i) => i.group === 'folder' && i.code);
+  return { team: teamJson, game: rgame, bal: balance(), pending: reqs.pending, folder, held: new Set(folder.map((i) => i.code)),
+    connected: !!(room && room.status === 'approved' && room.connected), send: sendRequests, redraw: () => render() };
+}
+
 // --- Drawing --------------------------------------------------------------------------------------------------
 
 function render(error) {
@@ -281,6 +332,8 @@ function render(error) {
   if (busy) main.append(h('div', {}, h('p', {}, t('team.downloading')), h('div', { class: 'oc-progress' }, h('i', {}))));
   main.append(tabs());
   if (tab === 'folder') main.append(folderView());
+  else if (tab === 'ask' && rgame) main.append(askView(requestsUi()));
+  else if (tab === 'history' && rgame) main.append(historyView(requestsUi()));
   else if (tab === 'room') main.append(room ? h('p', { class: 'oc-muted' }, roomStatusText()) : roomBox());
   else if (tab === 'kit') main.append(listView(group('kit'), false));
   else main.append(listView(group('suspects'), false));
@@ -310,8 +363,8 @@ function joinScreen(error) {
 }
 
 function tabs() {
-  const mk = (id, text) => h('button', { class: 'oc-tab', role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
-  return h('div', { class: 'oc-tabs', role: 'tablist' }, mk('folder', t('team.tab.folder')), mk('kit', t('team.tab.kit')), mk('suspects', t('team.tab.suspects')), mk('room', t('room.tab')));
+  const mk = (id, text) => h('button', { class: 'oc-tab', id: `oc-tab-${id}`, role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
+  return h('div', { class: 'oc-tabs', role: 'tablist' }, mk('folder', t('team.tab.folder')), mk('kit', t('team.tab.kit')), mk('suspects', t('team.tab.suspects')), mk('ask', t('requests.tab')), mk('history', t('requests.tab_history')), mk('room', t('room.tab')));
 }
 
 const group = (g) => Object.values(state.items).filter((i) => i.group === g);
@@ -398,6 +451,8 @@ async function main() {
   const session = (await store.get('session')) || null;
   state = (await store.get('team')) || null;
   teamJson = state ? (await store.get('teamjson')) || null : null;
+  rgame = teamJson ? createGame(teamJson) : null;
+  reqs = (state && (await store.get('requests'))) || { pending: [], bal: null };
   const lang = (fragment && fragment.lang) || (state && state.lang) || navigator.language.slice(0, 2);
   await loadStrings(lang);
   document.title = t('team.page_title');

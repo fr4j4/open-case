@@ -80,3 +80,16 @@ label.oc-field > .oc-input{margin-top:6px;font-weight:400}
 .oc-hidden{display:none !important}
 .oc-offline{color:var(--laton)}
 @media (min-width:700px){ .oc-item__tag{font-size:13px} }
+/* F4b: the team's requests and the director's panel */
+.oc-balance{background:var(--mesa-2);border-left:5px solid var(--team);padding:10px 14px;margin:10px 0;font-size:15px}
+.oc-balance__n{font:700 28px/1 var(--display);color:#fff}
+.oc-req{display:block}
+.oc-req__answer{font-weight:700}
+.oc-req__note{margin-top:4px;font-style:italic}
+.oc-req--ok{border-left-color:var(--bosque)}
+.oc-req--nope{border-left-color:var(--sello)}
+.oc-evidence .oc-input{margin:0 0 8px 34px;width:calc(100% - 34px)}
+.oc-request{border-left:6px solid var(--team)}
+.oc-request h4{margin:12px 0 4px;font-size:15px}
+.oc-suggest{background:var(--laton-suave);border-left:4px solid var(--laton);padding:8px 10px;margin:8px 0}
+.oc-answers .oc-btn small{opacity:.75}

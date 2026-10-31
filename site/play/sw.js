@@ -8,7 +8,7 @@ const SHELL = 'oc-play-shell-2';
 const CASES = 'oc-play-cases-1';
 const APP = ['./', './equipo/', './director/', './css/play.css', './js/dom.js', './js/store.js', './js/i18n.js', './js/delivery.js',
   './js/qr.js', './js/viewer.js', './js/canal.js', './js/room.js', './js/log.js', './js/transport/config.js', './js/transport/index.js',
-  './js/transport/transport.js', './js/transport/broadcast.js', './js/transport/relay.js', './js/transport/trystero.js', './equipo/app.js', './director/app.js', './vendor/qrcode-generator.js'];
+  './js/transport/transport.js', './js/transport/broadcast.js', './js/transport/relay.js', './js/transport/trystero.js', './js/rules.js', './js/requests.js', './equipo/app.js', './equipo/pedir.js', './director/app.js', './director/panel.js', './vendor/qrcode-generator.js'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil((async () => {

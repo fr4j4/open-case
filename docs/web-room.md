@@ -45,6 +45,8 @@ approved for the room it comes through.
 | `js/log.js` | event log in IndexedDB |
 | `director/app.js`, `equipo/app.js` | *Room* tab, approval, delivery over the network; PIN form, status, folder replaced on a move |
 
+Requests and the balance travel through the same team rooms (`web-requests.md`).
+
 Words: `web.room` in `opencase/strings/es.yaml` and `en.yaml`.
 
 ## Tests and closing

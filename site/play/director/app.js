@@ -7,6 +7,8 @@ import { encode, naturalCompare } from '../js/delivery.js';
 import { drawQr } from '../js/qr.js';
 import { openViewer } from '../js/viewer.js';
 import { DirectorRoom, roomLink, keepAwake } from '../js/room.js';
+import { createGame, newBook, receive as receiveRequest, answer as answerOne, balanceFor, holdItems } from '../js/requests.js';
+import { queueView, registerView, pendingList } from './panel.js';
 
 const app = document.getElementById('app');
 let game = null;         // {slug, lang, version, teams: ['A','B'], seq, log: [{seq, team, items, at}]}
@@ -19,6 +21,8 @@ let search = '';
 let outdated = null;     // {version, same_format}
 let room = null;         // the live room (js/room.js), once the director creates it
 let stopAwake = null;
+let dgame = null;        // the rules (js/rules.js) over team.json and director.json
+const choices = new Map();   // request id -> what the director has chosen in its card (kept when the panel is drawn again)
 
 const caseUrl = (file = '') => new URL(`cases/${game.slug}/${game.lang}/${game.version}/${file}`, PLAY_ROOT);
 const save = () => store.set('game', game);
@@ -65,6 +69,8 @@ async function loadCase() {
   [teamJson, directorJson] = await Promise.all([json(caseUrl('team.json')), json(caseUrl('director.json'))]);
   await loadStrings(game.lang);
   document.title = t('director.page_title');
+  dgame = createGame(teamJson, directorJson);
+  if (!game.play) game.play = newBook();
   checkVersion();
   if (game.room && !room) startRoom();     // a reload: the room opens again with the same PIN and the same devices
 }
@@ -78,10 +84,47 @@ async function startRoom() {
     for (const d of fresh) { known.add(d.id); if (tab !== 'room') toast(t('room.tab_pending', { n: room.pending().length })); }
     if (tab === 'room') render(); else refreshRoomTab();
   } });
+  room.onMessage = (team, from, m) => onTeamMessage(team, from, m);
+  room.onOnline = (team, id) => sendBalance(team, id);
   stopAwake = keepAwake();
   await room.start();
   await save();
   if (tab === 'room') render();
+}
+
+// --- Requests (F4b) -------------------------------------------------------------------------------------------
+
+// The balance and the answered requests of a team, to one of its phones or to all that are connected.
+async function sendBalance(team, to = null) {
+  if (!room || !game.play) return;
+  await room.sendTeam(team, { k: 'bal', ...balanceFor(dgame, game.play, team, game.log) }, to);
+  await save();
+}
+
+// A phone of a team asks for something: it goes in the register once (it is sent again until answered) and the team is told
+// the balance, so the phone that sent it sees that it arrived.
+async function onTeamMessage(team, from, m) {
+  if (!m || m.k !== 'req' || !game.play) return;
+  const device = room.r.devices[from];
+  const got = receiveRequest(dgame, game.play, team, device, m.r);
+  if (!got) return;
+  if (got.fresh) {
+    room.log.append('request', { device: from, team, id: got.record.id, kind: got.record.req.kind });
+    await save();
+    if (tab !== 'requests') toast(t('requests.panel.new', { team, n: pendingList(game.play).length }));
+    render();
+  } else if (got.record.status === 'done') sendBalance(team, from);
+}
+
+async function answerRequest(rec, button, options) {
+  const res = answerOne(dgame, game.play, rec, button, options, game.log);
+  if (!res.ok) { toast(t(`requests.panel.error.${res.error}`)); return; }
+  choices.delete(rec.id);
+  room?.log.append('answer', { team: rec.team, id: rec.id, answer: button, charged: res.charged });
+  await save();
+  if (res.items.length) await handOut(rec.team, res.items);
+  await sendBalance(rec.team);
+  render();
 }
 
 function refreshRoomTab() {
@@ -157,12 +200,23 @@ async function endGame() {
   await store.del('game');
   if (room) { await room.stop(); room = null; }
   if (stopAwake) { stopAwake(); stopAwake = null; }
-  game = teamJson = directorJson = null; picked.clear();
+  game = teamJson = directorJson = dgame = null; picked.clear(); choices.clear();
   setupScreen();
 }
 
 function render() {
   if (!game) return setupScreen();
+  // a field being typed in keeps the cursor when the panel is drawn again (a request arrives, a phone connects…)
+  const active = document.activeElement && document.activeElement.dataset && document.activeElement.dataset.focus;
+  const caret = active ? document.activeElement.selectionStart : null;
+  draw();
+  if (active) {
+    const el = document.querySelector(`[data-focus="${active}"]`);
+    if (el) { el.focus(); try { el.setSelectionRange(caret, caret); } catch (e) { /* not a text field */ } }
+  }
+}
+
+function draw() {
   clear(app);
   app.append(topBar());
   const main = h('main', { class: 'oc-wrap' });
@@ -170,9 +224,11 @@ function render() {
   if (!store.store.persistent) main.append(h('div', { class: 'oc-notice' }, t('director.no_storage')));
   if (outdated) main.append(h('div', { class: `oc-notice${outdated.sameFormat ? '' : ' oc-notice--bad'}` }, outdated.sameFormat ? t('director.outdated.same') : t('director.outdated.format')));
   const mk = (id, text) => h('button', { class: 'oc-tab', id: `oc-tab-${id}`, role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
-  main.append(h('div', { class: 'oc-tabs', role: 'tablist' }, mk('give', t('director.tab.give')), mk('teams', t('director.tab.teams')), mk('room', room && room.pending().length ? t('room.tab_pending', { n: room.pending().length }) : t('room.tab')), mk('kit', t('director.tab.kit')), mk('log', t('director.tab.log'))));
-  main.append(tab === 'give' ? giveView() : tab === 'room' ? roomView() : tab === 'teams' ? teamsView() : tab === 'kit' ? kitView() : logView());
+  main.append(h('div', { class: 'oc-tabs', role: 'tablist' }, mk('requests', game.play && pendingList(game.play).length ? t('requests.panel.tab_pending', { n: pendingList(game.play).length }) : t('requests.panel.tab')), mk('give', t('director.tab.give')), mk('teams', t('director.tab.teams')), mk('room', room && room.pending().length ? t('room.tab_pending', { n: room.pending().length }) : t('room.tab')), mk('kit', t('director.tab.kit')), mk('register', t('requests.panel.register')), mk('log', t('director.tab.log'))));
+  main.append(tab === 'requests' ? queueView(panelUi()) : tab === 'register' ? registerView(panelUi()) : tab === 'give' ? giveView() : tab === 'room' ? roomView() : tab === 'teams' ? teamsView() : tab === 'kit' ? kitView() : logView());
 }
+
+const panelUi = () => ({ dgame, book: game.play, teamJson, log: game.log, choices, answer: answerRequest, redraw: () => render() });
 
 const teamBadge = (letter) => h('span', { class: `oc-badge oc-team-${letter}` }, letter);
 
@@ -226,22 +282,33 @@ function updateGiveButton() {
   b.disabled = !picked.size || !target.length;
 }
 
+// Puts items in a team's folder: in the game's log, in what the team holds (for the rules) and on its phones if any is connected.
+// Returns the delivery when the team has no phone connected (the director shows its QR).
+async function handOut(team, items, quiet = false) {
+  game.seq += 1;
+  game.log.push({ seq: game.seq, team, items, at: Date.now() });
+  if (game.play && game.play.states[team]) game.play.states[team] = holdItems(game.play.states[team], items);
+  await save();
+  const n = room ? room.reach(team) : 0;
+  if (n) {
+    room.deliver(team, items, game.seq);
+    if (!quiet) toast(plural('room.sent', n, { team }));
+    return null;
+  }
+  const d = { team, items, seq: game.seq };
+  if (!quiet) showDeliveries([d]);
+  return d;
+}
+
 async function give() {
   const items = [...picked].map(([file, code]) => [file, code]);
   if (!items.length || !target.length) return;
-  const deliveries = [];
-  for (const team of [...target].sort()) {
-    game.seq += 1;
-    game.log.push({ seq: game.seq, team, items, at: Date.now() });
-    deliveries.push({ team, items, seq: game.seq });
-  }
-  await save();
   picked.clear();
   // Teams with a phone connected get it over the network; the QR is for the others (and is always in Teams).
   const byQr = [];
-  for (const d of deliveries) {
-    const n = room ? room.reach(d.team) : 0;
-    if (n) { room.deliver(d.team, d.items, d.seq); toast(plural('room.sent', n, { team: d.team })); } else byQr.push(d);
+  for (const team of [...target].sort()) {
+    const d = await handOut(team, items, true);
+    if (d) byQr.push(d); else toast(plural('room.sent', room.reach(team), { team }));
   }
   if (byQr.length) showDeliveries(byQr);
   render();
