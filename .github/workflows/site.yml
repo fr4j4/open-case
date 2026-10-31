@@ -1,7 +1,7 @@
 # Builds the website (PDFs, zips, cases.json and the page) and publishes it to GitHub Pages.
 #
 #   main                   build, validate and DEPLOY to https://<user>.github.io/<repo>/
-#   development, PRs       build and validate only; the site is attached to the run as an artifact
+#   development, feature/web-p2p, PRs   build and validate only; the site is attached to the run as an artifact
 #                          ("site") to download and open before merging to main
 #
 # Every run also runs the tests (pytest), the skill's case_lint.py on every case and tools/check_print.py
@@ -15,9 +15,9 @@ name: Site
 
 on:
   push:
-    branches: [main, development]
+    branches: [main, development, feature/web-p2p]
   pull_request:
-    branches: [main, development]
+    branches: [main, development, feature/web-p2p]
   workflow_dispatch:
 
 permissions:
