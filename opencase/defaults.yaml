@@ -20,7 +20,7 @@ session_minutes: [65, 75]    # the whole session, as the kit and the guide annou
 
 notice_minutes: [10, 20]     # suggested minutes of the investigation to read each notice (the director decides)
 hint_penalties: [1, 1, 1, 2, 2]   # points each hint costs, in order; one per hint card
-request_log_rows: 18         # rows of the request log in the director's guide (one page)
+request_log_rows: 16         # rows of the request log in the director's guide (one page)
 
 score:
   culprit: 5                 # naming the culprit with at least one piece of evidence

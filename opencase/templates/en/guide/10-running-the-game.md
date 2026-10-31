@@ -13,8 +13,8 @@ title: How to run the game
 |---|---|
 | **0 · Setup** · {{ p.setup }} min | Form the teams and give each one the kit, {{ f.tokens_per_team }} tokens{{ (', %d alibi tokens' % alibi) if alibi else '' }} and one badge per player. Read "How to play" aloud (it is in the kit). |
 | **1 · Scene** · {{ p.scene }} min | Read the report (it is in the script) and hand out envelope 1. They read; you do not take questions or procedures yet. |
-| **2 · Investigation** · {{ p.investigation }} min | {{ 'Hand envelope 2 to every team: that is minute 0. ' if envelopes|length > 1 else '' }}Take the requests, collect the tokens, hand out the cards and mark everything on the control sheet. Read the notices when you see fit; the suggestion is {{ m.notice_plan(f.notice_minutes) }}. The last notice goes with the press card. |
-| **3 · Accusation** · {{ p.accusation }} min | {{ f.accusation_writing }} min to fill in the sheets. Collect the accusation and discard sheets of every team before anyone presents; no changes after that. Then {{ f.pitch_minutes }} min per team to present (the team with the most tokens goes first); while one presents, score another's sheet with the score sheet. |
+| **2 · Investigation** · {{ p.investigation }} min | {{ 'Hand envelope 2 to every team: that is minute 0. ' if envelopes|length > 1 else '' }}Take the requests, charge, hand out and mark everything on the control sheet. Read the notices when you see fit; the suggestion is {{ m.notice_plan(f.notice_minutes) }}. The last one goes with the press card. |
+| **3 · Accusation** · {{ p.accusation }} min | {{ f.accusation_writing }} min to fill in the sheets. Collect everyone's accusation and discard sheets before anyone presents; no changes after that. Then {{ f.pitch_minutes }} min per team to present (the team with the most tokens goes first); while one presents, score another on the score sheet. |
 | **4 · Closing** · {{ f.closing_minutes[0] }} to {{ f.closing_minutes[1] }} min | Read the confession if it applies, and the closing. |
 ```
 
@@ -30,5 +30,5 @@ title: How to run the game
 - Read the solution and the diagrams once. That is enough to run the game without memorising anything else.
 
 ```note Recommended figures
-This case uses {{ f.tokens_per_team }} tokens{{ (' and %d alibi tokens' % alibi) if alibi else '' }} per team, phases of {{ m.and_list([p.scene, p.investigation, p.accusation]) }} minutes and {{ f.hint_penalties|length }} hints. They are the recommended figures to play it; if your teams are smaller or the group is new to the game, they can be changed in the case's case.yaml and every document comes out with the new ones.
+This case uses {{ f.tokens_per_team }} tokens{{ (' and %d alibi tokens' % alibi) if alibi else '' }} per team, phases of {{ m.and_list([p.scene, p.investigation, p.accusation]) }} minutes and {{ f.hint_penalties|length }} hints. They are the recommended ones to play it; if your teams are smaller or it is their first game, they can be changed in case.yaml and every document comes out with the new ones.
 ```

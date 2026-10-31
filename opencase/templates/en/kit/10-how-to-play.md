@@ -25,7 +25,7 @@ You start with **{{ f.tokens_per_team }} tokens**{% if alibi %}, **{{ alibi }} a
 - **Token:** what you spend to ask for something. Each team starts with {{ f.tokens_per_team }}.
 - **Alibi:** where a person says they were when the crime happened, and what can prove it.
 {% if alibi %}
-- **Alibi token** (dashed border): only good for checking where a person was. Each innocent ruled out with a proven alibi scores points; one left blank costs points; alibi tokens left over do not score.
+- **Alibi token** (dashed border): only good for checking where a person was. Each innocent ruled out with a proven alibi scores points; one left blank costs points; spare ones do not score.
 {% endif %}
-- **Evidence codes:** "E" and a number (E01, E02…) number the evidence in the director's dossier, and "DEC" the statements. What comes in envelope 1 you already have; the rest you get with a question or a procedure.
+- **Evidence codes:** "E" and a number (E01, E02…) number the evidence in the director's dossier, and "DEC" the statements. You already have envelope 1; the rest you get with a question or procedure.
 ```

@@ -382,7 +382,7 @@ What is the same in every game of Open Case (the rules, the phases, the glossary
 | `session_minutes` | `[65, 75]` | The whole session, as the kit and the guide announce it |
 | `notice_minutes` | `[10, 20]` | Suggested minute of the investigation for each notice; the director decides |
 | `hint_penalties` | `[1, 1, 1, 2, 2]` | Points each hint costs, in order; one per hint card |
-| `request_log_rows` | 18 | Rows of the request log in the guide |
+| `request_log_rows` | 16 | Rows of the request log in the guide |
 | `score` | culprit 5, culprit without evidence 2, how 2, why 2, window 1, contradiction 1, discard with two pieces of evidence 2 / with one 1 / blank −1, red herring 1, spare token 0.25, wrong accusation −5 | Points of the score (keys in `defaults.yaml`) |
 
 The case's own line of the score is `score_bonus` (its points) with `score_texts` in each language file (its text). A case without it has no bonus line.
