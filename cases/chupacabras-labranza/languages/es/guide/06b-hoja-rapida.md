@@ -49,7 +49,7 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `B◆` | Solo la llamada de E13a → B7a |
 | `B◆` | E13b o E13a → B9 |
 | `B◆` | T5, sola o con E13b → B11 |
-| `B◆` | E18 o la boleta de E19·B → B8 |
+| `B◆` | E18, la boleta de E19·B, o E28 con esa boleta (sin E17·B) → B8 |
 | `B◆` | DEC·B junto con E06 → B12 |
 | `B◆` | E19·B (pintura) o E29·B (barro) → B13 |
 | `H◆` | E25·b o EL1 → H5 |

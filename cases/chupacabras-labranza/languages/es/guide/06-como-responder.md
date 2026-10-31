@@ -53,6 +53,7 @@ title: Tabla de respuestas
 | `B◆` | E14 y E26·B juntas (salió del edificio y estuvo en el poniente) | Tarjeta B5 (nueva mentira: "no entré") |
 | `B◆` | E08 o E28 junto con E17·B (el vehículo con un foco) | Tarjeta B6 ("estaba vivo cuando me fui") |
 | `B◆` | E28 junto con E17·B (la camioneta gris con un foco es la suya) | Tarjeta B10 (admite que fue y discutieron) |
+| `B◆` | E28 junto con la boleta del Copec de E19·B (sin E17·B) | Tarjeta B8, no B10: el vehículo sigue exigiendo E17·B |
 | `B◆` | E13d, E29·P o E29·B (el mensaje recuperado, o que Benjamín lo leyó a las 22:16 y llamó a las 22:17) | Tarjeta B7 |
 | `B◆` | Solo la llamada de E13a (22:17, la hizo él) | Tarjeta B7a (admite la llamada, no el motivo) |
 | `B◆` | E13b o E13a (el borrado o el desbloqueo de las 23:18) | Tarjeta B9 ("yo no tenía su teléfono") |
@@ -84,7 +85,7 @@ Al comienzo solo está Rosa (R1 y R2). A los demás los piden con "TESTIGO nombr
 
 | Testigo | Aparece en | Entrega |
 |---|---|---|
-| Rosa Huenchumilla, vecina del frente | E01, E04 | Tarjetas R1 y R2 |
+| Rosa Huenchumilla, vecina del frente | E01, E04 | Tarjetas R1 y R2 (1 ficha cada una) |
 | Kevin Huenchumilla | R1 | Tarjeta K1 + E09 |
 | Juan Cifuentes, colectivero | R2 | Tarjeta CO1 |
 | Elena Mardones | E04, E20, H1 | Tarjeta EL1 |

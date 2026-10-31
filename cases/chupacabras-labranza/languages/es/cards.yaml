@@ -50,8 +50,8 @@ groups:
         answer: '"…Ya, lo llamé yo, no me acordaba. Para pelear por plata, como siempre. Los hermanos se llaman, ¿o ahora es delito?"'
       - code: B8
         type: confrontation
-        question: '"Hay algo del Copec que lo toca a usted."'
-        answer: '"¿Del Copec? Hay miles de bolsas y de boletas del Copec, detective. Yo cargo bencina como todo el mundo."'
+        question: '"Hay algo del Copec que lo compromete."'
+        answer: '"¿Una boleta? Habré cargado de pasada, no me acuerdo de la hora. Hay miles de bolsas y boletas del Copec, detective."'
       - code: B9
         type: confrontation
         question: '"Alguien borró el mensaje del grupo desde el teléfono de Matías a las 23:18."'

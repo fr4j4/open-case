@@ -24,7 +24,7 @@ title: Pauta de corrección
 | Inocente | Pruebas que lo ubican lejos entre 23:10 y 23:24 (valen dos de distinto origen: documento, testigo, antena, cámara o registro digital; dos pruebas de la misma persona, como M1 y E21, cuentan como una) |
 |---|---|
 | Don Hernán | E20, E26·H, E17·H |
-| Javiera | E08 (la voz y la cámara no se mueven del cerco), E09 (el dron la ve en el cerco a las 22:54), E17·J (la bicicleta que quedó amarrada) |
+| Javiera | E08 o E29·J (la voz y la cámara no se mueven del cerco), E09 (el dron la ve en el cerco a las 22:54), E17·J (la bicicleta que quedó amarrada) |
 | Pía | E23, F1, E15·P, E26·P, E29·P (CO1 solo prueba que se fue a las 21:50) |
 | Toto | E21 o M1 (son de la misma Maca: cuentan como una), E17·T con E08 (la moto tiene una sola luz trasera). La antena E26·T no sirve: cubre El Arrayán. |
 | Dra. Rivas | E22, PS1, E26·C, E28 (23:00 hacia Labranza centro) |
