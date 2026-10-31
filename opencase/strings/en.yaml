@@ -225,3 +225,7 @@ procedures:
 signatures:
   label: "Signature of {name}"
   label_plain: Signature
+
+# Web app (site/play/): the words the app itself shows. Each phase of docs/web-plan adds its own subsection
+# (web.team, web.director, web.requests…) so two phases never edit the same lines. Empty on purpose in F1.
+web: {}
