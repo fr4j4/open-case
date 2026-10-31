@@ -6,7 +6,7 @@ title: Diligencias
 
 | Código | Diligencia | Fichas |
 |---|---|---|
-| `DG1` | Informe del SAG sobre las muertes de animales | 1 |
+| `DG1` | Informe del Servicio Agrícola y Ganadero (SAG) sobre las muertes de animales | 1 |
 | `DG2` | Celular de la víctima: llamadas y calendario | 1 |
 | `DG2W` | Celular de la víctima: WhatsApp | 1 |
 | `DG2C` | Celular de la víctima: cuentas e Instagram | 1 |

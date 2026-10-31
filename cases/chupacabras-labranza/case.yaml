@@ -36,7 +36,7 @@ dossier:
     - id: procedures
       items: [E12, E13a, E13b, E13b-2, E13c, E13d, E15-B, E15-T, E15-C, E15-P, E15-H, E15-J, E15-M,
               E16, E17-B, E17-T, E17-H, E17-C, E17-P, E17-J, E18, E19-B, E19-T, E19-J, E19-P, E19-H, E19-C,
-              E24, E25, E26-B, E26-T, E26-P, E26-C, E26-H, E26-J, E28, E29-P, E29-B, E29-X]
+              E24, E25, E26-B, E26-T, E26-P, E26-C, E26-H, E26-J, E28, E29-P, E29-B, E29-J, E29-X]
     - id: notices
       items: [AVISO1, AVISO2]
 
@@ -47,5 +47,5 @@ site:
   date: 2026-10-29
   cover: photos/e09_2250.jpg
   min_teams: 2
-  duration_minutes: [60, 70]
+  duration_minutes: [65, 75]
   players_per_team: [5, 7]

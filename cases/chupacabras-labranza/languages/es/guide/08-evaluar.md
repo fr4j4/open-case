@@ -24,7 +24,7 @@ title: Pauta de corrección
 | Inocente | Pruebas que lo ubican lejos entre 23:10 y 23:24 (valen dos de distinto origen: documento, testigo, antena, cámara o registro digital; dos pruebas de la misma persona, como M1 y E21, cuentan como una) |
 |---|---|
 | Don Hernán | E20, E26·H, E17·H |
-| Javiera | E08 (la voz y la cámara no se mueven del cerco), E09 (el dron la ve en el cerco a las 22:54), E17·J (la bicicleta que quedó amarrada) |
+| Javiera | E08 o E29·J (la voz y la cámara no se mueven del cerco), E09 (el dron la ve en el cerco a las 22:54), E17·J (la bicicleta que quedó amarrada) |
 | Pía | E23, F1, E15·P, E26·P, E29·P (CO1 solo prueba que se fue a las 21:50) |
 | Toto | E21 o M1 (son de la misma Maca: cuentan como una), E17·T con E08 (la moto tiene una sola luz trasera). La antena E26·T no sirve: cubre El Arrayán. |
 | Dra. Rivas | E22, PS1, E26·C, E28 (23:00 hacia Labranza centro) |
@@ -52,7 +52,7 @@ Que alguien "no tenga motivo" o "no tenga auto" no cuenta como descarte, y la de
 ### Cuándo confiesa Benjamín
 
 ```note-ok
-Benjamín confiesa si el equipo que lo acusa cumple tres condiciones. **(1)** Pruebas y tarjeta de confrontación de **al menos dos de estos cuatro caminos**: **A · vehículo** = E08 o E28, más E17·B, y la tarjeta B6 o B10; **B · coartada** = E14 y E26·B (las dos), y la tarjeta B5; **C · lo que sabía** = la tarjeta B11 (T5, sola o junto con E13b: Toto dijo que el hermano estuvo solo en el galpón); B12 (el lapsus) vale como contradicción, no como camino; **D · lo físico** = la tarjeta B13 (E19·B o E29·B) o B8 (E18). **(2)** El motivo con una prueba o tarjeta: E13d, E29·P, I1, I1+, B7 o E25·a. **(3)** Lo nombran en la hoja de acusación. Sin la tarjeta ◆ correspondiente, el camino no cuenta. Entonces lees la confesión.
+Benjamín confiesa si el equipo que lo acusa cumple tres condiciones. **(1)** Pruebas y tarjeta de confrontación de **al menos dos de estos cuatro caminos**: **A · vehículo** = E08 o E28, más E17·B, y la tarjeta B6 o B10; **B · coartada** = E14 y E26·B (las dos), y la tarjeta B5; **C · lo que sabía** = la tarjeta B11 (T5, sola o junto con E13b: Toto dijo que el hermano estuvo solo en el galpón); B12 (el lapsus) vale como contradicción, no como camino; **D · lo físico** = la tarjeta B13 (E19·B o E29·B) o B8 (E18 o la boleta de E19·B). **(2)** El motivo con una prueba o tarjeta: E13d, E29·P, I1, I1+, B7 o E25·a. **(3)** Lo nombran en la hoja de acusación. Sin la tarjeta ◆ correspondiente, el camino no cuenta. Entonces lees la confesión.
 ```
 
 ```note-warning

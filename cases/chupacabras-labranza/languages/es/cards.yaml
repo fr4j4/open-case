@@ -50,8 +50,8 @@ groups:
         answer: '"…Ya, lo llamé yo, no me acordaba. Para pelear por plata, como siempre. Los hermanos se llaman, ¿o ahora es delito?"'
       - code: B8
         type: confrontation
-        question: '"Encontramos una bolsa del Copec en el estero."'
-        answer: '"¿Una bolsa del Copec? Hay miles de bolsas del Copec, detective. Yo cargo bencina como todo el mundo."'
+        question: '"Hay algo del Copec que lo compromete."'
+        answer: '"¿Una boleta? Habré cargado de pasada, no me acuerdo de la hora. Hay miles de bolsas y boletas del Copec, detective."'
       - code: B9
         type: confrontation
         question: '"Alguien borró el mensaje del grupo desde el teléfono de Matías a las 23:18."'
@@ -166,7 +166,7 @@ groups:
       - code: P1
         menu: true
         question: ¿Dónde estuvo el viernes en la noche?
-        answer: '"En un karaoke en el centro de Temuco con mi amiga Fernanda, desde las once menos cuarto. La Fer tiene todas las historias, pregúntenle."'
+        answer: '"En un karaoke en el centro de Temuco con mi amiga Fernanda, desde un cuarto para las once. La Fer tiene todas las historias, pregúntenle."'
       - code: P2
         menu: true
         question: ¿Cuándo vio a Matías por última vez?
@@ -201,7 +201,7 @@ groups:
       - code: T1
         menu: true
         question: ¿Dónde estuvo el viernes en la noche?
-        answer: '"En la fiesta de la Maca, en la villa. Llegué tipo once menos cuarto y me quedé dormido ahí. La Maca subió fotos, pregúntenle."'
+        answer: '"En la fiesta de la Maca, en la villa. Llegué tipo un cuarto para las once y me quedé dormido ahí. La Maca subió fotos, pregúntenle."'
       - code: T2
         menu: true
         question: ¿Cómo encontró el cuerpo?
@@ -226,7 +226,7 @@ groups:
       - code: T7
         type: confrontation
         question: '"¿Qué era ''lo de hoy'' y qué le debía Matías?"'
-        answer: '"Lo de hoy era la oveja del jueves, jefe. Esa la hice con dos clavos en una tabla, porque la horqueta ya no estaba. Me pagaba cincuenta lucas por salida y me debía tres, ciento cincuenta lucas. Por eso le escribí lo de la PDI. Pero el viernes yo estaba en la fiesta de la Maca, de las once menos cuarto hasta que me quedé dormido. Pregúntenle a ella."'
+        answer: '"Lo de hoy era la oveja del jueves, jefe. Esa la hice con dos clavos en una tabla, porque la horqueta ya no estaba. Me pagaba cincuenta lucas por salida y me debía tres, ciento cincuenta lucas. Por eso le escribí lo de la PDI. Pero el viernes yo estaba en la fiesta de la Maca, de un cuarto para las once hasta que me quedé dormido. Pregúntenle a ella."'
       - code: T4+
         type: follow-up
         question: ¿Qué cosa se le perdió el martes?
