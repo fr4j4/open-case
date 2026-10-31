@@ -58,8 +58,8 @@
     <div class="hero__ficha" aria-label="Datos del juego">
       <div class="cab">Ficha técnica <span>Caso 01 · Labranza, 2026</span></div>
       <div><b>2 a 4</b><span>equipos</span></div>
-      <div><b>5 a 7</b><span>por equipo</span></div>
-      <div><b>60 a 70</b><span>minutos</span></div>
+      <div><b>2 o más</b><span>personas por equipo</span></div>
+      <div><b>65 a 75</b><span>minutos</span></div>
       <div><b>6</b><span>sospechosos</span></div>
     </div>
   </div>
@@ -172,7 +172,7 @@
         <span class="rotulo">Caso publicado · 01</span>
         <h2>Lo que hay en la carpeta<i>Se imprime en casa. Se juega en una mesa.</i></h2>
       </div>
-      <p>Un caso de Open Case es una carpeta de papel: un kit por equipo, los sobres con las pruebas, tarjetas de respuesta de 63 × 88 mm, placas, fichas y una guía para quien dirige.</p>
+      <p>Un caso de Open Case es una carpeta de papel: un kit por equipo, las pruebas impresas (una copia por equipo), tarjetas de respuesta de 63 × 88 mm, placas, fichas y una guía para quien dirige.</p>
     </div>
 
     <div class="caso__grid">
@@ -187,9 +187,9 @@
           <p>Un corredor de propiedades aparece muerto junto a su corral, en la misma semana en que el sector habla de un chupacabras. Seis sospechosos, una vecina que lo vio todo a medias y una noche de lluvia que no cuadra con nada.</p>
           <dl>
             <dt>Lugar</dt><dd>Labranza, Temuco, Chile. Octubre de 2026.</dd>
-            <dt>Jugadores</dt><dd>De 2 a 4 equipos de 5 a 7 personas y un director.</dd>
+            <dt>Jugadores</dt><dd>De 2 a 4 equipos de 2 personas o más (sin máximo) y un director. Conviene que cada equipo converse.</dd>
             <dt>Duración</dt><dd>Escena 10 min · Investigación 30 min · Acusación 15 min.</dd>
-            <dt>Material</dt><dd>Kit del equipo, 2 sobres de pruebas, 30 pruebas, 6 declaraciones, tarjetas de respuesta, placas, fichas y sobres para los equipos A a D.</dd>
+            <dt>Material</dt><dd>Kit del equipo, dos sobres de pruebas, las pruebas ordenadas por código (una copia por equipo), declaraciones de los seis sospechosos, tarjetas de respuesta, avisos y prensa, placas, fichas y solicitudes para los equipos A a D.</dd>
             <dt>Pruebas</dt><dd>Fotos forenses, un live, un dron, chats, boletas, registros de llamadas y peritajes del SML.</dd>
             <dt>Tono</dt><dd>Policial, sin terror ni sangre. Personajes, empresas y medios ficticios.</dd>
             <dt>Idioma</dt><dd>Español. <span class="pastilla pastilla--pend">Inglés próximamente</span></dd>
@@ -219,7 +219,7 @@
 
         <div class="oc-tarjeta oc-tarjeta--aviso">
           <div class="oc-tarjeta__banda"></div>
-          <div class="oc-tarjeta__cab"><b>Aviso 1</b><span>Fiscalía Local de Temuco · minuto 10</span></div>
+          <div class="oc-tarjeta__cab"><b>Aviso 1</b><span>Fiscalía Local de Temuco · aviso 1 de 2</span></div>
           <div class="oc-tarjeta__pregunta">El director lo lee en voz alta a todos los equipos.</div>
           <div class="oc-tarjeta__respuesta">"El Servicio Médico Legal adelanta que la hora de muerte está entre las 22:30 y la 01:00. Las perforaciones no corresponden a una mordida animal. Se dispone peritaje de la herramienta."</div>
           <div class="oc-tarjeta__pie">Adjunta E06 · Informe preliminar SML</div>
@@ -271,8 +271,8 @@
       <div class="acto">
         <div class="acto__n">Acto tercero</div>
         <div class="acto__t">Los avisos</div>
-        <div class="acto__min">Minutos fijos</div>
-        <p>La Fiscalía manda novedades a todos los equipos a la vez, y a los 20 minutos la prensa publica algo que cambia la conversación. Quien se atasca puede pedir una pista, a cambio de un punto.</p>
+        <div class="acto__min">A criterio del director</div>
+        <p>La Fiscalía manda novedades a todos los equipos a la vez, y más tarde la prensa publica algo que cambia la conversación. El director decide cuándo leer cada aviso. Quien se atasca puede pedir una pista: cuesta 1 punto las primeras y 2 las últimas.</p>
       </div>
       <div class="acto">
         <div class="acto__n">Acto final</div>
@@ -285,9 +285,9 @@
       <span class="rotulo">Qué necesitan</span>
       <ul>
         <li>Una impresora y tijeras</li>
-        <li>De dos a cuatro equipos de 5 a 7 personas, con una mesa cada uno</li>
+        <li>De dos a cuatro equipos de 2 personas o más, sin máximo, con una mesa cada uno</li>
         <li>Un director que lea la guía antes (contiene la solución)</li>
-        <li>Opcional: un grupo de WhatsApp por equipo para mandar las pruebas</li>
+        <li>Opcional: un grupo de WhatsApp por equipo; con la opción <code>--chat</code> las pruebas salen como imágenes en vez de papel</li>
       </ul>
     </div>
   </div>
@@ -300,7 +300,7 @@
         <span class="rotulo">Casos publicados</span>
         <h2>Descargas<i>Dos paquetes por caso. Uno trae la solución.</i></h2>
       </div>
-      <p>El material de los equipos lo puede abrir cualquiera. El del director es solo para quien dirige. Los PDF vienen listos para imprimir en hoja carta, en modo ahorro de tinta.</p>
+      <p>El material de los equipos lo puede abrir cualquiera. El del director es solo para quien dirige. Los PDF vienen listos para imprimir en hoja carta, en modo ahorro de tinta. Los zips traen material para los cuatro equipos; para una mesa más chica o para jugar por chat, el exportador genera la variante: <code>make export ARGS="--teams 2"</code> o <code>--chat</code>.</p>
     </div>
 
     <div class="casos" id="lista-casos" aria-live="polite">
@@ -346,7 +346,7 @@
     <div class="os__cols">
       <div class="os__col">
         <h3>El formato</h3>
-        <p>Un caso es una carpeta: un archivo de datos con los equipos y las fichas, un idioma por carpeta con los sospechosos, las tarjetas y las hojas en Markdown, y una carpeta de fotos. El exportador convierte eso en los PDF de equipos y de director.</p>
+        <p>Un caso es una carpeta: un archivo de datos con los equipos y las fichas, un idioma por carpeta con los sospechosos, las tarjetas y los textos del caso en YAML, las firmas de cada persona en <code>signatures.yaml</code> y una carpeta de fotos. Las reglas fijas del juego (fases, cobros, avisos, glosario) viven en el motor, no en el caso. Un caso nuevo nace con <code>published: false</code> y se publica cuando se valida jugándolo con equipos reales. Detalles en <a href="https://github.com/fr4j4/open-case/blob/main/docs/case-format.md">docs/case-format.md</a>.</p>
         <div class="arbol"><b>cases/mi-caso/</b>
 ├── case.yaml
 ├── photos/
