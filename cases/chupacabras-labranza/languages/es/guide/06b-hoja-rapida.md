@@ -2,6 +2,7 @@
 institution: 6b · Hoja rápida
 description: Qué entregar ante cada código · imprime 1 copia
 title: Hoja rápida del director
+pages: 3
 ---
 
 Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla completa está en "Cómo responder". Fichas de coartada: solo DG9, DG11 o un testigo que ubique a alguien.

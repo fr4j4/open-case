@@ -71,7 +71,8 @@ def test_minimal_case_builds_every_document(case_dir):
     case = load_case(case_dir)
     use_strings(case.strings)
     keys = [d.key for d in build_documents(case)]
-    assert keys[:3] == ["kit", "envelopes:1", "dossier"]
+    assert keys[:2] == ["kit", "envelopes:1"]
+    assert "evidence" not in keys   # every sheet is in an envelope: there is no Evidence file
     assert {"guide", "cards", "card-backs", "suspects", "badges", "tokens", "requests"} <= set(keys)
 
 

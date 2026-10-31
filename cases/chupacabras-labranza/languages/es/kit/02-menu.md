@@ -2,6 +2,7 @@
 institution: Menú de preguntas
 description: Cada pregunta cuesta 1 ficha
 title: Sospechosos
+pages: 2
 ---
 
 La primera pregunta de cada sospechoso es dónde estuvo esa noche. Lo que diga hay que comprobarlo con diligencias, testigos o seguimientos.

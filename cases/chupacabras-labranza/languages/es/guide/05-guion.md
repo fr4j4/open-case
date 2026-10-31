@@ -2,6 +2,7 @@
 institution: 5 · Guion de la sesión
 description: El parte, los avisos y las pistas
 title: Para leer en voz alta
+pages: 2
 ---
 
 Las fases y sus minutos están en "Cómo dirigir la partida". Aquí va lo que lees a los equipos.

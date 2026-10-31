@@ -4,7 +4,8 @@
 #   development, PRs       build and validate only; the site is attached to the run as an artifact
 #                          ("site") to download and open before merging to main
 #
-# Every run also runs the tests (pytest) and the skill's case_lint.py on every case. On pull requests,
+# Every run also runs the tests (pytest), the skill's case_lint.py on every case and tools/check_print.py
+# (every PDF has the pages of the print plan; no sheet fills more than 95 % of its pages). On pull requests,
 # tools/snapshot.py compares the PDFs of the base branch with the PR's and writes what changes (text by
 # sheet, pages, cards that do not fit) in the run's summary. Cases with `published: false` in their
 # case.yaml (not validated yet) are linted too, but their lint errors do not fail the run.
@@ -62,6 +63,11 @@ jobs:
             fi
           done
           exit $status
+
+      - name: Check that every PDF matches the print plan and every sheet has room
+        # Fails when a sheet of the kit, the envelopes or the Evidence file fills more than 95 % of the pages it
+        # declares, or a PDF has other pages than the print plan in the guide says (cases not published only warn).
+        run: python tools/check_print.py
 
       - name: Compare the PDFs with the base branch
         if: github.event_name == 'pull_request'

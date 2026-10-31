@@ -21,7 +21,7 @@ KIT = [
 ]
 
 GUIDE = [
-    ("01-preparation.md", "1 · Preparación", "El día antes y 20 minutos antes", "Qué imprimir y qué preparar", "TODO: tabla de impresión (material, copias, notas) y cómo armar la sala. Las fases, antes de que lleguen, la regla de oro y la equidad las agrega el motor después de esta hoja."),
+    ("01-preparation.md", "1 · Preparación", "El día antes y 20 minutos antes", "Qué imprimir y qué preparar", "```print-plan\n```\n\n### Para armar la sala\n\n- TODO cómo armar la sala. La tabla de qué imprimir la pone el motor (bloque print-plan); las fases, antes de que lleguen, la regla de oro y la equidad las agrega después de esta hoja."),
     ("01b-case-notes.md", "Reglas para dirigir", "Lo que cambia en este caso respecto de \"Para que sea parejo\"", "Lo propio de este caso", "- TODO solo las excepciones de este caso (qué cuenta como sin hallazgos, para qué sirven aquí las fichas de coartada, qué es gratis por obvio)."),
     ("02-solution.md", "2 · La solución en una página", "Léela antes de jugar", "", "```note Lo que pasó\nTODO: quién, cómo, cuándo, dónde.\n```\n\n### Por qué\n\nTODO\n\n### El detalle que lo delata\n\nTODO\n\n### Lo que oculta cada sospechoso\n\n| Sospechoso | Secreto | Coartada (verdadera) |\n|---|---|---|\n| TODO | | |"),
     ("03-script.md", "3 · Guion de la sesión", "El parte, los avisos y las pistas", "Para leer en voz alta", "### Para leer al comenzar\n\n```script\nTODO\n```\n\n```notices\n```\n\n### Si un equipo se estanca\n\n```hints\n```"),
@@ -98,8 +98,6 @@ dossier:
       items: []
     - id: procedures
       items: []
-    - id: notices
-      items: []
 """, encoding="utf-8")
 
     (lang / "case.yaml").write_text(f"""title: {a.title}
@@ -112,7 +110,6 @@ badge:
 
 kit:
   description: Una copia por equipo. Reglas, menú y hojas de trabajo. No incluye respuestas ni pruebas.
-  cover_note: Una copia por equipo. No incluye respuestas ni pruebas.
 
 guide:
   description: Todo lo necesario para dirigir el caso.
@@ -122,14 +119,12 @@ dossier:
   title: Expediente TODO
   kicker: TODO institución
   description: TODO resumen del caso en una línea.
-  printed_description: TODO índice de pruebas para el director.
   sections:
     start: {{title: Sobre 1, note: Se entrega a ambos equipos al comenzar}}
     statements: {{title: Declaraciones iniciales, note: Van en el sobre 1 · gratis}}
     investigation: {{title: Comienzo de la investigación, note: Sobre 2 · gratis para ambos equipos}}
     with-answer: {{title: Pruebas que se entregan junto con una respuesta, note: Solo al equipo que preguntó}}
     procedures: {{title: Diligencias, note: Se entregan al equipo que paga la ficha}}
-    notices: {{title: Avisos, note: El director los lee a todos a la vez}}
 
 envelope_labels:
   - number: 1

@@ -2,6 +2,7 @@
 institution: 4 · Cómo responder
 description: Qué entregar ante cada código
 title: Tabla de respuestas
+pages: 4
 ---
 
 [true] dice la verdad[false] miente para proteger su secreto[key] pista importante[attached] entrega un documento

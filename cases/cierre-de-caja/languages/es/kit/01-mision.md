@@ -2,6 +2,7 @@
 institution: Orden de investigar
 description: Fiscalía Local de Rancagua · lunes 09-11-2026
 title: Misión
+pages: 2
 ---
 
 Esta mañana encontraron muerto a **Renato Ibáñez Cornejo**, dueño del minimarket El Trébol, en la bodega de su local del pasaje Los Aromos. Tiene un golpe en la cabeza. La caja fuerte está abierta y vacía. Todo el barrio habla de un robo.

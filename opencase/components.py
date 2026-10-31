@@ -485,6 +485,34 @@ def c_menu(b, ctx):
     return "".join(out)
 
 
+def c_print_plan(b, ctx):
+    """```print-plan in the guide's preparation sheet: what to print, how many copies, on what paper and
+    when each document is handed out. It comes from the print plan of the engine (printing.py), the same
+    list the README next to the PDFs is written from, so it follows --teams and --chat."""
+    from . import printing
+    case = ctx.case
+    t = case.t
+    items = printing.plan(case)
+    head = "".join(f"<th>{e(t('print.head.' + k))}</th>" for k in ("file", "what", "copies", "paper", "size", "when"))
+    out = []
+    for package in ("team", "director"):
+        rows = []
+        for i in items:
+            if i.package != package:
+                continue
+            rows.append(f'<tr><td class="c">{e(i.file.split("_", 1)[0])}</td><td><b>{e(i.name)}</b>'
+                        f'<span class="oc-pequeno"> · {line(i.what)}</span></td>'
+                        f'<td>{e(printing.copies_text(case, i))}</td><td>{e(printing.paper_text(case, i))}</td>'
+                        f'<td>{e(printing.size_text(case, i))}</td><td>{line(i.when)}</td></tr>')
+        if not rows:
+            continue
+        out.append(f'<h3>{e(t(f"print.{package}_package"))}</h3><p class="oc-pequeno">{e(t(f"print.{package}_package_note"))}</p>'
+                   f'<div class="oc-tabla oc-tabla--compacta"><table><thead><tr>{head}</tr></thead>'
+                   f'<tbody>{"".join(rows)}</tbody></table></div>')
+    out.append(f"<p><b>{e(printing.summary(case, items))}</b> {e(t('print.uncollated'))}</p>")
+    return "".join(out)
+
+
 def c_html(b, ctx):
     return b.content
 
@@ -498,7 +526,7 @@ COMPONENTS = {
     "phones": c_phones, "videos": c_videos, "posts": c_posts,
     "note": c_note, "note-ok": c_note_ok, "note-warning": c_note_warning, "script": c_script, "steps": c_steps,
     "fields": c_fields, "work-table": c_work_table, "checkboxes": c_checkboxes, "columns": c_columns,
-    "menu": c_menu, "html": c_html,
+    "menu": c_menu, "html": c_html, "print-plan": c_print_plan,
 }
 
 

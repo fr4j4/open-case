@@ -30,13 +30,19 @@ JS_FIT_CARDS = """
 }
 """
 
+# Every sheet: the pages it takes and how full it is: its height over the height of the pages it declares
+# (data-pages, 1 by default). tools/check_print.py fails above printing.SHEET_LIMIT.
 JS_MEASURE_SHEETS = """
 (pageHeight) => {
   const out = [];
   for (const h of document.querySelectorAll('article.oc-hoja')) {
+    h.style.minHeight = '0';   // a sheet takes at least a page: measure its content without that floor
     const height = h.getBoundingClientRect().height;
+    h.style.minHeight = '';
     const code = (h.querySelector('.oc-codigo') || {}).textContent || h.id;
-    out.push({id: h.id, code: code, pages: Math.ceil((height - 2) / pageHeight)});
+    const declared = parseInt(h.dataset.pages || '1', 10);
+    out.push({id: h.id, code: code.trim(), pages: Math.max(1, Math.ceil((height - 2) / pageHeight)), declared: declared,
+              fill: height / (declared * pageHeight)});
   }
   return out;
 }
@@ -102,14 +108,14 @@ def export(docs, html_dir, pdf_dir, paper_height_mm=279, margin_mm=14, images=Fa
             for r in broken:
                 report(f"  ! {doc.file}: could not load the image {r}")
             fits = page.evaluate(JS_FIT_CARDS)
-            long_sheets = []
+            sheets = []
             if doc.check_sheets:
-                long_sheets = [h for h in page.evaluate(JS_MEASURE_SHEETS, (paper_height_mm - 2 * margin_mm) * MM)
-                               if h["pages"] > 1]
+                sheets = page.evaluate(JS_MEASURE_SHEETS, (paper_height_mm - 2 * margin_mm) * MM)
             page.pdf(path=str(target), prefer_css_page_size=True, print_background=True)
-            if images and doc.folder and doc.check_sheets:
+            if images and doc.chat_images:
                 _chat_images(page, doc, Path(pdf_dir) / "chat-images")
-            results.append({"doc": doc, "pdf": target, "fits": fits, "long_sheets": long_sheets})
+            results.append({"doc": doc, "pdf": target, "fits": fits, "sheets": sheets,
+                            "long_sheets": [h for h in sheets if h["pages"] > h["declared"]]})
         browser.close()
     return results
 

@@ -107,6 +107,10 @@ def context(case, data=None):
                 notice_sheets.append(h)
     notices = [{"n": n, "code": h.get("code", h.id), "title": h.get("title", ""), "minute": notice_minute(case, n)}
                for n, h in enumerate(notice_sheets, 1)]
+    if not notice_sheets:   # the notices are only cards (the usual case): the control sheet lists the cards
+        notice_cards = [c for c, g in cards if _card_kind(c, g) == "notice"]
+        notices = [{"n": n, "code": str(c.get("code", "")), "title": c.get("title") or c.get("headline", ""),
+                    "minute": notice_minute(case, n)} for n, c in enumerate(notice_cards, 1)]
     readings, n_notice = [], 0
     for c, g in cards:
         kind = _card_kind(c, g)

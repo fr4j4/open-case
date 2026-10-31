@@ -6,6 +6,9 @@
 #   make color                        same, but in full colour
 #   make check                        check the case files without making PDFs
 #   make images                       PDFs + one image per evidence sheet to send through a chat
+#   make export ARGS="--teams 2"      material for the first 2 teams only (the print plan counts 2 copies)
+#   make export ARGS="--chat"         the Evidence file goes through the chat: 0 copies in the plan, images made
+#   make print-check                  every PDF has the pages of the print plan and every sheet has room (as the CI)
 #   make site                         build the website in _site/ (PDFs, zips, cases.json and the page)
 #   make test                         run the tests (HTML photos, strings, validation)
 #   make test-update                  rewrite the HTML photos in tests/snapshots/ after an intended change
@@ -22,7 +25,7 @@ HEAD ?=
 VENV ?= .venv
 PY := $(if $(wildcard $(VENV)/bin/python),$(VENV)/bin/python,python3)
 
-.PHONY: install export color check images site test test-update lint snapshot compare clean
+.PHONY: install export color check images site test test-update lint print-check snapshot compare clean
 
 install:
 	python3 -m venv $(VENV)
@@ -52,6 +55,9 @@ test-update:
 
 lint:
 	@for case in cases/*/; do echo "== $$case"; $(PY) skills/open-case-author/scripts/case_lint.py $$case || exit 1; done
+
+print-check:
+	$(PY) tools/check_print.py $(ARGS)
 
 snapshot:
 	$(PY) tools/snapshot.py take $(REF)

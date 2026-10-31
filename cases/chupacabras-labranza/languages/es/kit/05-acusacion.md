@@ -17,5 +17,5 @@ title: Nuestra teoría del caso
   type: box
 - label: "8. Pistas falsas explicadas: pista → prueba que la explica"
   type: box
-  height: 150px
+  height: 110px
 ```

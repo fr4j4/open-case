@@ -2,6 +2,7 @@
 institution: 1 · Preparación
 description: El día antes y 15 minutos antes
 title: Qué imprimir y qué preparar
+pages: 2
 ---
 
 | Material | Copias | Notas |
