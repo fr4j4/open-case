@@ -350,8 +350,9 @@ def write_strings(play, languages):
 def build_cases(folders, out, slugs=None):
     """Compiles the given case folders into <out>/play/. `slugs` maps a folder name to its site slug."""
     play = Path(out) / "play"
-    if play.exists():
-        shutil.rmtree(play)
+    for generated in ("cases", "strings"):          # only what this module writes: site/play/ also holds the app's own files
+        if (play / generated).exists():
+            shutil.rmtree(play / generated)
     entries, languages = [], set()
     for folder in folders:
         folder = Path(folder)
