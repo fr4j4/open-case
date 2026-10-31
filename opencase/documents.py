@@ -9,7 +9,7 @@ from . import cards as C
 from . import printing
 from . import templates
 from .components import Context, render_blocks
-from .loader import Block, Sheet
+from .loader import Block, CaseError, Sheet, normalize_code
 from .markup import e, line
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -124,6 +124,42 @@ def cover(case, ctx, doc, note="", reserved=False, team_line=False):
             f'<div class="oc-tapa__lema">{e(case.get("tagline", case.t("tagline")))}</div>{version}</article>')
 
 
+def kit_defaults(case):
+    """What every sheet of the team kit gets besides its own front matter."""
+    return {"logo": True, "team_line": True, "brand_footer": _brand_footer(case, "kit")}
+
+
+def sheet_defaults(case):
+    """The same for the sheets of the dossier (envelopes and Evidence file)."""
+    return {"brand_footer": _brand_footer(case, "dossier")}
+
+
+def kit_sheets(case):
+    """The sheets of the team kit: the case's own with the engine's inserted (none when the case has no kit)."""
+    return templates.sheets_for(case, "kit", case.kit) if case.kit else []
+
+
+def render_sheet(case, code, ctx=None, doc=None, kit=None):
+    """The HTML (one <article>) of one sheet, the same the PDFs print. `code` is the id of a sheet of the
+    dossier (E15-B), its printed code (E15·B) or the id of a kit sheet (02-menu); `doc` ("dossier" or "kit")
+    says which when both have it. `ctx` decides where photos and logos are read from (the web build points
+    them to its own folder); `kit` is the list from kit_sheets(), to not draw the engine's sheets twice."""
+    ctx = ctx or Context(case, REPO_ROOT)
+    wanted = normalize_code(code)
+    if doc in (None, "dossier"):
+        # The id of the sheet first (E13b and E13b-2 are two sheets with the same printed code), then the code.
+        for by_id in (True, False):
+            for sheet_id, h in case.dossier.items():
+                names = (sheet_id,) if by_id else (h.get("code", sheet_id),)
+                if wanted in (normalize_code(n) for n in names):
+                    return sheet(h, ctx, sheet_defaults(case))
+    if doc in (None, "kit"):
+        for h in kit if kit is not None else kit_sheets(case):
+            if wanted == normalize_code(h.id):
+                return sheet(h, ctx, kit_defaults(case))
+    raise CaseError(f"there is no sheet '{code}'" + (f" in the {doc}" if doc else ""), case.root)
+
+
 def build_documents(case):
     """Every document of the case. What each one is for, how many copies and when it is handed out is
     the print plan (printing.py), which counts the same sheets from the data."""
@@ -145,14 +181,14 @@ def build_documents(case):
     kit_cfg = case.get("kit", {}) or {}
     if case.kit:
         body = _screen_header(f"{brand} · {title}", t("docs.kit.title"), kit_cfg.get("description", ""))
-        defaults = {"logo": True, "team_line": True, "brand_footer": _brand_footer(case, "kit")}
+        defaults = kit_defaults(case)
         kit_sheets = templates.sheets_for(case, "kit", case.kit)
         body += "".join(sheet(h, ctx, defaults) for h in kit_sheets)
         doc("kit", "teams", "01", "kit", page("kit", body, "oc-mesa"), "sheets", True, chat_images=True)
 
     # --- Envelopes for the teams, and the Evidence file (every other sheet, by code) for the director --
     dossier = case.get("dossier", {}) or {}
-    dossier_defaults = {"brand_footer": _brand_footer(case, "dossier")}
+    dossier_defaults = sheet_defaults(case)
     for n, (num, secs) in enumerate(printing.envelope_sections(case).items(), start=2):
         name = t("envelope", n=num)
         body = _screen_header(dossier.get("kicker", ""), name, secs[0].get("note", ""))

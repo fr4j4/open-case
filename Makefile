@@ -11,6 +11,8 @@
 #   make export ARGS="--chat"         the Evidence file goes through the chat: 0 copies in the plan, images made
 #   make print-check                  every PDF has the pages of the print plan and every sheet has room (as the CI)
 #   make site                         build the website in _site/ (PDFs, zips, cases.json and the page)
+#   make web                          compile the published cases for the web app into _site/play/ (no PDFs)
+#   make web CASE=cases/cierre-de-caja  the same for one case (also one that is not published)
 #   make test                         run the tests (HTML photos, strings, validation)
 #   make test-update                  rewrite the HTML photos in tests/snapshots/ after an intended change
 #   make lint                         run the skill's case_lint.py on every case
@@ -26,7 +28,7 @@ HEAD ?=
 VENV ?= .venv
 PY := $(if $(wildcard $(VENV)/bin/python),$(VENV)/bin/python,python3)
 
-.PHONY: install export color check signatures images site test test-update lint print-check snapshot compare clean
+.PHONY: install export color check signatures images site web test test-update lint print-check snapshot compare clean
 
 install:
 	python3 -m venv $(VENV)
@@ -50,6 +52,9 @@ images:
 
 site:
 	$(PY) -m opencase.site $(ARGS)
+
+web:
+	$(PY) -m opencase.web $(if $(filter command line,$(origin CASE)),$(CASE)) $(ARGS)
 
 test:
 	$(PY) -m pytest
