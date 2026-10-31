@@ -21,6 +21,6 @@ Yo no vendo. Que les quede claro.
 ```
 
 ```signature
-- {scrawl: Hernán Carrasco Fuentes, label: Firma del declarante}
+- {signer: H, scrawl: Hernán Carrasco Fuentes, label: Firma del declarante}
 - Detective a cargo
 ```

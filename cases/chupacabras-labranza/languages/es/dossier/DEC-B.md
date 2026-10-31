@@ -21,6 +21,6 @@ No entiendo quién le pegaría así a mi hermano. Y después todos hablan de un 
 ```
 
 ```signature
-- {scrawl: Benjamín Ferrada Soto, label: Firma del declarante}
+- {signer: B, scrawl: Benjamín Ferrada Soto, label: Firma del declarante}
 - Detective a cargo
 ```

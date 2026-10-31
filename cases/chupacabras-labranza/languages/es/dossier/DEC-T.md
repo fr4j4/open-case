@@ -20,6 +20,6 @@ De los animales muertos no sé nada, jefe. Con el jefe nos llevábamos bien, nun
 ```
 
 ```signature
-- {scrawl: Cristián Lagos Jara, label: Firma del declarante}
+- {signer: T, scrawl: Cristián Lagos Jara, label: Firma del declarante}
 - Detective a cargo
 ```

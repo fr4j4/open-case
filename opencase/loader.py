@@ -166,6 +166,7 @@ class Case:
     warnings: list = field(default_factory=list)
     procedures: list = field(default_factory=list)   # procedures.yaml joined with its texts (opencase/procedures.py)
     locations: list = field(default_factory=list)    # locations.yaml joined with its texts
+    signatures: dict = field(default_factory=dict)   # signatures.yaml: the pen strokes of each signer
     neutral: dict = field(default_factory=dict, repr=False)   # case.yaml (neutral) alone: the figures come from it
     _figures: dict = field(default=None, repr=False)
 
@@ -331,8 +332,9 @@ def load_case(root, lang=None):
                 {s.id: s for s in read_sheet_folder(lang_root / "dossier")},
                 read_sheet_folder(lang_root / "guide"),
                 Strings.load(lang, texts.get("strings")), neutral=neutral)
-    from . import procedures   # imported here because it imports this module
+    from . import procedures, signatures   # imported here because they import this module
     procedures.load(case)
+    signatures.load(case)
     validate(case)
     return case
 
@@ -384,10 +386,11 @@ def validate(case):
         if s.get("portrait") and resolve_media(case, s["portrait"]) is None:
             raise CaseError(f"the portrait '{s['portrait']}' does not exist in the case folder",
                             case.lang_root / "suspects.yaml")
-    from . import followups, procedures, witnesses   # imported here because they import this module
+    from . import followups, procedures, signatures, witnesses   # imported here because they import this module
     followups.check(case)
     witnesses.check(case)
     procedures.check(case)
+    signatures.check(case)
 
 
 def resolve_media(case, ref):

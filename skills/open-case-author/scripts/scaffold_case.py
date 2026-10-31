@@ -223,12 +223,12 @@ envelope_labels:
 
     (lang / "dossier" / "E01.md").write_text(sheet(
         "TODO Policía", "TODO unidad · Parte policial", "Parte N° TODO · Hallazgo",
-        "```meta\nFecha y hora del parte: TODO\nLugar: TODO\nDenunciante: TODO\n```\n\n### Víctima\n\nTODO\n\n### Relato\n\nTODO\n\n### Observaciones en el sitio\n\n```mono\n- TODO\n```\n\n```signature\n- {scrawl: TODO, label: Comisario a cargo}\n```",
+        "```meta\nFecha y hora del parte: TODO\nLugar: TODO\nDenunciante: TODO\n```\n\n### Víctima\n\nTODO\n\n### Relato\n\nTODO\n\n### Observaciones en el sitio\n\n```mono\n- TODO\n```\n\n```signature\n- {signer: comisario, scrawl: TODO, label: Comisario a cargo}\n```",
         code="E01"), encoding="utf-8")
     for l in letters:
         (lang / "dossier" / f"DEC-{l}.md").write_text(sheet(
             "TODO unidad", "Declaración voluntaria · TODO fecha y hora", f"TODO nombre {l}",
-            "```meta\nEdad · oficio: TODO\nRelación: TODO\nDomicilio: TODO\nDescripción: TODO\n```\n\n```statement\nTODO cuatro a seis párrafos en primera persona. Una mentira concreta entre verdades comprobables.\n```\n\n```signature\n- {scrawl: TODO, label: Firma del declarante}\n- Detective a cargo\n```",
+            "```meta\nEdad · oficio: TODO\nRelación: TODO\nDomicilio: TODO\nDescripción: TODO\n```\n\n```statement\nTODO cuatro a seis párrafos en primera persona. Una mentira concreta entre verdades comprobables.\n```\n\n```signature\n- {signer: " + l + ", scrawl: TODO, label: Firma del declarante}\n- Detective a cargo\n```",
             code=f'"DEC · {l}"'), encoding="utf-8")
     (root / "diagrams" / ".gitkeep").write_text("", encoding="utf-8")
     (root / "photos" / ".gitkeep").write_text("", encoding="utf-8")

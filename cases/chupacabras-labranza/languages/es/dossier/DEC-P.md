@@ -20,6 +20,6 @@ Lo siento por él. A pesar de todo.
 ```
 
 ```signature
-- {scrawl: Pía Sandoval Rivas, label: Firma del declarante}
+- {signer: P, scrawl: Pía Sandoval Rivas, label: Firma del declarante}
 - Detective a cargo
 ```

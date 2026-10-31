@@ -30,10 +30,10 @@ One entry per suspect, in the order the kit will show them (not the culprit firs
 
 Write the free material first (it is what you will reread as a player), then the sheets handed with answers, then the procedures, then the notices.
 
-- **Police report `E01`:** `meta` (date and time, place, complainant, prosecutor), victim, account, observations in a `mono` block (6–10 lines, including the honest facts that make the cover story plausible and the first quiet oddity), `signature`.
+- **Police report `E01`:** `meta` (date and time, place, complainant, prosecutor), victim, account, observations in a `mono` block (6–10 lines, including the honest facts that make the cover story plausible and the first quiet oddity), `signature` (`{signer: <id>, scrawl: <name>, label: ...}`).
 - **Scene `E02`:** `photos` with captions, or an `svg` sketch plus a `legend`. Sketch SVGs are hand-written: 600 × 400 viewBox, the design system's fonts are applied by the exporter, text in the case language, "not to scale" if it carries no measurement.
 - **Social media, chat group, weather:** `posts`, `phones` with `chat`, `table log`. Every chat message has a time; a deleted message is `deleted: true`.
-- **Statements `DEC-<letter>.md`:** front matter `code: "DEC · B"` (quoted: it has a space and a dot), `meta` with the five identity fields, `statement` block, `signature`. One lie, three or four checkable truths.
+- **Statements `DEC-<letter>.md`:** front matter `code: "DEC · B"` (quoted: it has a space and a dot), `meta` with the five identity fields, `statement` block, `signature` with `signer: <letter>`. One lie, three or four checkable truths.
 - **Autopsy, lab, logs, bank statements, towers, cameras:** `meta` + prose or `table log` / `mono`. Registers: 6–12 rows, datum never first or last, coverage stated for towers.
 - **Per-suspect sheets:** `E17-B.md`, `E17-T.md`… with `code: E17·B`. A generic `E17-X.md` for "other person: no findings" when needed.
 - **Notices:** `notice: true`, short, no codes.
@@ -70,10 +70,13 @@ Everything the director must answer in under a minute is in a table with the cod
 ## 8 · Check, lint, export
 
 ```
+python tools/signatures.py cases/<slug>
 python export.py cases/<slug> --check
 python skills/open-case-author/scripts/case_lint.py cases/<slug>
 python export.py cases/<slug>
 ```
+
+The first line draws, once, the pen strokes of everyone who signs a sheet (`signer:` of the `signature` blocks) into `signatures.yaml`; run it after the names are final (the strokes are drawn from the `scrawl`), and `--redo <id>` if two signatures look alike.
 
 Fix until `--check` ends with "Check finished." without warnings you cannot justify, the lint is clean, and the export reports no card overflow. Sheets that "take 2 pages" are acceptable for the mission and the response table; a 2-page evidence sheet usually means a register too long or a chat too long: split it.
 

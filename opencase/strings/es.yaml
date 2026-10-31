@@ -219,3 +219,8 @@ procedures:
   sources:
     camera: cámara
     register: registro
+
+# Signatures drawn as pen strokes (opencase/signatures.py): what a screen reader says of one.
+signatures:
+  label: "Firma de {name}"
+  label_plain: Firma

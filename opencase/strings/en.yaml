@@ -219,3 +219,8 @@ procedures:
   sources:
     camera: camera
     register: register
+
+# Signatures drawn as pen strokes (opencase/signatures.py): what a screen reader says of one.
+signatures:
+  label: "Signature of {name}"
+  label_plain: Signature
