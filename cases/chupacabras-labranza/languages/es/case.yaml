@@ -58,12 +58,17 @@ envelope_labels:
     description: Lo que sabemos hasta ahora. No incluye respuestas.
     contents: [E01 Parte policial, E02 Set fotográfico, E03 Redes sociales, E04 Grupo de vecinos,
                E05 Croquis, E07 Clima, "DEC · B, H, J, P, T, C", Kit del equipo]
-    footer: 16 fichas + 3 de coartada · 1 placa por jugador
+    token_footer: true    # "16 fichas + 3 de coartada · 1 placa por jugador", from the case's figures
   - number: 2
     when: al investigar
     description: Se abre al comenzar la investigación.
     contents: [E06 Informe de autopsia]
     footer: Al comenzar la investigación
+
+# La línea propia del caso en el puntaje (sus puntos son score_bonus en el case.yaml neutro).
+score_texts:
+  bonus: Explicar qué pasó con los ataques a los animales y por qué
+  bonus_short: Bonus ataques
 
 # Shown on the website.
 summary: >-

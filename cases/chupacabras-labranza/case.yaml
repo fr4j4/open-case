@@ -12,6 +12,9 @@ teams: [A, B, C, D]       # the game works with 2 to 4 teams; this prints materi
 tokens_per_team: 16
 alibi_tokens_per_team: 3
 players_per_team: 7      # one badge per player
+# The other figures of the game (minutes, notices, hints, score) are the engine's recommended ones
+# (opencase/defaults.yaml); write one here, with the same key, to change it for this case.
+score_bonus: 3           # the case's own line of the score: its text is score_texts.bonus in languages/<lang>/case.yaml
 
 # Footer with the monogram, the brand and the case name at the bottom of each sheet.
 # This is the default (kit, guide and dossier); list fewer documents to leave one out.

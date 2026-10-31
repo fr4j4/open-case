@@ -13,6 +13,10 @@ evidence: Evidence
 deleted_message: "⊘ This message was deleted"
 live: LIVE
 envelope: "Envelope {n}"
+notice_description: "Notice for every team · {n} of {total}"
+notice_description_plain: Notice for every team
+format:
+  decimal: "."
 
 calls:
   incoming: incoming
@@ -42,6 +46,11 @@ cards:
   follow_up_available: Follow-up available
   questions: Questions
   suspect_label: "suspect {letter}"
+  notice_who: Notice
+  press_who: "With notice {n}"
+  notice_of: "{n} of {total}"
+  hint_footer_one: Costs the team that asked for it 1 point
+  hint_footer: "Costs the team that asked for it {n} points"
 badge:
   title: Detective
   name: Name
@@ -73,6 +82,8 @@ labels:
   badges: "Badges for team {name}"
   requests: Requests
   envelope_labels: Envelope labels
+  token_footer: "{tokens} tokens · 1 badge per player"
+  token_footer_alibi: "{tokens} tokens + {alibi} alibi tokens · 1 badge per player"
 
 # Documents: name = PDF name, title = on-screen and cover title, page = title of the HTML page
 docs:

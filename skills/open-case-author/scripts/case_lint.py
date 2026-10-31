@@ -12,7 +12,9 @@ Warnings (exit 0):
   - a card code or a dossier code that is never mentioned in the guide (no row to answer it)
   - a code written in backticks in the kit or the guide that is neither a card, a dossier sheet nor a DG code of the kit
   - a kit sheet that mentions a dossier code that is not in an envelope section (possible spoiler)
-  - the kit never mentions the number of tokens of case.yaml
+  - the kit never mentions the number of tokens of case.yaml (cases with engine_sheets: false), or a kit,
+    guide or notice sheet writes by hand a figure the engine prints (tokens, minutes, hint costs), or
+    session_minutes is shorter than the phases and the closing add up to
   - the culprit (from a `# culprit: X` comment in suspects.yaml, optional) is listed first in suspects.yaml
 
 Needs pyyaml (the exporter needs it too).
@@ -145,8 +147,45 @@ def main():
             elif t not in known and re.match(r"^[A-ZÑ]{1,4}\d*[+✕◆]?$", t):
                 info.append(f"kit/{f.name}: code `{t}` is not a card, a sheet or a procedure")
     tokens = neutral.get("tokens_per_team")
-    if tokens and not re.search(rf"\b{tokens}\s+fichas?\b|\b{tokens}\s+tokens?\b", kit_text):
-        warnings.append(f"the kit never says '{tokens} fichas' (tokens_per_team is {tokens})")
+    guide_files = sorted((L / "guide").glob("*.md"))
+    engine = neutral.get("engine_sheets", True)
+    if isinstance(engine, dict):
+        engine = engine.get("kit", True) is not False or engine.get("guide", True) is not False
+    if engine is False:
+        # The case still carries its own copy of the rules: they must at least say its number of tokens.
+        if tokens and not re.search(rf"\b{tokens}\s+fichas?\b|\b{tokens}\s+tokens?\b", kit_text):
+            warnings.append(f"the kit never says '{tokens} fichas' (tokens_per_team is {tokens})")
+    else:
+        # The engine writes the rules and their figures (opencase/templates/); a figure written by hand in
+        # the case's sheets will go stale the day the case or the defaults change it.
+        defaults_file = Path(__file__).resolve().parents[3] / "opencase" / "defaults.yaml"
+        defaults = load_yaml(defaults_file) if defaults_file.exists() else {}
+        fig = {k: neutral.get(k, defaults.get(k)) for k in ("tokens_per_team", "alibi_tokens_per_team", "notice_minutes")}
+        # The whole session the kit and the guide announce must fit the phases and the closing.
+        phases = {**(defaults.get("phases") or {}), **(neutral.get("phases") or {})}
+        closing = neutral.get("closing_minutes", defaults.get("closing_minutes")) or []
+        session = neutral.get("session_minutes", defaults.get("session_minutes")) or []
+        if len(closing) == 2 and len(session) == 2:
+            low, high = sum(phases.values()) + closing[0], sum(phases.values()) + closing[1]
+            if session[0] < low or session[1] < high:
+                warnings.append(f"session_minutes is {session[0]}–{session[1]}, but the phases and closing_minutes "
+                                f"add up to {low}–{high} minutes")
+        alt = lambda values: "|".join(str(v) for v in values if v)  # noqa: E731
+        hand = []
+        if fig["alibi_tokens_per_team"]:
+            hand.append((rf"\b(?:{fig['alibi_tokens_per_team']})\s+(?:fichas?\s+de\s+coartada|alibi\s+tokens?)\b", "alibi tokens"))
+        if fig["tokens_per_team"]:
+            hand.append((rf"\b(?:{fig['tokens_per_team']})\s+(?:fichas|tokens)\b", "tokens per team"))
+        if fig["notice_minutes"]:
+            hand.append((rf"\b(?:minutos?|min|minute)\s+(?:{alt(fig['notice_minutes'])})\b", "minute of a notice"))
+        hand.append((r"\bresta\s+\d+\s+puntos?\b|\bcosts?\s+\d+\s+points?\b", "cost of a hint"))
+        for f in kit_files + guide_files + sorted((L / "dossier").glob("AVISO*.md")):
+            text = re.sub(r"<!--.*?-->", "", f.read_text(encoding="utf-8"), flags=re.S)
+            for pattern, what in hand:
+                for m in re.finditer(pattern, text, re.I):
+                    warnings.append(f"{f.parent.name}/{f.name}: '{m.group(0)}' looks like a figure written by hand "
+                                    f"({what}); the engine prints it from opencase/defaults.yaml and case.yaml")
+                    break
 
     # Guide: codes in backticks that point nowhere
     for f in sorted((L / "guide").glob("*.md")):

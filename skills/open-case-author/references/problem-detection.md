@@ -42,8 +42,8 @@ Severity: **breaks** (an innocent can be convicted, the culprit is reachable for
 17. Notices and press: no codes; no sheet contents the teams have not earned.
 18. Cards: no director's notes; no two confrontation answers on one card; nothing about another suspect that the team has not earned.
 19. Envelope labels and suspect cards: no solution content.
-20. Rules in the kit: costs of everything; what is free and who decides; different origin defined; crime window defined for scoring; final phase procedure; tie-break; both-wrong rule; confession scores nothing; hints exist, count and cost.
-21. Kit vs guide: tokens, timings, notice minutes, scoring weights, hint penalties identical.
+20. Rules in the kit (the engine's sheets carry them; check that the case's sheets do not contradict or repeat them): costs of everything; what is free and who decides; different origin defined; crime window defined for scoring; final phase procedure; tie-break; both-wrong rule; confession scores nothing; hints exist, count and cost.
+21. Kit vs guide: tokens, timings, notice minutes, scoring weights, hint penalties identical. The engine prints them from the same figures, so look for a number the case wrote by hand (the lint warns about tokens and notice minutes).
 
 ### D · Director load
 

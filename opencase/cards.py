@@ -31,7 +31,45 @@ def brand(case, right=None):
             f'<span>{e(right or case.title)}</span></div>')
 
 
-def card(c, group, case):
+def engine_fields(case):
+    """What the engine writes on the notice, press and hint cards of a case that uses it, by id() of the card:
+    "1 de 2" after `who` on notices, which notice a press card comes with, and the points a hint costs
+    as its footer. A field the case writes itself is kept (the "1 de 2" is always added to a notice).
+    The suggested minutes are only in the guide: the cards go to the teams' tables."""
+    if not case.uses_engine:
+        return {}
+    out, n_notice, n_hint = {}, 0, 0
+    penalties = list(case.figures["hint_penalties"] or [])
+    kinds = [str(c.get("type", g.get("type", "answer"))).lower()
+             for g in case.card_groups for c in g.get("cards", []) or []]
+    total = kinds.count("notice")
+    for g in case.card_groups:
+        for c in g.get("cards", []) or []:
+            kind = str(c.get("type", g.get("type", "answer"))).lower()
+            if kind == "notice":
+                n_notice += 1
+                who = c.get("who") or case.t("cards.notice_who")
+                if total > 1:
+                    who = f'{who} · {case.t("cards.notice_of", n=n_notice, total=total)}'
+                out[id(c)] = {"who": who}
+            elif kind == "press" and not c.get("who") and n_notice:
+                out[id(c)] = {"who": case.t("cards.press_who", n=n_notice)}
+            elif kind == "hint":
+                n_hint += 1
+                if c.get("footer"):
+                    continue
+                if n_hint > len(penalties):
+                    raise CaseError(f"card {c.get('code')} is hint number {n_hint}, but hint_penalties has only "
+                                    f"{len(penalties)} values: add one in case.yaml (or write its footer)",
+                                    case.lang_root / "cards.yaml")
+                p = penalties[n_hint - 1]
+                out[id(c)] = {"footer": case.t("cards.hint_footer_one" if p == 1 else "cards.hint_footer", n=p)}
+    return out
+
+
+def card(c, group, case, extra=None):
+    if extra:
+        c = {**c, **extra}
     kind = str(c.get("type", group.get("type", "answer"))).lower()
     if kind not in TYPES:
         raise CaseError(f"card {c.get('code')} has type '{kind}'; the types are: " + ", ".join(TYPES),
@@ -123,7 +161,12 @@ def envelope_label(env, case, team):
     items = "".join(f"<li>{line(x)}</li>" for x in env.get("contents", []) or [])
     mod = team_modifier(team)
     who = f'<span class="oc-equipo{mod}">{e(case.t("team", name=team))}</span>' if team else "<span></span>"
-    footer = f'<span class="oc-tarjeta__pie oc-tarjeta__pie--seg">{line(env["footer"])}</span>' if env.get("footer") else ""
+    text = env.get("footer")
+    if env.get("token_footer"):
+        f = case.figures
+        key = "labels.token_footer_alibi" if f["alibi_tokens_per_team"] else "labels.token_footer"
+        text = case.t(key, tokens=f["tokens_per_team"], alibi=f["alibi_tokens_per_team"])
+    footer = f'<span class="oc-tarjeta__pie oc-tarjeta__pie--seg">{line(text)}</span>' if text else ""
     desc = f'<div class="oc-tarjeta__pregunta">{line(env["description"])}</div>' if env.get("description") else ""
     return ('<div class="oc-tarjeta oc-sobre">'
             f'<div class="oc-sobre__numero">{e(case.t("envelope", n=env.get("number", "")))} <small>{e(env.get("when", ""))}</small></div>'
@@ -169,8 +212,8 @@ def card_sheets(cards, case, label, codes=None, vertical=False):
 
 def token_sheets(case, ctx):
     """Sheets of 35 tokens (5 × 7): each team's numbered (and alibi) tokens, with spares to fill the sheet; plus a back for each."""
-    n = int(case.get("tokens_per_team", 16))
-    alibis = int(case.get("alibi_tokens_per_team", 0))
+    n = int(case.figures["tokens_per_team"])
+    alibis = int(case.figures["alibi_tokens_per_team"])
     teams = case.get("teams", ["A", "B"])
     tokens = []
     for team in teams:

@@ -5,7 +5,8 @@ design/open-case.css. The block names are the ones listed in docs/case-format.md
 import re
 from pathlib import Path
 
-from .loader import CaseError, read_yaml, resolve_media
+from . import templates
+from .loader import CaseError, Sheet, read_yaml, resolve_media
 from .markup import e, line, line_pre, md, plain_text
 
 ARROWS = {"incoming": "↘", "outgoing": "↗", "missed": "✕"}
@@ -419,7 +420,7 @@ def c_work_table(b, ctx):
     height = d.get("height")
     style = f' style="height:{e(height)}"' if height else ""
     head = "".join(f"<th>{e(c)}</th>" for c in cols)
-    rows = "".join("<tr><td>%s</td>%s</tr>" % (line(f), f"<td{style}></td>" * (len(cols) - 1))
+    rows = "".join("<tr><td%s>%s</td>%s</tr>" % (style, line(f), f"<td{style}></td>" * (len(cols) - 1))
                    for f in d.get("rows", []))
     cls = "oc-tabla oc-linea-tiempo" if d.get("schedule") else "oc-tabla oc-tabla--trabajo"
     return f'<div class="{cls}"><table><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
@@ -429,10 +430,10 @@ def c_checkboxes(b, ctx):
     """Boxes to tick off tokens. Argument: a number, or `alibi` for the alibi tokens (C1, C2…)."""
     arg = (b.arg or "").strip()
     if arg == "alibi":
-        n = int(ctx.case.get("alibi_tokens_per_team", 0))
+        n = int(ctx.case.figures["alibi_tokens_per_team"])
         labels = [ctx.case.t("tokens.alibi_code", i=i) for i in range(1, n + 1)]
     else:
-        n = int(arg) if arg.isdigit() else int(ctx.case.get("tokens_per_team", 16))
+        n = int(arg) if arg.isdigit() else int(ctx.case.figures["tokens_per_team"])
         labels = [str(i) for i in range(1, n + 1)]
     return '<div class="oc-casillas">' + "".join(f"<span>{e(l)}</span>" for l in labels) + "</div>"
 
@@ -495,8 +496,12 @@ def render_blocks(sheet, ctx):
             out.append(_md_with_images(b.content, ctx))
             continue
         fn = COMPONENTS.get(b.type)
+        if fn is None and templates.has_block(ctx.case.lang, b.type):
+            out.append(_engine_block(b, ctx))
+            continue
         if fn is None:
-            raise CaseError(f"unknown block ```{b.type}. The available ones are: " + ", ".join(sorted(COMPONENTS)),
+            raise CaseError(f"unknown block ```{b.type}. The available ones are: "
+                            + ", ".join(sorted(set(COMPONENTS) | set(templates.block_names(ctx.case.lang)))),
                             sheet.path, b.line)
         try:
             out.append(fn(b, ctx))
@@ -506,6 +511,15 @@ def render_blocks(sheet, ctx):
             raise CaseError(f"the ```{b.type} block has data I cannot read ({type(ex).__name__}: {ex})",
                             sheet.path, b.line) from None
     return "\n".join(out)
+
+
+def _engine_block(b, ctx):
+    """A ```name block that is a piece of the engine (opencase/templates/<lang>/blocks/name.md)."""
+    sheet = ctx.sheet
+    blocks = templates.block(ctx.case, b.type, b.content, sheet.path, b.line)
+    html = render_blocks(Sheet(sheet.id, sheet.path, sheet.data, blocks), ctx)
+    ctx.sheet = sheet
+    return html
 
 
 def _md_with_images(text, ctx):

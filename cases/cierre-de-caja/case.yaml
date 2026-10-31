@@ -11,6 +11,10 @@ teams: [A, B]
 tokens_per_team: 10
 players_per_team: 6
 
+# This case still carries its own copy of the rules in kit/ and guide/ (it has not been moved to the
+# engine yet), so the engine's sheets and card lines stay off. See engine_sheets in docs/case-format.md.
+engine_sheets: false
+
 brand_footer: [kit, guide, dossier]
 
 dossier:

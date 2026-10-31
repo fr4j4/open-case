@@ -13,6 +13,10 @@ evidence: Evidencia
 deleted_message: "⊘ Se eliminó este mensaje"
 live: EN VIVO
 envelope: "Sobre {n}"
+notice_description: "Aviso para todos los equipos · {n} de {total}"
+notice_description_plain: Aviso para todos los equipos
+format:
+  decimal: ","
 
 calls:
   incoming: entrante
@@ -42,6 +46,11 @@ cards:
   follow_up_available: Seguimiento disponible
   questions: Preguntas
   suspect_label: "sospechoso {letter}"
+  notice_who: Aviso
+  press_who: "Con el aviso {n}"
+  notice_of: "{n} de {total}"
+  hint_footer_one: Resta 1 punto al equipo que la pidió
+  hint_footer: "Resta {n} puntos al equipo que la pidió"
 badge:
   title: Detective
   name: Nombre
@@ -73,6 +82,8 @@ labels:
   badges: "Placas del equipo {name}"
   requests: Solicitudes
   envelope_labels: Etiquetas de sobre
+  token_footer: "{tokens} fichas · 1 placa por jugador"
+  token_footer_alibi: "{tokens} fichas + {alibi} de coartada · 1 placa por jugador"
 
 # Documentos: name = nombre del PDF, title = título en pantalla y en la tapa, page = título de la página HTML
 docs:
