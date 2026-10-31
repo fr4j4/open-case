@@ -1,0 +1,53 @@
+# El Chupacabras de Labranza: the procedures of the team's menu (neutral data, the same in every language).
+# The engine knows the kinds (opencase/procedures.py); the codes, costs and results are this case's.
+# The texts (labels, names, notes for the director) are in languages/<lang>/procedures.yaml.
+# Format reference: docs/case-format.md ("procedures.yaml").
+
+procedures:
+  - code: DG1
+    kind: report
+    gives: E12
+  - code: DG2
+    kind: phone
+    gives: E13a
+  - code: DG2W
+    kind: phone
+    gives: E13b
+  - code: DG2C
+    kind: phone
+    gives: E13c
+  - code: DG3
+    kind: bank_statement
+    targets: {B: E15-B, T: E15-T, C: E15-C, P: E15-P, H: E15-H, J: E15-J, M: E15-M}
+  - code: DG4
+    kind: social_media
+    gives: E16
+  - code: DG5
+    kind: vehicle
+    targets: {B: E17-B, T: E17-T, H: E17-H, C: E17-C, P: E17-P, J: E17-J}
+  - code: DG6
+    kind: area_search
+    targets: {stream: E18, other: none}
+  - code: DG7
+    kind: belongings
+    targets: {T: E19-T, B: E19-B, J: E19-J, P: E19-P, H: E19-H, C: E19-C}
+  - code: DG8
+    kind: premises_search
+    each: true                 # the desk and the safe are two requests
+    targets: {desk: E24, safe: E25}
+  - code: DG9
+    kind: phone_towers
+    alibi: true                # can be paid with an alibi token
+    targets: {B: E26-B, T: E26-T, P: E26-P, C: E26-C, H: E26-H, J: E26-J}
+  - code: DG11
+    kind: cameras
+    alibi: true
+    targets: {copec: E28, building: E14, clinic: E22, hospital: E20, karaoke: none}
+  - code: DG12
+    kind: phone
+    targets: {P: E29-P, B: E29-B, J: [E29-J, E08], other: E29-X}
+  - code: DG10
+    kind: other
+    targets:
+      deleted_message: {gives: E13d, cost: 2}
+      other: material

@@ -196,3 +196,26 @@ print:
     actual_size: >-
       Always print at 100 % ("actual size"), never "fit to page": cards must measure 88 × 63 mm and
       tokens 30 mm across.
+
+# Procedures (opencase/procedures.py): the kinds the engine knows. Each case gives them its codes, and may
+# change label (kit menu) and short (guide) in languages/<lang>/procedures.yaml.
+procedures:
+  kinds:
+    report: {label: Technical report from an agency (say which), short: Report}
+    phone: {label: Search a person's phone (say whose), short: Phone}
+    bank_statement: {label: A person's bank statement (say whose), short: Bank statement}
+    social_media: {label: Check the suspects' public social media, short: Social media}
+    vehicle: {label: Inspect a person's vehicle (say whose), short: Vehicle}
+    area_search: {label: Search a place near the scene (say which), short: Search}
+    belongings: {label: "Examine a person's clothes, shoes or belongings (say whose)", short: Clothes or belongings}
+    premises_search: {label: Search premises with a warrant (say which), short: Warrant search}
+    phone_towers: {label: Phone tower records of a person's phone (say whose), short: Phone towers}
+    cameras: {label: Security cameras or registers of a place (say which), short: Cameras or registers}
+    other: {label: Any other procedure you think of (the director decides whether it applies and what it costs), short: Other}
+  other_target:
+    person: someone else
+    place: another place
+    thing: something else
+  sources:
+    camera: camera
+    register: register

@@ -17,6 +17,7 @@ What a person says (a chat, a statement, a quoted answer) is not checked: people
 """
 import re
 
+from . import procedures
 from .loader import CaseError, normalize_code
 
 # Blocks that hold what someone says or writes in their own voice: not checked.
@@ -26,6 +27,9 @@ SKIP_KEYS = {"code", "place", "join", "tag", "image", "logo", "notice", "brand_f
 # Blocks whose content is not prose (drawings, photos with their captions in YAML): only these are read as text.
 PROSE_BLOCKS = {"md", "table", "note", "note-ok", "note-warning", "meta", "fields", "mono", "legend", "columns",
                 "script", "steps", "work-table", "menu", "signature"}
+
+# Engine blocks that print the case's procedures and places (opencase/procedures.py).
+PROCEDURE_BLOCKS = {"procedures", "procedure-answers", "quick-procedures", "locations", "control"}
 
 COMMON = {"OK", "TV", "AM", "PM"}
 _ROMAN = re.compile(r"[IVXLCDM]+")
@@ -77,12 +81,17 @@ def table_rows(case):
     return [{"abbr": a, **v} for a, v in glossary(case).items()]
 
 
-def _text(sheet):
-    """What a reader reads in a sheet, in order: front matter, then the prose of its blocks (no voices)."""
+def _text(sheet, case=None):
+    """What a reader reads in a sheet, in order: front matter, then the prose of its blocks (no voices). The
+    engine's blocks that print the procedures and places bring their texts (languages/<lang>/procedures.yaml)."""
     parts = [str(v) for k, v in sheet.data.items() if k not in SKIP_KEYS and isinstance(v, str)]
     for b in sheet.blocks:
         if b.type in PROSE_BLOCKS:
             parts.append(b.content)
+            if b.type == "columns" and case is not None and re.search(r"(?m)^`{3,}\s*quick-procedures\b", b.content):
+                parts.append(procedures.text_of(case))
+        elif b.type in PROCEDURE_BLOCKS and case is not None:
+            parts.append(procedures.text_of(case))
     return "\n".join(parts)
 
 
@@ -176,7 +185,7 @@ def check(case, kit, guide):
     sequence = [("kit", s) for s in kit] + [("envelope", s) for s in in_envelope]
     seen_texts, quoted_texts = [], []
     for kind, s in sequence:
-        text = _text(s)
+        text = _text(s, case)
         _introduce(teams, entries, _presented(s))
         teams.read(text, f"{kind} {_name(s)}")
         seen_texts.append((f"{kind} {_name(s)}", text))
@@ -184,7 +193,7 @@ def check(case, kit, guide):
 
     # Every other piece separately, with what the teams already read.
     for s in loose:
-        text = _text(s)
+        text = _text(s, case)
         r = _Reader(entries, teams.introduced)
         _introduce(r, entries, _presented(s))
         r.read(text, f"dossier {_name(s)}")
@@ -209,7 +218,7 @@ def check(case, kit, guide):
     for s in guide:
         if s.id == "oc-80-acronyms":   # the table itself says nothing about where the acronyms are used
             continue
-        text = _text(s)
+        text = _text(s, case)
         director.read(text, f"guide {_name(s)}")
         seen_texts.append((f"guide {_name(s)}", text))
 

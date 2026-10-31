@@ -14,7 +14,7 @@ from pathlib import Path
 KIT = [
     ("01-mission.md", "Orden de investigar", "TODO · fecha", "Misión", "TODO: la historia en dos párrafos. Debajo, el motor agrega 'Cómo se juega', y después de esta hoja las reglas, el puntaje y el resto de lo fijo del juego (opencase/templates)."),
     ("02-menu.md", "Menú de preguntas", "Cada pregunta cuesta 1 ficha", "Sospechosos", "TODO: una línea de instrucción.\n{.small}\n\n```menu\n```\n\n## Testigos\n\nTODO: tabla de testigos con códigos (la regla de los testigos y la de los seguimientos las pone el motor)."),
-    ("03-procedures.md", "Menú de diligencias", "Indiquen qué buscan y por qué", "Diligencias", "| Código | Diligencia | Fichas |\n|---|---|---|\n| `DG1` | TODO | 1 |\n\n### Control de fichas\n\nTachen una casilla por cada ficha gastada.\n{.small}\n\n```checkboxes\n```"),
+    ("03-procedures.md", "Menú de diligencias", "Indiquen qué buscan y por qué", "Diligencias", "<!-- El menú sale de procedures.yaml y languages/<idioma>/procedures.yaml. -->\n```procedures\n```\n\n### Control de fichas\n\nTachen una casilla por cada ficha gastada.\n{.small}\n\n```checkboxes\n```"),
     ("04-timeline.md", "Hoja de trabajo", "Línea de tiempo · TODO noche", "¿Dónde estaba cada uno?", "Anoten en cada casilla lo que sepan y la prueba que lo respalda.\n{.small}\n\n```work-table\nschedule: true\ncolumns: [Persona, \"21:00\", \"22:00\", \"23:00\", \"00:00\"]\nrows:\n  - TODO víctima\n  - TODO sospechosos, uno por fila\n  - Otros / vehículos\n  - Clima\n```"),
     ("05-accusation.md", "Hoja de acusación", "Se entrega al director al final", "Nuestra teoría del caso", "```fields\n- label: 1. ¿Quién? TODO\n- label: 2. ¿Cómo?\n  type: box\n- label: 3. ¿Por qué?\n  type: box\n- label: 4. ¿Entre qué horas?\n- label: 5. Las tres pruebas más fuertes (códigos)\n- label: 6. Contradicciones del culpable\n- label: \"7. Pistas falsas explicadas: pista → prueba\"\n  type: box\n```"),
     ("06-discard.md", "Hoja de descarte", "Se entrega junto con la acusación", "¿Por qué no fue cada uno?", "```discard-rule\n```\n\n```work-table\ncolumns: [Sospechoso, Dónde estaba en el momento del crimen, Pruebas (códigos)]\nrows:\n  - TODO un sospechoso por fila\n```"),
@@ -25,8 +25,8 @@ GUIDE = [
     ("01b-case-notes.md", "Reglas para dirigir", "Lo que cambia en este caso respecto de \"Para que sea parejo\"", "Lo propio de este caso", "- TODO solo las excepciones de este caso (qué cuenta como sin hallazgos, para qué sirven aquí las fichas de coartada, qué es gratis por obvio)."),
     ("02-solution.md", "2 · La solución en una página", "Léela antes de jugar", "", "```note Lo que pasó\nTODO: quién, cómo, cuándo, dónde.\n```\n\n### Por qué\n\nTODO\n\n### El detalle que lo delata\n\nTODO\n\n### Lo que oculta cada sospechoso\n\n| Sospechoso | Secreto | Coartada (verdadera) |\n|---|---|---|\n| TODO | | |"),
     ("03-script.md", "3 · Guion de la sesión", "El parte, los avisos y las pistas", "Para leer en voz alta", "### Para leer al comenzar\n\n```script\nTODO\n```\n\n```notices\n```\n\n### Si un equipo se estanca\n\n```hints\n```"),
-    ("04-responses.md", "4 · Cómo responder", "Qué entregar ante cada código", "Tabla de respuestas", "[true] dice la verdad[false] miente[key] pista importante[attached] entrega un documento\n{.small}\n\n### Preguntas (1 ficha)\n\n| Código | Qué entregar | Nota para ti |\n|---|---|---|\n| TODO | | |\n\n```follow-ups\n```\n\n### Confrontaciones ◆\n\n| Código | Si muestran… | Entrega |\n|---|---|---|\n| TODO | | |\n\n```witnesses\n```\n\n### Diligencias\n\n| Código | Si piden… | Entrega |\n|---|---|---|\n| TODO | | |"),
-    ("05-control.md", "5 · Hoja de control", "Marca cada entrega · imprime 1 copia", "Qué tiene cada equipo", "```control\nrows:\n  - [TODO, TODO qué es, 1]\n```"),
+    ("04-responses.md", "4 · Cómo responder", "Qué entregar ante cada código", "Tabla de respuestas", "[true] dice la verdad[false] miente[key] pista importante[attached] entrega un documento\n{.small}\n\n### Preguntas (1 ficha)\n\n| Código | Qué entregar | Nota para ti |\n|---|---|---|\n| TODO | | |\n\n```follow-ups\n```\n\n### Confrontaciones ◆\n\n| Código | Si muestran… | Entrega |\n|---|---|---|\n| TODO | | |\n\n```witnesses\n```\n\n```procedure-answers\n```"),
+    ("05-control.md", "5 · Hoja de control", "Marca cada entrega · imprime 1 copia", "Qué tiene cada equipo", "<!-- Las filas salen de procedures.yaml y de las tarjetas con attach. -->\n```control\n```"),
     ("06-evaluation.md", "6 · Evaluar la acusación", "Qué cuenta como correcto", "Pauta de corrección", "| Punto | Pts | Se acepta si… |\n|---|---|---|\n| TODO | | |\n\n### Hoja de descarte\n\n| Inocente | Pruebas que lo ubican lejos |\n|---|---|\n| TODO | |\n\n### Pistas falsas\n\n| Pista falsa | Pruebas que la explican |\n|---|---|\n| TODO | |\n\n```note-ok\nTODO: cuándo confiesa.\n```\n\n```score-sheet\n```"),
     ("07-confession.md", "7 · Confesión y cierre", "Para leer en voz alta", "Confesión", "```script\nTODO confesión en primera persona.\n```\n\n### Cierre\n\n```script\nTODO\n```"),
 ]
@@ -99,6 +99,26 @@ dossier:
     - id: procedures
       items: []
 """, encoding="utf-8")
+
+    (root / "procedures.yaml").write_text("""# The procedures of the team's menu (neutral data): code, kind (opencase/procedures.py), cost,
+# and what each one hands out, with `gives` (one result) or `targets` (a suspect's letter, a place of
+# locations.yaml or other -> a sheet, [several sheets], none or material). alibi: true lets an alibi token pay
+# for it. Format: docs/case-format.md ("Procedures and places").
+procedures:
+  - code: DG1
+    kind: other            # TODO: the case's procedures, for example {code: DG2, kind: phone_towers, targets: {B: E20-B}}
+    gives: material
+""", encoding="utf-8")
+    (root / "locations.yaml").write_text("""# The places a team may ask about and their sources (camera, register). Names in languages/<lang>/locations.yaml.
+locations: []
+""", encoding="utf-8")
+    (lang / "procedures.yaml").write_text("""# Textos de las diligencias: label (menú del kit) y short (guía); sin ellos se usan los del tipo.
+names: {}                  # TODO cómo nombra la guía a las personas de los destinos, por letra: {B: Benjamín}
+procedures:
+  DG1: {label: TODO diligencia del menú, short: TODO}
+""", encoding="utf-8")
+    (lang / "locations.yaml").write_text("locations: {}          # TODO nombre de cada lugar: {copec: {name: Copec}}\n",
+                                         encoding="utf-8")
 
     (lang / "case.yaml").write_text(f"""title: {a.title}
 version: Versión 0.1 · TODO mes y año

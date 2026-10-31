@@ -26,7 +26,7 @@ Every action costs tokens from a fixed budget (16 in a standard case, 8 to 10 in
 | Question off the menu | free text | 1 if it has an answer; free if obvious in the fiction | A spoken answer from the material. |
 | Follow-up | `B3+` | 1 | Only after the card that enables it. |
 | Confrontation ◆ | `B◆` + the evidence codes shown | 1, charged even if it fails | One card: a new lie, an admission, or a failed card. The most specific combination wins. |
-| Procedure (diligencia) | `DG1`… `DG12`, with the target | 1 (2 for the rare expensive one) | An evidence sheet. Every target has a sheet; nothing comes back blank. |
+| Procedure (diligencia) | `DG1`… `DG12`, with the target (the codes are the case's; the engine only knows the kinds, see `procedures.yaml`) | 1 (2 for the rare expensive one) | An evidence sheet. Every target has a sheet; nothing comes back blank. |
 | Witness | `R1`, `TESTIGO <name>` | 1 | A witness card, sometimes with a sheet. Only once the name has appeared in their material. Witnesses never lie. |
 | Expert consultation | `PER1` | 1 | A card that interprets a technical datum they already have. |
 | Hint | `PISTA` | 0 tokens, −1 or −2 points | One of the ordered hints in the guide. |

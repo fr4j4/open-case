@@ -9,6 +9,8 @@ Everything the exporter reads is in English: file names, YAML keys, block names 
 ```
 cases/my-case/
 ├── case.yaml            neutral data: paper, teams, tokens, order of the dossier, languages
+├── procedures.yaml      optional: the procedures of the team's menu and what each one hands out
+├── locations.yaml       optional: the places a team may ask about and their sources (camera, register)
 ├── photos/              images shared by every language (.jpg / .png)
 ├── diagrams/            drawings shared by every language (.svg)
 ├── styles.css           optional: extra CSS only for this case
@@ -17,6 +19,8 @@ cases/my-case/
         ├── case.yaml    title, taglines, cover notes, dossier section titles, envelope labels
         ├── suspects.yaml
         ├── cards.yaml
+        ├── procedures.yaml  the texts of the procedures (labels, names, notes for the director)
+        ├── locations.yaml   the names of the places
         ├── kit/         sheets of the team kit, one .md file each
         ├── dossier/     one piece of evidence per file (E01.md, E02.md…)
         └── guide/       sheets of the director's guide
@@ -247,7 +251,7 @@ groups:
 | `headline` | A big headline before the text (used by press cards). |
 | `who` | What goes to the right of the code. If missing it is built from the group. |
 | `attach` | One or several evidence codes handed out with the card. |
-| `follow_up` | One or several follow-up codes the card enables (its follow-ups). On the team's card they show as a box with the code, the cost and, if the follow-up has `unlocked_by`, its condition: "Seguimiento H2+ · 1 ficha · si ya tienen E13b". The question itself is only in the guide. |
+| `follow_up` | One or several follow-up codes the card enables (its follow-ups). On the team's card they show as a box with the code, the cost and, if the follow-up has `unlocked_by`, its condition: "Seguimiento H2+ · 1 ficha · si ya tienen E13b". The codes are printed the way their sheet prints them (`E15-M` shows as E15·M). The question itself is only in the guide. |
 | `unlocked_by` | Only on follow-ups: one or several codes of the dossier or of cards that the team must also have (any one of them is enough). Use it when the follow-up names something its mother card does not say (see below). |
 | `appears_in` | Only on witnesses: the dossier sheets or cards where the teams can read the person's name. The guide's witness table shows them. |
 | `aliases` | Only on witnesses: other ways the material calls the person ("conserje", "Maca"). |
@@ -261,6 +265,83 @@ Notice cards add which notice they are to `who` ("Fiscalía · 1 de 2"); without
 **Follow-ups and witnesses.** A follow-up is one of two kinds. Kind A: the mother card's answer already opens the topic ("pelear por plata", then "¿De qué plata?"); `follow_up` on the mother card is enough. Kind B: the question names something the mother card did not say and that comes from another piece of evidence (H2+ asks about "papeles", which are in E13b); then `unlocked_by` is required and names that evidence. A witness is the set of cards of type `witness` with the same `who` (the name is what comes before a comma); `appears_in`, `aliases` and `guide_note` can go on any of them and add up. The export stops when `follow_up`, `unlocked_by` or `appears_in` name something that does not exist, and warns about a follow-up no card enables, a witness without `appears_in` and a witness whose name and aliases are in none of the places of its `appears_in` (the teams could never ask for them). The guide's tables come from these fields with the blocks `follow-ups`, `witnesses`, `quick-follow-ups` and `quick-witnesses`.
 
 If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
+
+## Procedures and places
+
+The procedures (diligencias) of the team's menu are data of the case, in `procedures.yaml` (neutral) and `languages/<lang>/procedures.yaml` (texts). The engine knows the **kinds** of procedure and what each one is; the case gives each of its procedures its own **code**, so DG9 can be the phone towers in one case and the cameras in another. From these files the engine draws the kit's menu (`procedures` block), the guide's answer table (`procedure-answers`), the quick sheet's column (`quick-procedures`) and the rows of the control sheet (`control`). A case without `procedures.yaml` keeps writing those tables by hand.
+
+```yaml
+# procedures.yaml (neutral)
+procedures:
+  - code: DG1
+    kind: report
+    gives: E12                       # one result
+  - code: DG3
+    kind: bank_statement
+    targets: {B: E15-B, T: E15-T, M: E15-M}     # one result per target
+  - code: DG8
+    kind: premises_search
+    each: true                       # each target is a request of its own: "1 c/u"
+    targets: {desk: E24, safe: E25}
+  - code: DG11
+    kind: cameras
+    alibi: true                      # an alibi token can pay for it
+    targets: {copec: E28, karaoke: none}
+  - code: DG12
+    kind: phone
+    targets: {P: E29-P, J: [E29-J, E08], other: E29-X}   # J hands out two sheets
+  - code: DG10
+    kind: other
+    targets:
+      deleted_message: {gives: E13d, cost: 2}           # a target with a cost of its own
+      other: material
+```
+
+| Field | What it is for |
+|---|---|
+| `code` | Required. The code on the menu. |
+| `kind` | Required. `report`, `phone`, `bank_statement`, `social_media`, `vehicle`, `area_search`, `belongings`, `premises_search`, `phone_towers`, `cameras` or `other`. It gives the default label and short name (`procedures.kinds` in the strings) and says what the procedure can do: only `phone_towers` and `cameras` show where someone was, and only `cameras` reads a source a place has. |
+| `cost` | Tokens; 1 if missing. A target may have its own: `{gives: E13d, cost: 2}`, and the menu then says "1 o 2". |
+| `each` | `true` when every target is a separate request (the menu says "1 c/u"). |
+| `alibi` | `true` when an alibi token can pay for it. It is never worked out from the results: the kit and the guide print the code with a dashed border, and the kit explains it under the menu (only when the case has alibi tokens). |
+| `gives` / `targets` | One of the two. `gives` is the result; `targets` maps each target to its result. A target is a suspect's letter, a place of `locations.yaml`, `other` (anyone or anything else) or a key of the case's own. A result is a sheet (`E12`), several sheets (`[E29-J, E08]`), `none` ("sin hallazgos": it makes sense but there is nothing, and the token is spent) or `material` (only for open requests: hand out what the material has, if anything). |
+
+```yaml
+# languages/es/procedures.yaml
+names: {B: Benjamín, T: Toto, M: Matías o la empresa}    # how the guide names the people of the targets
+procedures:
+  DG1: {label: Informe del Servicio Agrícola y Ganadero (SAG) sobre las muertes de animales, short: SAG}
+  DG8:
+    label: "Allanar la caseta de El Arrayán (indiquen: el escritorio o la caja fuerte)"
+    short: Caseta
+    targets: {desk: escritorio, safe: caja fuerte}   # labels of the case's own targets (and of other)
+  DG11:
+    notes: {karaoke: el local no tiene cámaras}     # a note for the director next to one target
+  DG4:
+    note: (solo publicaciones públicas)            # a note next to the whole procedure
+```
+
+`label` is what the kit's menu says and `short` the name in the guide's tables ("Cartola: Benjamín · Toto"); without them the kind's own are used. The places go in `locations.yaml`, with their sources, and their names in `languages/<lang>/locations.yaml`:
+
+```yaml
+# locations.yaml (neutral)
+locations:
+  - id: copec
+    sources: [camera]
+  - id: karaoke
+    sources: []          # it has none: asking is free, and the answer is no
+```
+
+```yaml
+# languages/es/locations.yaml
+locations:
+  copec: {name: Copec}
+  karaoke: {name: karaoke, note: optional note for the director}
+```
+
+The `locations` block draws the guide's table of places: which source each one has, which procedure reaches it and what it hands out. It is what the director needs for the free question "does it have a camera?" (asking whether a source exists is free; seeing it is the procedure).
+
+The export stops when a procedure has an unknown kind or field, both or neither of `gives` and `targets`, a result that is not a sheet of the dossier, a target with no name, or a text for a code or target that does not exist. It warns when `alibi: true` is on a kind that does not show where someone was or the case has no alibi tokens, when a camera procedure hands out a sheet for a place without sources (or finds nothing at a place that has one), when a sheet outside the envelopes can be got neither by a procedure nor with a card, and when a follow-up's `unlocked_by` or a witness's `appears_in` is a sheet no team can get. `--check` also compares the texts of procedures.yaml between languages.
 
 ## Sheets: kit, dossier and guide
 
@@ -292,6 +373,7 @@ The sheets of the kit and the guide are ordered by file name (`01-mision.md`, `0
 | `stamp` | A stamp in the corner: `stamp: Confidencial`, or `stamp: {text: Anulado, color: ink}` (colours: `ink`, `brass`, `forest`). |
 | `notice` | `true` for the amber strip of a notice sheet (the notices are usually only cards). Without `description`, the engine writes "Aviso para todos los equipos · 1 de 2" (never the suggested minute, because the teams get a copy). |
 | `aged` | `true` for aged paper (letters, old documents). `paper: aged` also works. |
+| `short` | A short name of the evidence for the director's tables (the control sheet names the sheets that cards hand out with it: "Live de Javiera"). Without it, the title. |
 | `pages` | How many pages the sheet takes, when it takes more than one (`pages: 2`). The print plan counts it, and the check fails when the sheet does not fit in them. |
 
 ### Content
@@ -399,7 +481,11 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 
 | Block | What it draws | Content |
 |---|---|---|
-| `control` | The director's control table: one column per team, the case's rows, then the notices, other questions, hints, tokens left and alibi tokens used | `rows:`, a list of `[code, what it is, tokens]` |
+| `control` | The director's control table: one column per team; with `procedures.yaml`, a table of the procedures (one row per sheet number: E15·B to E15·M in one) and one of the cards that hand out a sheet (`attach`, named by the sheet's `short`); then the notices, other questions, hints, tokens left and alibi tokens used | Nothing; a case without `procedures.yaml` writes `rows:`, a list of `[code, what it is, tokens]` |
+| `procedures` | The kit's menu of procedures, from `procedures.yaml`: code (dashed when `alibi: true`), label and cost | Nothing |
+| `procedure-answers` | The guide's table of procedures: each target and what to hand out, with the notes | Nothing |
+| `quick-procedures` | The same, short, for the quick sheet (inside a `columns` block) | Nothing |
+| `locations` | The guide's table of places: sources, procedures that reach them and what they hand out | Nothing |
 | `notices` | What the director reads for each notice and press card, with its suggested minute, from the cards of type `notice` and `press` | Nothing |
 | `hints` | The hints in order, with what each one costs, from the cards of type `hint` | Nothing |
 | `acronyms` | The glossary of the case as a table of acronym and long form | Optional `only: [PDI, SAG]` |

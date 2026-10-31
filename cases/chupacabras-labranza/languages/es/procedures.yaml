@@ -1,0 +1,40 @@
+# Textos de las diligencias de procedures.yaml. Sin label ni short, se usan los del tipo (los del motor).
+#   label   lo que dice el menú del kit
+#   short   el nombre corto de la guía (tabla de respuestas, hoja rápida y hoja de control)
+#   targets nombre de los destinos que no son un sospechoso ni un lugar de locations.yaml
+#   notes   nota para el director junto a un destino; note, junto a la diligencia entera
+
+# Cómo nombra la guía a las personas de los destinos.
+names: {B: Benjamín, T: Toto, C: Rivas, P: Pía, H: Hernán, J: Javiera, M: Matías o la empresa}
+
+procedures:
+  DG1:
+    label: Informe del Servicio Agrícola y Ganadero (SAG) sobre las muertes de animales
+    short: SAG
+  DG2:
+    label: "Celular de la víctima: llamadas y calendario"
+    short: Llamadas y calendario
+  DG2W:
+    label: "Celular de la víctima: WhatsApp"
+    short: WhatsApp de la víctima
+  DG2C:
+    label: "Celular de la víctima: cuentas e Instagram"
+    short: Cuentas e Instagram
+  DG3:
+    label: Cartola bancaria de una persona o de la empresa (indiquen de quién)
+  DG4:
+    short: Redes (sin lives)
+    note: >-
+      (solo publicaciones públicas; las de Javiera están en E03 y su live no sale aquí: sale con J2 o con DG12).
+      Las historias de Maca y de Pía no salen aquí: las entregan M1 y F1.
+  DG8:
+    label: "Allanar la caseta de El Arrayán (indiquen: el escritorio o la caja fuerte)"
+    short: Caseta
+    targets: {desk: escritorio, safe: caja fuerte}
+  DG11:
+    notes: {karaoke: "el local no tiene cámaras; las historias las tiene Fernanda, F1"}
+  DG12:
+    label: Revisar el celular de un sospechoso (indiquen de quién)
+    targets: {other: otro sospechoso}
+  DG10:
+    targets: {deleted_message: mensaje borrado, other: otra cosa}

@@ -167,6 +167,77 @@
 
 <li><strong>Gratis por obvio:</strong> la parcela no tiene cámaras (E01).</li>
 </ul>
+<!-- Los lugares salen de locations.yaml y de los destinos de las diligencias (procedures.yaml). -->
+
+<h3>Lugares: qué fuente tiene cada uno</h3>
+
+<p class="oc-pequeno">Si preguntan si un lugar tiene cámaras o un registro, contesta sí o no sin cobrar. Ver lo que muestra es la diligencia, y se cobra.</p>
+
+<div class="oc-tabla oc-tabla--compacta">
+<table>
+
+<thead>
+
+<tr>
+<th>Lugar</th>
+<th>Cámara o registro</th>
+<th>Se pide con</th>
+<th>Entrega</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Parcela El Arrayán</td>
+<td>no</td>
+<td>—</td>
+<td>E01 ya lo dice; no se cobra</td>
+</tr>
+
+<tr>
+<td>Copec</td>
+<td>cámara</td>
+<td><code>DG11</code></td>
+<td>E28</td>
+</tr>
+
+<tr>
+<td>Edificio de Benjamín</td>
+<td>cámara y registro</td>
+<td><code>DG11</code></td>
+<td>E14</td>
+</tr>
+
+<tr>
+<td>Clínica</td>
+<td>cámara y registro</td>
+<td><code>DG11</code></td>
+<td>E22</td>
+</tr>
+
+<tr>
+<td>Hospital</td>
+<td>registro</td>
+<td><code>DG11</code></td>
+<td>E20</td>
+</tr>
+
+<tr>
+<td>Karaoke</td>
+<td>no</td>
+<td><code>DG11</code></td>
+<td>"Sin hallazgos" (el local no tiene cámaras; las historias las tiene Fernanda, F1)</td>
+</tr>
+
+<tr>
+<td>Estero</td>
+<td>no</td>
+<td><code>DG6</code></td>
+<td>E18</td>
+</tr>
+</tbody>
+</table></div>
 <div class="oc-hoja__marca">
 <img src="{REPO}/design/logos/oc-monograma-tinta.svg" alt="Open Case"><span>Open Case</span><span>El Chupacabras de Labranza</span></div></article>
 <article class="oc-hoja oc-hoja--reservada" id="02-solucion" data-pages="2">
@@ -898,6 +969,7 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 </tr>
 </tbody>
 </table></div>
+<!-- Las diligencias salen de procedures.yaml, con sus textos en languages/es/procedures.yaml. -->
 
 <h3>Diligencias del menú del equipo</h3>
 
@@ -917,85 +989,85 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 
 <tr>
 <td><code>DG1</code></td>
-<td>Informe del SAG</td>
+<td>SAG</td>
 <td>E12</td>
 </tr>
 
 <tr>
 <td><code>DG2</code></td>
-<td>Celular de la víctima: llamadas y calendario</td>
+<td>Llamadas y calendario</td>
 <td>E13a</td>
 </tr>
 
 <tr>
 <td><code>DG2W</code></td>
-<td>Celular de la víctima: WhatsApp</td>
+<td>WhatsApp de la víctima</td>
 <td>E13b</td>
 </tr>
 
 <tr>
 <td><code>DG2C</code></td>
-<td>Celular de la víctima: cuentas e Instagram</td>
+<td>Cuentas e Instagram</td>
 <td>E13c</td>
 </tr>
 
 <tr>
 <td><code>DG3</code></td>
-<td>Cartola de Benjamín · Toto · Rivas · Pía · Hernán · Javiera · Matías o la empresa</td>
+<td>Cartola: Benjamín · Toto · Rivas · Pía · Hernán · Javiera · Matías o la empresa</td>
 <td>E15·B · E15·T · E15·C · E15·P · E15·H · E15·J · E15·M</td>
 </tr>
 
 <tr>
 <td><code>DG4</code></td>
-<td>Redes de los sospechosos (1 ficha)</td>
+<td>Redes (sin lives)</td>
 <td>E16 (solo publicaciones públicas; las de Javiera están en E03 y su live no sale aquí: sale con J2 o con DG12). Las historias de Maca y de Pía no salen aquí: las entregan M1 y F1.</td>
 </tr>
 
 <tr>
 <td><code>DG5</code></td>
-<td>Vehículo de Benjamín · Toto · Hernán · Rivas · Pía · Javiera</td>
+<td>Vehículo: Benjamín · Toto · Hernán · Rivas · Pía · Javiera</td>
 <td>E17·B · E17·T · E17·H · E17·C · E17·P · E17·J</td>
 </tr>
 
 <tr>
 <td><code>DG6</code></td>
-<td>Rastrear el estero (si piden otro lugar: sin hallazgos)</td>
-<td>E18</td>
+<td>Rastreo: estero · otro lugar</td>
+<td>E18 · "Sin hallazgos"</td>
 </tr>
 
 <tr>
 <td><code>DG7</code></td>
-<td>Ropa o pertenencias de Toto · Benjamín · Javiera · Pía · Hernán · Rivas</td>
+<td>Ropa o pertenencias: Toto · Benjamín · Javiera · Pía · Hernán · Rivas</td>
 <td>E19·T · E19·B · E19·J · E19·P · E19·H · E19·C</td>
 </tr>
 
 <tr>
 <td><code>DG8</code></td>
-<td>Allanar la caseta de El Arrayán: el escritorio · la caja fuerte (1 ficha cada uno)</td>
+<td>Caseta: escritorio · caja fuerte (1 ficha cada uno)</td>
 <td>E24 · E25</td>
 </tr>
 
 <tr>
-<td><code>DG9</code></td>
-<td>Antenas de Benjamín · Toto · Pía · Rivas · Hernán · Javiera</td>
+<td><code class="oc-codigo--coartada">DG9</code></td>
+<td>Antenas: Benjamín · Toto · Pía · Rivas · Hernán · Javiera</td>
 <td>E26·B · E26·T · E26·P · E26·C · E26·H · E26·J</td>
 </tr>
 
 <tr>
-<td><code>DG11</code></td>
-<td>Cámaras del Copec · del edificio de Benjamín · de la clínica · del hospital · del karaoke</td>
+<td><code class="oc-codigo--coartada">DG11</code></td>
+<td>Cámaras o registros: Copec · edificio de Benjamín · clínica · hospital · karaoke</td>
 <td>E28 · E14 · E22 · E20 · "Sin hallazgos" (el local no tiene cámaras; las historias las tiene Fernanda, F1)</td>
 </tr>
 
 <tr>
 <td><code>DG12</code></td>
-<td>Celular de Pía · de Benjamín · de Javiera · de otro sospechoso</td>
+<td>Celular: Pía · Benjamín · Javiera · otro sospechoso</td>
 <td>E29·P · E29·B · E29·J + E08 · E29·X</td>
 </tr>
 
 <tr>
 <td><code>DG10</code></td>
-<td>Recuperar el mensaje borrado (2 fichas) · otra cosa</td>
+<td>Otra: mensaje borrado (2 fichas) · otra cosa</td>
 <td>E13d · si existe en el material, entrégalo; si no, "Sin hallazgos". Nunca inventes una pista.</td>
 </tr>
 </tbody>
@@ -1021,7 +1093,7 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 <img class="oc-membrete__logo" src="{REPO}/design/logos/oc-wordmark-tinta.svg" alt="Open Case"><span class="oc-membrete__caso">El Chupacabras de Labranza</span><b>6b · Hoja rápida</b>Qué entregar ante cada código · imprime 1 copia</div><span class="oc-tag">Solo director</span></div>
 <h2>Hoja rápida del director</h2>
 <p class="oc-pequeno">Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla completa está en "Cómo responder". Fichas de coartada: solo DG9, DG11 o un testigo que ubique a alguien.</p>
-<!-- Seguimientos y testigos salen de cards.yaml; por eso este bloque abre con cuatro comillas. -->
+<!-- Seguimientos y testigos salen de cards.yaml y las diligencias de procedures.yaml; por eso este bloque abre con cuatro comillas. -->
 
 <div class="oc-columnas-libres" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;font-size:11px;line-height:1.3">
 <div>
@@ -1444,11 +1516,6 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 </tr>
 
 <tr>
-<td><code>DG10</code></td>
-<td>Mensaje borrado (2 fichas) → E13d</td>
-</tr>
-
-<tr>
 <td><code>DG3</code></td>
 <td>Cartola → E15·B / T / C / P / H / J / M</td>
 </tr>
@@ -1465,32 +1532,37 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 
 <tr>
 <td><code>DG6</code></td>
-<td>Estero → E18 (otro lugar: sin hallazgos)</td>
+<td>Rastreo → estero E18 · otro lugar sin hallazgos</td>
 </tr>
 
 <tr>
 <td><code>DG7</code></td>
-<td>Ropa → E19·T / B / J / P / H / C</td>
+<td>Ropa o pertenencias → E19·T / B / J / P / H / C</td>
 </tr>
 
 <tr>
 <td><code>DG8</code></td>
-<td>Caseta: escritorio E24 · caja fuerte E25</td>
+<td>Caseta → escritorio E24 · caja fuerte E25</td>
 </tr>
 
 <tr>
-<td><code>DG9</code></td>
+<td><code class="oc-codigo--coartada">DG9</code></td>
 <td>Antenas → E26·B / T / P / C / H / J</td>
 </tr>
 
 <tr>
-<td><code>DG11</code></td>
-<td>Copec E28 · edificio E14 · clínica E22 · hospital E20 · karaoke sin hallazgos</td>
+<td><code class="oc-codigo--coartada">DG11</code></td>
+<td>Cámaras o registros → Copec E28 · edificio de Benjamín E14 · clínica E22 · hospital E20 · karaoke sin hallazgos</td>
 </tr>
 
 <tr>
 <td><code>DG12</code></td>
-<td>Celular → E29·P / B · J (E29·J + E08) · otro E29·X</td>
+<td>Celular → E29·P / B / J + E08 / X</td>
+</tr>
+
+<tr>
+<td><code>DG10</code></td>
+<td>Otra → mensaje borrado E13d (2 fichas) · otra cosa si existe en el material</td>
 </tr>
 </tbody>
 </table></div></div></div>
@@ -1502,7 +1574,9 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 <img class="oc-membrete__logo" src="{REPO}/design/logos/oc-wordmark-tinta.svg" alt="Open Case"><span class="oc-membrete__caso">El Chupacabras de Labranza</span><b>7 · Hoja de control</b>Marca cada entrega · imprime 1 copia</div><span class="oc-tag">Solo director</span></div>
 <h2>Qué tiene cada equipo</h2>
 <p class="oc-pequeno">Marca con una X lo que entregas. Te sirve para validar las confrontaciones (◆) sin tener que preguntar y para evaluar al final. Todos los equipos parten con el sobre 1, las declaraciones y E06.</p>
-<!-- Las columnas de equipos salen de teams; las últimas filas (avisos, pistas, fichas), de las cifras del motor. -->
+<!-- Las columnas de equipos salen de teams; las filas, de procedures.yaml y de las tarjetas con attach (cards.yaml); las últimas (avisos, pistas, fichas), de las cifras del motor. -->
+
+<h3>Diligencias</h3>
 
 <div class="oc-tabla oc-tabla--control">
 <table>
@@ -1521,46 +1595,6 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 </thead>
 
 <tbody>
-
-<tr>
-<td><code>J2 o DG12 J → E08</code></td>
-<td>Live de Javiera</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>K1 → E09</code></td>
-<td>Dron</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>C2 → E10</code></td>
-<td>Informe vet. público</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>C◆ → E11</code></td>
-<td>Notas originales vet.</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 
 <tr>
 <td><code>DG1 → E12</code></td>
@@ -1603,36 +1637,6 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 </tr>
 
 <tr>
-<td><code>DG10 → E13d</code></td>
-<td>Mensaje recuperado</td>
-<td>2</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>L1 / DG11 → E14</code></td>
-<td>Portón del edificio</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>B1 → E30</code></td>
-<td>Delivery de Benjamín</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
 <td><code>DG3 → E15</code></td>
 <td>Cartola (·B ·T ·C ·P ·H ·J ·M)</td>
 <td>1</td>
@@ -1664,7 +1668,7 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 
 <tr>
 <td><code>DG6 → E18</code></td>
-<td>Estero</td>
+<td>Rastreo: estero</td>
 <td>1</td>
 <td></td>
 <td></td>
@@ -1683,8 +1687,180 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 </tr>
 
 <tr>
+<td><code>DG8 → E24</code></td>
+<td>Caseta: escritorio</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>DG8 → E25</code></td>
+<td>Caseta: caja fuerte</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>DG9 → E26</code></td>
+<td>Antenas (·B ·T ·P ·C ·H ·J)</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>DG11 → E28</code></td>
+<td>Cámaras o registros: Copec</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>DG11 → E14</code></td>
+<td>Cámaras o registros: edificio de Benjamín</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>DG11 → E22</code></td>
+<td>Cámaras o registros: clínica</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
 <td><code>DG11 → E20</code></td>
-<td>Urgencias</td>
+<td>Cámaras o registros: hospital</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>DG12 → E29</code></td>
+<td>Celular (·P ·B ·J ·X)</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>DG10 → E13d</code></td>
+<td>Otra: mensaje borrado</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+<h3>Pruebas que entregan las tarjetas</h3>
+
+<div class="oc-tabla oc-tabla--control">
+<table>
+
+<thead>
+
+<tr>
+<th>Código</th>
+<th>Qué es</th>
+<th>Fichas</th>
+<th><span class="oc-equipo">A</span></th>
+<th><span class="oc-equipo oc-equipo--b">B</span></th>
+<th><span class="oc-equipo oc-equipo--c">C</span></th>
+<th><span class="oc-equipo oc-equipo--d">D</span></th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><code>B1 → E30</code></td>
+<td>Delivery de Benjamín</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>J2 → E08</code></td>
+<td>Live de Javiera</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>C2 → E10</code></td>
+<td>Informe vet. público</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>C5 → E11</code></td>
+<td>Notas originales vet.</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>C6 → E22</code></td>
+<td>Clínica</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>K1 → E09</code></td>
+<td>Dron</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>L1 → E14</code></td>
+<td>Portón del edificio</td>
 <td>1</td>
 <td></td>
 <td></td>
@@ -1703,46 +1879,6 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 </tr>
 
 <tr>
-<td><code>DG11 → E22</code></td>
-<td>Clínica</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>F1 → E23</code></td>
-<td>Karaoke</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>DG8 → E24 · E25</code></td>
-<td>Caseta: escritorio · caja fuerte</td>
-<td>1 c/u</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>DG9 → E26</code></td>
-<td>Antenas (·B ·T ·P ·C ·H ·J)</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
 <td><code>I1 → E27</code></td>
 <td>Hotel de Iturra</td>
 <td>1</td>
@@ -1753,18 +1889,8 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.</div>
 </tr>
 
 <tr>
-<td><code>DG11 → E28</code></td>
-<td>Cámara del Copec</td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>DG12 → E29</code></td>
-<td>Celular de un sospechoso (·P ·B ·J ·X)</td>
+<td><code>F1 → E23</code></td>
+<td>Karaoke</td>
 <td>1</td>
 <td></td>
 <td></td>
