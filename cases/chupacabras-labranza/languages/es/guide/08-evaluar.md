@@ -2,6 +2,7 @@
 institution: 8 · Evaluar la acusación
 description: Qué cuenta como correcto
 title: Pauta de corrección
+pages: 4
 ---
 
 | Punto | Pts | Se acepta si… |

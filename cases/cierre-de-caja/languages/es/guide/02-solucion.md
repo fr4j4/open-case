@@ -1,6 +1,7 @@
 ---
 institution: 2 · La solución en una página
 description: Léela antes de jugar
+pages: 2
 ---
 
 ```note Lo que pasó

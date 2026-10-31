@@ -391,11 +391,13 @@ groups:
     cards:
       - code: Aviso 1
         type: notice
+        title: Toto intentó irse
         who: Fiscalía
         answer: Cristián "Toto" Lagos no llegó a su citación de hoy. Un vecino de la villa lo vio cargando un bolso en la moto. Carabineros lo ubicó en el terminal de buses de Labranza y lo trajo de vuelta. Toto dice que "no tiene nada que ver".
         footer: Se lee a todos los equipos a la vez
       - code: Aviso 2
         type: notice
+        title: Resultado de las huellas de la horqueta
         who: Fiscalía
         answer: El Laboratorio de Criminalística informa que las huellas parciales del mango de una herramienta encontrada en el estero corresponden a Cristián "Toto" Lagos. Para formalizar a alguien, la Fiscalía pide dos líneas de prueba distintas (por ejemplo, su vehículo y su ropa), cada una enfrentada con esa persona (◆), y el motivo.
         footer: Se lee a todos los equipos a la vez

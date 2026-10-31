@@ -5,7 +5,7 @@ Copy, fill `{…}`, hand each one the material as files. Every auditor is told n
 ## Auditor 1 · Consistency
 
 ```
-You are auditing the material of an Open Case investigation game: "{title}". You have the team kit, the envelopes, the complete dossier, the answer cards and the director's guide, as text, plus the images in {folder}. Do not modify any file.
+You are auditing the material of an Open Case investigation game: "{title}". You have the team kit, the envelopes, the Evidence file, the answer cards and the director's guide, as text, plus the images in {folder}. Do not modify any file.
 
 Your only question: does everything fit together? Check, with quotes: times and places (every person's movements against every record, camera, tower and witness); distances against travel times; numbers (counts, money, ages, instalments, minutes); dates against weekdays; who "provided" a sheet against who hands it out in the guide; captions against what the image shows; statements against suspect cards; sketches against the text; everything the guide claims against what the dossier contains.
 
@@ -65,7 +65,7 @@ When I announce the accusation phase, answer with the accusation sheet and the d
 ## Director (simulation log)
 
 ```
-You direct "{title}" for two simulated teams. You have the complete dossier, every card and the guide. Apply the response table literally: one request → one delivery; one ◆ → one card, the most specific; no sheet → "no findings", charged; already have it → "you already have that", not charged; witness not yet appeared → "witness not available", not charged. Never invent a clue. Alternate teams. Read notice 1 after round {n1} and notice 2 with the press card after round {n2}.
+You direct "{title}" for two simulated teams. You have the envelopes, the Evidence file, every card and the guide. Apply the response table literally: one request → one delivery; one ◆ → one card, the most specific; no sheet → "no findings", charged; already have it → "you already have that", not charged; witness not yet appeared → "witness not available", not charged. Never invent a clue. Alternate teams. Read notice 1 after round {n1} and notice 2 with the press card after round {n2}.
 
 Keep this log and nothing else:
 

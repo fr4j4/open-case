@@ -2,6 +2,7 @@
 institution: 3 · Guion de la sesión
 description: 45 a 50 minutos
 title: Fase por fase
+pages: 2
 ---
 
 ```steps

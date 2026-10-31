@@ -211,35 +211,35 @@ def card_sheets(cards, case, label, codes=None, vertical=False):
 
 
 def token_sheets(case, ctx):
-    """Sheets of 35 tokens (5 × 7): each team's numbered (and alibi) tokens, with spares to fill the sheet; plus a back for each."""
+    """One sheet of 35 tokens (5 × 7) per team, in its colour: its numbered tokens and its alibi tokens, with
+    spares to fill the sheet, and the sheet's back right after it. So each team prints only its own."""
     n = int(case.figures["tokens_per_team"])
     alibis = int(case.figures["alibi_tokens_per_team"])
     teams = case.get("teams", ["A", "B"])
-    tokens = []
+    pages = []   # (team, tokens of one sheet)
     for team in teams:
         mod = f" oc-ficha--{str(team).lower()}" if str(team).upper() in ("A", "B", "C", "D") else ""
         team_label = e(case.t("team", name=team))
-        tokens += [f'<span class="oc-ficha{mod}"><b>{i}</b>{e(case.t("tokens.token"))}<small>{team_label}</small></span>'
-                   for i in range(1, n + 1)]
+        tokens = [f'<span class="oc-ficha{mod}"><b>{i}</b>{e(case.t("tokens.token"))}<small>{team_label}</small></span>'
+                  for i in range(1, n + 1)]
         # Alibi tokens: dashed border, coded C1, C2... (see `alibi_tokens_per_team` in docs/case-format.md)
         tokens += [f'<span class="oc-ficha{mod} oc-ficha--coartada"><b>{e(case.t("tokens.alibi_code", i=i))}</b>'
                    f'{e(case.t("tokens.alibi"))}<small>{team_label}</small></span>' for i in range(1, alibis + 1)]
-    fronts = []
-    for i in range(0, len(tokens), 35):
-        batch = tokens[i:i + 35]
-        spare = 35 - len(batch)
-        batch += [f'<span class="oc-ficha"><b>&nbsp;</b>{e(case.t("tokens.token"))}<small>{e(case.t("tokens.spare"))}</small></span>'] * spare
-        fronts.append(batch)
-    total = len(fronts)
+        spare = (f'<span class="oc-ficha{mod}"><b>&nbsp;</b>{e(case.t("tokens.token"))}'
+                 f'<small>{e(case.t("tokens.spare"))}</small></span>')
+        for i in range(0, len(tokens), 35):
+            batch = tokens[i:i + 35]
+            pages.append((team, batch + [spare] * (35 - len(batch))))
+    total = len(pages)
     out = []
     # Two monograms: the light one on brass (color), the ink one on white (ink saver).
     mono = (f'<img class="oc-ficha__mono-color" src="{ctx.design("logos/oc-monograma-papel.svg")}" alt="">'
             f'<img class="oc-ficha__mono-ahorro" src="{ctx.design("logos/oc-monograma-tinta.svg")}" alt="">')
-    for k, batch in enumerate(fronts, 1):
-        footer = e(case.t("tokens.front_footer", title=case.title, k=k, total=total))
+    for k, (team, batch) in enumerate(pages, 1):
+        footer = e(case.t("tokens.front_footer", title=case.title, team=team, k=k, total=total))
         out.append(f'<section class="oc-pliego oc-pliego--fichas">{"".join(batch)}<div class="oc-pliego__pie">{footer}</div></section>')
         back = "".join(f'<span class="oc-ficha oc-ficha--reverso">{mono}</span>' for _ in batch)
-        footer = e(case.t("tokens.back_footer", title=case.title, k=k, total=total))
+        footer = e(case.t("tokens.back_footer", title=case.title, team=team, k=k, total=total))
         out.append(f'<section class="oc-pliego oc-pliego--fichas">{back}<div class="oc-pliego__pie">{footer}</div></section>')
     return out
 

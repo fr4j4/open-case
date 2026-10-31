@@ -53,7 +53,7 @@ What is free: envelope 1 (the opening material), the statements, envelope 2 (usu
 | Complete dossier | Every evidence sheet with an index by section. Handed out one sheet at a time, only to the team that earned it. |
 | Answer cards | Every card, two copies (one per team), printed 8 per sheet, 63 × 88 mm, with a common back. |
 
-The dossier sections in the neutral `case.yaml` decide who gets what: sections with `envelope: N` go to the teams' folder; everything else stays with the director.
+The dossier sections in the neutral `case.yaml` decide who gets what: sections with `envelope: N` go to the teams' folder; everything else goes into the director's Evidence file, ordered by code, one copy per team.
 
 ## The shape of a case
 

@@ -14,7 +14,6 @@ kit:
   description: >-
     Una copia por equipo. Trae las reglas, el menú de preguntas y diligencias y las hojas de trabajo.
     No incluye respuestas ni pruebas: esas las entrega el director.
-  cover_note: Una copia por equipo. No incluye respuestas ni pruebas.
 
 guide:
   description: >-
@@ -28,9 +27,6 @@ dossier:
   description: >-
     Muerte de Matías Ferrada Soto, sábado 31 de octubre de 2026, sector Camino Los Copihues, Labranza.
     Cada hoja es una prueba: se imprime una por página o se manda por WhatsApp al equipo que la pidió.
-  printed_description: >-
-    Muerte de Matías Ferrada Soto, sábado 31 de octubre de 2026, sector Camino Los Copihues, Labranza.
-    Índice de pruebas para el director. Cada prueba se entrega por separado, solo al equipo que la pidió.
   sections:
     start:
       title: Sobre 1
@@ -47,9 +43,6 @@ dossier:
     procedures:
       title: Diligencias
       note: Se entregan al equipo que paga la ficha
-    notices:
-      title: Avisos de la Fiscalía
-      note: El director los lee a todos los equipos a la vez
 
 # Siglas que usan los documentos. Las hojas escriben completas las que no son `expand: false`
 # la primera vez que aparecen; la guía del director trae la tabla completa.

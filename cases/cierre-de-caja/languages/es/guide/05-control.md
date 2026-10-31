@@ -2,6 +2,7 @@
 institution: 5 · Hoja de control
 description: Marca cada entrega · imprime 1 copia
 title: Qué tiene cada equipo
+pages: 2
 ---
 
 Marca con una X lo que entregas. Te sirve para validar las confrontaciones (◆) sin tener que preguntar y para evaluar al final. Los dos equipos parten con el sobre 1, las declaraciones y E05.

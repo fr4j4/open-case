@@ -40,7 +40,7 @@ body{background:var(--mesa);-webkit-print-color-adjust:exact;print-color-adjust:
 .oc-quien{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sello);margin-top:6px}
 .oc-tabla--menu td:first-child{width:64px}
 .oc-tabla td.c{font-family:var(--font-mono);font-weight:600;white-space:nowrap;color:var(--marino)}
-.oc-tabla--control td:nth-last-child(-n+4),.oc-tabla--control th:nth-last-child(-n+4){width:44px;text-align:center}
+.oc-tabla--control td:nth-child(n+4),.oc-tabla--control th:nth-child(n+4){width:44px;text-align:center}
 .oc-tabla--control td{height:26px}
 .oc-tabla--trabajo td{height:44px}
 .oc-tabla--puntaje td:last-child{width:120px}

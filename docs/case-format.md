@@ -112,7 +112,28 @@ dossier:
 
 The sections give the order of the evidence and decide who gets what. Each `id` is free text, and the titles and notes of each section are written in the language file (see below). Every item is the name of a file in `dossier/` without `.md`. An item can be in one section only, and a sheet that is in none is reported and not exported.
 
-Sections with `envelope: 1` are put together in a separate PDF, `teams/02_Envelope_1.pdf`, which is the only part of the dossier that goes in the teams' folder. Several sections can point to the same envelope. Everything else stays only in `director/02_Complete_dossier.pdf`, which has every section with an index at the beginning.
+Sections with `envelope: 1` are put together in a separate PDF, `teams/02_Envelope_1.pdf`, which is the only part of the dossier that goes in the teams' folder. Several sections can point to the same envelope. Every other sheet goes into `director/02_Evidence.pdf` (`02_Pruebas.pdf` in Spanish), **ordered by code** (E08, E09, E10, E13a, E13b, E15 · B… E30), whatever its section: the director prints one copy per team, uncollated, and hands each sheet only to the team that paid for it. The guide ends with the evidence index, which lists every sheet by section with where it is (an envelope or the Evidence file).
+
+The prosecutor's notices are **cards** (`type: notice` in `cards.yaml`), read aloud to every team; a case does not need notice sheets. If a case still has sheets with `notice: true` in a section, they go into the Evidence file like any other sheet.
+
+### What to print (the print plan)
+
+The engine decides how the material is grouped, how many copies are printed and when each document is handed out; the case only brings its data (teams, tokens, sheets, cards). The `print-plan` block in the guide's first sheet draws the table, and the `LEEME.txt`/`README.txt` next to the PDFs is written from the same plan (`opencase/printing.py`):
+
+| Package | Document | Copies | Paper |
+|---|---|---|---|
+| Each team | Badges | one sheet per team, in its colour (one PDF with all) | card stock |
+| Each team | Tokens | one sheet + back per team, in its colour: its tokens, its alibi tokens and spares | card stock, double-sided |
+| Each team | Requests (optional: the director may take them by word of mouth) | one per team; `ceil(tokens + alibi tokens / 8)` sheets of 8 slips | paper |
+| Each team | Suspects, kit (no cover), envelopes | one per team | card stock / paper |
+| Director | Guide (with the evidence index at the end) | 1 | paper |
+| Director | Evidence | one per team, uncollated (0 with `--chat`) | paper |
+| Director | Answer cards, and the common back on the reverse of each sheet | one per team, uncollated | card stock |
+| Director | Envelope labels | 1 (one label per envelope and team) | paper or adhesive |
+
+The plan counts pages from the data, not from a browser: a sheet is one page unless it says otherwise with `pages: N` in its front matter. `tools/check_print.py` (`make print-check`, and the CI) exports every case and fails when a PDF has other pages than the plan says, or when a sheet of the kit, an envelope or the Evidence file fills more than 95 % of the pages it declares (about two lines of room, because the same text comes out a little taller on another computer). In the guide this is only a warning.
+
+Two options of `export.py` change the plan: `--teams N` exports for the first N teams only (badges, tokens, labels, the columns of the control sheet and the copies), and `--chat` sends the Evidence file through each team's chat group (0 copies in the plan, and one image per sheet in `chat-images/`, as with `--images`).
 
 ## languages/\<lang\>/case.yaml
 
@@ -129,8 +150,7 @@ request:
   help: 1 ficha por pregunta · diligencias según menú   # optional, text on the request form
 
 kit:
-  description: …               # text on the screen header
-  cover_note: …                # note on the printed cover
+  description: …               # text on the screen header (the kit has no printed cover)
 
 guide:
   description: …
@@ -140,7 +160,6 @@ dossier:
   title: Expediente El Arrayán
   kicker: PDI · Brigada de Homicidios Temuco
   description: …               # screen header text
-  printed_description: …       # text on the printed index
   sections:
     start: {title: Sobre 1, note: Se entrega a ambos equipos al comenzar}
     procedures: {title: Diligencias, note: Se entregan al equipo que paga la ficha}
@@ -271,8 +290,9 @@ The sheets of the kit and the guide are ordered by file name (`01-mision.md`, `0
 | `logo` | `true` for the Open Case wordmark in the letterhead (the kit and the guide do). |
 | `reserved` | `true` for the red "reserved material" strip (the guide does). |
 | `stamp` | A stamp in the corner: `stamp: Confidencial`, or `stamp: {text: Anulado, color: ink}` (colours: `ink`, `brass`, `forest`). |
-| `notice` | `true` for the amber strip of the prosecutor's notices. Without `description`, the engine writes "Aviso para todos los equipos · 1 de 2" (never the suggested minute, because the teams get a copy). |
+| `notice` | `true` for the amber strip of a notice sheet (the notices are usually only cards). Without `description`, the engine writes "Aviso para todos los equipos · 1 de 2" (never the suggested minute, because the teams get a copy). |
 | `aged` | `true` for aged paper (letters, old documents). `paper: aged` also works. |
+| `pages` | How many pages the sheet takes, when it takes more than one (`pages: 2`). The print plan counts it, and the check fails when the sheet does not fit in them. |
 
 ### Content
 
@@ -373,6 +393,7 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 | `checkboxes` | Boxes to tick off tokens. Optional argument: how many, or `alibi` for the alibi tokens (labelled with `tokens.alibi_code`, C1, C2…) | Nothing; defaults to `tokens_per_team` |
 | `menu` | The question menu, built from `suspects.yaml` and the cards with `menu: true` | Nothing |
 | `html` | HTML as it is, for odd cases | HTML |
+| `print-plan` | The table of what to print: each team's package and the director's, with copies, paper, size and when each one is handed out, and the totals. It follows `--teams` and `--chat` | Nothing |
 
 **The engine's blocks.** These draw a fixed part of the game with the case's figures. They live in `opencase/templates/<lang>/blocks/`, so they come in the language of the case:
 
