@@ -22,6 +22,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, TemplateNotFound, TemplateSyntaxError
 from jinja2.exceptions import UndefinedError
 
+from . import followups, witnesses
 from .acronyms import table_rows
 from .loader import CaseError, Sheet, as_list, parse_sheet, read_yaml
 
@@ -66,6 +67,11 @@ def _team_label(team):
     from .cards import team_modifier
     from .markup import e
     return f'<span class="oc-equipo{team_modifier(team)}">{e(team)}</span>'
+
+
+def _cell(text):
+    """Text that goes inside a cell of a Markdown table: one line, with its | escaped."""
+    return " ".join(str(text).split()).replace("|", "\\|")
 
 
 def _hint_groups(penalties):
@@ -159,6 +165,8 @@ def context(case, data=None):
         "hints": hints,
         "hint_groups": _hint_groups(penalties),
         "how_to_play_in_kit": how_to_play_in_kit,
+        "follow_ups": followups.follow_ups(case),
+        "witnesses": witnesses.witnesses(case),
         "case_title": case.title,
         "glossary": table_rows(case),
         "data": data if data is not None else {},
@@ -182,6 +190,7 @@ def render(case, name, data=None):
     env.filters["num"] = _number(case.strings)
     env.filters["team_label"] = _team_label
     env.globals["fail"] = _fail
+    env.filters["cell"] = _cell
     path = language_dir(case.lang) / name
     try:
         template = env.get_template(name)

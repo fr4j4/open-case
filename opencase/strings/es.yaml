@@ -126,3 +126,9 @@ readme: |
   deben medir 88 × 63 mm y las fichas 30 mm de diámetro.
 
   {mode}
+
+# Seguimientos: el recuadro al pie de la tarjeta que habilita uno (opencase/followups.py)
+follow_up:
+  box: "Seguimiento {code} · 1 ficha"
+  box_condition: "si ya tienen {codes}"
+  or_word: " o "

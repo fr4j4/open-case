@@ -33,18 +33,9 @@ title: Tabla de respuestas
 | `C3` | Tarjeta C3 | [false] Recibió $800.000. Trae el seguimiento C3+. |
 | `C4` | Tarjeta C4 | [key] Insinúa que no es un perro. |
 
-### Seguimientos (1 ficha, solo si ya tienen la tarjeta base)
-
-| Código | Viene en | Nota para ti |
-|---|---|---|
-| `B1+` | B1 | [false] "Me dormí a las diez y media". El portón (E14) lo desmiente. |
-| `B3+` | B3 | [true] [key] Los $40 millones. Motivo. |
-| `H2+` | H2 | [false] Niega los papeles. Empuja hacia EL1 o E25. |
-| `P2+` | P2 | [true] Llamó para cobrarle. |
-| `T4+` | T4 | [true] [key] La horqueta se perdió el martes en la tarde. |
-| `C3+` | C3 | [false] "Una asesoría". Empuja hacia E15·M o E15·C. |
-| `J3+` | J3 | [true] No sabía quién era la cuenta anónima. |
-| `I1+` | I1 | [true] [key] "Su hermano se iba a enojar". Motivo. |
+<!-- La tabla sale de las tarjetas de seguimiento de cards.yaml (pregunta, follow_up, unlocked_by y guide_note). -->
+```follow-ups
+```
 
 ### Confrontaciones ◆ (1 ficha): qué prueba vale
 
@@ -79,24 +70,13 @@ title: Tabla de respuestas
 Una confrontación entrega una sola tarjeta. Si lo que muestran sirve para varias, entrega la de la combinación más específica (por ejemplo, E13b junto con T5 abre B11, no B9). Las otras se consiguen con otra confrontación. Si muestran E29·B, pregúntales qué quieren señalar: la lectura del mensaje y la llamada abren B7; la búsqueda del barro abre B13. Si muestran E19·B, igual: la pintura blanca de las suelas abre B13; la boleta del Copec abre B8.
 {.small}
 
-### Testigos (1 ficha)
-
-Se piden con "TESTIGO nombre" cuando ese nombre ya apareció en su material (Rosa sale en E01, Iturra en E13a, el conserje en B1, Maca en la declaración de Toto). Si todavía no apareció, entrega la tarjeta TESTIGO "No disponible" y no cobres.
-
-| Testigo | Aparece en | Entrega |
-|---|---|---|
-| Rosa Huenchumilla, vecina del frente | E01, E04 | Tarjetas R1 y R2 (1 ficha cada una) |
-| Kevin Huenchumilla | R1 | Tarjeta K1 + E09 |
-| Juan Cifuentes, colectivero | R2 | Tarjeta CO1 |
-| Elena Mardones | E04, E20, H1 | Tarjeta EL1 |
-| Claudia Carrasco | EL1, H5 | Tarjeta CL1 |
-| Luis Riquelme, conserje | B1 | Tarjeta L1 + E14 |
-| Macarena Vidal | declaración de Toto, T1 | Tarjeta M1 + E21 |
-| Patricio Sepúlveda | E22 | Tarjeta PS1 |
-| Rodrigo Iturra | E13a, I1 y E25·a (Cordillera Sur) | Tarjeta I1 + E27 |
-| Fernanda Ortiz | declaración de Pía, P1 | Tarjeta F1 + E23 |
-| Perito informático (PER1) | E13a o E13b (el desbloqueo de las 23:18) | Tarjeta PER1. Es la pista guiada 4 convertida en pregunta: cuesta 1 ficha y no resta puntos. |
-| Jorge P8, la Dra. Ulloa, M. Fuentealba, el encargado del Copec u otro nombre del material | E04, E06, E12, E28 | Tarjeta "Nada que aportar". No se cobra. |
+<!-- La tabla sale de las tarjetas de testigo de cards.yaml (who, appears_in, attach y guide_note); aquí solo va la fila de los demás nombres. -->
+```witnesses
+others:
+  names: Jorge P8, la Dra. Ulloa, M. Fuentealba, el encargado del Copec u otro nombre del material
+  appears_in: [E04, E06, E12, E28]
+  card: NADA QUE APORTAR
+```
 
 ### Diligencias del menú del equipo
 

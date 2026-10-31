@@ -7,7 +7,8 @@ title: Hoja rápida del director
 Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla completa está en "Cómo responder". Fichas de coartada: solo DG9, DG11 o un testigo que ubique a alguien.
 {.small}
 
-```columns 230
+<!-- Seguimientos y testigos salen de cards.yaml; por eso este bloque abre con cuatro comillas. -->
+````columns 230
 | Pregunta | Entrega |
 |---|---|
 | `B1` | tarjeta + E30 |
@@ -31,14 +32,9 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `C2` | tarjeta + E10 |
 | `C3` | tarjeta |
 | `C4` | tarjeta |
-| `B1+` | tarjeta (si ya tienen la base) |
-| `B3+` | tarjeta (si ya tienen la base) |
-| `H2+` | tarjeta (si ya tienen la base) |
-| `P2+` | tarjeta (si ya tienen la base) |
-| `T4+` | tarjeta (si ya tienen la base) |
-| `C3+` | tarjeta (si ya tienen la base) |
-| `J3+` | tarjeta (si ya tienen la base) |
-| `I1+` | tarjeta (si ya tienen la base) |
+
+```quick-follow-ups
+```
 ===
 | Si muestran | Entrega |
 |---|---|
@@ -67,20 +63,10 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `B◆` | Solo E26·B, solo E17·B, o las dos sin E08 ni E28 → B✕ |
 | `Cualquier ◆` | Cualquier otra prueba → "Eso no prueba nada" |
 ===
-| Testigo | Entrega |
-|---|---|
-| `Rosa` | R1 · R2 |
-| `Kevin Huenchumilla` | K1 + E09 |
-| `Juan Cifuentes` | CO1 |
-| `Elena Mardones` | EL1 |
-| `Claudia Carrasco` | CL1 |
-| `Luis Riquelme` | L1 + E14 |
-| `Macarena Vidal` | M1 + E21 |
-| `Patricio Sepúlveda` | PS1 |
-| `Rodrigo Iturra` | I1 + E27 |
-| `Fernanda Ortiz` | F1 + E23 |
-| `Perito informático` | PER1 |
-| `Otros nombres` | "Nada que aportar" (no se cobra) |
+```quick-witnesses
+others:
+  card: NADA QUE APORTAR
+```
 ===
 | Diligencia | Entrega |
 |---|---|
@@ -98,4 +84,4 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `DG9` | Antenas → E26·B / T / P / C / H / J |
 | `DG11` | Copec E28 · edificio E14 · clínica E22 · hospital E20 · karaoke sin hallazgos |
 | `DG12` | Celular → E29·P / B · J (E29·J + E08) · otro E29·X |
-```
+````

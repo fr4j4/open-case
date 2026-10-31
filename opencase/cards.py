@@ -1,6 +1,7 @@
 """Cut-out cards (63 × 88 mm), badges, requests, envelope labels, tokens and the sheets they print on."""
 import re
 
+from . import followups
 from .loader import CaseError, as_list
 from .markup import e, line, plain_text
 
@@ -99,8 +100,7 @@ def card(c, group, case, extra=None):
         parts.append(f'<div class="oc-tarjeta__pregunta">{line(c["note"])}</div>')
     for att in as_list(c.get("attach")):
         parts.append(f'<div class="oc-tarjeta__pie">{e(case.t("cards.attached"))} {e(att)}</div>')
-    for nxt in as_list(c.get("follow_up")):
-        parts.append(f'<div class="oc-tarjeta__pie oc-tarjeta__pie--seg">{e(case.t("cards.follow_up_available"))}: {e(nxt)}</div>')
+    parts.append(followups.card_box(c, case))
     if c.get("footer"):
         parts.append(f'<div class="oc-tarjeta__pie oc-tarjeta__pie--seg">{line(c["footer"])}</div>')
     parts.append(brand(case))
