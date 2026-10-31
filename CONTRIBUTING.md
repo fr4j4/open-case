@@ -29,5 +29,6 @@ Add `languages/<lang>/` with the same file names as the base language, and add t
 
 - Code, comments, option names and messages are in English.
 - Keep the design system's class names as they are (`oc-...`); they come from the published design guide.
-- Before you open the pull request, export the sample case and compare the result; a change that is not meant to alter the output should leave the generated HTML unchanged.
-- Run `python export.py cases/chupacabras-labranza --check` and an export of the sample case.
+- Run `make test` (or `python -m pytest`). The HTML of every document of every case is kept in `tests/snapshots/`: a change that is not meant to alter the output must leave it unchanged. When the change is meant to alter it, run `make test-update` and let the diff of `tests/snapshots/` show it in the pull request.
+- Run `make compare` (or `python tools/snapshot.py compare development`) and paste its report into the pull request: the text that changes, sheet by sheet, the pages of every PDF and every sheet, and the cards that do not fit.
+- Run `make lint` (the skill's `case_lint.py` on every case) and `python export.py cases/chupacabras-labranza --check`.
