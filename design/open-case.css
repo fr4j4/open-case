@@ -214,7 +214,7 @@
 .oc-firma div{display:flex;flex-direction:column;gap:2px}
 /* Firma dibujada con trazos (SVG del caso): ocupa la misma línea que la firma con fuente y sobresale un poco, como una de verdad */
 .oc-firma__trazo--svg{height:30px}
-.oc-firma__svg{display:block;height:46px;width:auto;max-width:260px;margin:-10px 0 -6px;overflow:visible}
+.oc-firma__svg{display:block;height:42px;width:auto;max-width:260px;margin:-5px 0 -7px;overflow:visible}
 
 /* Declaración mecanografiada */
 .oc-declaracion{font-family:var(--font-maquina);font-size:15px;line-height:1.65;white-space:pre-line;color:var(--tinta)}

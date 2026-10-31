@@ -33,7 +33,8 @@ HEADER = """\
 # Signatures of the case: the pen strokes of each person who signs a sheet (neutral, the same in every
 # language). A ```signature block uses them with `signer: <id>`; a signer with no strokes here is printed
 # with the handwriting font (its `scrawl:`). Each stroke is SVG path data in a box of `viewbox`, drawn
-# with a pen `width` units thick. Drawn with tools/signatures.py; retouch them by hand if you like.
+# with a pen `width` units thick. Drawn with tools/signatures.py; retouch them by hand if you like (the tool
+# only rewrites the signatures it draws again, so the others keep their retouches and comments).
 # Format reference: docs/case-format.md ("signatures.yaml").
 """
 
@@ -245,16 +246,54 @@ def signers(case_root):
     return out
 
 
-def write(path, data):
-    lines = [HEADER, "signatures:"]
+def entry(sid, sig):
+    """The lines of one signature as the tool writes it."""
+    lines = [f"  {_key(sid)}:"]
+    for key in ("name", "family", "seed", "width", "viewbox"):
+        if key in sig:
+            lines.append(f"    {key}: {_scalar(sig[key])}")
+    lines.append("    strokes:")
+    return lines + [f'      - "{d}"' for d in sig["strokes"]]
+
+
+KEY_LINE = re.compile(r"^  (?P<key>[^\s#][^:]*?)\s*:\s*(#.*)?$")
+
+
+def blocks(text):
+    """(head, {id: lines}) of a signatures.yaml as written: the text up to `signatures:` and the text of each
+    signature, with the comments just above it, so the ones not drawn again are written back untouched."""
+    lines = text.split("\n")
+    start = next((i for i, l in enumerate(lines) if l.startswith("signatures:")), None)
+    if start is None:
+        return None, {}
+    head, out, current, pending = lines[:start + 1], {}, None, []
+    for l in lines[start + 1:]:
+        m = KEY_LINE.match(l)
+        if m:
+            current = str(yaml.safe_load(m.group("key")))
+            out[current] = pending + [l]
+            pending = []
+        elif not l.strip() or l.lstrip().startswith("#"):
+            pending.append(l)
+        elif current is None:
+            head += pending + [l]
+            pending = []
+        else:
+            out[current] += pending + [l]
+            pending = []
+    if current is not None:
+        out[current] += [l for l in pending if l.strip()]
+    return head, out
+
+
+def write(path, data, redrawn):
+    """Writes the file: the signatures in `redrawn` as the tool draws them, the rest exactly as they were (with
+    any comment or retouch by hand)."""
+    head, kept = blocks(path.read_text(encoding="utf-8")) if path.exists() else (None, {})
+    lines = head or [HEADER, "signatures:"]
     for sid, sig in data.items():
-        lines.append(f"  {_key(sid)}:")
-        for key in ("name", "family", "seed", "width", "viewbox"):
-            if key in sig:
-                lines.append(f"    {key}: {_scalar(sig[key])}")
-        lines.append("    strokes:")
-        lines += [f'      - "{d}"' for d in sig["strokes"]]
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        lines += entry(sid, sig) if sid in redrawn or sid not in kept else kept[sid]
+    path.write_text("\n".join(lines).rstrip("\n") + "\n", encoding="utf-8")
 
 
 def _key(k):
@@ -310,7 +349,7 @@ def main(argv=None):
                      "viewbox": viewbox, "strokes": strokes}
         changed.append(sid)
     if changed:
-        write(path, data)
+        write(path, data, changed)
         print(f"{path.relative_to(Path.cwd()) if path.is_relative_to(Path.cwd()) else path}: drew {', '.join(changed)}")
     else:
         print("every signer already has strokes (use --redo ID to draw one again)")

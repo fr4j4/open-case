@@ -9,6 +9,7 @@ A ```signature block names the signer of an item with `signer: <id>`. When the c
 id, the item is printed with the handwriting font (its `scrawl:`), as before. tools/signatures.py draws the
 strokes from the signer's name; the export only reads them.
 """
+import math
 import re
 
 from .loader import CaseError, read_yaml_file
@@ -17,6 +18,7 @@ from .markup import e
 FILE = "signatures.yaml"
 DEFAULT_WIDTH = 1.5
 DEFAULT_VIEWBOX = "0 0 120 40"
+NUMBER = re.compile(r"^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$")
 PATH_DATA = re.compile(r"^\s*[Mm][\sMmLlHhVvCcSsQqTtAaZz0-9.,eE+\-]*$")
 
 
@@ -40,19 +42,26 @@ def load(case):
         for d in strokes:
             if not isinstance(d, str) or not PATH_DATA.match(d):
                 raise CaseError(f"a stroke of '{sid}' is not SVG path data (it must start with M): {str(d)[:40]}", path)
-        viewbox = str(sig.get("viewbox", DEFAULT_VIEWBOX))
-        numbers = viewbox.replace(",", " ").split()
-        try:
-            ok = len(numbers) == 4 and float(numbers[2]) > 0 and float(numbers[3]) > 0
-        except ValueError:
-            ok = False
-        if not ok:
+        viewbox = _viewbox(sig.get("viewbox", DEFAULT_VIEWBOX))
+        if viewbox is None:
             raise CaseError(f"the viewbox of '{sid}' must be four numbers: x y width height", path)
         width = sig.get("width", DEFAULT_WIDTH)
-        if not isinstance(width, (int, float)) or width <= 0:
+        if isinstance(width, bool) or not isinstance(width, (int, float)) or not 0 < width < math.inf:
             raise CaseError(f"the width of '{sid}' must be a number above 0", path)
-        case.signatures[sid] = {"strokes": strokes, "width": width, "viewbox": " ".join(numbers),
+        case.signatures[sid] = {"strokes": strokes, "width": width, "viewbox": viewbox,
                                 "name": str(sig.get("name", ""))}
+
+
+def _viewbox(value):
+    """The viewbox written back from its four numbers (so nothing else reaches the SVG), or None when it is not
+    x y width height with a width and a height above 0."""
+    parts = str(value).replace(",", " ").split()
+    if len(parts) != 4 or not all(NUMBER.match(p) for p in parts):
+        return None
+    numbers = [float(p) for p in parts]
+    if numbers[2] <= 0 or numbers[3] <= 0:
+        return None
+    return " ".join(f"{n:g}" for n in numbers)
 
 
 def items(case):

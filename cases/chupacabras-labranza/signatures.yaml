@@ -1,7 +1,8 @@
 # Signatures of the case: the pen strokes of each person who signs a sheet (neutral, the same in every
 # language). A ```signature block uses them with `signer: <id>`; a signer with no strokes here is printed
 # with the handwriting font (its `scrawl:`). Each stroke is SVG path data in a box of `viewbox`, drawn
-# with a pen `width` units thick. Drawn with tools/signatures.py; retouch them by hand if you like.
+# with a pen `width` units thick. Drawn with tools/signatures.py; retouch them by hand if you like (the tool
+# only rewrites the signatures it draws again, so the others keep their retouches and comments).
 # Format reference: docs/case-format.md ("signatures.yaml").
 
 signatures:

@@ -69,6 +69,9 @@ def test_unused_signature_is_a_warning(case_dir):
     ({"strokes": ["<path d='M0 0'/>"]}, "is not SVG path data"),
     ({"strokes": ["M0 0L1 1"], "viewbox": "0 0 90"}, "four numbers"),
     ({"strokes": ["M0 0L1 1"], "width": 0}, "above 0"),
+    ({"strokes": ["M0 0L1 1"], "width": True}, "above 0"),
+    ({"strokes": ["M0 0L1 1"], "viewbox": '0"onload="alert(1)" x 10 10'}, "four numbers"),
+    ({"strokes": ["M0 0L1 1"], "viewbox": "0 0 nan 40"}, "four numbers"),
 ])
 def test_bad_strokes_stop_the_export(case_dir, entry, message):
     write(case_dir / "signatures.yaml", yaml.safe_dump({"signatures": {"A": entry}}))
@@ -91,6 +94,28 @@ def test_the_tool_draws_the_signers_of_the_case(case_dir, capsys):
     tool.main([str(case_dir), "--redo", "A"])
     again = yaml.safe_load((case_dir / "signatures.yaml").read_text(encoding="utf-8"))["signatures"]["A"]
     assert again["seed"] == 2 and again["strokes"] != first
+
+
+def test_viewbox_is_written_from_its_numbers(case_dir):
+    write(case_dir / "signatures.yaml", yaml.safe_dump({"signatures": {"A": {"strokes": ["M0 0L1 1"],
+                                                                             "viewbox": "0, 0, 90.50, 4e1"}}}))
+    sign(case_dir, {"signer": "A", "label": "Firma"})
+    html, _ = sheets_html(case_dir)
+    assert 'viewBox="0 0 90.5 40"' in html
+
+
+def test_the_tool_keeps_what_it_does_not_draw_again(case_dir):
+    sign(case_dir, {"signer": "A", "scrawl": "Ana Pérez"}, {"signer": "B", "scrawl": "Bruno Soto"})
+    tool.main([str(case_dir)])
+    path = case_dir / "signatures.yaml"
+    text = path.read_text(encoding="utf-8").replace("  A:\n", "  # retocado a mano\n  A:   # Ana\n")
+    text = text.replace("    seed: 1\n", "    seed: 1  # la primera\n", 1)
+    path.write_text(text, encoding="utf-8")
+    tool.main([str(case_dir), "--redo", "B"])
+    after = path.read_text(encoding="utf-8")
+    a_part = lambda t: t[t.index("  # retocado a mano"):t.index("  B:")]
+    assert a_part(after) == a_part(text)          # A, its comments and its retouch are untouched
+    assert yaml.safe_load(after)["signatures"]["B"]["seed"] == 2
 
 
 def test_drawing_is_deterministic():
