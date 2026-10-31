@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prueba de red · Open Case</title>
+<link rel="stylesheet" href="red.css">
+</head>
+<body>
+<main>
+  <h1>Prueba de red</h1>
+  <p class="note">Herramienta de diagnóstico de Open Case: mide si los teléfonos de una mesa pueden hablar entre sí por cada transporte. Protocolo: <code>docs/web-network-test.md</code>.</p>
+
+  <section id="inicio" hidden>
+    <p>¿Qué teléfono es este?</p>
+    <div class="row">
+      <button id="soy-director" class="primary">Soy el director</button>
+      <button id="soy-equipo">Soy un teléfono de equipo</button>
+    </div>
+    <label>Código de sala (solo si te lo dieron)
+      <input id="sala-in" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="p. ej. K7QX2">
+    </label>
+  </section>
+
+  <section id="director" hidden>
+    <h2>Director</h2>
+    <div class="qrbox">
+      <div id="qr" aria-label="Código QR para unirse"></div>
+      <div>
+        <p>Sala <strong id="sala-dir" class="code"></strong></p>
+        <p class="small">Los demás teléfonos escanean el código o abren <span id="url-unir" class="code"></span></p>
+      </div>
+    </div>
+    <p>Control: <span id="ctl-estado" class="pill">sin conectar</span> · Teléfonos: <strong id="n-tel">0</strong></p>
+    <ul id="telefonos" class="small"></ul>
+
+    <h3>Ajustes</h3>
+    <label>Red que se prueba
+      <select id="red"></select>
+    </label>
+    <label>Intentos por transporte
+      <input id="intentos" type="number" min="1" max="30" value="10">
+    </label>
+    <fieldset>
+      <legend>Transportes</legend>
+      <div id="transportes"></div>
+    </fieldset>
+    <label>Teléfonos que se esperan
+      <input id="esperar" type="number" min="1" max="10" value="3">
+    </label>
+    <div class="row">
+      <button id="run-full" class="primary">Prueba completa</button>
+      <button id="run-one">Una ronda</button>
+      <button id="run-lock">Una ronda con bloqueo</button>
+      <button id="run-stop">Detener</button>
+    </div>
+    <p id="estado" class="status" role="status">Listo.</p>
+
+    <h3>Resultados</h3>
+    <div id="tabla"></div>
+    <div id="veredicto" class="verdict"></div>
+    <div class="row">
+      <button id="copiar">Copiar JSON</button>
+      <button id="bajar">Descargar JSON</button>
+      <button id="limpiar">Borrar resultados</button>
+    </div>
+    <details>
+      <summary>Sumar resultados de otra sesión u otro día</summary>
+      <textarea id="pegar" rows="5" placeholder="Pega aquí el JSON copiado de otra sesión"></textarea>
+      <button id="fusionar">Sumar</button>
+    </details>
+  </section>
+
+  <section id="equipo" hidden>
+    <h2>Teléfono de equipo</h2>
+    <p>Sala <strong id="sala-eq" class="code"></strong> · Este teléfono: <strong id="disp" class="code"></strong></p>
+    <p>Control: <span id="ctl-estado-eq" class="pill">sin conectar</span></p>
+    <label>Red en la que estás
+      <select id="red-eq"></select>
+    </label>
+    <p id="estado-eq" class="status" role="status">Esperando al director…</p>
+    <p class="small">Mantén esta pantalla abierta. Si el director pide la prueba de bloqueo, bloquea el teléfono 30 segundos y vuelve.</p>
+    <details>
+      <summary>Modo manual (si el control no conecta)</summary>
+      <label>Transporte
+        <select id="man-transporte"></select>
+      </label>
+      <label>Número de intento
+        <input id="man-n" type="number" min="1" value="1">
+      </label>
+      <button id="man-unir">Unirme a esa ronda</button>
+    </details>
+    <h3>Mis rondas</h3>
+    <pre id="log-eq" class="log"></pre>
+  </section>
+</main>
+<script type="module" src="red.js"></script>
+</body>
+</html>

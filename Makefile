@@ -70,4 +70,11 @@ compare:
 	$(PY) tools/snapshot.py compare $(BASE) $(HEAD) $(ARGS)
 
 clean:
-	rm -rf output _site .site-work .snapshots
+	rm -rf output _site _preview .site-work .snapshots
+
+# Web (phase F0): serve the site over an HTTPS tunnel (cloudflared) to try it on phones.
+#   make web-preview                  build the light site, serve it and open the tunnel; prints the URLs
+#   make web-preview ARGS="--no-tunnel --port 9000"
+.PHONY: web-preview
+web-preview:
+	$(PY) tools/web_preview.py $(ARGS)

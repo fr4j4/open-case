@@ -34,6 +34,9 @@ neither license covers.
      The texts are in design/fonts/licenses/.
    - Third-party software the exporter installs (PyYAML, Markdown, Playwright, pypdf and
      Chromium) is under its own licenses.
+   - JavaScript libraries copied into site/play/vendor/ (Trystero, mqtt, @noble/secp256k1 and
+     qrcode-generator), all MIT. Versions and license texts: site/play/vendor/LEEME.md and
+     site/play/vendor/licenses/.
 
 About the images of the sample case
 -----------------------------------

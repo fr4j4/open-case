@@ -1,0 +1,26 @@
+:root { --bg: #f6f3ec; --fg: #1d1b18; --accent: #8a1f1f; --line: #cfc8ba; --ok: #1f6b3a; --bad: #9c1c1c; }
+@media (prefers-color-scheme: dark) { :root { --bg: #1b1a18; --fg: #ece7dc; --accent: #e26d6d; --line: #3d3a34; --ok: #6fcf97; --bad: #ff8a8a; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.45 system-ui, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 1.5rem; margin: 0 0 4px; } h2 { font-size: 1.2rem; } h3 { font-size: 1rem; margin-top: 1.4rem; }
+.note, .small { font-size: .9rem; opacity: .8; }
+.code { font-family: ui-monospace, monospace; }
+label { display: block; margin: .6rem 0; }
+input, select, textarea, button { font: inherit; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: inherit; }
+input, select, textarea { width: 100%; }
+button { cursor: pointer; } button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin: .8rem 0; }
+.qrbox { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+#qr svg { width: 180px; height: 180px; background: #fff; padding: 8px; border-radius: 6px; }
+.pill { border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; font-size: .85rem; }
+.pill.ok { color: var(--ok); border-color: var(--ok); } .pill.bad { color: var(--bad); border-color: var(--bad); }
+.status { min-height: 1.4em; font-weight: 600; }
+fieldset { border: 1px solid var(--line); border-radius: 6px; } fieldset label { display: inline-block; margin-right: 12px; }
+fieldset input { width: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; } th, td { border-bottom: 1px solid var(--line); padding: 4px 6px; text-align: right; } th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+.verdict { margin: 1rem 0; padding: .7rem; border: 1px solid var(--line); border-radius: 6px; }
+.verdict ul { margin: .4rem 0; padding-left: 1.2rem; }
+.log { font-size: .8rem; white-space: pre-wrap; max-height: 260px; overflow: auto; border: 1px solid var(--line); padding: 8px; border-radius: 6px; }
+textarea { font-family: ui-monospace, monospace; font-size: .8rem; }
+[hidden] { display: none !important; }
