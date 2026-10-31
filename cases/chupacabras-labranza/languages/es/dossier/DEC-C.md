@@ -19,6 +19,6 @@ A Matías Ferrada lo conocía de vista. Me consultó alguna vez por los animales
 ```
 
 ```signature
-- {scrawl: Dra. Camila Rivas Ortega, label: Firma del declarante}
+- {scrawl: Camila Rivas Ortega, label: Firma del declarante}
 - Detective a cargo
 ```

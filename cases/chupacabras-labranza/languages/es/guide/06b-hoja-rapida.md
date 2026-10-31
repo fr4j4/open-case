@@ -49,9 +49,9 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `B◆` | Solo la llamada de E13a → B7a |
 | `B◆` | E13b o E13a → B9 |
 | `B◆` | T5, sola o con E13b → B11 |
-| `B◆` | E18 → B8 |
+| `B◆` | E18 o la boleta de E19·B → B8 |
 | `B◆` | DEC·B junto con E06 → B12 |
-| `B◆` | E19·B o E29·B → B13 |
+| `B◆` | E19·B (pintura) o E29·B (barro) → B13 |
 | `H◆` | E25·b o EL1 → H5 |
 | `H◆` | E13b o la cláusula 7 de E25 → H6 |
 | `J◆` | E03 junto con E02 foto 4, E19·J o E15·J → J5 |
@@ -90,12 +90,12 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `DG2C` | Cuentas e Instagram → E13c |
 | `DG10` | Mensaje borrado (2 fichas) → E13d |
 | `DG3` | Cartola → E15·B / T / C / P / H / J / M |
-| `DG4` | Redes → E16 |
+| `DG4` | Redes (sin lives) → E16 |
 | `DG5` | Vehículo → E17·B / T / H / C / P / J |
 | `DG6` | Estero → E18 (otro lugar: sin hallazgos) |
 | `DG7` | Ropa → E19·T / B / J / P / H / C |
 | `DG8` | Caseta: escritorio E24 · caja fuerte E25 |
 | `DG9` | Antenas → E26·B / T / P / C / H / J |
 | `DG11` | Copec E28 · edificio E14 · clínica E22 · hospital E20 · karaoke sin hallazgos |
-| `DG12` | Celular → E29·P / B · otro E29·X |
+| `DG12` | Celular → E29·P / B · J (E29·J + E08) · otro E29·X |
 ```

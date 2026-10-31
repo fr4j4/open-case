@@ -4,7 +4,7 @@ description: Qué pruebas llevan a qué conclusión
 title: Cadena de deducción
 ---
 
-Arriba está la base, a la que llega cualquier equipo. Debajo hay tres caminos independientes hacia Benjamín (vehículo, coartada, lo que sabía), más un cuarto, el físico (B13 con E19·B o E29·B, B8 con E18), que no está dibujado. Cada uno por separado deja una duda razonable; dos juntos, con sus tarjetas ◆, alcanzan para la confesión. Abajo, el motivo, que se completa con el mensaje borrado.
+Arriba está la base, a la que llega cualquier equipo. Debajo hay tres caminos independientes hacia Benjamín (vehículo, coartada, lo que sabía), más un cuarto, el físico (B13 con E19·B o E29·B, B8 con E18 o con la boleta de E19·B), que no está dibujado. Cada uno por separado deja una duda razonable; dos juntos, con sus tarjetas ◆, alcanzan para la confesión. Abajo, el motivo, que se completa con el mensaje borrado.
 
 ```svg diagrams/deduccion.svg
 ```

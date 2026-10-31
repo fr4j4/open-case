@@ -52,7 +52,7 @@ Que alguien "no tenga motivo" o "no tenga auto" no cuenta como descarte, y la de
 ### Cuándo confiesa Benjamín
 
 ```note-ok
-Benjamín confiesa si el equipo que lo acusa cumple tres condiciones. **(1)** Pruebas y tarjeta de confrontación de **al menos dos de estos cuatro caminos**: **A · vehículo** = E08 o E28, más E17·B, y la tarjeta B6 o B10; **B · coartada** = E14 y E26·B (las dos), y la tarjeta B5; **C · lo que sabía** = la tarjeta B11 (T5, sola o junto con E13b: Toto dijo que el hermano estuvo solo en el galpón); B12 (el lapsus) vale como contradicción, no como camino; **D · lo físico** = la tarjeta B13 (E19·B o E29·B) o B8 (E18). **(2)** El motivo con una prueba o tarjeta: E13d, E29·P, I1, I1+, B7 o E25·a. **(3)** Lo nombran en la hoja de acusación. Sin la tarjeta ◆ correspondiente, el camino no cuenta. Entonces lees la confesión.
+Benjamín confiesa si el equipo que lo acusa cumple tres condiciones. **(1)** Pruebas y tarjeta de confrontación de **al menos dos de estos cuatro caminos**: **A · vehículo** = E08 o E28, más E17·B, y la tarjeta B6 o B10; **B · coartada** = E14 y E26·B (las dos), y la tarjeta B5; **C · lo que sabía** = la tarjeta B11 (T5, sola o junto con E13b: Toto dijo que el hermano estuvo solo en el galpón); B12 (el lapsus) vale como contradicción, no como camino; **D · lo físico** = la tarjeta B13 (E19·B o E29·B) o B8 (E18 o la boleta de E19·B). **(2)** El motivo con una prueba o tarjeta: E13d, E29·P, I1, I1+, B7 o E25·a. **(3)** Lo nombran en la hoja de acusación. Sin la tarjeta ◆ correspondiente, el camino no cuenta. Entonces lees la confesión.
 ```
 
 ```note-warning

@@ -18,8 +18,8 @@ title: Tabla de respuestas
 | `H1` | Tarjeta H1 | [true] El comprobante del hospital (E20) sale con DG11 hospital. |
 | `H2 · H3` | Tarjetas H2 y H3 | [true] H2 trae el seguimiento H2+ (los papeles: se pone nervioso). |
 | `H4` | Tarjeta H4 | [false] Firmó una promesa de venta (E25·b) y quiso arrepentirse (E13b). |
-| `J1` | Tarjeta J1 | [true] Ofrece el live; las capturas (E08) salen con J2. |
-| `J2 · J4` | Tarjetas J2 + E08 y J4 | [true] [attached] [key] J2 entrega el live (E08). Sobre las luces, no sabe que eran un dron. |
+| `J1` | Tarjeta J1 | [true] Ofrece el live; las capturas (E08) salen con J2 o con DG12 de Javiera (E29·J). |
+| `J2 · J4` | Tarjetas J2 + E08 y J4 | [true] [attached] [key] J2 entrega el live (E08), igual que DG12 de Javiera (E29·J + E08). Sobre las luces, no sabe que eran un dron. |
 | `J3` | Tarjeta J3 (incluye los DMs) | [key] Para el bonus: @vecino_asustado_lab es Matías (E13c). Trae el seguimiento J3+. |
 | `P1` | Tarjeta P1 | [true] Las historias (E23) las entrega Fernanda (F1). E23 también trae la story de las 21:55. |
 | `P2 · P3` | Tarjetas P2 y P3 | [false] Estuvo en El Arrayán de 21:00 a 21:50, más o menos. P2 trae el seguimiento P2+ (la llamada de las 18:05). |
@@ -57,9 +57,9 @@ title: Tabla de respuestas
 | `B◆` | Solo la llamada de E13a (22:17, la hizo él) | Tarjeta B7a (admite la llamada, no el motivo) |
 | `B◆` | E13b o E13a (el borrado o el desbloqueo de las 23:18) | Tarjeta B9 ("yo no tenía su teléfono") |
 | `B◆` | T5 (Toto dijo que el hermano estuvo solo en el galpón), sola o junto con E13b (el chat del galpón) | Tarjeta B11 (vio la horqueta, dice que la dejó) |
-| `B◆` | E18 (la bolsa del Copec) | Tarjeta B8 |
+| `B◆` | E18 (la bolsa del Copec) o la boleta del Copec de las 22:52 en E19·B | Tarjeta B8. La boleta abre solo B8, no B6 ni B10: el camino del vehículo sigue exigiendo el foco de E17·B. |
 | `B◆` | DEC·B junto con E06 (habló del golpe antes de la autopsia) | Tarjeta B12 |
-| `B◆` | E19·B (la pintura blanca en las suelas) o E29·B (la búsqueda del barro) | Tarjeta B13 |
+| `B◆` | E19·B (la pintura blanca en las suelas) o E29·B (la búsqueda del barro) | Tarjeta B13. Con E19·B pueden señalar también la boleta: eso abre B8. |
 | `H◆` | E25·b (promesa de venta) o EL1 | Tarjeta H5 |
 | `H◆` | E13b (el chat de la multa) o la cláusula 7 de E25 | Tarjeta H6 |
 | `J◆` | E03 junto con E02 foto 4, E19·J o E15·J (el molde) | Tarjeta J5 |
@@ -75,7 +75,7 @@ title: Tabla de respuestas
 | `B◆` | Solo E26·B, solo E17·B, o las dos sin E08 ni E28 | Tarjeta B✕ (fallida, pero le dice al equipo qué le falta cruzar). La ficha se cobra. |
 | `Cualquier ◆` | Cualquier otra prueba | Tarjeta "Eso no prueba nada". La ficha se cobra. |
 
-Una confrontación entrega una sola tarjeta. Si lo que muestran sirve para varias, entrega la de la combinación más específica (por ejemplo, E13b junto con T5 abre B11, no B9). Las otras se consiguen con otra confrontación. Si muestran E29·B, pregúntales qué quieren señalar: la lectura del mensaje y la llamada abren B7; la búsqueda del barro abre B13.
+Una confrontación entrega una sola tarjeta. Si lo que muestran sirve para varias, entrega la de la combinación más específica (por ejemplo, E13b junto con T5 abre B11, no B9). Las otras se consiguen con otra confrontación. Si muestran E29·B, pregúntales qué quieren señalar: la lectura del mensaje y la llamada abren B7; la búsqueda del barro abre B13. Si muestran E19·B, igual: la pintura blanca de las suelas abre B13; la boleta del Copec abre B8.
 {.small}
 
 ### Testigos (1 ficha)
@@ -84,6 +84,7 @@ Al comienzo solo está Rosa (R1 y R2). A los demás los piden con "TESTIGO nombr
 
 | Testigo | Aparece en | Entrega |
 |---|---|---|
+| Rosa Huenchumilla, vecina del frente | E01, E04 | Tarjetas R1 y R2 |
 | Kevin Huenchumilla | R1 | Tarjeta K1 + E09 |
 | Juan Cifuentes, colectivero | R2 | Tarjeta CO1 |
 | Elena Mardones | E04, E20, H1 | Tarjeta EL1 |
@@ -108,14 +109,14 @@ Ninguna diligencia queda en blanco: cada persona tiene su propia hoja. Así ning
 | `DG2W` | Celular de la víctima: WhatsApp | E13b |
 | `DG2C` | Celular de la víctima: cuentas e Instagram | E13c |
 | `DG3` | Cartola de Benjamín · Toto · Rivas · Pía · Hernán · Javiera · Matías o la empresa | E15·B · E15·T · E15·C · E15·P · E15·H · E15·J · E15·M |
-| `DG4` | Redes de los sospechosos (1 ficha) | E16 (las de Javiera están en E03). Las historias de Maca y de Pía no salen aquí: las entregan M1 y F1. |
+| `DG4` | Redes de los sospechosos (1 ficha) | E16 (solo publicaciones públicas; las de Javiera están en E03 y su live no sale aquí: sale con J2 o con DG12). Las historias de Maca y de Pía no salen aquí: las entregan M1 y F1. |
 | `DG5` | Vehículo de Benjamín · Toto · Hernán · Rivas · Pía · Javiera | E17·B · E17·T · E17·H · E17·C · E17·P · E17·J |
 | `DG6` | Rastrear el estero (si piden otro lugar: sin hallazgos) | E18 |
 | `DG7` | Ropa o pertenencias de Toto · Benjamín · Javiera · Pía · Hernán · Rivas | E19·T · E19·B · E19·J · E19·P · E19·H · E19·C |
 | `DG8` | Allanar la caseta de El Arrayán: el escritorio · la caja fuerte (1 ficha cada uno) | E24 · E25 |
 | `DG9` | Antenas de Benjamín · Toto · Pía · Rivas · Hernán · Javiera | E26·B · E26·T · E26·P · E26·C · E26·H · E26·J |
 | `DG11` | Cámaras del Copec · del edificio de Benjamín · de la clínica · del hospital · del karaoke | E28 · E14 · E22 · E20 · "Sin hallazgos" (el local no tiene cámaras; las historias las tiene Fernanda, F1) |
-| `DG12` | Celular de Pía · de Benjamín · de otro sospechoso | E29·P · E29·B · E29·X |
+| `DG12` | Celular de Pía · de Benjamín · de Javiera · de otro sospechoso | E29·P · E29·B · E29·J + E08 · E29·X |
 | `DG10` | Recuperar el mensaje borrado (2 fichas) · otra cosa | E13d · si existe en el material, entrégalo; si no, "Sin hallazgos". Nunca inventes una pista. |
 
 ### Preguntas fuera del menú
