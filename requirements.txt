@@ -1,6 +1,9 @@
-# What export.py needs. Install with: pip install -r requirements.txt
+# What export.py, the site build and the tests need, with fixed versions so every machine and the CI
+# make the same PDFs. Install with: pip install -r requirements.txt
 # and then, once: python -m playwright install chromium
-pyyaml>=6.0
-markdown>=3.5
-playwright>=1.45
-pypdf>=4.0
+PyYAML==6.0.3
+Jinja2==3.1.6
+Markdown==3.11.2
+playwright==1.64.1
+pypdf==6.17.0
+pytest==9.2.0

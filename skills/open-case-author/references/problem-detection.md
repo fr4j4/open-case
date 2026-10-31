@@ -32,7 +32,7 @@ Severity: **breaks** (an innocent can be convicted, the culprit is reachable for
 10. Free material: read envelope 1, statements and envelope 2 as a sharp player. Can you name the culprit with certainty? If yes, move a datum to a paid sheet or soften it.
 11. Discards: each innocent has two sources of different origin inside the window; no tower covering the scene; no sighting outside the window; the sum to discard everyone is 50–65 % of the budget.
 12. Red herrings: each one has at least one explaining sheet; the main one is pushed by a notice and dissolves with an alibi plus an innocent explanation of the damning fact.
-13. Dead ends: every procedure target has a sheet or a documented "no findings"; every follow-up has a base card; every witness has an "appears in"; every expert card has the sheet it interprets.
+13. Dead ends: every procedure target has a sheet or a documented "no findings"; every follow-up has a base card, and one that names something its base card does not say has `unlocked_by`; every witness has an `appears_in` where their name (or an alias) is really written; every expert card has the sheet it interprets.
 14. Hidden routes: anything reachable only by a procedure that is not in the menu has a visible alternative.
 15. Confrontation table: every sheet the guide calls a contradiction has a row; combinations are unambiguous; the failed card exists and hints at what is missing without director's notes.
 
@@ -42,8 +42,8 @@ Severity: **breaks** (an innocent can be convicted, the culprit is reachable for
 17. Notices and press: no codes; no sheet contents the teams have not earned.
 18. Cards: no director's notes; no two confrontation answers on one card; nothing about another suspect that the team has not earned.
 19. Envelope labels and suspect cards: no solution content.
-20. Rules in the kit: costs of everything; what is free and who decides; different origin defined; crime window defined for scoring; final phase procedure; tie-break; both-wrong rule; confession scores nothing; hints exist, count and cost.
-21. Kit vs guide: tokens, timings, notice minutes, scoring weights, hint penalties identical.
+20. Rules in the kit (the engine's sheets carry them; check that the case's sheets do not contradict or repeat them): costs of everything; what is free and who decides; different origin defined; crime window defined for scoring; final phase procedure; tie-break; both-wrong rule; confession scores nothing; hints exist, count and cost.
+21. Kit vs guide: tokens, timings, notice minutes, scoring weights, hint penalties identical. The engine prints them from the same figures, so look for a number the case wrote by hand (the lint warns about tokens and notice minutes).
 
 ### D · Director load
 

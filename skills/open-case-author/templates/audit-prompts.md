@@ -5,7 +5,7 @@ Copy, fill `{…}`, hand each one the material as files. Every auditor is told n
 ## Auditor 1 · Consistency
 
 ```
-You are auditing the material of an Open Case investigation game: "{title}". You have the team kit, the envelopes, the complete dossier, the answer cards and the director's guide, as text, plus the images in {folder}. Do not modify any file.
+You are auditing the material of an Open Case investigation game: "{title}". You have the team kit, the envelopes, the Evidence file, the answer cards and the director's guide, as text, plus the images in {folder}. Do not modify any file.
 
 Your only question: does everything fit together? Check, with quotes: times and places (every person's movements against every record, camera, tower and witness); distances against travel times; numbers (counts, money, ages, instalments, minutes); dates against weekdays; who "provided" a sheet against who hands it out in the guide; captions against what the image shows; statements against suspect cards; sketches against the text; everything the guide claims against what the dossier contains.
 
@@ -35,7 +35,7 @@ Verdict: too easy / right / too hard, against these targets: minimum route ≥ 4
 ```
 You will read the material of "{title}" twice. Do not modify any file.
 
-First as a player who has only the team kit, envelope 1, envelope 2 and the suspect cards. List everything that reveals or strongly suggests: the culprit, a red herring as false, a place or person not yet introduced, a key datum, a staging. Then list every rule you would need at the table that the kit does not state or states ambiguously: costs, what is free, follow-ups, witnesses, confrontations, hints, the crime window, "different origin", the final phase procedure, tie-break, both-wrong, whether confession scores.
+First as a player who has only the team kit, envelope 1, envelope 2 and the suspect cards. List everything that reveals or strongly suggests: the culprit, a red herring as false, a place or person not yet introduced, a key datum, a staging. For every follow-up (code ending in +), read its question in the guide next to the card that enables it: if the question names something that card does not say (a person, an object, a time), it must name in its condition ("only if you have …") the evidence where it comes from; list each one that does not. For every witness, check that their name (or the way the material calls them) is in what the guide says under "appears in". Then list every rule you would need at the table that the kit does not state or states ambiguously: costs, what is free, follow-ups, witnesses, confrontations, hints, the crime window, "different origin", the final phase procedure, tie-break, both-wrong, whether confession scores.
 
 Then as a novice director who has only the guide, the dossier and the cards. Could you run the session? List what is missing or unclear: preparation, what to print and how many, envelopes, queue policy, requests outside the table, scoring time and sheet, fairness (collect sheets before presenting), what to read aloud and when. Check that kit and guide agree on every number. Check photos against: no recognisable faces, no blood, no real people, no app logos, file names that do not reveal content.
 
@@ -65,7 +65,7 @@ When I announce the accusation phase, answer with the accusation sheet and the d
 ## Director (simulation log)
 
 ```
-You direct "{title}" for two simulated teams. You have the complete dossier, every card and the guide. Apply the response table literally: one request → one delivery; one ◆ → one card, the most specific; no sheet → "no findings", charged; already have it → "you already have that", not charged; witness not yet appeared → "witness not available", not charged. Never invent a clue. Alternate teams. Read notice 1 after round {n1} and notice 2 with the press card after round {n2}.
+You direct "{title}" for two simulated teams. You have the envelopes, the Evidence file, every card and the guide. Apply the response table literally: one request → one delivery; one ◆ → one card, the most specific; no sheet → "no findings", charged; already have it → "you already have that", not charged; witness not yet appeared → "witness not available", not charged. Never invent a clue. Alternate teams. Read notice 1 after round {n1} and notice 2 with the press card after round {n2}.
 
 Keep this log and nothing else:
 

@@ -165,7 +165,8 @@ def export_case(meta, work, color):
     from .cli import run_language
     root = meta["folder"]
     for lang in meta["languages"]:
-        args = SimpleNamespace(output=str(work), ink_saver=False if color else None, check=False, only=None, images=False)
+        args = SimpleNamespace(output=str(work), ink_saver=False if color else None, check=False, only=None, images=False,
+                               teams=None, chat=False)
         status = run_language(args, root, lang, meta["base"])
         if status:
             print(f"Error: exporting {root.name} [{lang}] failed", file=sys.stderr)

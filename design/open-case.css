@@ -212,6 +212,9 @@
 .oc-firma{display:flex;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;font-size:13px;color:var(--tinta-suave);border-top:1px dashed var(--regla);padding-top:10px}
 .oc-firma__trazo{font-family:var(--font-firma);font-size:24px;line-height:30px;color:var(--boligrafo);display:block}
 .oc-firma div{display:flex;flex-direction:column;gap:2px}
+/* Firma dibujada con trazos (SVG del caso): ocupa la misma línea que la firma con fuente y sobresale un poco, como una de verdad */
+.oc-firma__trazo--svg{height:30px}
+.oc-firma__svg{display:block;height:42px;width:auto;max-width:260px;margin:-5px 0 -7px;overflow:visible}
 
 /* Declaración mecanografiada */
 .oc-declaracion{font-family:var(--font-maquina);font-size:15px;line-height:1.65;white-space:pre-line;color:var(--tinta)}
@@ -317,6 +320,7 @@
 .oc-tarjeta__respuesta{flex:1;min-height:0}
 .oc-tarjeta__pie{font-family:var(--font-mono);font-size:10.5px;line-height:14px;color:var(--sello)}
 .oc-tarjeta__pie--seg{color:var(--marino)}
+.oc-tarjeta__seguimiento{align-self:flex-start;font-family:var(--font-mono);font-size:10px;letter-spacing:-.02em;line-height:12px;color:var(--marino);border:1px solid var(--marino);border-radius:2px;padding:0 5px}
 .oc-tarjeta__marca{font-family:var(--font-display);font-weight:600;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave);display:flex;justify-content:space-between;border-top:1px solid var(--regla);padding-top:3px;margin-top:auto}
 .oc-tarjeta__banda{position:absolute;left:0;top:0;right:0;height:4px;background:var(--marino)}
 .oc-tarjeta--confrontacion .oc-tarjeta__banda{background:var(--sello)}

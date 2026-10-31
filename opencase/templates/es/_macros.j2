@@ -1,0 +1,54 @@
+{#- Ayudas para las plantillas en español. -#}
+
+{#- "1 punto", "2 puntos" -#}
+{% macro pts(n) -%}
+{{ n|num }} {{ "punto" if n == 1 else "puntos" }}
+{%- endmacro %}
+
+{#- "pistas 1 a 3: −1 punto cada una; pistas 4 y 5: −2 puntos cada una" -#}
+{% macro hint_costs(groups) -%}
+{% for g in groups -%}
+{% if g.first == g.last %}pista {{ g.first }}: −{{ pts(g.penalty) }}{% elif g.last == g.first + 1 %}pistas {{ g.first }} y {{ g.last }}: −{{ pts(g.penalty) }} cada una{% else %}pistas {{ g.first }} a {{ g.last }}: −{{ pts(g.penalty) }} cada una{% endif %}{{ "; " if not loop.last else "" }}
+{%- endfor %}
+{%- endmacro %}
+
+{#- Corto, para tablas: "1.ª a 3.ª −1; 4.ª y 5.ª −2" -#}
+{% macro hint_costs_short(groups) -%}
+{% for g in groups -%}
+{% if g.first == g.last %}{{ g.first }}.ª{% elif g.last == g.first + 1 %}{{ g.first }}.ª y {{ g.last }}.ª{% else %}{{ g.first }}.ª a {{ g.last }}.ª{% endif %} −{{ g.penalty|num }}{{ "; " if not loop.last else "" }}
+{%- endfor %}
+{%- endmacro %}
+
+{#- "el minuto 10 para el aviso 1 y el 20 para el aviso 2" -#}
+{% macro notice_plan(minutes) -%}
+{% for m in minutes -%}
+{% if loop.first %}el minuto {{ m }} para el aviso {{ loop.index }}{% else %}{{ " y " if loop.last else ", " }}el {{ m }} para el aviso {{ loop.index }}{% endif %}
+{%- endfor %}
+{%- endmacro %}
+
+{#- "10, 30 y 15" -#}
+{% macro and_list(items) -%}
+{% for x in items -%}
+{{ x }}{% if not loop.last %}{{ " y " if loop.revindex == 2 else ", " }}{% endif %}
+{%- endfor %}
+{%- endmacro %}
+
+{#- El código de una diligencia: con borde punteado si se puede pagar con ficha de coartada. -#}
+{% macro dg(p, f) -%}
+{% if p.alibi and f.alibi_tokens_per_team %}<code class="oc-codigo--coartada">{{ p.code }}</code>{% else %}`{{ p.code }}`{% endif %}
+{%- endmacro %}
+
+{#- Lo que cuesta en el menú: "1", "1 c/u", "1 o 2" -#}
+{% macro dg_cost(p) -%}
+{% if p.each %}{{ p.cost }} c/u{% else %}{{ p.costs|join(" o ") }}{% endif %}
+{%- endmacro %}
+
+{#- "(2 fichas)" junto a un destino que cuesta distinto -#}
+{% macro tokens(n) -%}
+{{ n }} {{ "ficha" if n == 1 else "fichas" }}
+{%- endmacro %}
+
+{#- Lo que se entrega por un destino: E29·J + E08, "Sin hallazgos" o lo que diga el material -#}
+{% macro result(r, quick=False) -%}
+{% if r.special == "none" %}{{ "sin hallazgos" if quick else '"Sin hallazgos"' }}{% elif r.special == "material" %}{{ "si existe en el material" if quick else 'si existe en el material, entrégalo; si no, "Sin hallazgos". Nunca inventes una pista.' }}{% else %}{{ r.shown|join(" + ") }}{% endif %}
+{%- endmacro %}

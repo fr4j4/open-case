@@ -1,6 +1,8 @@
 # Answer cards. Each group prints together and in this order.
 # type: answer (default), follow-up, confrontation, failed, witness, wildcard, notice, press, hint, closing.
 # menu: true  -> the question appears in the team kit's menu.
+# Follow-ups: unlocked_by names the evidence they also need; guide_note is the director's note in the guide.
+# Witnesses: appears_in says where the teams read their name, aliases how the material calls them.
 # At most 420 characters per answer (card standard). If it does not fit, the exporter warns.
 
 groups:
@@ -50,8 +52,8 @@ groups:
         answer: '"…Ya, lo llamé yo, no me acordaba. Para pelear por plata, como siempre. Los hermanos se llaman, ¿o ahora es delito?"'
       - code: B8
         type: confrontation
-        question: '"Encontramos una bolsa del Copec en el estero."'
-        answer: '"¿Una bolsa del Copec? Hay miles de bolsas del Copec, detective. Yo cargo bencina como todo el mundo."'
+        question: '"Hay algo del Copec que lo compromete."'
+        answer: '"¿Una boleta? Habré cargado de pasada, no me acuerdo de la hora. Hay miles de bolsas y boletas del Copec, detective."'
       - code: B9
         type: confrontation
         question: '"Alguien borró el mensaje del grupo desde el teléfono de Matías a las 23:18."'
@@ -79,10 +81,12 @@ groups:
         type: follow-up
         question: ¿A qué hora se durmió?
         answer: '"Temprano, como a las diez y media. No salí, se lo juro."'
+        guide_note: '[false] "Me dormí a las diez y media". El portón (E14) lo desmiente.'
       - code: B3+
         type: follow-up
         question: ¿De qué plata peleaban?
         answer: '"De la plata del proyecto. Yo puse cuarenta millones hace un año y medio. Él decía que era un préstamo; yo digo que era mi parte."'
+        guide_note: '[true] [key] Los $40 millones. Motivo.'
 
   - title: Don Hernán Carrasco
     suspect: H
@@ -117,7 +121,9 @@ groups:
       - code: H2+
         type: follow-up
         question: ¿Qué papeles le pidió devolver a Matías?
+        unlocked_by: E13b      # "Devuélvame los papeles" está en su chat con Matías
         answer: '"…¿Qué papeles? No sé de qué me habla, mijo." (Se pone nervioso.)'
+        guide_note: '[false] Niega los papeles. Empuja hacia EL1 o E25.'
 
   - title: Javiera Peña
     suspect: J
@@ -157,6 +163,7 @@ groups:
         type: follow-up
         question: ¿Sabía quién era @vecino_asustado_lab?
         answer: '"No. Nunca me dijo. Y nunca pregunté, me convenía."'
+        guide_note: '[true] No sabía quién era la cuenta anónima.'
 
   - title: Pía Sandoval
     suspect: P
@@ -166,7 +173,7 @@ groups:
       - code: P1
         menu: true
         question: ¿Dónde estuvo el viernes en la noche?
-        answer: '"En un karaoke en el centro de Temuco con mi amiga Fernanda, desde las once menos cuarto. La Fer tiene todas las historias, pregúntenle."'
+        answer: '"En un karaoke en el centro de Temuco con mi amiga Fernanda, desde un cuarto para las once. La Fer tiene todas las historias, pregúntenle."'
       - code: P2
         menu: true
         question: ¿Cuándo vio a Matías por última vez?
@@ -191,7 +198,9 @@ groups:
       - code: P2+
         type: follow-up
         question: ¿Por qué lo llamó a las 18:05 del viernes?
+        unlocked_by: E13a      # la llamada perdida de las 18:05 está en el registro de llamadas
         answer: '"Para cobrarle. Me debía plata. Pero no me contestó, como siempre."'
+        guide_note: '[true] Llamó para cobrarle.'
 
   - title: Toto Lagos
     suspect: T
@@ -201,7 +210,7 @@ groups:
       - code: T1
         menu: true
         question: ¿Dónde estuvo el viernes en la noche?
-        answer: '"En la fiesta de la Maca, en la villa. Llegué tipo once menos cuarto y me quedé dormido ahí. La Maca subió fotos, pregúntenle."'
+        answer: '"En la fiesta de la Maca, en la villa. Llegué tipo un cuarto para las once y me quedé dormido ahí. La Maca subió fotos, pregúntenle."'
       - code: T2
         menu: true
         question: ¿Cómo encontró el cuerpo?
@@ -226,11 +235,12 @@ groups:
       - code: T7
         type: confrontation
         question: '"¿Qué era ''lo de hoy'' y qué le debía Matías?"'
-        answer: '"Lo de hoy era la oveja del jueves, jefe. Esa la hice con dos clavos en una tabla, porque la horqueta ya no estaba. Me pagaba cincuenta lucas por salida y me debía tres, ciento cincuenta lucas. Por eso le escribí lo de la PDI. Pero el viernes yo estaba en la fiesta de la Maca, de las once menos cuarto hasta que me quedé dormido. Pregúntenle a ella."'
+        answer: '"Lo de hoy era la oveja del jueves, jefe. Esa la hice con dos clavos en una tabla, porque la horqueta ya no estaba. Me pagaba cincuenta lucas por salida y me debía tres, ciento cincuenta lucas. Por eso le escribí lo de la PDI. Pero el viernes yo estaba en la fiesta de la Maca, de un cuarto para las once hasta que me quedé dormido. Pregúntenle a ella."'
       - code: T4+
         type: follow-up
         question: ¿Qué cosa se le perdió el martes?
         answer: '"Una horqueta vieja, cortada, que usaba pa'' los arreglos. Desapareció del galpón el martes en la tarde."'
+        guide_note: '[true] [key] La horqueta se perdió el martes en la tarde.'
 
   - title: Dra. Camila Rivas
     suspect: C
@@ -268,7 +278,9 @@ groups:
       - code: C3+
         type: follow-up
         question: ¿Matías le pagó alguna vez por algo?
+        unlocked_by: [E15·M, E15·C]      # la cartola de Matías (E15·M) o la de Camila Rivas (E15·C) muestra el pago
         answer: '"…Una asesoría. Por los animales. Nada raro."'
+        guide_note: '[false] "Una asesoría". Empuja hacia E15·M o E15·C.'
 
   - title: Testigos
     type: witness
@@ -277,6 +289,7 @@ groups:
         who: Rosa Huenchumilla
         question: ¿Qué escuchó esa noche?
         answer: '"A las nueve y media, balazos: era el vecino con los perros. A las once y diez, un auto. Después un portazo y los perros ladrando. Se fue antes de la lluvia, como a las once y media. Ah, y el Kevin, mi nieto, andaba con ese aparato volador que le regalaron."'
+        appears_in: [E01, E04]
       - code: R2
         who: Rosa Huenchumilla
         question: ¿Vio a alguien?
@@ -285,41 +298,59 @@ groups:
         who: Kevin Huenchumilla
         question: ¿Qué eran las luces en el cielo?
         answer: '"¡Era mi dron! Lo volé de 22:45 a 22:55. No le digan a mi abuela."'
+        appears_in: [R1]
+        aliases: [Kevin]
         attach: E09
       - code: EL1
         who: Elena Mardones
         question: ¿Cómo ha estado Don Hernán últimamente?
         answer: '"Raro. Hace unas semanas lo vi guardando unos papeles con timbre de notaría. Me dijo que eran del banco. Pregúntenle a la Claudia, mi hija, que él a ella le cuenta todo."'
+        appears_in: [E04, E20, H1]
+        aliases: [Elena]
       - code: CL1
         who: Claudia Carrasco
         question: ¿Qué opina de Matías?
         answer: '"Que quería robarnos el campo. Una vez me dijo, riéndose, que su hermano Benjamín era ''el que ponía la plata y no mandaba''."'
+        appears_in: [EL1, H5]
+        aliases: [Claudia]
       - code: L1
         who: Luis Riquelme, conserje
         question: ¿Registró movimientos del depto. 1204 el viernes?
         answer: '"Aquí está mi libro. Treinta años en esto, joven: yo anoto todo."'
+        appears_in: [B1]
+        aliases: [conserje]
         attach: E14
       - code: M1
         who: Macarena Vidal
         question: ¿A qué hora llegó y se fue Toto?
         answer: '"Llegó a las 22:45, disfrazado de Scream. A la una y media estaba durmiendo en el sillón. No salió en toda la noche. Aquí están mis historias."'
+        appears_in: [DEC-T, T1]
+        aliases: [Maca]
         attach: E21
       - code: PS1
         who: Patricio Sepúlveda
         question: ¿Quién atendió a Canela y a qué hora?
         answer: '"La doctora Rivas. Llegó a las once y tres y no se fue hasta que Canela estuvo estable, como a las doce y media."'
+        appears_in: [E22]
       - code: CO1
         who: Juan Cifuentes, colectivero
         question: ¿Llevó a alguien desde el Camino Los Copihues el viernes?
         answer: '"A una niña llorando, como a las 21:50. La dejé en Temuco a las diez y diez. En este colectivo se sabe todo, jefe."'
+        appears_in: [R2]
+        aliases: [don Juan]
       - code: PER1
         who: Perito informático, LACRIM
         question: ¿Quién pudo desbloquear el teléfono de Matías a las 23:18?
         answer: '"Eso no lo dice el teléfono. Lo que sí le digo: se abrió con la huella del índice derecho del titular, y el SML registró barro fresco solo en esa yema, con el resto de la mano limpia y el cuerpo sin mover. Saquen ustedes la cuenta de quién tenía esa mano a esa hora."'
+        appears_in: [E13a, E13b]
+        aliases: [perito]
+        guide_note: 'Es la pista guiada 4 convertida en pregunta: cuesta 1 ficha y no resta puntos.'
       - code: I1
         who: Rodrigo Iturra
         question: ¿Qué iba a firmar el sábado?
         answer: '"La compra del proyecto completo. Ferrada se presentó como único dueño y nunca mencionó a un socio. Esa noche cené en el hotel hasta las 23:30. Muerto no me sirve de nada."'
+        appears_in: [E13a, E25]
+        aliases: [Cordillera Sur]
         attach: E27
         follow_up: I1+
       - code: I1+
@@ -327,10 +358,13 @@ groups:
         who: Iturra · seguimiento
         question: ¿Ferrada le habló de algún socio o de algún problema familiar?
         answer: '"Me dijo que su hermano ''se iba a enojar'' cuando supiera que firmaba solo. Lo dijo riéndose."'
+        guide_note: '[true] [key] "Su hermano se iba a enojar". Motivo.'
       - code: F1
         who: Fernanda Ortiz
         question: ¿Cómo llegó Pía al karaoke?
         answer: '"Llegó a las 22:45 con los ojos rojos. Dijo que venía de ''arreglar un tema'' en Labranza. Me contó que, recién llegada a Temuco, como a las diez y cuarto, le llegó un mensaje del grupo de Matías y se puso a llorar. Me lo mostró en su celular, pero después ese mensaje ya no estaba. Las historias de esa noche las tengo guardadas."'
+        appears_in: [DEC-P, P1]
+        aliases: [Fernanda]
         attach: E23
 
   - title: Comodines
@@ -357,41 +391,37 @@ groups:
     cards:
       - code: Aviso 1
         type: notice
-        who: Fiscalía · minuto 10
+        title: Toto intentó irse
+        who: Fiscalía
         answer: Cristián "Toto" Lagos no llegó a su citación de hoy. Un vecino de la villa lo vio cargando un bolso en la moto. Carabineros lo ubicó en el terminal de buses de Labranza y lo trajo de vuelta. Toto dice que "no tiene nada que ver".
         footer: Se lee a todos los equipos a la vez
       - code: Aviso 2
         type: notice
-        who: Fiscalía · minuto 20
+        title: Resultado de las huellas de la horqueta
+        who: Fiscalía
         answer: El Laboratorio de Criminalística informa que las huellas parciales del mango de una herramienta encontrada en el estero corresponden a Cristián "Toto" Lagos. Para formalizar a alguien, la Fiscalía pide dos líneas de prueba distintas (por ejemplo, su vehículo y su ropa), cada una enfrentada con esa persona (◆), y el motivo.
         footer: Se lee a todos los equipos a la vez
       - code: Prensa
         type: press
-        who: Minuto 20 · después del aviso 2
         headline: Última hora
-        answer: "Radio local: \"@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas.\" La Fiscalía llama: \"Comisario, en diez minutos quiero un nombre en mi escritorio\"."
+        answer: "Radio local: \"@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas.\" La Fiscalía llama: \"Comisario, quiero un nombre en mi escritorio cuanto antes\"."
       - code: Pista 1
         type: hint
         who: Pista guiada
         answer: '"¿Qué dice el SML de la causa de muerte? ¿Calza con un animal?"'
-        footer: Resta 1 punto al equipo que la pidió
       - code: Pista 2
         type: hint
         who: Pista guiada
         answer: '"¿A qué hora empezó a llover, y cómo estaba el cuerpo por debajo?"'
-        footer: Resta 1 punto al equipo que la pidió
       - code: Pista 3
         type: hint
         who: Pista guiada
         answer: '"El live muestra un vehículo. ¿Cuántas luces se ven cuando se va?"'
-        footer: Resta 1 punto al equipo que la pidió
       - code: Pista 4
         type: hint
         who: Pista guiada
         answer: '"El teléfono de Matías se desbloqueó a las 23:18. ¿Con qué dedo, y quién lo tenía en la mano?"'
-        footer: Resta 2 puntos al equipo que la pidió
       - code: Pista 5
         type: hint
         who: Pista guiada
         answer: '"Alguien dijo que estuvo toda la noche en su casa. ¿Lo comprobaron?"'
-        footer: Resta 2 puntos al equipo que la pidió

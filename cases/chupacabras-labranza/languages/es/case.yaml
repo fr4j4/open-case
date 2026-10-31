@@ -14,7 +14,6 @@ kit:
   description: >-
     Una copia por equipo. Trae las reglas, el menú de preguntas y diligencias y las hojas de trabajo.
     No incluye respuestas ni pruebas: esas las entrega el director.
-  cover_note: Una copia por equipo. No incluye respuestas ni pruebas.
 
 guide:
   description: >-
@@ -28,9 +27,6 @@ dossier:
   description: >-
     Muerte de Matías Ferrada Soto, sábado 31 de octubre de 2026, sector Camino Los Copihues, Labranza.
     Cada hoja es una prueba: se imprime una por página o se manda por WhatsApp al equipo que la pidió.
-  printed_description: >-
-    Muerte de Matías Ferrada Soto, sábado 31 de octubre de 2026, sector Camino Los Copihues, Labranza.
-    Índice de pruebas para el director. Cada prueba se entrega por separado, solo al equipo que la pidió.
   sections:
     start:
       title: Sobre 1
@@ -47,9 +43,19 @@ dossier:
     procedures:
       title: Diligencias
       note: Se entregan al equipo que paga la ficha
-    notices:
-      title: Avisos de la Fiscalía
-      note: El director los lee a todos los equipos a la vez
+
+# Siglas que usan los documentos. Las hojas escriben completas las que no son `expand: false`
+# la primera vez que aparecen; la guía del director trae la tabla completa.
+glossary:
+  PDI: Policía de Investigaciones de Chile
+  BH: Brigada de Homicidios
+  SML: Servicio Médico Legal
+  LACRIM: Laboratorio de Criminalística
+  SAG: Servicio Agrícola y Ganadero
+  SUV: {long: vehículo utilitario deportivo, expand: false}
+  ADN: {long: ácido desoxirribonucleico, expand: false}
+  RUC: {long: Rol Único de Causa, expand: false}
+  DM: {long: mensaje directo, expand: false}
 
 # Etiquetas para pegar en los sobres (una por equipo).
 envelope_labels:
@@ -58,12 +64,17 @@ envelope_labels:
     description: Lo que sabemos hasta ahora. No incluye respuestas.
     contents: [E01 Parte policial, E02 Set fotográfico, E03 Redes sociales, E04 Grupo de vecinos,
                E05 Croquis, E07 Clima, "DEC · B, H, J, P, T, C", Kit del equipo]
-    footer: 16 fichas + 3 de coartada · 1 placa por jugador
+    token_footer: true    # "16 fichas + 3 de coartada · 1 placa por jugador", from the case's figures
   - number: 2
     when: al investigar
     description: Se abre al comenzar la investigación.
     contents: [E06 Informe de autopsia]
     footer: Al comenzar la investigación
+
+# La línea propia del caso en el puntaje (sus puntos son score_bonus en el case.yaml neutro).
+score_texts:
+  bonus: Explicar qué pasó con los ataques a los animales y por qué
+  bonus_short: Bonus ataques
 
 # Shown on the website.
 summary: >-

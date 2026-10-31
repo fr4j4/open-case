@@ -1,6 +1,7 @@
 """Cut-out cards (63 × 88 mm), badges, requests, envelope labels, tokens and the sheets they print on."""
 import re
 
+from . import followups
 from .loader import CaseError, as_list
 from .markup import e, line, plain_text
 
@@ -31,7 +32,45 @@ def brand(case, right=None):
             f'<span>{e(right or case.title)}</span></div>')
 
 
-def card(c, group, case):
+def engine_fields(case):
+    """What the engine writes on the notice, press and hint cards of a case that uses it, by id() of the card:
+    "1 de 2" after `who` on notices, which notice a press card comes with, and the points a hint costs
+    as its footer. A field the case writes itself is kept (the "1 de 2" is always added to a notice).
+    The suggested minutes are only in the guide: the cards go to the teams' tables."""
+    if not case.uses_engine:
+        return {}
+    out, n_notice, n_hint = {}, 0, 0
+    penalties = list(case.figures["hint_penalties"] or [])
+    kinds = [str(c.get("type", g.get("type", "answer"))).lower()
+             for g in case.card_groups for c in g.get("cards", []) or []]
+    total = kinds.count("notice")
+    for g in case.card_groups:
+        for c in g.get("cards", []) or []:
+            kind = str(c.get("type", g.get("type", "answer"))).lower()
+            if kind == "notice":
+                n_notice += 1
+                who = c.get("who") or case.t("cards.notice_who")
+                if total > 1:
+                    who = f'{who} · {case.t("cards.notice_of", n=n_notice, total=total)}'
+                out[id(c)] = {"who": who}
+            elif kind == "press" and not c.get("who") and n_notice:
+                out[id(c)] = {"who": case.t("cards.press_who", n=n_notice)}
+            elif kind == "hint":
+                n_hint += 1
+                if c.get("footer"):
+                    continue
+                if n_hint > len(penalties):
+                    raise CaseError(f"card {c.get('code')} is hint number {n_hint}, but hint_penalties has only "
+                                    f"{len(penalties)} values: add one in case.yaml (or write its footer)",
+                                    case.lang_root / "cards.yaml")
+                p = penalties[n_hint - 1]
+                out[id(c)] = {"footer": case.t("cards.hint_footer_one" if p == 1 else "cards.hint_footer", n=p)}
+    return out
+
+
+def card(c, group, case, extra=None):
+    if extra:
+        c = {**c, **extra}
     kind = str(c.get("type", group.get("type", "answer"))).lower()
     if kind not in TYPES:
         raise CaseError(f"card {c.get('code')} has type '{kind}'; the types are: " + ", ".join(TYPES),
@@ -61,8 +100,7 @@ def card(c, group, case):
         parts.append(f'<div class="oc-tarjeta__pregunta">{line(c["note"])}</div>')
     for att in as_list(c.get("attach")):
         parts.append(f'<div class="oc-tarjeta__pie">{e(case.t("cards.attached"))} {e(att)}</div>')
-    for nxt in as_list(c.get("follow_up")):
-        parts.append(f'<div class="oc-tarjeta__pie oc-tarjeta__pie--seg">{e(case.t("cards.follow_up_available"))}: {e(nxt)}</div>')
+    parts.append(followups.card_box(c, case))
     if c.get("footer"):
         parts.append(f'<div class="oc-tarjeta__pie oc-tarjeta__pie--seg">{line(c["footer"])}</div>')
     parts.append(brand(case))
@@ -123,7 +161,12 @@ def envelope_label(env, case, team):
     items = "".join(f"<li>{line(x)}</li>" for x in env.get("contents", []) or [])
     mod = team_modifier(team)
     who = f'<span class="oc-equipo{mod}">{e(case.t("team", name=team))}</span>' if team else "<span></span>"
-    footer = f'<span class="oc-tarjeta__pie oc-tarjeta__pie--seg">{line(env["footer"])}</span>' if env.get("footer") else ""
+    text = env.get("footer")
+    if env.get("token_footer"):
+        f = case.figures
+        key = "labels.token_footer_alibi" if f["alibi_tokens_per_team"] else "labels.token_footer"
+        text = case.t(key, tokens=f["tokens_per_team"], alibi=f["alibi_tokens_per_team"])
+    footer = f'<span class="oc-tarjeta__pie oc-tarjeta__pie--seg">{line(text)}</span>' if text else ""
     desc = f'<div class="oc-tarjeta__pregunta">{line(env["description"])}</div>' if env.get("description") else ""
     return ('<div class="oc-tarjeta oc-sobre">'
             f'<div class="oc-sobre__numero">{e(case.t("envelope", n=env.get("number", "")))} <small>{e(env.get("when", ""))}</small></div>'
@@ -168,35 +211,35 @@ def card_sheets(cards, case, label, codes=None, vertical=False):
 
 
 def token_sheets(case, ctx):
-    """Sheets of 35 tokens (5 × 7): each team's numbered (and alibi) tokens, with spares to fill the sheet; plus a back for each."""
-    n = int(case.get("tokens_per_team", 16))
-    alibis = int(case.get("alibi_tokens_per_team", 0))
+    """One sheet of 35 tokens (5 × 7) per team, in its colour: its numbered tokens and its alibi tokens, with
+    spares to fill the sheet, and the sheet's back right after it. So each team prints only its own."""
+    n = int(case.figures["tokens_per_team"])
+    alibis = int(case.figures["alibi_tokens_per_team"])
     teams = case.get("teams", ["A", "B"])
-    tokens = []
+    pages = []   # (team, tokens of one sheet)
     for team in teams:
         mod = f" oc-ficha--{str(team).lower()}" if str(team).upper() in ("A", "B", "C", "D") else ""
         team_label = e(case.t("team", name=team))
-        tokens += [f'<span class="oc-ficha{mod}"><b>{i}</b>{e(case.t("tokens.token"))}<small>{team_label}</small></span>'
-                   for i in range(1, n + 1)]
+        tokens = [f'<span class="oc-ficha{mod}"><b>{i}</b>{e(case.t("tokens.token"))}<small>{team_label}</small></span>'
+                  for i in range(1, n + 1)]
         # Alibi tokens: dashed border, coded C1, C2... (see `alibi_tokens_per_team` in docs/case-format.md)
         tokens += [f'<span class="oc-ficha{mod} oc-ficha--coartada"><b>{e(case.t("tokens.alibi_code", i=i))}</b>'
                    f'{e(case.t("tokens.alibi"))}<small>{team_label}</small></span>' for i in range(1, alibis + 1)]
-    fronts = []
-    for i in range(0, len(tokens), 35):
-        batch = tokens[i:i + 35]
-        spare = 35 - len(batch)
-        batch += [f'<span class="oc-ficha"><b>&nbsp;</b>{e(case.t("tokens.token"))}<small>{e(case.t("tokens.spare"))}</small></span>'] * spare
-        fronts.append(batch)
-    total = len(fronts)
+        spare = (f'<span class="oc-ficha{mod}"><b>&nbsp;</b>{e(case.t("tokens.token"))}'
+                 f'<small>{e(case.t("tokens.spare"))}</small></span>')
+        for i in range(0, len(tokens), 35):
+            batch = tokens[i:i + 35]
+            pages.append((team, batch + [spare] * (35 - len(batch))))
+    total = len(pages)
     out = []
     # Two monograms: the light one on brass (color), the ink one on white (ink saver).
     mono = (f'<img class="oc-ficha__mono-color" src="{ctx.design("logos/oc-monograma-papel.svg")}" alt="">'
             f'<img class="oc-ficha__mono-ahorro" src="{ctx.design("logos/oc-monograma-tinta.svg")}" alt="">')
-    for k, batch in enumerate(fronts, 1):
-        footer = e(case.t("tokens.front_footer", title=case.title, k=k, total=total))
+    for k, (team, batch) in enumerate(pages, 1):
+        footer = e(case.t("tokens.front_footer", title=case.title, team=team, k=k, total=total))
         out.append(f'<section class="oc-pliego oc-pliego--fichas">{"".join(batch)}<div class="oc-pliego__pie">{footer}</div></section>')
         back = "".join(f'<span class="oc-ficha oc-ficha--reverso">{mono}</span>' for _ in batch)
-        footer = e(case.t("tokens.back_footer", title=case.title, k=k, total=total))
+        footer = e(case.t("tokens.back_footer", title=case.title, team=team, k=k, total=total))
         out.append(f'<section class="oc-pliego oc-pliego--fichas">{back}<div class="oc-pliego__pie">{footer}</div></section>')
     return out
 

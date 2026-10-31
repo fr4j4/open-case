@@ -13,3 +13,4 @@ Thumbs.db
 # Website
 _site/
 .site-work/
+.snapshots/

@@ -2,12 +2,14 @@
 institution: 6b · Hoja rápida
 description: Qué entregar ante cada código · imprime 1 copia
 title: Hoja rápida del director
+pages: 3
 ---
 
 Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla completa está en "Cómo responder". Fichas de coartada: solo DG9, DG11 o un testigo que ubique a alguien.
 {.small}
 
-```columns 230
+<!-- Seguimientos y testigos salen de cards.yaml y las diligencias de procedures.yaml; por eso este bloque abre con cuatro comillas. -->
+````columns 230
 | Pregunta | Entrega |
 |---|---|
 | `B1` | tarjeta + E30 |
@@ -31,14 +33,9 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `C2` | tarjeta + E10 |
 | `C3` | tarjeta |
 | `C4` | tarjeta |
-| `B1+` | tarjeta (si ya tienen la base) |
-| `B3+` | tarjeta (si ya tienen la base) |
-| `H2+` | tarjeta (si ya tienen la base) |
-| `P2+` | tarjeta (si ya tienen la base) |
-| `T4+` | tarjeta (si ya tienen la base) |
-| `C3+` | tarjeta (si ya tienen la base) |
-| `J3+` | tarjeta (si ya tienen la base) |
-| `I1+` | tarjeta (si ya tienen la base) |
+
+```quick-follow-ups
+```
 ===
 | Si muestran | Entrega |
 |---|---|
@@ -49,9 +46,9 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `B◆` | Solo la llamada de E13a → B7a |
 | `B◆` | E13b o E13a → B9 |
 | `B◆` | T5, sola o con E13b → B11 |
-| `B◆` | E18 → B8 |
+| `B◆` | E18, la boleta de E19·B, o E28 con esa boleta (sin E17·B) → B8 |
 | `B◆` | DEC·B junto con E06 → B12 |
-| `B◆` | E19·B o E29·B → B13 |
+| `B◆` | E19·B (pintura) o E29·B (barro) → B13 |
 | `H◆` | E25·b o EL1 → H5 |
 | `H◆` | E13b o la cláusula 7 de E25 → H6 |
 | `J◆` | E03 junto con E02 foto 4, E19·J o E15·J → J5 |
@@ -67,35 +64,11 @@ Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla complet
 | `B◆` | Solo E26·B, solo E17·B, o las dos sin E08 ni E28 → B✕ |
 | `Cualquier ◆` | Cualquier otra prueba → "Eso no prueba nada" |
 ===
-| Testigo | Entrega |
-|---|---|
-| `Rosa` | R1 · R2 |
-| `Kevin Huenchumilla` | K1 + E09 |
-| `Juan Cifuentes` | CO1 |
-| `Elena Mardones` | EL1 |
-| `Claudia Carrasco` | CL1 |
-| `Luis Riquelme` | L1 + E14 |
-| `Macarena Vidal` | M1 + E21 |
-| `Patricio Sepúlveda` | PS1 |
-| `Rodrigo Iturra` | I1 + E27 |
-| `Fernanda Ortiz` | F1 + E23 |
-| `Perito informático` | PER1 |
-| `Otros nombres` | "Nada que aportar" (no se cobra) |
-===
-| Diligencia | Entrega |
-|---|---|
-| `DG1` | SAG → E12 |
-| `DG2` | Llamadas y calendario → E13a |
-| `DG2W` | WhatsApp de la víctima → E13b |
-| `DG2C` | Cuentas e Instagram → E13c |
-| `DG10` | Mensaje borrado (2 fichas) → E13d |
-| `DG3` | Cartola → E15·B / T / C / P / H / J / M |
-| `DG4` | Redes → E16 |
-| `DG5` | Vehículo → E17·B / T / H / C / P / J |
-| `DG6` | Estero → E18 (otro lugar: sin hallazgos) |
-| `DG7` | Ropa → E19·T / B / J / P / H / C |
-| `DG8` | Caseta: escritorio E24 · caja fuerte E25 |
-| `DG9` | Antenas → E26·B / T / P / C / H / J |
-| `DG11` | Copec E28 · edificio E14 · clínica E22 · hospital E20 · karaoke sin hallazgos |
-| `DG12` | Celular → E29·P / B · otro E29·X |
+```quick-witnesses
+others:
+  card: NADA QUE APORTAR
 ```
+===
+```quick-procedures
+```
+````

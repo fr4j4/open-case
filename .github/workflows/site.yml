@@ -4,6 +4,12 @@
 #   development, PRs       build and validate only; the site is attached to the run as an artifact
 #                          ("site") to download and open before merging to main
 #
+# Every run also runs the tests (pytest), the skill's case_lint.py on every case and tools/check_print.py
+# (every PDF has the pages of the print plan; no sheet fills more than 95 % of its pages). On pull requests,
+# tools/snapshot.py compares the PDFs of the base branch with the PR's and writes what changes (text by
+# sheet, pages, cards that do not fit) in the run's summary. Cases with `published: false` in their
+# case.yaml (not validated yet) are linted too, but their lint errors do not fail the run.
+#
 # One-time setting: Settings > Pages > Build and deployment > Source: "GitHub Actions".
 name: Site
 
@@ -26,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # the comparison with the base branch needs its history
 
       - uses: actions/setup-python@v5
         with:
@@ -38,6 +46,35 @@ jobs:
 
       - name: Install Chromium
         run: python -m playwright install --with-deps chromium
+
+      - name: Run the tests
+        run: python -m pytest
+
+      - name: Lint the cases
+        run: |
+          status=0
+          for case in cases/*/; do
+            echo "== $case"
+            if python skills/open-case-author/scripts/case_lint.py "$case"; then continue; fi
+            if grep -Eq '^published:[[:space:]]*false' "$case/case.yaml"; then
+              echo "::warning::case_lint found errors in $case (not published yet, so the run goes on)"
+            else
+              status=1
+            fi
+          done
+          exit $status
+
+      - name: Check that every PDF matches the print plan and every sheet has room
+        # Fails when a sheet of the kit, the envelopes or the Evidence file fills more than 95 % of the pages it
+        # declares, or a PDF has other pages than the print plan in the guide says (cases not published only warn).
+        run: python tools/check_print.py
+
+      - name: Compare the PDFs with the base branch
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        run: |
+          python tools/snapshot.py compare "origin/${{ github.base_ref }}" --report compare.md
+          cat compare.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Check the cases
         run: |

@@ -12,13 +12,17 @@ teams: [A, B, C, D]       # the game works with 2 to 4 teams; this prints materi
 tokens_per_team: 16
 alibi_tokens_per_team: 3
 players_per_team: 7      # one badge per player
+# The other figures of the game (minutes, notices, hints, score) are the engine's recommended ones
+# (opencase/defaults.yaml); write one here, with the same key, to change it for this case.
+score_bonus: 3           # the case's own line of the score: its text is score_texts.bonus in languages/<lang>/case.yaml
 
 # Footer with the monogram, the brand and the case name at the bottom of each sheet.
 # This is the default (kit, guide and dossier); list fewer documents to leave one out.
 brand_footer: [kit, guide, dossier]
 
 # Order of the dossier and who gets what. `envelope: N` groups sections into the PDF for the teams
-# (teams/ folder); the rest stays in the complete dossier, for the director only.
+# (teams/ folder); the rest goes into the director's Evidence file, ordered by code. The notices are
+# only cards (cards.yaml), read aloud to every team.
 # Titles and notes of each section are in the language file, under dossier.sections.<id>.
 dossier:
   sections:
@@ -36,9 +40,7 @@ dossier:
     - id: procedures
       items: [E12, E13a, E13b, E13b-2, E13c, E13d, E15-B, E15-T, E15-C, E15-P, E15-H, E15-J, E15-M,
               E16, E17-B, E17-T, E17-H, E17-C, E17-P, E17-J, E18, E19-B, E19-T, E19-J, E19-P, E19-H, E19-C,
-              E24, E25, E26-B, E26-T, E26-P, E26-C, E26-H, E26-J, E28, E29-P, E29-B, E29-X]
-    - id: notices
-      items: [AVISO1, AVISO2]
+              E24, E25, E26-B, E26-T, E26-P, E26-C, E26-H, E26-J, E28, E29-P, E29-B, E29-J, E29-X]
 
 # What the website shows about the case (see opencase/site.py). Summary and cover_alt are in languages/<lang>/case.yaml.
 site:
@@ -47,5 +49,5 @@ site:
   date: 2026-10-29
   cover: photos/e09_2250.jpg
   min_teams: 2
-  duration_minutes: [60, 70]
+  duration_minutes: [65, 75]
   players_per_team: [5, 7]

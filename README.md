@@ -112,6 +112,21 @@ python export.py --help
 
 Cuando algo está mal escrito, el exportador se detiene y dice en qué archivo y en qué línea. Si una tarjeta no cabe o una hoja pasa a una segunda página, lo avisa al final. Los mensajes del programa y los nombres de las opciones están en inglés; el texto de los casos puede estar en cualquier idioma.
 
+## Antes de cambiar el exportador
+
+Un cambio en el motor (`opencase/`, `design/`) o en un caso puede mover el texto o las páginas de un PDF sin que nadie lo note. Para eso hay dos redes:
+
+```
+make test                              # pruebas: foto del HTML de cada documento, textos es/en, validación
+make compare                           # qué cambia en los PDF entre development y tu copia de trabajo
+make compare BASE=main HEAD=development   # entre dos ramas, etiquetas o commits
+make snapshot REF=development          # solo la foto de una rama (texto por hoja, páginas, HTML)
+```
+
+`make compare` exporta las dos versiones y lista, documento por documento, las hojas y tarjetas cuyo texto cambia (con el diff), las páginas de cada PDF y de cada hoja, y las tarjetas que no caben. El informe sale en Markdown, listo para pegar en un PR, y queda en `.snapshots/compare.md`. Si el cambio no debía tocar los PDF, el informe dice "No differences".
+
+`make test` falla si el HTML de un documento cambia. Cuando el cambio es intencional, `make test-update` reescribe las fotos de `tests/snapshots/` y el diff de esos archivos queda en el PR. En cada PR, la Action corre las pruebas, `case_lint.py` en cada caso y la comparación con la rama base, que aparece en el resumen de la ejecución.
+
 ## El sitio web
 
 El sitio (`site/`) se sirve en GitHub Pages bajo `/open-case/`. Lista los casos de `cases/` y ofrece, por caso e idioma, dos zips: el material de los equipos y el del director (este trae la solución). Todo se genera en cada publicación:
@@ -148,9 +163,12 @@ open-case/
 ├── design/        sistema de diseño: CSS, colores, logos, fuentes y la guía de marca
 ├── docs/          el formato de los casos
 ├── opencase/      el exportador y el build del sitio (site.py)
-├── tools/         scripts de mantenimiento (por ejemplo, bajar las fuentes)
+│   ├── defaults.yaml   las cifras del juego (fichas, minutos, avisos, pistas, puntaje)
+│   └── templates/      las reglas del juego por idioma: hojas que el exportador agrega al kit y la guía
+├── tools/         scripts de mantenimiento (bajar las fuentes, validar el sitio, comparar PDF)
+├── tests/         pruebas con pytest y fotos del HTML de cada documento (tests/snapshots/)
 ├── export.py      el comando para exportar
-├── .github/workflows/site.yml   build y despliegue del sitio
+├── .github/workflows/site.yml   pruebas, build y despliegue del sitio
 └── Makefile
 ```
 

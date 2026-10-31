@@ -1,19 +1,12 @@
 ---
 institution: 5 · Guion de la sesión
-description: 65 a 75 minutos
-title: Fase por fase
+description: El parte, los avisos y las pistas
+title: Para leer en voz alta
+pages: 2
 ---
 
-```steps
-- title: 0 · Preparación · 5 min
-  text: Arma los equipos y entrega a cada uno el kit, 16 fichas, 3 fichas de coartada y una placa por jugador. Lee en voz alta "Cómo se juega" (está en el kit).
-- title: 1 · La escena · 10 min
-  text: Lee el parte (abajo). Entrega el sobre 1. Ellos leen; tú no respondes preguntas todavía.
-- title: 2 · Investigación · 30 min
-  text: "Entrega E06 a todos los equipos. Recibe las solicitudes, cobra las fichas, entrega las tarjetas y marca todo en la hoja de control. Minuto 10: aviso 1. Minuto 20: aviso 2 y tarjeta de prensa."
-- title: 3 · Acusación · 15 min
-  text: 5 min para llenar la hoja. Recoge las hojas de acusación y de descarte de todos los equipos antes de que alguien exponga. Luego 2 min por equipo para exponer (empieza el que tenga más fichas); mientras uno expone, puntúa la hoja de otro con la hoja de puntaje. Después lee la confesión si corresponde y el cierre (5 a 10 min).
-```
+Las fases y sus minutos están en "Cómo dirigir la partida". Aquí va lo que lees a los equipos.
+{.small}
 
 ### Para leer al comenzar la escena
 
@@ -25,35 +18,16 @@ Tienen el sobre con lo que sabemos hasta ahora. Cada diligencia le cuesta al Est
 A medianoche la Fiscalía quiere un nombre. Muévanse.
 ```
 
-### Aviso 1 de la Fiscalía (al minuto 10)
-
-```script
-Aviso de la Fiscalía: Cristián "Toto" Lagos no llegó a su citación de hoy. Un vecino de la villa lo vio cargando un bolso en la moto. Carabineros lo ubicó en el terminal de buses de Labranza y lo trajo de vuelta. Toto dice que "no tiene nada que ver".
+<!-- Los avisos y la prensa salen de cards.yaml, con sus minutos sugeridos (notice_minutes). -->
+```notices
 ```
 
-### Aviso 2 de la Fiscalía (al minuto 20)
-
-```script
-Aviso de la Fiscalía: el Laboratorio de Criminalística informa que las huellas parciales del mango de una herramienta encontrada en el estero corresponden a Cristián "Toto" Lagos. Para formalizar a alguien, la Fiscalía pide dos líneas de prueba distintas (por ejemplo, su vehículo y su ropa), cada una enfrentada con esa persona (◆), y el motivo.
-```
-
-Los dos avisos empujan hacia Toto a propósito. Es la pista falsa principal: se resuelve con T5 (la horqueta desapareció el martes, cuando Benjamín estuvo solo en el galpón) y con su coartada (E21, M1, E28). Si ningún equipo ha investigado a Toto al minuto 10, el aviso 1 los obliga a mirarlo.
+Los dos avisos empujan hacia Toto a propósito. Es la pista falsa principal: se resuelve con T5 (la horqueta desapareció el martes, cuando Benjamín estuvo solo en el galpón) y con su coartada (E21, M1, E28). Si ningún equipo ha investigado a Toto cuando leas el aviso 1, ese aviso los obliga a mirarlo.
 {.small}
 
-### Tarjeta de prensa (al minuto 20, después del aviso 2)
-
-```script
-ÚLTIMA HORA · Radio local: "@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas."
-La Fiscalía llama: "Comisario, en diez minutos quiero un nombre en mi escritorio".
+<!-- Las pistas salen de cards.yaml, con lo que resta cada una (hint_penalties). -->
+```hints
 ```
 
-### Si un equipo se estanca (pistas en orden, de más suave a más fuerte)
-
-1. "¿Qué dice el SML de la causa de muerte? ¿Calza con un animal?"
-2. "¿A qué hora empezó a llover, y cómo estaba el cuerpo por debajo?"
-3. "El live muestra un vehículo. ¿Cuántas luces se ven cuando se va?"
-4. "El teléfono de Matías se desbloqueó a las 23:18. ¿Con qué dedo, y quién lo tenía en la mano?"
-5. "Alguien dijo que estuvo toda la noche en su casa. ¿Lo comprobaron?"
-
-Las pistas 1 a 3 le cuestan 1 punto al equipo que las pidió; la 4 y la 5 le cuestan 2. Usa la 5 solo si quedan menos de 8 minutos.
+Usa la 5 solo si quedan menos de 8 minutos.
 {.small}

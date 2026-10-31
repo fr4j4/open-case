@@ -1,6 +1,7 @@
 ---
 institution: 2 · La solución en una página
 description: Léela antes de jugar
+pages: 2
 ---
 
 ```note Lo que pasó
@@ -29,7 +30,7 @@ El "chupacabras" lo inventó Matías. Le pagaba $50.000 a Toto por cada salida a
 |---|---|---|
 | **Benjamín** | Es el asesino. Miente sobre dónde estaba. | Muestra una boleta de delivery de las 21:40 (E30), verdadera pero anterior a su salida de las 22:31 (E14). |
 | Don Hernán | Firmó a escondidas una promesa de venta por $90 millones. Quiso arrepentirse y Matías le cobraba la multa de $20 millones. | Urgencias del hospital, de 22:05 a 02:10 (E20, E26·H, E17·H). |
-| Javiera | La huella de tres dedos es un molde de yeso. Matías la vio ponerla y la estaba chantajeando. | Su propio live, de 22:30 a 00:30, sin moverse del cerco (E08, E26·J). |
+| Javiera | La huella de tres dedos es un molde de yeso. Matías la vio ponerla y la estaba chantajeando. | Su propio live, de 22:30 a 00:30, sin moverse del cerco (E08, E29·J, E26·J). |
 | Pía | Fue a El Arrayán a las 21:00 a cobrarle $3 millones. Matías también la dejó fuera de la venta. | Colectivo a las 21:50 y karaoke en Temuco desde las 22:45 (E23, CO1, F1, E26·P). |
 | Toto | Mataba los animales por encargo de Matías. El viernes lo amenazó con ir a la PDI porque le debía tres salidas. | Fiesta de Maca, de 22:45 a 01:30 (E21, M1). Pasó por el Copec a las 22:38 (E28). |
 | Dra. Rivas | Aceptó $800.000 para callar que era una herramienta. Matías la chantajeaba con eso. | Copec a las 23:00 y en su clínica desde las 23:03, operando desde las 23:20 (E28, E22, PS1). |

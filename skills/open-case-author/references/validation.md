@@ -6,7 +6,7 @@ The audits are done on the text the exporter produces, not on the bible: export 
 
 ## Audit 1 · Consistency and contradictions
 
-Reader: a meticulous clerk. Reads everything (kit, teams' envelopes, complete dossier, cards, guide, images). Looks for: times and places that do not fit; distances against travel times; numbers that do not add up; who provided a sheet against who hands it out; captions against images; statements against suspect cards; sketch against text; weekday against date; anything the guide says that the dossier does not support.
+Reader: a meticulous clerk. Reads everything (kit, teams' envelopes, the Evidence file, cards, guide, images). Looks for: times and places that do not fit; distances against travel times; numbers that do not add up; who provided a sheet against who hands it out; captions against images; statements against suspect cards; sketch against text; weekday against date; anything the guide says that the dossier does not support.
 
 Output: a list by severity (breaks / unfair / cosmetic), each with the quotes that clash and a minimal fix. Ends with "verified without problem" for the main chain of the solution, hour by hour.
 
@@ -28,7 +28,7 @@ When agents or the person can run it. It measures what desk audits cannot: wheth
 
 Setup:
 - Two team agents, each with: the kit, envelope 1, envelope 2 and the images, as text files. Each represents five players deliberating. They do not see each other.
-- One director (you, or an agent) with the complete dossier, the cards and the guide.
+- One director (you, or an agent) with the Evidence file, the cards and the guide.
 - Rounds: 6 (standard) or 4 (short), up to 3 requests per round per team, alternating teams. Notices after rounds 2 and 4 (standard) or 1 and 3 (short).
 - Fixed request format and accusation format (in `templates/audit-prompts.md`), so the log can be scored.
 - Keep a log: round, team, request, delivery, tokens. Score both accusations with the guide's rubric.

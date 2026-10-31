@@ -5,7 +5,8 @@ design/open-case.css. The block names are the ones listed in docs/case-format.md
 import re
 from pathlib import Path
 
-from .loader import CaseError, read_yaml, resolve_media
+from . import templates
+from .loader import CaseError, Sheet, read_yaml, resolve_media, split_blocks
 from .markup import e, line, line_pre, md, plain_text
 
 ARROWS = {"incoming": "↘", "outgoing": "↗", "missed": "✕"}
@@ -96,11 +97,29 @@ def c_meta(b, ctx):
     return f'<div class="oc-meta">{rows}</div>'
 
 
+def read_items(b, sheet):
+    """The items of a ```signature block (a list), read the same way for drawing and for checking."""
+    data = read_yaml(b.content, sheet.path if sheet else None, b.line)
+    if data is None:
+        return []
+    if not isinstance(data, list):
+        raise CaseError("the signature block must be a list (lines starting with '- ')", sheet.path if sheet else None,
+                        b.line)
+    return data
+
+
 def c_signature(b, ctx):
+    from . import signatures
     parts = []
-    for it in _data(b, ctx, list):
-        if isinstance(it, dict) and ("scrawl" in it or "label" in it):
-            scrawl = f'<span class="oc-firma__trazo">{e(it.get("scrawl", ""))}</span>' if it.get("scrawl") else ""
+    for it in read_items(b, ctx.sheet):
+        if isinstance(it, dict) and ("scrawl" in it or "label" in it or "signer" in it):
+            name = it.get("scrawl") or ctx.case.signatures.get(str(it.get("signer")), {}).get("name", "")
+            label = ctx.case.t("signatures.label", name=name) if name else ctx.case.t("signatures.label_plain")
+            drawn = signatures.svg(ctx.case, it["signer"], label) if it.get("signer") is not None else None
+            if drawn:
+                scrawl = f'<span class="oc-firma__trazo oc-firma__trazo--svg">{drawn}</span>'
+            else:
+                scrawl = f'<span class="oc-firma__trazo">{e(it.get("scrawl", ""))}</span>' if it.get("scrawl") else ""
             parts.append(f'<div>{scrawl}<span>{line(it.get("label", ""))}</span></div>')
         else:
             if isinstance(it, dict):
@@ -419,7 +438,7 @@ def c_work_table(b, ctx):
     height = d.get("height")
     style = f' style="height:{e(height)}"' if height else ""
     head = "".join(f"<th>{e(c)}</th>" for c in cols)
-    rows = "".join("<tr><td>%s</td>%s</tr>" % (line(f), f"<td{style}></td>" * (len(cols) - 1))
+    rows = "".join("<tr><td%s>%s</td>%s</tr>" % (style, line(f), f"<td{style}></td>" * (len(cols) - 1))
                    for f in d.get("rows", []))
     cls = "oc-tabla oc-linea-tiempo" if d.get("schedule") else "oc-tabla oc-tabla--trabajo"
     return f'<div class="{cls}"><table><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
@@ -429,25 +448,39 @@ def c_checkboxes(b, ctx):
     """Boxes to tick off tokens. Argument: a number, or `alibi` for the alibi tokens (C1, C2…)."""
     arg = (b.arg or "").strip()
     if arg == "alibi":
-        n = int(ctx.case.get("alibi_tokens_per_team", 0))
+        n = int(ctx.case.figures["alibi_tokens_per_team"])
         labels = [ctx.case.t("tokens.alibi_code", i=i) for i in range(1, n + 1)]
     else:
-        n = int(arg) if arg.isdigit() else int(ctx.case.get("tokens_per_team", 16))
+        n = int(arg) if arg.isdigit() else int(ctx.case.figures["tokens_per_team"])
         labels = [str(i) for i in range(1, n + 1)]
     return '<div class="oc-casillas">' + "".join(f"<span>{e(l)}</span>" for l in labels) + "</div>"
 
 
 def c_columns(b, ctx):
     """Side-by-side Markdown pieces (tables, lists) separated by a line with `===`.
-    Argument: the minimum width of a column in px (default 230)."""
+    Argument: the minimum width of a column in px (default 230). With four backticks (````columns) a piece
+    can also hold ```blocks, like the body of a sheet."""
     width = (b.arg or "230").strip()
     if not width.isdigit():
         raise CaseError("columns: the argument is the minimum column width in px (for example ```columns 230)",
                         ctx.sheet.path, b.line)
     parts = re.split(r"(?m)^===\s*$", b.content)
-    cells = "".join(f"<div>{md(p)}</div>" for p in parts if p.strip())
+    cells = "".join(f"<div>{_column(p, b, ctx)}</div>" for p in parts if p.strip())
     return (f'<div class="oc-columnas-libres" style="display:grid;grid-template-columns:repeat(auto-fit,minmax({width}px,1fr));'
             f'gap:10px;font-size:11px;line-height:1.3">{cells}</div>')
+
+
+def _column(text, b, ctx):
+    try:
+        blocks = split_blocks(text, b.line + 1)
+    except CaseError as ex:
+        raise CaseError(str(ex).split(": ", 1)[-1], ctx.sheet.path, ex.line) from None
+    if all(x.type == "md" for x in blocks):
+        return md(text)
+    sheet = ctx.sheet
+    html = render_blocks(Sheet(sheet.id, sheet.path, sheet.data, blocks), ctx)
+    ctx.sheet = sheet
+    return html
 
 
 def c_menu(b, ctx):
@@ -470,6 +503,34 @@ def c_menu(b, ctx):
     return "".join(out)
 
 
+def c_print_plan(b, ctx):
+    """```print-plan in the guide's preparation sheet: what to print, how many copies, on what paper and
+    when each document is handed out. It comes from the print plan of the engine (printing.py), the same
+    list the README next to the PDFs is written from, so it follows --teams and --chat."""
+    from . import printing
+    case = ctx.case
+    t = case.t
+    items = printing.plan(case)
+    head = "".join(f"<th>{e(t('print.head.' + k))}</th>" for k in ("file", "what", "copies", "paper", "size", "when"))
+    out = []
+    for package in ("team", "director"):
+        rows = []
+        for i in items:
+            if i.package != package:
+                continue
+            rows.append(f'<tr><td class="c">{e(i.file.split("_", 1)[0])}</td><td><b>{e(i.name)}</b>'
+                        f'<span class="oc-pequeno"> · {line(i.what)}</span></td>'
+                        f'<td>{e(printing.copies_text(case, i))}</td><td>{e(printing.paper_text(case, i))}</td>'
+                        f'<td>{e(printing.size_text(case, i))}</td><td>{line(i.when)}</td></tr>')
+        if not rows:
+            continue
+        out.append(f'<h3>{e(t(f"print.{package}_package"))}</h3><p class="oc-pequeno">{e(t(f"print.{package}_package_note"))}</p>'
+                   f'<div class="oc-tabla oc-tabla--compacta"><table><thead><tr>{head}</tr></thead>'
+                   f'<tbody>{"".join(rows)}</tbody></table></div>')
+    out.append(f"<p><b>{e(printing.summary(case, items))}</b> {e(t('print.uncollated'))}</p>")
+    return "".join(out)
+
+
 def c_html(b, ctx):
     return b.content
 
@@ -483,7 +544,7 @@ COMPONENTS = {
     "phones": c_phones, "videos": c_videos, "posts": c_posts,
     "note": c_note, "note-ok": c_note_ok, "note-warning": c_note_warning, "script": c_script, "steps": c_steps,
     "fields": c_fields, "work-table": c_work_table, "checkboxes": c_checkboxes, "columns": c_columns,
-    "menu": c_menu, "html": c_html,
+    "menu": c_menu, "html": c_html, "print-plan": c_print_plan,
 }
 
 
@@ -495,8 +556,12 @@ def render_blocks(sheet, ctx):
             out.append(_md_with_images(b.content, ctx))
             continue
         fn = COMPONENTS.get(b.type)
+        if fn is None and templates.has_block(ctx.case.lang, b.type):
+            out.append(_engine_block(b, ctx))
+            continue
         if fn is None:
-            raise CaseError(f"unknown block ```{b.type}. The available ones are: " + ", ".join(sorted(COMPONENTS)),
+            raise CaseError(f"unknown block ```{b.type}. The available ones are: "
+                            + ", ".join(sorted(set(COMPONENTS) | set(templates.block_names(ctx.case.lang)))),
                             sheet.path, b.line)
         try:
             out.append(fn(b, ctx))
@@ -506,6 +571,15 @@ def render_blocks(sheet, ctx):
             raise CaseError(f"the ```{b.type} block has data I cannot read ({type(ex).__name__}: {ex})",
                             sheet.path, b.line) from None
     return "\n".join(out)
+
+
+def _engine_block(b, ctx):
+    """A ```name block that is a piece of the engine (opencase/templates/<lang>/blocks/name.md)."""
+    sheet = ctx.sheet
+    blocks = templates.block(ctx.case, b.type, b.content, sheet.path, b.line)
+    html = render_blocks(Sheet(sheet.id, sheet.path, sheet.data, blocks), ctx)
+    ctx.sheet = sheet
+    return html
 
 
 def _md_with_images(text, ctx):

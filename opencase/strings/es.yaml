@@ -13,6 +13,10 @@ evidence: Evidencia
 deleted_message: "⊘ Se eliminó este mensaje"
 live: EN VIVO
 envelope: "Sobre {n}"
+notice_description: "Aviso para todos los equipos · {n} de {total}"
+notice_description_plain: Aviso para todos los equipos
+format:
+  decimal: ","
 
 calls:
   incoming: entrante
@@ -42,6 +46,11 @@ cards:
   follow_up_available: Seguimiento disponible
   questions: Preguntas
   suspect_label: "sospechoso {letter}"
+  notice_who: Aviso
+  press_who: "Con el aviso {n}"
+  notice_of: "{n} de {total}"
+  hint_footer_one: Resta 1 punto al equipo que la pidió
+  hint_footer: "Resta {n} puntos al equipo que la pidió"
 badge:
   title: Detective
   name: Nombre
@@ -61,8 +70,8 @@ tokens:
   alibi: Coartada
   alibi_code: "C{i}"
   spare: reserva
-  front_footer: "{title} · Fichas · hoja {k} de {total} · frente · cartulina, imprimir al 100 %"
-  back_footer: "{title} · Fichas · hoja {k} de {total} · dorso (opcional)"
+  front_footer: "{title} · Fichas del equipo {team} · hoja {k} de {total} · frente · cartulina, imprimir al 100 %"
+  back_footer: "{title} · Fichas del equipo {team} · hoja {k} de {total} · dorso: al reverso de la hoja anterior (opcional)"
 
 # Etiquetas que van en el pie de cada pliego
 labels:
@@ -73,13 +82,14 @@ labels:
   badges: "Placas del equipo {name}"
   requests: Solicitudes
   envelope_labels: Etiquetas de sobre
+  token_footer: "{tokens} fichas · 1 placa por jugador"
+  token_footer_alibi: "{tokens} fichas + {alibi} de coartada · 1 placa por jugador"
 
 # Documentos: name = nombre del PDF, title = título en pantalla y en la tapa, page = título de la página HTML
 docs:
   envelope_file: "Sobre_{n}"
   kit: {name: Kit_del_equipo, title: Kit del equipo, page: Kit del equipo}
   guide: {name: Guia_del_director, title: Guía del director, page: Guía del director}
-  dossier: {name: Expediente_completo, title: Expediente, page: Expediente}
   cards:
     name: Tarjetas_de_respuesta
     title: Tarjetas de respuesta
@@ -95,23 +105,123 @@ docs:
 readme_name: LEEME.txt
 readme_ink_saver: "Modo ahorro de tinta: sin fondos. Para la versión a todo color, exporta con --color."
 readme_color: "Versión a todo color, con fondos. Sin --color sale en modo ahorro de tinta."
-readme: |
-  {title}
-  Material generado por el exportador de Open Case ({date}).
 
-  teams/     Lo que pueden ver los equipos. Sin spoilers.
-    01_Kit_del_equipo        Una copia por equipo. Hojas en papel normal.
-    02… (sobres)             Lo que reciben al comenzar. Una copia por equipo.
-    10_Tarjetas_de_sospechosos, 11_Placas, 12_Fichas, 13_Solicitudes, 14_Etiquetas_de_sobre
-                             Recortables en cartulina de 200 a 250 g.
+# Seguimientos: el recuadro al pie de la tarjeta que habilita uno (opencase/followups.py)
+follow_up:
+  box: "Seguimiento {code} · 1 ficha"
+  box_condition: "si ya tienen {codes}"
+  or_word: " o "
 
-  director/  Solo para quien dirige. Nunca se entrega completo a un equipo.
-    01_Guia_del_director     La solución, los diagramas, el guion y las pautas.
-    02_Expediente_completo   Todas las pruebas, ordenadas por sección. Se entregan de a una.
-    03_Tarjetas_de_respuesta Pliegos de 8 tarjetas. Una copia por equipo.
-    04_Reverso_de_tarjetas   Opcional: imprímelo en el dorso de cada pliego.
+# Plan de impresión (printing.py): la tabla del bloque print-plan en la guía, el LEEME y el archivo Pruebas
+print:
+  evidence:
+    name: Pruebas
+    title: Pruebas
+    note: >-
+      Las hojas que no van en un sobre, ordenadas por código. Se imprime una copia por equipo sin intercalar,
+      y cada hoja se entrega solo al equipo que pagó la diligencia o la pregunta que la abre.
+  requests_note: "Opcionales: si prefieres, acepta los pedidos de palabra. Una papeleta por cada ficha."
+  index:
+    institution: Anexo · Índice de pruebas
+    title: Dónde está cada prueba
+    part: "{n} de {total}"
+    code: Código
+    sheet: Hoja
+    where: Dónde está
+    sheets: " · {n} hojas"
+  team_package: Paquete de cada equipo
+  team_package_note: Se arma antes de jugar y se entrega entero.
+  director_package: Paquete del director
+  director_package_note: Se reparte de a poco durante la partida.
+  head:
+    file: Archivo
+    what: Qué trae
+    copies: Copias
+    paper: Papel
+    size: Tamaño
+    when: Cuándo se entrega
+  uncollated: >-
+    "Sin intercalar" es la opción de la impresora que saca juntas las copias de cada página: quedan las copias
+    de cada prueba una sobre otra y las de cada tarjeta en el mismo corte, sin tener que ordenar juegos.
+  totals: "Con {teams} equipos: {bond} páginas de bond, {cardstock} pliegos de cartulina y {labels} de etiquetas."
+  copies:
+    n: "{n}, una por equipo"
+    uncollated: "{n}, sin intercalar"
+    per_team: "1: trae el de cada equipo"
+    backs: "{n}: al dorso de cada pliego de tarjetas"
+    chat: "0: se mandan por WhatsApp"
+    optional: " · opcional"
+  paper:
+    bond: Bond
+    bond_duplex: Bond, doble faz
+    cardstock: Cartulina
+    cardstock_duplex: Cartulina, doble faz
+    labels: Bond o adhesivo
+    labels_duplex: Bond o adhesivo, doble faz
+  size:
+    page: "{n} página"
+    pages: "{n} páginas"
+    sheet: "{n} pliego"
+    sheets: "{n} pliegos"
+    sheet_per_team: "{n} pliego por equipo"
+    sheet_per_team_many: "{n} pliegos por equipo"
+    duplex_per_team: "{n} pliego + reverso por equipo"
+    duplex_per_team_many: "{n} pliegos + reversos por equipo"
+  what:
+    badges: "{n} placas del color del equipo"
+    tokens: "{tokens} fichas del color del equipo"
+    tokens_alibi: "{tokens} fichas + {alibi} de coartada, del color del equipo"
+    requests: "{n} papeletas para pedir preguntas y diligencias ({tokens} fichas)"
+    suspects: "Los {n} sospechosos"
+    kit: Reglas, menú y hojas de trabajo
+    guide: "Solución, guion, hoja de control y, al final, el índice de pruebas"
+    evidence: "Las {n} hojas que no van en un sobre, por código"
+    cards: "{n} tarjetas: respuestas, avisos, prensa y pistas"
+    card_backs: El dorso común de las tarjetas
+    labels: "{n} etiquetas: una por sobre y por equipo"
+  when:
+    start: Al empezar
+    requests: Al empezar, si se usan
+    envelope: "Sobre {n}: cuando lo indica el guion"
+    guide: Toda la partida
+    evidence: Al equipo que paga la diligencia o la pregunta que la abre
+    evidence_chat: Se mandan como imagen al grupo del equipo que las pide (carpeta chat-images, exporta con --chat)
+    cards: Al equipo que la pide; avisos y prensa, a todos a la vez
+    card_backs: Al imprimir las tarjetas
+    labels: Al armar los sobres
+  readme:
+    made: "Material generado por el exportador de Open Case ({date})."
+    teams: "Para {n} equipos: {names}. Con --teams N se exporta para menos."
+    team: "PAQUETE DE CADA EQUIPO (carpeta teams/, sin spoilers). Se arma antes de jugar."
+    director: "PAQUETE DEL DIRECTOR (carpeta director/, nunca se entrega completo a un equipo)."
+    actual_size: >-
+      Imprime siempre al 100 % ("tamaño real"), nunca "ajustar a la página": las tarjetas deben medir
+      88 × 63 mm y las fichas 30 mm de diámetro.
 
-  Imprime siempre al 100 % ("tamaño real"), nunca "ajustar a la página": las tarjetas
-  deben medir 88 × 63 mm y las fichas 30 mm de diámetro.
+# Diligencias (opencase/procedures.py): los tipos que conoce el motor. Cada caso pone sus códigos, y puede
+# cambiar label (menú del kit) y short (guía) en languages/<idioma>/procedures.yaml.
+procedures:
+  kinds:
+    report: {label: Informe técnico de un organismo (indiquen cuál), short: Informe}
+    phone: {label: Revisar el celular de una persona (indiquen de quién), short: Celular}
+    bank_statement: {label: Cartola bancaria de una persona (indiquen de quién), short: Cartola}
+    social_media: {label: Revisar las redes sociales públicas de los sospechosos, short: Redes}
+    vehicle: {label: Inspeccionar el vehículo de una persona (indiquen de quién), short: Vehículo}
+    area_search: {label: Rastrear un lugar de los alrededores de la escena (indiquen cuál), short: Rastreo}
+    belongings: {label: "Peritar la ropa, el calzado o las pertenencias de una persona (indiquen de quién)", short: Ropa o pertenencias}
+    premises_search: {label: Allanar un lugar (indiquen cuál), short: Allanamiento}
+    phone_towers: {label: Tráfico de antenas del celular de una persona (indiquen de quién), short: Antenas}
+    cameras: {label: Cámaras o registros de seguridad de un lugar (indiquen cuál), short: Cámaras o registros}
+    other: {label: Otra diligencia que se les ocurra (el director decide si procede y cuánto cuesta), short: Otra}
+  other_target:
+    person: otra persona
+    place: otro lugar
+    thing: otra cosa
+  sources:
+    camera: cámara
+    register: registro
 
-  {mode}
+# Signatures drawn as pen strokes (opencase/signatures.py): what a screen reader says of one.
+signatures:
+  label: "Firma de {name}"
+  label_plain: Firma

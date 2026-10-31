@@ -13,6 +13,10 @@ evidence: Evidence
 deleted_message: "⊘ This message was deleted"
 live: LIVE
 envelope: "Envelope {n}"
+notice_description: "Notice for every team · {n} of {total}"
+notice_description_plain: Notice for every team
+format:
+  decimal: "."
 
 calls:
   incoming: incoming
@@ -42,6 +46,11 @@ cards:
   follow_up_available: Follow-up available
   questions: Questions
   suspect_label: "suspect {letter}"
+  notice_who: Notice
+  press_who: "With notice {n}"
+  notice_of: "{n} of {total}"
+  hint_footer_one: Costs the team that asked for it 1 point
+  hint_footer: "Costs the team that asked for it {n} points"
 badge:
   title: Detective
   name: Name
@@ -61,8 +70,8 @@ tokens:
   alibi: Alibi
   alibi_code: "A{i}"
   spare: spare
-  front_footer: "{title} · Tokens · sheet {k} of {total} · front · card stock, print at 100 %"
-  back_footer: "{title} · Tokens · sheet {k} of {total} · back (optional)"
+  front_footer: "{title} · Tokens of team {team} · sheet {k} of {total} · front · card stock, print at 100 %"
+  back_footer: "{title} · Tokens of team {team} · sheet {k} of {total} · back: on the reverse of the sheet before (optional)"
 
 # Labels that go in the footer of each sheet
 labels:
@@ -73,13 +82,14 @@ labels:
   badges: "Badges for team {name}"
   requests: Requests
   envelope_labels: Envelope labels
+  token_footer: "{tokens} tokens · 1 badge per player"
+  token_footer_alibi: "{tokens} tokens + {alibi} alibi tokens · 1 badge per player"
 
 # Documents: name = PDF name, title = on-screen and cover title, page = title of the HTML page
 docs:
   envelope_file: "Envelope_{n}"
   kit: {name: Team_kit, title: Team kit, page: Team kit}
   guide: {name: Directors_guide, title: Director's guide, page: Director's guide}
-  dossier: {name: Complete_dossier, title: Dossier, page: Dossier}
   cards:
     name: Answer_cards
     title: Answer cards
@@ -95,23 +105,123 @@ docs:
 readme_name: README.txt
 readme_ink_saver: "Ink-saver mode: no backgrounds. For the full-colour version, export with --color."
 readme_color: "Full-colour version, with backgrounds. Without --color the PDFs come out in ink-saver mode."
-readme: |
-  {title}
-  Material made by the Open Case exporter ({date}).
 
-  teams/     What the teams may see. No spoilers.
-    01_Team_kit              One copy per team. Sheets on regular paper.
-    02… (envelopes)          What they get at the start. One copy per team.
-    10_Suspect_cards, 11_Badges, 12_Tokens, 13_Requests, 14_Envelope_labels
-                             Cut-outs, on 200–250 g card stock.
+# Follow-ups: the box at the bottom of the card that enables one (opencase/followups.py)
+follow_up:
+  box: "Follow-up {code} · 1 token"
+  box_condition: "only if you have {codes}"
+  or_word: " or "
 
-  director/  Only for whoever runs the game. Never hand it complete to a team.
-    01_Directors_guide       The solution, diagrams, script and guidelines.
-    02_Complete_dossier      Every piece of evidence, by section. Handed out one at a time.
-    03_Answer_cards          Sheets of 8 cards. One copy per team.
-    04_Card_backs            Optional: print it on the back of each sheet.
+# Print plan (printing.py): the table of the print-plan block in the guide, the README and the Evidence file
+print:
+  evidence:
+    name: Evidence
+    title: Evidence
+    note: >-
+      The sheets that go in no envelope, ordered by code. Print one copy per team, uncollated; each sheet goes
+      only to the team that paid for the procedure or the question that opens it.
+  requests_note: "Optional: if you prefer, take the requests by word of mouth. One slip per token."
+  index:
+    institution: Annex · Evidence index
+    title: Where each sheet is
+    part: "{n} of {total}"
+    code: Code
+    sheet: Sheet
+    where: Where it is
+    sheets: " · {n} sheets"
+  team_package: Each team's package
+  team_package_note: Put together before playing and handed over whole.
+  director_package: The director's package
+  director_package_note: Handed out little by little during the game.
+  head:
+    file: File
+    what: What it holds
+    copies: Copies
+    paper: Paper
+    size: Size
+    when: When it is handed out
+  uncollated: >-
+    "Uncollated" is the printer option that prints all the copies of each page together: the copies of each
+    sheet of evidence end up in one pile and those of each card in the same cut, with no sets to sort.
+  totals: "With {teams} teams: {bond} pages of paper, {cardstock} sheets of card stock and {labels} of labels."
+  copies:
+    n: "{n}, one per team"
+    uncollated: "{n}, uncollated"
+    per_team: "1: it holds each team's own"
+    backs: "{n}: on the back of each card sheet"
+    chat: "0: sent through the chat"
+    optional: " · optional"
+  paper:
+    bond: Paper
+    bond_duplex: Paper, double-sided
+    cardstock: Card stock
+    cardstock_duplex: Card stock, double-sided
+    labels: Paper or adhesive
+    labels_duplex: Paper or adhesive, double-sided
+  size:
+    page: "{n} page"
+    pages: "{n} pages"
+    sheet: "{n} sheet"
+    sheets: "{n} sheets"
+    sheet_per_team: "{n} sheet per team"
+    sheet_per_team_many: "{n} sheets per team"
+    duplex_per_team: "{n} sheet + back per team"
+    duplex_per_team_many: "{n} sheets + backs per team"
+  what:
+    badges: "{n} badges in the team's colour"
+    tokens: "{tokens} tokens in the team's colour"
+    tokens_alibi: "{tokens} tokens + {alibi} alibi tokens, in the team's colour"
+    requests: "{n} slips to ask questions and request procedures ({tokens} tokens)"
+    suspects: "The {n} suspects"
+    kit: Rules, menu and worksheets
+    guide: "Solution, script, control sheet and, at the end, the evidence index"
+    evidence: "The {n} sheets that go in no envelope, by code"
+    cards: "{n} cards: answers, notices, press and hints"
+    card_backs: The common back of the cards
+    labels: "{n} labels: one per envelope and team"
+  when:
+    start: At the start
+    requests: At the start, if used
+    envelope: "Envelope {n}: when the script says"
+    guide: The whole game
+    evidence: To the team that pays for the procedure or the question that opens it
+    evidence_chat: Sent as images to the chat group of the team that asks (chat-images folder, export with --chat)
+    cards: To the team that asks; notices and press, to everyone at once
+    card_backs: When printing the cards
+    labels: When putting the envelopes together
+  readme:
+    made: "Material made by the Open Case exporter ({date})."
+    teams: "For {n} teams: {names}. Use --teams N to export for fewer."
+    team: "EACH TEAM'S PACKAGE (teams/ folder, no spoilers). Put together before playing."
+    director: "THE DIRECTOR'S PACKAGE (director/ folder, never hand it complete to a team)."
+    actual_size: >-
+      Always print at 100 % ("actual size"), never "fit to page": cards must measure 88 × 63 mm and
+      tokens 30 mm across.
 
-  Always print at 100 % ("actual size"), never "fit to page": cards must measure
-  88 × 63 mm and tokens 30 mm across.
+# Procedures (opencase/procedures.py): the kinds the engine knows. Each case gives them its codes, and may
+# change label (kit menu) and short (guide) in languages/<lang>/procedures.yaml.
+procedures:
+  kinds:
+    report: {label: Technical report from an agency (say which), short: Report}
+    phone: {label: Search a person's phone (say whose), short: Phone}
+    bank_statement: {label: A person's bank statement (say whose), short: Bank statement}
+    social_media: {label: Check the suspects' public social media, short: Social media}
+    vehicle: {label: Inspect a person's vehicle (say whose), short: Vehicle}
+    area_search: {label: Search a place near the scene (say which), short: Search}
+    belongings: {label: "Examine a person's clothes, shoes or belongings (say whose)", short: Clothes or belongings}
+    premises_search: {label: Search premises with a warrant (say which), short: Warrant search}
+    phone_towers: {label: Phone tower records of a person's phone (say whose), short: Phone towers}
+    cameras: {label: Security cameras or registers of a place (say which), short: Cameras or registers}
+    other: {label: Any other procedure you think of (the director decides whether it applies and what it costs), short: Other}
+  other_target:
+    person: someone else
+    place: another place
+    thing: something else
+  sources:
+    camera: camera
+    register: register
 
-  {mode}
+# Signatures drawn as pen strokes (opencase/signatures.py): what a screen reader says of one.
+signatures:
+  label: "Signature of {name}"
+  label_plain: Signature

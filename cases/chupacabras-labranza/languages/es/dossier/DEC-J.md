@@ -21,6 +21,6 @@ Yo solo muestro lo que pasa. Lo que la gente crea es cosa de la gente. Con el du
 ```
 
 ```signature
-- {scrawl: Javiera Peña Mora, label: Firma del declarante}
+- {signer: J, scrawl: Javiera Peña Mora, label: Firma del declarante}
 - Detective a cargo
 ```

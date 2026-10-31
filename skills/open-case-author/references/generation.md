@@ -8,7 +8,7 @@ Only after the person validated the bible. The format is `docs/case-format.md` i
 python skills/open-case-author/scripts/scaffold_case.py cases/<slug> --lang <lang> --title "<Title>" --suspects B,H,J,P
 ```
 
-Creates `case.yaml`, `languages/<lang>/{case.yaml,suspects.yaml,cards.yaml}`, the kit and guide sheets with placeholder front matter, `dossier/E01.md`, `dossier/DEC-<letter>.md` for each suspect, `diagrams/` and `photos/`. Every placeholder is `TODO`, so a grep finds what is left. The slug is lowercase ASCII with hyphens.
+Creates `case.yaml`, `procedures.yaml`, `locations.yaml`, `languages/<lang>/{case.yaml,suspects.yaml,cards.yaml,procedures.yaml,locations.yaml}`, the kit and guide sheets with placeholder front matter, `dossier/E01.md`, `dossier/DEC-<letter>.md` for each suspect, `diagrams/` and `photos/`. Every placeholder is `TODO`, so a grep finds what is left. The slug is lowercase ASCII with hyphens.
 
 Put the bible next to it as `cases/<slug>/bible.md`. The exporter ignores it; `.gitignore` it if the person does not want it in the repository.
 
@@ -16,11 +16,11 @@ Put the bible next to it as `cases/<slug>/bible.md`. The exporter ignores it; `.
 
 `paper`, `base_language`, `languages`, `published: false` (the scaffold writes it: a new case stays off the website until it has been validated by playing it with real people; never set it to true yourself, and tell the person that this is the step that publishes it), `teams`, `tokens_per_team`, `players_per_team`, optionally `alibi_tokens_per_team`, `brand_footer` (leave the default), `ink_saver` (leave the default on), and `dossier.sections`.
 
-Sections come from the evidence table (§8): one section per "how obtained" group, in this order: opening (`envelope: 1`), statements (`envelope: 1`), investigation start (`envelope: 2`, the autopsy), handed with an answer, procedures, notices. Every dossier file appears in exactly one section; the exporter refuses duplicates and warns about orphans.
+Sections come from the evidence table (§8): one section per "how obtained" group, in this order: opening (`envelope: 1`), statements (`envelope: 1`), investigation start (`envelope: 2`, the autopsy), handed with an answer, procedures. The notices are cards only (`type: notice`), not dossier sheets. Every sheet outside an envelope goes into the director's Evidence file ordered by code, so the order of those sections only matters for the index at the end of the guide. Every dossier file appears in exactly one section; the exporter refuses duplicates and warns about orphans.
 
 ## 2 · `languages/<lang>/case.yaml` ← bible §0, §13
 
-`title`, `version` ("Versión 1 · <month year>"), `tagline` (the brand's), `badge` (title and two-line unit), `kit.description` and `kit.cover_note`, `guide.description` and `guide.cover_note`, `dossier.title`, `kicker`, `description`, `printed_description`, `dossier.sections.<id>` with `title` and `note` for every section id of the neutral file, `envelope_labels` (one per envelope: number, when, description, contents, footer).
+`title`, `version` ("Versión 1 · <month year>"), `tagline` (the brand's), `badge` (title and two-line unit), `kit.description` (the kit has no cover), `guide.description` and `guide.cover_note`, `dossier.title`, `kicker`, `description`, `dossier.sections.<id>` with `title` and `note` for every section id of the neutral file, `envelope_labels` (one per envelope: number, when, description, contents, footer), `glossary` (every acronym of the case with its long form; see `writing.md`, "Acronyms").
 
 ## 3 · `suspects.yaml` ← bible §4
 
@@ -30,10 +30,10 @@ One entry per suspect, in the order the kit will show them (not the culprit firs
 
 Write the free material first (it is what you will reread as a player), then the sheets handed with answers, then the procedures, then the notices.
 
-- **Police report `E01`:** `meta` (date and time, place, complainant, prosecutor), victim, account, observations in a `mono` block (6–10 lines, including the honest facts that make the cover story plausible and the first quiet oddity), `signature`.
+- **Police report `E01`:** `meta` (date and time, place, complainant, prosecutor), victim, account, observations in a `mono` block (6–10 lines, including the honest facts that make the cover story plausible and the first quiet oddity), `signature` (`{signer: <id>, scrawl: <name>, label: ...}`).
 - **Scene `E02`:** `photos` with captions, or an `svg` sketch plus a `legend`. Sketch SVGs are hand-written: 600 × 400 viewBox, the design system's fonts are applied by the exporter, text in the case language, "not to scale" if it carries no measurement.
 - **Social media, chat group, weather:** `posts`, `phones` with `chat`, `table log`. Every chat message has a time; a deleted message is `deleted: true`.
-- **Statements `DEC-<letter>.md`:** front matter `code: "DEC · B"` (quoted: it has a space and a dot), `meta` with the five identity fields, `statement` block, `signature`. One lie, three or four checkable truths.
+- **Statements `DEC-<letter>.md`:** front matter `code: "DEC · B"` (quoted: it has a space and a dot), `meta` with the five identity fields, `statement` block, `signature` with `signer: <letter>`. One lie, three or four checkable truths.
 - **Autopsy, lab, logs, bank statements, towers, cameras:** `meta` + prose or `table log` / `mono`. Registers: 6–12 rows, datum never first or last, coverage stated for towers.
 - **Per-suspect sheets:** `E17-B.md`, `E17-T.md`… with `code: E17·B`. A generic `E17-X.md` for "other person: no findings" when needed.
 - **Notices:** `notice: true`, short, no codes.
@@ -43,31 +43,40 @@ Images: paths from the case folder (`photos/e02_f1.jpg`), lower-case, content-ne
 
 ## 5 · `cards.yaml` ← bible §9, §10, §11
 
-One group per suspect (title, `suspect`, `who`, `short`), then groups for witnesses, wildcards, notices/press, hints and closing. Inside a suspect's group, order: menu questions (`menu: true`, the first is "where were you"), confrontations (`type: confrontation`, the question is the accusation in quotes), the failed card (`type: failed`, code `B✕`), follow-ups (`type: follow-up`, code `B3+`). `attach` for sheets handed with the card; `follow_up` for the code it enables.
+One group per suspect (title, `suspect`, `who`, `short`), then groups for witnesses, wildcards, notices/press, hints and closing. Inside a suspect's group, order: menu questions (`menu: true`, the first is "where were you"), confrontations (`type: confrontation`, the question is the accusation in quotes), the failed card (`type: failed`, code `B✕`), follow-ups (`type: follow-up`, code `B3+`). `attach` for sheets handed with the card; `follow_up` for the code it enables. On each follow-up card: `unlocked_by` when it is of kind B (see `writing.md` §Follow-ups and witnesses) and `guide_note` with the director's note. On each witness: `appears_in` (where the teams read the name), `aliases` if the material calls them otherwise, and `guide_note` if the director needs one.
 
 Quote any answer that starts with a quote mark or contains `: ` or ` #`. Count characters: 420 is the limit, and the exporter warns. Split long ones into two cards with the same code and "(1 de 2)" / "(2 de 2)" in `footer`.
 
 Wildcards every case needs: "Eso no prueba nada" (failed confrontation with irrelevant evidence), "Testigo no disponible" (name not yet in their material; free), "Nada que aportar" (a name that leads nowhere; free), "Sin hallazgos" is a sheet or a spoken answer, not a card.
 
+## 5b · `procedures.yaml` and `locations.yaml` ← bible §8, §11
+
+One entry per procedure of the menu, in the menu's order: `code`, `kind` (the engine's: `phone_towers`, `cameras`, `vehicle`…), `cost` if not 1, `each: true` when every target is a request of its own, `alibi: true` only on the procedures an alibi token may pay for (towers, cameras), and `gives` (one result) or `targets` (suspect letter, place or `other` → sheet, `[sheets]`, `none` or `material`). Every valid target has a result, so nothing comes back blank. The texts go in `languages/<lang>/procedures.yaml`: `names` for the people, `label` (the menu's wording, neutral: "cámaras o registros de un lugar (indiquen cuál)") and `short` when the kind's do not fit, and `notes` for the director. The places a team may ask about go in `locations.yaml` with their `sources` (`camera`, `register` or none) and their names in the language file. See `docs/case-format.md`, "Procedures and places".
+
 ## 6 · Kit ← bible §12, §9, §10, §4
 
-Six sheets, numbered files so they order: `01-mission.md` (story in two paragraphs; "How to play" with 8–11 numbered rules covering every cost and rule in `design-rules.md` §31; timing; scoring table), `02-menu.md` (one paragraph, the `menu` block, witnesses table, follow-ups note), `03-procedures.md` (procedures table with costs; `checkboxes` block for the tokens), `04-timeline.md` (`work-table` with `schedule: true`, one row per suspect, victim, "others / vehicles", "weather"), `05-accusation.md` (`fields`: who, how, why, window, three strongest codes, contradictions, the case-specific bonus question, red herrings explained), `06-discard.md` (`work-table` with suspects; the rule text).
+Six sheets, numbered files so they order: `01-mission.md` (the story in two paragraphs, nothing else: the engine puts "How to play", the phases and the glossary under it), `02-menu.md` (one paragraph, the `menu` block, the witnesses table; the rules for witnesses and follow-ups are the engine's), `03-procedures.md` (the `procedures` block, which draws the menu from `procedures.yaml`; `checkboxes` block for the tokens), `04-timeline.md` (`work-table` with `schedule: true`, one row per suspect, victim, "others / vehicles", "weather"), `05-accusation.md` (`fields`: who, how, why, window, three strongest codes, contradictions, the case-specific bonus question, red herrings explained), `06-discard.md` (the `discard-rule` block, then a `work-table` with the suspects).
+
+The engine inserts its own sheets after the first one: the rules, "During the game" and the score, with the case's figures. Do not write rules, costs, minutes or score weights in the case's sheets; if the case needs a different figure, write it in the neutral `case.yaml` (see `docs/case-format.md`, "The game and the case").
 
 Read the finished kit as a player: nothing in it may name a red herring, a place not yet introduced, or the key datum.
 
 ## 7 · Guide ← bible §1–§13
 
-Numbered files: `01-preparation.md` (print table, before they arrive, golden rule note, fairness rules), `02-solution.md` (one page: `note` with what happened; why; the telling detail; the hidden plot; table of what each suspect hides and their real alibi), `03-diagram-night.md` and `04-diagram-deduction.md` if you draw them (optional in a short case), `05-script.md` (`steps` for the phases; `script` blocks for opening, each notice, press; hints list with costs), `06-responses.md` (tables: questions, follow-ups, confrontations with triggers, witnesses with "appears in", procedures with targets → sheets, off-menu policy; pills `[true]` `[false]` `[key]` `[attached]`), `07-control.md` (`table control` with every deliverable, cost, columns A and B), `08-evaluation.md` (rubric table, discard table, red-herring table, confession conditions in `note-ok` and `note-warning`, tie-break, `table score`), `09-confession.md` (`script` confession, `script` closing, what to do after).
+Numbered files: `01-preparation.md` (the `print-plan` block, which draws what to print from the engine's print plan, and how to set up the room; the phases, before they arrive, the golden rule and fair play are engine sheets placed right after it), `01b-case-notes.md` ("what is particular to this case": the exceptions to the engine's fair-play rules, so it comes after them; the `locations` block fits here, the table of places and their sources), `02-solution.md` (one page: `note` with what happened; why; the telling detail; the hidden plot; table of what each suspect hides and their real alibi), `03-diagram-night.md` and `04-diagram-deduction.md` if you draw them (optional in a short case), `05-script.md` (the `script` for the opening; the `notices` block, which prints each notice and press card with its suggested minute; the `hints` block, which prints the hints with their cost), `06-responses.md` (tables: questions, confrontations with triggers, the `procedure-answers` block for the procedures (targets → sheets, from `procedures.yaml`), off-menu policy; pills `[true]` `[false]` `[key]` `[attached]`; the follow-ups and the witnesses are the `follow-ups` and `witnesses` blocks, which the engine draws from `cards.yaml`; `witnesses` takes an optional `others:` row for the names that get "nothing to add"), `06b-quick.md` if you want a one-glance sheet (a ````` ````columns ````` block whose pieces can hold the `quick-follow-ups`, `quick-witnesses` and `quick-procedures` blocks), `07-control.md` (the `control` block: its rows come from `procedures.yaml` and the cards with `attach`, so give those sheets a `short:` name; the engine adds a column per team, the notices, hints and tokens left, and the request log after the sheet), `08-evaluation.md` (rubric table, discard table, red-herring table, confession conditions in `note-ok` and `note-warning`, the `score-sheet` block, which carries the tie-break), `09-confession.md` (`script` confession, `script` closing, what to do after).
 
 Everything the director must answer in under a minute is in a table with the code in the first column.
 
 ## 8 · Check, lint, export
 
 ```
+python tools/signatures.py cases/<slug>
 python export.py cases/<slug> --check
 python skills/open-case-author/scripts/case_lint.py cases/<slug>
 python export.py cases/<slug>
 ```
+
+The first line draws, once, the pen strokes of everyone who signs a sheet (`signer:` of the `signature` blocks) into `signatures.yaml`; run it after the names are final (the strokes are drawn from the `scrawl`), and `--redo <id>` if two signatures look alike.
 
 Fix until `--check` ends with "Check finished." without warnings you cannot justify, the lint is clean, and the export reports no card overflow. Sheets that "take 2 pages" are acceptable for the mission and the response table; a 2-page evidence sheet usually means a register too long or a chat too long: split it.
 
@@ -78,8 +87,10 @@ Then read, in `output/<slug>/<lang>/teams/`, every PDF as a player. Then run `va
 - `code: "DEC · B"` must be quoted in front matter; `E17·B` need not, but the file is `E17-B.md`.
 - Times like `22:30` are kept as text by the loader, but a value with `: ` inside a sentence must be quoted.
 - A chat message on one line, `{from: X, time: "21:04", text: "..."}`, needs quotes around text with commas or question marks.
-- `menu` and `checkboxes` blocks are empty; they are filled from the YAML.
-- `attach` must name a dossier file that is in some section; `follow_up` must name an existing card code (the lint checks it).
+- `menu`, `checkboxes`, `notices`, `hints`, `discard-rule` and `score-sheet` blocks are empty; they are filled from the YAML and the engine's figures.
+- Sheets that take more than one page say so with `pages: N` in the front matter; `tools/check_print.py` fails when a sheet of the kit, an envelope or the Evidence file fills more than 95 % of its pages.
+- Cards: notices and press cards need no minute in `who`, and hints need no `footer`: the engine writes them from `notice_minutes` and `hint_penalties`. Envelope 1's label uses `token_footer: true`. The case's bonus line is `score_bonus` (neutral) with `score_texts.bonus` (language).
+- `attach` must name a dossier file that is in some section; `follow_up` must name an existing card code, and `unlocked_by` and `appears_in` an existing card or dossier code (the exporter's `--check` stops otherwise).
 - The dossier order is in the neutral `case.yaml`, not in the language file; the titles and notes of sections are in the language file.
 - Suspect order in `suspects.yaml` is the order of the kit's menu and the suspect cards: do not put the culprit first.
 - Ink saver is on by default; never turn it off in `case.yaml` unless the person asks.
