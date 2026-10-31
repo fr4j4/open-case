@@ -219,7 +219,7 @@ groups:
 | `menu` | `true` to show the question in the kit's menu. |
 | `suspect` | If the card is about another suspect than its group's. |
 
-Notice and press cards add the suggested minute from `notice_minutes` to `who` ("Fiscalía · minuto sugerido 10"); without `who`, a notice says "Aviso" and a press card "Con el aviso N". Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters. If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
+Notice cards add which notice they are to `who` ("Fiscalía · aviso 1 de 2"); without `who`, a notice says "Aviso" and a press card "Con el aviso N". They never print the suggested minute: the cards go to the teams' tables, and the minute is only in the guide. Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters. If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
 
 ## Sheets: kit, dossier and guide
 
@@ -249,7 +249,7 @@ The sheets of the kit and the guide are ordered by file name (`01-mision.md`, `0
 | `logo` | `true` for the Open Case wordmark in the letterhead (the kit and the guide do). |
 | `reserved` | `true` for the red "reserved material" strip (the guide does). |
 | `stamp` | A stamp in the corner: `stamp: Confidencial`, or `stamp: {text: Anulado, color: ink}` (colours: `ink`, `brass`, `forest`). |
-| `notice` | `true` for the amber strip of the prosecutor's notices. Without `description`, the engine writes "Aviso para todos los equipos · minuto sugerido M" from `notice_minutes`. |
+| `notice` | `true` for the amber strip of the prosecutor's notices. Without `description`, the engine writes "Aviso para todos los equipos · 1 de 2" (never the suggested minute, because the teams get a copy). |
 | `aged` | `true` for aged paper (letters, old documents). `paper: aged` also works. |
 
 ### Content
@@ -368,7 +368,9 @@ If you write a block that does not exist, the exporter stops and tells you which
 
 What is the same in every game of Open Case (the rules, the phases, the glossary, the score, the costs) belongs to the engine; a case brings only its data. So a case's `kit/` and `guide/` hold only what is its own: the story, its menu, its answers and its notes. The engine adds the rest.
 
-**The figures** are in `opencase/defaults.yaml`. They are the recommended ones, and a case changes any of them in its neutral `case.yaml`, with the same key. Nested keys are merged one by one, so `phases: {investigation: 22}` changes only that phase. A key the engine does not know stops the export.
+**The figures** are in `opencase/defaults.yaml`. They are the recommended ones, and a case changes any of them in its neutral `case.yaml`, with the same key. Nested keys are merged one by one, so `phases: {investigation: 22}` changes only that phase. A key the neutral `case.yaml` does not know (a figure or one of the keys above) stops the export, so a misspelt `tokens_per_teams` does not go unnoticed; so does a figure written in `languages/<lang>/case.yaml`, because every language plays with the same rules.
+
+How many notices, press cards and hints the rules mention comes from the case (its cards of type `notice`, `press` and `hint`, and its sheets with `notice: true`); the figures only give each one its suggested minute or its cost. A case with more notices than `notice_minutes` or more hints than `hint_penalties` stops the export, and a case with none leaves those paragraphs out. The lint warns when `session_minutes` is shorter than the phases and `closing_minutes` add up to.
 
 | Key | Default | What it is |
 |---|---|---|

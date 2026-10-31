@@ -26,7 +26,9 @@ Gana el equipo con más puntos. Si empatan, gana el que gastó menos fichas; si 
 | Inocentes sin explicar | {{ score.discard_blank|num }} c/u |  |
 | Pistas falsas explicadas | {{ score.red_herring|num }} c/u |  |
 | Fichas que sobran × {{ score.spare_token|num }} | {{ score.spare_token|num }} c/u |  |
+{% if hints %}
 | Pistas pedidas ({{ m.hint_costs_short(hint_groups) }}) | − |  |
+{% endif %}
 | **Total** |  |  |
 ```
 

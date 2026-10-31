@@ -15,7 +15,7 @@ title: Pauta de corrección
 | Inocentes descartados | 2 c/u | Por cada inocente de la hoja de descarte con dos pruebas de distinto origen que lo ubican lejos entre 23:10 y 23:24 (tabla de abajo). Con una sola prueba, 1 punto. |
 | Inocentes sin explicar | −1 c/u | Por cada inocente que quede en blanco o descartado sin prueba. |
 | Fichas | 0,25 c/u | Las que les sobren (las de coartada no cuentan). |
-| Pistas pedidas | −1 c/u | Por cada pista que le diste al equipo; la 4ª y la 5ª restan 2. |
+| Pistas pedidas | −1 c/u | Por cada pista que le diste al equipo; la 4.ª y la 5.ª restan 2. |
 | Sin acusación | — | Los puntos de descartes y de pistas falsas solo se suman si el equipo entregó una acusación con nombre. |
 | Acusar a otra persona | −5 | Y el equipo no puede ganar, aunque sume más puntos. Si todos acusan mal, no hay ganador. |
 

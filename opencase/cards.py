@@ -33,28 +33,27 @@ def brand(case, right=None):
 
 def engine_fields(case):
     """What the engine writes on the notice, press and hint cards of a case that uses it, by id() of the card:
-    the suggested minute after `who` on notices and press, and the points a hint costs as its footer.
-    A field the case writes itself is kept (except the minute, which is always added)."""
-    from .templates import notice_minute
+    "aviso 1 de 2" after `who` on notices, which notice a press card comes with, and the points a hint costs
+    as its footer. A field the case writes itself is kept (the "1 de 2" is always added to a notice).
+    The suggested minutes are only in the guide: the cards go to the teams' tables."""
     if not case.uses_engine:
         return {}
     out, n_notice, n_hint = {}, 0, 0
     penalties = list(case.figures["hint_penalties"] or [])
+    kinds = [str(c.get("type", g.get("type", "answer"))).lower()
+             for g in case.card_groups for c in g.get("cards", []) or []]
+    total = kinds.count("notice")
     for g in case.card_groups:
         for c in g.get("cards", []) or []:
             kind = str(c.get("type", g.get("type", "answer"))).lower()
             if kind == "notice":
                 n_notice += 1
-                minute = notice_minute(case, n_notice)
-                if minute is not None:
-                    who = c.get("who") or case.t("cards.notice_who")
-                    out[id(c)] = {"who": f'{who} · {case.t("cards.suggested_minute", minute=minute)}'}
-            elif kind == "press" and not c.get("who"):
-                minute = notice_minute(case, n_notice)
-                text = case.t("cards.press_who", n=n_notice)
-                if minute is not None:
-                    text += f' · {case.t("cards.suggested_minute", minute=minute)}'
-                out[id(c)] = {"who": text}
+                who = c.get("who") or case.t("cards.notice_who")
+                if total > 1:
+                    who = f'{who} · {case.t("cards.notice_of", n=n_notice, total=total)}'
+                out[id(c)] = {"who": who}
+            elif kind == "press" and not c.get("who") and n_notice:
+                out[id(c)] = {"who": case.t("cards.press_who", n=n_notice)}
             elif kind == "hint":
                 n_hint += 1
                 if c.get("footer"):

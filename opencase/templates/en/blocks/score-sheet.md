@@ -26,7 +26,9 @@ The team with the most points wins. On a tie, the team that spent fewer tokens w
 | Innocents unexplained | {{ score.discard_blank|num }} each |  |
 | Red herrings explained | {{ score.red_herring|num }} each |  |
 | Tokens left over × {{ score.spare_token|num }} | {{ score.spare_token|num }} each |  |
+{% if hints %}
 | Hints asked ({{ m.hint_costs_short(hint_groups) }}) | − |  |
+{% endif %}
 | **Total** |  |  |
 ```
 

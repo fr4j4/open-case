@@ -21,4 +21,6 @@ Como narrador nunca mientes y nunca inventas una pista nueva. Si te preguntan al
 - **Fichas de coartada:** cada equipo tiene {{ alibi }}, de borde punteado. Solo sirven para pedir una prueba de dónde estaba un sospechoso a la hora del crimen: antenas, cámaras o un testigo que lo ubique. Las que sobren no suman.
 {% endif %}
 - **Qué ubica a una persona:** una prueba que la nombra o la identifica, o que ubica un vehículo ligado a ella por otra prueba. Un vehículo que nada liga a alguien no ubica a nadie.
+{% if hints %}
 - **Pistas:** se entregan en orden a quien las pida y restan puntos ({{ m.hint_costs(hint_groups) }}); anótalas en la hoja de control.
+{% endif %}

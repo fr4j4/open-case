@@ -106,10 +106,23 @@ def context(case, data=None):
             readings.append({"kind": kind, "n": n_notice, "code": str(c.get("code", "")),
                              "answer": c.get("answer", ""), "headline": c.get("headline", ""),
                              "minute": notice_minute(case, n_notice)})
+    # How many notices, press cards and hints there are is the case's (its cards and sheets); the figures
+    # only give each one its minute or its cost, so a case with fewer uses the first ones.
+    n_notices = max(sum(1 for r in readings if r["kind"] == "notice"), len(notice_sheets))
+    minutes = list(f["notice_minutes"] or [])
+    if n_notices > len(minutes):
+        raise CaseError(f"the case has {n_notices} notices but notice_minutes gives {len(minutes)} minutes: "
+                        "add the missing ones in case.yaml", case.root / "case.yaml")
+    minutes = minutes[:n_notices]
+    has_press = any(r["kind"] == "press" for r in readings)
     penalties = list(f["hint_penalties"] or [])
     hints = [{"n": n, "code": str(c.get("code", "")), "answer": c.get("answer", ""),
               "penalty": penalties[n - 1] if n <= len(penalties) else None}
              for n, (c, g) in enumerate([(c, g) for c, g in cards if _card_kind(c, g) == "hint"], 1)]
+    if len(hints) > len(penalties):
+        raise CaseError(f"the case has {len(hints)} hint cards but hint_penalties gives {len(penalties)} costs: "
+                        "add the missing ones in case.yaml", case.root / "case.yaml")
+    penalties = penalties[:len(hints)]
     score_points = (f["score"] or {})
     bonus = None
     texts = case.get("score_texts", {}) or {}
@@ -123,8 +136,8 @@ def context(case, data=None):
     for sec in case.sections:
         if sec.get("envelope") is not None and sec["envelope"] not in envelopes:
             envelopes.append(sec["envelope"])
-    investigation = f["phases"]["investigation"]
-    last_notice = (f["notice_minutes"] or [None])[-1]
+    kit = case.engine_sheets("kit")
+    how_to_play_in_kit = kit is not False and "10-how-to-play" not in as_list(kit.get("skip"))
     return {
         "f": f,
         "score": score_points,
@@ -134,9 +147,11 @@ def context(case, data=None):
         "envelopes": envelopes,
         "notices": notices,
         "readings": readings,
+        "notice_minutes": minutes,
+        "has_press": has_press,
         "hints": hints,
         "hint_groups": _hint_groups(penalties),
-        "press_minutes_left": (investigation - last_notice) if last_notice is not None else None,
+        "how_to_play_in_kit": how_to_play_in_kit,
         "case_title": case.title,
         "data": data if data is not None else {},
     }

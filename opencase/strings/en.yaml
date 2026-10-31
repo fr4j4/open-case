@@ -13,7 +13,7 @@ evidence: Evidence
 deleted_message: "⊘ This message was deleted"
 live: LIVE
 envelope: "Envelope {n}"
-notice_description: "Notice for every team · suggested at minute {minute}"
+notice_description: "Notice for every team · {n} of {total}"
 notice_description_plain: Notice for every team
 format:
   decimal: "."
@@ -48,7 +48,7 @@ cards:
   suspect_label: "suspect {letter}"
   notice_who: Notice
   press_who: "With notice {n}"
-  suggested_minute: "suggested at minute {minute}"
+  notice_of: "notice {n} of {total}"
   hint_footer_one: Costs the team that asked for it 1 point
   hint_footer: "Costs the team that asked for it {n} points"
 badge:

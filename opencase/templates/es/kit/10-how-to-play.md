@@ -12,7 +12,7 @@ Parten con **{{ f.tokens_per_team }} fichas**{% if alibi %}, **{{ alibi }} ficha
 | Fase | Qué pasa |
 |---|---|
 | **1 · Escena** · {{ f.phases.scene }} min | El director lee el parte y entrega el sobre 1. Lean y anoten: aún no se pide nada. |
-| **2 · Investigación** · {{ f.phases.investigation }} min | {{ "Abran el sobre 2. " if envelopes|length > 1 else "" }}Pidan preguntas y diligencias con una solicitud y una ficha. El director lee los avisos. |
+| **2 · Investigación** · {{ f.phases.investigation }} min | {{ "Abran el sobre 2. " if envelopes|length > 1 else "" }}Pidan preguntas y diligencias con una solicitud y sus fichas. El director lee los avisos. |
 | **3 · Acusación** · {{ f.phases.accusation }} min | {{ f.accusation_writing }} min para llenar las hojas de acusación y de descarte, que el director recoge antes de que alguien exponga. Luego {{ f.pitch_minutes }} min de exposición por equipo (empieza el que tenga más fichas). |
 | **4 · Cierre** | El director cuenta los puntos, lee la confesión si la consiguieron y cierra la historia. |
 ```
@@ -22,10 +22,7 @@ Parten con **{{ f.tokens_per_team }} fichas**{% if alibi %}, **{{ alibi }} ficha
 ```small
 - **Pregunta:** lo que le preguntan a una persona. Cuesta 1 ficha y se pide con un código del menú (por ejemplo, la letra de un sospechoso y un número).
 - **Diligencia:** un pedido a la policía o a un laboratorio, como revisar un teléfono, pedir cámaras o peritar un objeto. Hay que escribir qué buscan y por qué. Cuesta lo que indica el menú.
-- **Ficha:** lo que gastan para pedir algo. Cada equipo parte con {{ f.tokens_per_team }}.
-- **Coartada:** dónde dice una persona que estaba cuando ocurrió el crimen y qué permite comprobarlo.
-{% if alibi %}
-- **Ficha de coartada** (borde punteado): solo sirve para comprobar dónde estaba alguien. Cada inocente descartado con coartada comprobada suma; cada uno en blanco resta; las que sobran no suman.
-{% endif %}
+- **Solicitud:** el papel donde anotan el código y por qué lo piden. Se entrega al director con las fichas que cuesta, y él les da la tarjeta de respuesta o la prueba.
+- **Coartada:** dónde dice una persona que estaba cuando ocurrió el crimen y qué permite comprobarlo.{{ " Las **fichas de coartada** (borde punteado) solo sirven para eso, y las que sobran no suman." if alibi else "" }}
 - **Códigos de las pruebas:** "E" y un número (E01, E02…) son las pruebas del expediente del director y "DEC" las declaraciones. Lo del sobre 1 ya lo tienen; el resto se pide con una pregunta o diligencia.
 ```

@@ -13,7 +13,8 @@ Warnings (exit 0):
   - a code written in backticks in the kit or the guide that is neither a card, a dossier sheet nor a DG code of the kit
   - a kit sheet that mentions a dossier code that is not in an envelope section (possible spoiler)
   - the kit never mentions the number of tokens of case.yaml (cases with engine_sheets: false), or a kit,
-    guide or notice sheet writes by hand a figure the engine prints (tokens, minutes, hint costs)
+    guide or notice sheet writes by hand a figure the engine prints (tokens, minutes, hint costs), or
+    session_minutes is shorter than the phases and the closing add up to
   - the culprit (from a `# culprit: X` comment in suspects.yaml, optional) is listed first in suspects.yaml
 
 Needs pyyaml (the exporter needs it too).
@@ -147,7 +148,10 @@ def main():
                 info.append(f"kit/{f.name}: code `{t}` is not a card, a sheet or a procedure")
     tokens = neutral.get("tokens_per_team")
     guide_files = sorted((L / "guide").glob("*.md"))
-    if neutral.get("engine_sheets", True) is False:
+    engine = neutral.get("engine_sheets", True)
+    if isinstance(engine, dict):
+        engine = engine.get("kit", True) is not False or engine.get("guide", True) is not False
+    if engine is False:
         # The case still carries its own copy of the rules: they must at least say its number of tokens.
         if tokens and not re.search(rf"\b{tokens}\s+fichas?\b|\b{tokens}\s+tokens?\b", kit_text):
             warnings.append(f"the kit never says '{tokens} fichas' (tokens_per_team is {tokens})")
@@ -157,6 +161,15 @@ def main():
         defaults_file = Path(__file__).resolve().parents[3] / "opencase" / "defaults.yaml"
         defaults = load_yaml(defaults_file) if defaults_file.exists() else {}
         fig = {k: neutral.get(k, defaults.get(k)) for k in ("tokens_per_team", "alibi_tokens_per_team", "notice_minutes")}
+        # The whole session the kit and the guide announce must fit the phases and the closing.
+        phases = {**(defaults.get("phases") or {}), **(neutral.get("phases") or {})}
+        closing = neutral.get("closing_minutes", defaults.get("closing_minutes")) or []
+        session = neutral.get("session_minutes", defaults.get("session_minutes")) or []
+        if len(closing) == 2 and len(session) == 2:
+            low, high = sum(phases.values()) + closing[0], sum(phases.values()) + closing[1]
+            if session[0] < low or session[1] < high:
+                warnings.append(f"session_minutes is {session[0]}–{session[1]}, but the phases and closing_minutes "
+                                f"add up to {low}–{high} minutes")
         alt = lambda values: "|".join(str(v) for v in values if v)  # noqa: E731
         hand = []
         if fig["alibi_tokens_per_team"]:

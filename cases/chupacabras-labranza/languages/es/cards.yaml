@@ -368,7 +368,7 @@ groups:
       - code: Prensa
         type: press
         headline: Última hora
-        answer: "Radio local: \"@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas.\" La Fiscalía llama: \"Comisario, en diez minutos quiero un nombre en mi escritorio\"."
+        answer: "Radio local: \"@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas.\" La Fiscalía llama: \"Comisario, quiero un nombre en mi escritorio cuanto antes\"."
       - code: Pista 1
         type: hint
         who: Pista guiada

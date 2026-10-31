@@ -95,18 +95,14 @@ def sheet(h, ctx, defaults=None):
 
 
 def _notice_description(case, sheet_id):
-    """"For every team · suggested at minute 10": the line under a notice sheet, from notice_minutes."""
-    n = 0
-    for sec in case.sections:
-        for pid in sec.get("items", []) or []:
-            if case.dossier[pid].get("notice"):
-                n += 1
-                if pid == sheet_id:
-                    minute = templates.notice_minute(case, n)
-                    if minute is None:
-                        return case.t("notice_description_plain")
-                    return case.t("notice_description", minute=minute)
-    return ""
+    """"For every team · 1 of 2": the line under a notice sheet. The teams get a copy, so it never says the
+    suggested minute (that is only in the guide)."""
+    ids = [pid for sec in case.sections for pid in sec.get("items", []) or [] if case.dossier[pid].get("notice")]
+    if sheet_id not in ids:
+        return ""
+    if len(ids) == 1:
+        return case.t("notice_description_plain")
+    return case.t("notice_description", n=ids.index(sheet_id) + 1, total=len(ids))
 
 
 def cover(case, ctx, doc, note="", reserved=False, team_line=False):

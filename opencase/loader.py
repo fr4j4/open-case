@@ -1,4 +1,5 @@
 """Reads a case folder: YAML files, Markdown sheets with component blocks, and cross-checks."""
+import difflib
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -163,6 +164,7 @@ class Case:
     guide: list              # sheets
     strings: Strings
     warnings: list = field(default_factory=list)
+    neutral: dict = field(default_factory=dict, repr=False)   # case.yaml (neutral) alone: the figures come from it
     _figures: dict = field(default=None, repr=False)
 
     @property
@@ -191,9 +193,9 @@ class Case:
 
     @property
     def figures(self):
-        """The game's figures (opencase/defaults.yaml) with the ones the case changes in its case.yaml."""
+        """The game's figures (opencase/defaults.yaml) with the ones the case changes in its neutral case.yaml."""
         if self._figures is None:
-            self._figures = resolve_figures(self.data)
+            self._figures = resolve_figures(self.neutral, self.root / "case.yaml")
         return self._figures
 
     def engine_sheets(self, doc):
@@ -221,10 +223,22 @@ def load_defaults():
     return read_yaml_file(DEFAULTS_FILE)
 
 
-def resolve_figures(data):
+# Keys of the neutral case.yaml besides the figures of opencase/defaults.yaml (see docs/case-format.md).
+NEUTRAL_KEYS = ("brand", "paper", "base_language", "languages", "published", "teams", "players_per_team",
+                "brand_footer", "ink_saver", "dossier", "site", "engine_sheets", "score_bonus")
+
+
+def resolve_figures(data, path=None):
     """Defaults first, then the case: a key of defaults.yaml that the case also has takes the case's value
-    (dicts are merged key by key). Keys the case has that are not figures are ignored here."""
+    (dicts are merged key by key). `data` is the neutral case.yaml; a key in it that is neither a figure
+    nor one of NEUTRAL_KEYS is taken for a misspelt figure and stops the export."""
     defaults = load_defaults()
+    for key in data:
+        if key not in defaults and key not in NEUTRAL_KEYS:
+            near = difflib.get_close_matches(key, list(defaults) + list(NEUTRAL_KEYS), n=1)
+            hint = f" (did you mean '{near[0]}'?)" if near else ""
+            raise CaseError(f"'{key}' is not a key of case.yaml{hint}; the figures of the game are in "
+                            "opencase/defaults.yaml", path)
     out = {}
     for key, value in defaults.items():
         mine = data.get(key)
@@ -233,10 +247,10 @@ def resolve_figures(data):
             if isinstance(mine, dict):
                 for k, v in mine.items():
                     if k not in value:
-                        raise CaseError(f"'{key}.{k}' is not a figure of the game (see opencase/defaults.yaml)")
+                        raise CaseError(f"'{key}.{k}' is not a figure of the game (see opencase/defaults.yaml)", path)
                     merged[k] = v
             elif mine is not None:
-                raise CaseError(f"'{key}' must be a list of key: value fields, like in opencase/defaults.yaml")
+                raise CaseError(f"'{key}' must be a list of key: value fields, like in opencase/defaults.yaml", path)
             out[key] = merged
         else:
             out[key] = value if mine is None else mine
@@ -271,6 +285,10 @@ def load_case(root, lang=None):
     if not texts.get("title"):
         raise CaseError("the field 'title' is missing", lang_root / "case.yaml")
 
+    for key in list(load_defaults()) + ["score_bonus", "engine_sheets"]:
+        if key in texts:
+            raise CaseError(f"'{key}' is the same in every language: write it in the neutral case.yaml, "
+                            f"not in languages/{lang}/case.yaml", lang_root / "case.yaml")
     data = {**neutral, **{k: v for k, v in texts.items() if k not in ("dossier", "strings")}}
     data["language"] = lang
     # Dossier: the order and contents of the sections are neutral; titles and notes are translated.
@@ -291,7 +309,7 @@ def load_case(root, lang=None):
                 read_sheet_folder(lang_root / "kit"),
                 {s.id: s for s in read_sheet_folder(lang_root / "dossier")},
                 read_sheet_folder(lang_root / "guide"),
-                Strings.load(lang, texts.get("strings")))
+                Strings.load(lang, texts.get("strings")), neutral=neutral)
     validate(case)
     return case
 
@@ -299,6 +317,7 @@ def load_case(root, lang=None):
 def validate(case):
     """Checks cross references. Errors stop the export; warnings do not."""
     case_file = case.root / "case.yaml"
+    case.figures  # a misspelt key or a figure that is not one stops here, also with --check
     seen = {}
     for sec in case.sections:
         for pid in sec.get("items", []) or []:

@@ -21,4 +21,6 @@ As the narrator you never lie and never make up a new clue. If they ask somethin
 - **Alibi tokens:** each team has {{ alibi }}, with a dashed border. They are only good for asking for evidence of where a suspect was at the time of the crime: phone towers, cameras or a witness who places them. Those left over do not score.
 {% endif %}
 - **What places a person:** evidence that names or identifies them, or that places a vehicle another piece of evidence links to them. A vehicle nothing links to anyone places no one.
+{% if hints %}
 - **Hints:** they are given in order to whoever asks and cost points ({{ m.hint_costs(hint_groups) }}); write them on the control sheet.
+{% endif %}
