@@ -167,15 +167,18 @@ groups:
     type: wildcard
     cards:
       - code: "◆ ✕"
+        role: confrontation_failed
         type: failed
         who: Confrontación fallida
         answer: '"Eso no prueba nada, detective."'
         note: La persona se mantiene en su declaración.
       - code: TESTIGO
+        role: unavailable
         who: Testigo no disponible
         answer: Esa persona todavía no aparece en el material que tienen. Cuando aparezca nombrada en una prueba, una declaración o una tarjeta, pueden entrevistarla.
         note: No se cobra la ficha.
       - code: NADA
+        role: nothing_to_add
         who: Nada que aportar
         answer: Esa persona fue entrevistada y no sabe nada útil sobre la noche del domingo.
         note: No se cobra la ficha.

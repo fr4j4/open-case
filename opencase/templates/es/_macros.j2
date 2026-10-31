@@ -1,5 +1,10 @@
 {#- Ayudas para las plantillas en español. -#}
 
+{#- "1 ficha", "3 fichas": a cost in tokens (figures.costs) -#}
+{% macro tok(n) -%}
+{{ n|num }} {{ "ficha" if n == 1 else "fichas" }}
+{%- endmacro %}
+
 {#- "1 punto", "2 puntos" -#}
 {% macro pts(n) -%}
 {{ n|num }} {{ "punto" if n == 1 else "puntos" }}

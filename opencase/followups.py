@@ -30,7 +30,8 @@ def card_box(c, case):
     found = index(case)
     out = []
     for code in codes:
-        text = case.t("follow_up.box", code=code)
+        n = case.figures["costs"]["follow_up"]
+        text = case.t("follow_up.box", code=code, cost=case.t("tokens.cost_one" if n == 1 else "tokens.cost_other", n=n))
         target = found.get(normalize_code(code))
         unlock = [display_code(case, x) for x in as_list(target.get("unlocked_by"))] if target else []
         if unlock:

@@ -12,7 +12,7 @@ Como narrador nunca mientes y nunca inventas una pista nueva. Si te preguntan al
 ```
 
 - **Atiende en orden de llegada, por turnos entre los equipos.** Responde cada solicitud antes de tomar la siguiente; si un equipo junta varias, responde una y pasa al siguiente.
-- **Solo se pregunta en la investigación,** nunca en la escena. Los sospechosos se entrevistan desde que empieza, a 1 ficha por pregunta; la declaración del sobre 1 no es una entrevista.
+- **Solo se pregunta en la investigación,** nunca en la escena. Los sospechosos se entrevistan desde que empieza, a {{ m.tok(f.costs.question) }} por pregunta; la declaración del sobre 1 no es una entrevista.
 - **Testigos:** se piden si su nombre ya apareció en el material del equipo, aunque sea en una lista o un registro. Al entregar un nombre nuevo, dilo en voz alta: "a esa persona ya la pueden entrevistar". Si no apareció, entrega la tarjeta de testigo no disponible, sin cobrar. Dicen la verdad.
 - **Una confrontación entrega una sola tarjeta.** Si hay varias posibles, entrega la más específica.
 - **Diligencias:** sin base en lo visto (las cámaras de un banco que ningún documento menciona), recházala sin cobrar. Con base pero sin nada que encontrar (las cámaras de una farmacia del parte que no tiene), responde "sin hallazgos" y la ficha se gasta. Si ya lo tienen, dilo sin cobrar.

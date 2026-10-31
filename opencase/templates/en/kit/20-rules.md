@@ -6,8 +6,8 @@ title: Rules
 {% import "_macros.j2" as m %}
 {% set alibi = f.alibi_tokens_per_team %}
 
-1. **Questions.** Each question costs **1 token**, including the ones not on the menu. You only ask during the investigation, never in the scene: the {{ n_suspects }} suspects can be interviewed from its start (the statement in envelope 1 is not an interview). The director answers what is obvious in the story (for example, whether someone has a vehicle) for free.
-2. **Witnesses.** Anyone else can be interviewed once they are named in a piece of evidence, a statement or a card (a name in a call log, a bank statement or a register also counts). Each question costs 1 token, and witnesses tell the truth.
+1. **Questions.** Each question costs **{{ m.tok(f.costs.question) }}**, including the ones not on the menu. You only ask during the investigation, never in the scene: the {{ n_suspects }} suspects can be interviewed from its start (the statement in envelope 1 is not an interview). The director answers what is obvious in the story (for example, whether someone has a vehicle) for free.
+2. **Witnesses.** Anyone else can be interviewed once they are named in a piece of evidence, a statement or a card (a name in a call log, a bank statement or a register also counts). Each question costs {{ m.tok(f.costs.witness) }}, and witnesses tell the truth.
 3. **Confront (◆).** You confront someone by showing one or more pieces of evidence you already have; say what you want to point out with each. If the evidence does not work against that person, the answer will be "that proves nothing" and the token is spent anyway. Each confrontation gives one card only, and you can confront again with other evidence.
 4. **Procedures.** They cost what the menu says. On the request slip write **what you are looking for and why**, and the director answers in one of these ways:
     - **No grounds: no charge.** What you ask for rests on nothing you have seen. Example: you ask for a bank's cameras, but no document or statement mentions a bank. The director turns the request down and you keep the token.

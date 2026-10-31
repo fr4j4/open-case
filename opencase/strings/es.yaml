@@ -67,6 +67,8 @@ menu:
   confront_default: Confrontar con una prueba (indiquen cuál)
 tokens:
   token: Ficha
+  cost_one: "{n} ficha"
+  cost_other: "{n} fichas"
   alibi: Coartada
   alibi_code: "C{i}"
   spare: reserva
@@ -108,7 +110,7 @@ readme_color: "Versión a todo color, con fondos. Sin --color sale en modo ahorr
 
 # Seguimientos: el recuadro al pie de la tarjeta que habilita uno (opencase/followups.py)
 follow_up:
-  box: "Seguimiento {code} · 1 ficha"
+  box: "Seguimiento {code} · {cost}"
   box_condition: "si ya tienen {codes}"
   or_word: " o "
 

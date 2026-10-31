@@ -3,8 +3,9 @@
 # (the team's card only shows code, cost and condition), the cards that enable them (follow_up), the
 # evidence they also need (unlocked_by) and the case's note for the director (guide_note).
 ---
+{% import "_macros.j2" as m %}
 {% if follow_ups %}
-### Seguimientos (1 ficha)
+### Seguimientos ({{ m.tok(f.costs.follow_up) }})
 
 Entrégalos solo al equipo que ya tiene la tarjeta de la que salen{{ " y, si la tabla nombra una prueba, también esa prueba" if follow_ups|selectattr("unlocked_by")|list else "" }}; si no la tiene, no cobres. La pregunta completa está solo aquí: la tarjeta del equipo muestra el código, el costo y la condición.
 {.small}

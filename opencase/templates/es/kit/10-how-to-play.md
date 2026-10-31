@@ -2,6 +2,7 @@
 place: anchor
 join: true
 ---
+{% import "_macros.j2" as m %}
 {% set alibi = f.alibi_tokens_per_team %}
 
 ### Cómo se juega
@@ -20,7 +21,7 @@ Parten con **{{ f.tokens_per_team }} fichas**{% if alibi %}, **{{ alibi }} ficha
 ### Palabras del juego
 
 ```small
-- **Pregunta:** lo que le preguntan a una persona. Cuesta 1 ficha y se pide con un código del menú (por ejemplo, la letra de un sospechoso y un número).
+- **Pregunta:** lo que le preguntan a una persona. Cuesta {{ m.tok(f.costs.question) }} y se pide con un código del menú (por ejemplo, la letra de un sospechoso y un número).
 - **Diligencia:** un pedido a la policía o a un laboratorio, como revisar un teléfono, pedir cámaras o peritar un objeto. Hay que escribir qué buscan y por qué. Cuesta lo que indica el menú.
 - **Solicitud:** el papel donde anotan el código y por qué lo piden. Se entrega al director con las fichas que cuesta, y él les da la tarjeta de respuesta o la prueba.
 - **Coartada:** dónde dice una persona que estaba cuando ocurrió el crimen y qué permite comprobarlo.{{ " Las **fichas de coartada** (borde punteado) solo sirven para eso, y las que sobran no suman." if alibi else "" }}

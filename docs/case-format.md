@@ -245,6 +245,7 @@ groups:
 |---|---|
 | `code` | Required. On confrontations the suspect's letter and a diamond are put in front: `B◆ · B5`. |
 | `type` | `answer` (the default), `follow-up`, `confrontation`, `failed`, `witness`, `wildcard`, `notice`, `press`, `hint` or `closing`. It changes the band colour. It can be set on the group for all its cards. |
+| `role` | Only on the wildcard cards: the situation in which the web app hands the card out in the engine's name: `no_findings` ("sin hallazgos"), `unavailable` (witness not named yet), `nothing_to_add` (witness with no more cards) and `confrontation_failed` (the evidence proves nothing). A role that is missing makes the app answer without a card. |
 | `question` | What the team asked, in italics at the top. |
 | `menu_question` | Another wording for the kit's menu, if needed. |
 | `answer` | The main text. At most 420 characters: more does not fit in 63 × 88 mm. |
@@ -542,6 +543,7 @@ How many notices, press cards and hints the rules mention comes from the case (i
 |---|---|---|
 | `tokens_per_team` | 16 | Numbered tokens for questions and procedures |
 | `alibi_tokens_per_team` | 0 | Dashed tokens that only check where a suspect was |
+| `costs` | `question`, `witness`, `confrontation`, `follow_up`: 1 each | Tokens each kind of request costs (a procedure has its own cost in `procedures.yaml`). The kit, the guide, the cards and the web app print and charge the same number |
 | `team_size_min` | 2 | Smallest team |
 | `phases` | `{setup: 5, scene: 10, investigation: 30, accusation: 15}` | Minutes of each phase. Minute 0 of the investigation is when envelope 2 is opened |
 | `closing_minutes` | `[5, 10]` | Score, confession and the end of the story |

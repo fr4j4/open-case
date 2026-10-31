@@ -34,16 +34,8 @@ from .markup import plain_text, use_strings
 from .i18n import Strings
 
 ROOT = Path(__file__).resolve().parent.parent
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 SCHEMA_DIR = ROOT / "docs" / "web-schema"
-
-# The cost of the requests that are not procedures. Today these live only as text in the engine's templates
-# (templates/<lang>/kit/20-rules.md: "Cada pregunta cuesta 1 ficha"; strings follow_up.box: "1 ficha"), so the
-# web app reads them from here. Listed in docs/web-format.md as pending for F4a, which turns them into data.
-QUESTION_COST = 1
-WITNESS_COST = 1
-CONFRONTATION_COST = 1
-FOLLOW_UP_COST = 1
 
 # --- Names of files and of assets ---------------------------------------------------------------
 
@@ -105,15 +97,42 @@ def _case_info(case, slug):
             "paper": case.paper, "brand": str(case.get("brand", "Open Case"))}
 
 
+def wildcards(case):
+    """The code of the card that answers in the engine's name for each role (`role:` of a wildcard card in
+    cards.yaml: no_findings, unavailable, nothing_to_add, confrontation_failed); null when the case has none."""
+    out = {role: None for role in procedures.WILDCARD_ROLES}
+    for c, g in iter_cards(case):
+        role = c.get("role")
+        if role is None:
+            continue
+        if role not in out:
+            raise CaseError(f"card {c.get('code')}: the role '{role}' does not exist (use {', '.join(out)})",
+                            case.lang_root / "cards.yaml")
+        if out[role] is not None:
+            raise CaseError(f"two cards have the role '{role}': {out[role]} and {c.get('code')}",
+                            case.lang_root / "cards.yaml")
+        out[role] = str(c["code"])
+    return out
+
+
 def rules(case):
-    """What is needed to charge and give back tokens: the figures, the cost of each kind of request and which
-    procedures accept an alibi token or can be asked about for free."""
+    """What is needed to charge and give back tokens: the figures, the cost of each kind of request, the answers
+    a director can give to each and whether they charge, and which procedures accept an alibi token or can be
+    asked about for free. site/play/js/rules.js applies exactly this; tests/web/test_rules.py checks it."""
     f = case.figures
+    costs = {k: f["costs"][k] for k in ("question", "witness", "confrontation", "follow_up")}
+    requests = {}
+    for kind, r in procedures.REQUESTS.items():
+        requests[kind] = {"cost": costs[r["cost"]] if r["cost"] else None,
+                          "answers": {name: {"charge": charge} for name, charge in r["answers"].items()}}
+        if "unlock" in r:
+            requests[kind]["unlock"] = r["unlock"]
     return {
         "tokens_per_team": f["tokens_per_team"],
         "alibi_tokens_per_team": f["alibi_tokens_per_team"],
-        "costs": {"question": QUESTION_COST, "witness": WITNESS_COST, "confrontation": CONFRONTATION_COST,
-                  "follow_up": FOLLOW_UP_COST},
+        "costs": costs,
+        "requests": requests,
+        "wildcards": wildcards(case),
         "procedure_kinds": {k: dict(v) for k, v in procedures.KINDS.items()},
         "alibi_procedures": [p["code"] for p in case.procedures if p["alibi"]],
         "free_source_procedures": [p["code"] for p in case.procedures if p["source"]],
@@ -184,7 +203,7 @@ def _follow_ups_team(case):
     out = []
     for c, g in iter_cards(case):
         if card_kind(c, g) == followups.KIND:
-            out.append({"code": str(c["code"]), "cost": FOLLOW_UP_COST,
+            out.append({"code": str(c["code"]), "cost": case.figures["costs"]["follow_up"],
                         "unlocked_by": [display_code(case, x) for x in as_list(c.get("unlocked_by"))]})
     return out
 

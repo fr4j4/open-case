@@ -6,8 +6,8 @@ title: Reglas
 {% import "_macros.j2" as m %}
 {% set alibi = f.alibi_tokens_per_team %}
 
-1. **Preguntas.** Cada pregunta cuesta **1 ficha**, también las que no están en el menú. Solo se pregunta durante la investigación, nunca en la escena: los {{ n_suspects }} sospechosos se pueden entrevistar desde que empieza (la declaración del sobre 1 no es una entrevista). Lo obvio dentro de la historia (por ejemplo, si alguien tiene vehículo) el director lo contesta sin cobrar.
-2. **Testigos.** Cualquier otra persona se puede entrevistar cuando aparezca nombrada en una prueba, una declaración o una tarjeta (también cuenta un nombre en una lista de llamadas, una cartola o un registro). Cada pregunta cuesta 1 ficha y los testigos dicen la verdad.
+1. **Preguntas.** Cada pregunta cuesta **{{ m.tok(f.costs.question) }}**, también las que no están en el menú. Solo se pregunta durante la investigación, nunca en la escena: los {{ n_suspects }} sospechosos se pueden entrevistar desde que empieza (la declaración del sobre 1 no es una entrevista). Lo obvio dentro de la historia (por ejemplo, si alguien tiene vehículo) el director lo contesta sin cobrar.
+2. **Testigos.** Cualquier otra persona se puede entrevistar cuando aparezca nombrada en una prueba, una declaración o una tarjeta (también cuenta un nombre en una lista de llamadas, una cartola o un registro). Cada pregunta cuesta {{ m.tok(f.costs.witness) }} y los testigos dicen la verdad.
 3. **Confrontar (◆).** Se confronta mostrando una o más pruebas que ya tienen; digan qué quieren señalar con cada una. Si la prueba no sirve contra esa persona, la respuesta será "eso no prueba nada" y la ficha se cobra igual. Cada confrontación entrega una sola tarjeta, y se puede volver a confrontar con otra prueba.
 4. **Diligencias.** Cuestan lo que indica el menú. En la solicitud escriban **qué buscan y por qué**, y el director responde de una de estas formas:
     - **No tiene base: no se cobra.** Lo que piden no se apoya en nada de lo que ya vieron. Ejemplo: piden las cámaras de un banco, pero ningún documento ni declaración menciona un banco. El director rechaza la solicitud y se quedan con la ficha.

@@ -191,10 +191,12 @@ envelope_labels:
     cards:
       - code: ◆
         type: wildcard
+        role: confrontation_failed
         who: Confrontación fallida
         answer: '"Eso no prueba nada, detective."'
       - code: TESTIGO
         type: wildcard
+        role: unavailable
         who: Testigo no disponible
         answer: Esa persona todavía no aparece en su material. No se cobra la ficha.
   - title: Avisos

@@ -67,6 +67,8 @@ menu:
   confront_default: Confront with a piece of evidence (say which)
 tokens:
   token: Token
+  cost_one: "{n} token"
+  cost_other: "{n} tokens"
   alibi: Alibi
   alibi_code: "A{i}"
   spare: spare
@@ -108,7 +110,7 @@ readme_color: "Full-colour version, with backgrounds. Without --color the PDFs c
 
 # Follow-ups: the box at the bottom of the card that enables one (opencase/followups.py)
 follow_up:
-  box: "Follow-up {code} · 1 token"
+  box: "Follow-up {code} · {cost}"
   box_condition: "only if you have {codes}"
   or_word: " or "
 

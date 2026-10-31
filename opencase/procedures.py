@@ -38,6 +38,31 @@ KINDS = {
     "cameras": {"target": "place", "locates": True, "source": True},
     "other": {"target": "thing", "locates": False, "source": False},
 }
+# The requests a team can make and the answers a director can give (rules 1 to 5 of the kit), the same in every
+# case. `cost`: the key of figures.costs (a procedure has its own cost). `answers`: every answer the director can
+# press and whether the tokens are charged with it (True) or kept (False):
+#   give            hands out what the request earns (the card, the sheets); charged
+#   obvious         a question whose answer is already in the story (rule 1); free
+#   unavailable     the witness has not appeared in the material yet (rule 2); free
+#   nothing_to_add  the witness has no more cards (rule 2); free
+#   locked          the follow-up's condition is not met (follow_up.unlock: any of unlocked_by is enough); free
+#   failed          the evidence shown proves nothing against that person (rule 3); charged
+#   no_basis        what they ask is not based on anything they have seen (rule 4); free
+#   nothing_found   it has a basis but there is nothing to find, "sin hallazgos" (rule 4); charged
+#   already_have    they ask for something they already have (rule 4); free
+#   yes / no        whether a place has a camera or a register (rule 5); free
+REQUESTS = {
+    "question": {"cost": "question", "answers": {"give": True, "obvious": False, "already_have": False}},
+    "witness": {"cost": "witness", "answers": {"give": True, "unavailable": False, "nothing_to_add": False}},
+    "follow_up": {"cost": "follow_up", "unlock": "any",
+                  "answers": {"give": True, "locked": False, "already_have": False}},
+    "confrontation": {"cost": "confrontation", "answers": {"give": True, "failed": True, "already_have": False}},
+    "procedure": {"cost": None, "answers": {"give": True, "nothing_found": True, "no_basis": False,
+                                            "already_have": False}},
+    "source": {"cost": None, "answers": {"yes": False, "no": False}},
+}
+# The cards that answer in the engine's name when the case has them: `role` of a wildcard card in cards.yaml.
+WILDCARD_ROLES = ("no_findings", "unavailable", "nothing_to_add", "confrontation_failed")
 SOURCES = ("camera", "register")
 SPECIAL = ("none", "material")
 NEUTRAL_KEYS = {"code", "kind", "cost", "each", "alibi", "gives", "targets"}

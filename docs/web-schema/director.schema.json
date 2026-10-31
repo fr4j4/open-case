@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": 1,
+      "const": 2,
       "description": "schema_version: raise it (and save the new fingerprint) when this schema changes"
     },
     "kind": {
@@ -169,6 +169,30 @@
             "wrong_accusation"
           ],
           "additionalProperties": false
+        },
+        "costs": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "integer"
+            },
+            "witness": {
+              "type": "integer"
+            },
+            "confrontation": {
+              "type": "integer"
+            },
+            "follow_up": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "question",
+            "witness",
+            "confrontation",
+            "follow_up"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
@@ -183,7 +207,8 @@
         "notice_minutes",
         "hint_penalties",
         "request_log_rows",
-        "score"
+        "score",
+        "costs"
       ],
       "additionalProperties": false,
       "description": "opencase/defaults.yaml already combined with the figures the case changes"
@@ -259,6 +284,274 @@
           "items": {
             "type": "string"
           }
+        },
+        "requests": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "unlock": {
+                  "enum": [
+                    "any"
+                  ]
+                },
+                "answers": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "charge": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "charge"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "cost",
+                "answers"
+              ],
+              "additionalProperties": false
+            },
+            "witness": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "unlock": {
+                  "enum": [
+                    "any"
+                  ]
+                },
+                "answers": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "charge": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "charge"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "cost",
+                "answers"
+              ],
+              "additionalProperties": false
+            },
+            "follow_up": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "unlock": {
+                  "enum": [
+                    "any"
+                  ]
+                },
+                "answers": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "charge": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "charge"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "cost",
+                "answers"
+              ],
+              "additionalProperties": false
+            },
+            "confrontation": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "unlock": {
+                  "enum": [
+                    "any"
+                  ]
+                },
+                "answers": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "charge": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "charge"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "cost",
+                "answers"
+              ],
+              "additionalProperties": false
+            },
+            "procedure": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "unlock": {
+                  "enum": [
+                    "any"
+                  ]
+                },
+                "answers": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "charge": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "charge"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "cost",
+                "answers"
+              ],
+              "additionalProperties": false
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "unlock": {
+                  "enum": [
+                    "any"
+                  ]
+                },
+                "answers": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "charge": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "charge"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "cost",
+                "answers"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "question",
+            "witness",
+            "follow_up",
+            "confrontation",
+            "procedure",
+            "source"
+          ],
+          "additionalProperties": false,
+          "description": "each kind of request: its cost and the answers a director can give, with whether each charges"
+        },
+        "wildcards": {
+          "type": "object",
+          "properties": {
+            "no_findings": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "unavailable": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "nothing_to_add": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "confrontation_failed": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "no_findings",
+            "unavailable",
+            "nothing_to_add",
+            "confrontation_failed"
+          ],
+          "additionalProperties": false,
+          "description": "code of the wildcard card with each role, null when the case has none"
         }
       },
       "required": [
@@ -267,7 +560,9 @@
         "costs",
         "procedure_kinds",
         "alibi_procedures",
-        "free_source_procedures"
+        "free_source_procedures",
+        "requests",
+        "wildcards"
       ],
       "additionalProperties": false,
       "description": "what is needed to charge and give back tokens"
