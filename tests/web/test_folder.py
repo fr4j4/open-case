@@ -36,7 +36,7 @@ def _director(ctx, base, teams=2):
 
 def _hand_out(page, team, codes):
     """Marks `codes` for `team` and returns the link of the delivery."""
-    page.click("[data-tab-give], .oc-tab:nth-child(1)")
+    page.click("#oc-tab-give")
     page.wait_for_selector("#oc-search")
     page.evaluate("document.querySelector('.oc-chips').querySelectorAll('button').forEach(b => { if (b.dataset.team && b.getAttribute('aria-pressed') === 'true') b.click(); })")
     page.click(f".oc-chip[data-team='{team}']")
@@ -53,7 +53,7 @@ def _hand_out(page, team, codes):
 
 
 def _join_link(page, team):
-    page.click(".oc-tab:nth-child(2)")
+    page.click("#oc-tab-teams")
     return page.get_attribute(f"[data-join='{team}']", "href")
 
 
@@ -142,7 +142,7 @@ def test_envelope_two_is_one_button(site, browser):
     folder, base = site
     director = _director(browser.new_context(), base)
     join = _join_link(director, "A")
-    director.click(".oc-tab:nth-child(1)")
+    director.click("#oc-tab-give")
     director.click("[data-envelope='2']")
     director.click("#oc-give")
     director.wait_for_selector("#oc-delivery")

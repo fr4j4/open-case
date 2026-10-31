@@ -199,6 +199,7 @@ export class DirectorRoom {
     this.online.set(d.id, Date.now());
     this.log.append('online', { device: d.id, team });
     this._sync(team, d.id);
+    this.onOnline?.(team, d.id);
     this._changed();
   }
 
@@ -227,6 +228,16 @@ export class DirectorRoom {
     c.send(deviceId, this._wire(team, 'sync', this.game.seq, this.teamItems(team))).catch(() => {});
   }
 
+  // Any other message to the devices of a team (F4b: the balance and the answers). `to` is one device id or null for all
+  // the connected ones. Returns how many it was sent to.
+  async sendTeam(team, msg, to = null) {
+    const c = this.teams.get(team);
+    if (!c) return 0;
+    const targets = this.members(team).filter((d) => this.online.has(d.id) && (!to || d.id === to));
+    const results = await Promise.allSettled(targets.map((d) => c.send(d.id, msg)));
+    return results.filter((r) => r.status === 'fulfilled').length;
+  }
+
   // Sends a delivery to every connected device of the team. Returns how many it was sent to; the rest get it from the
   // sync when they connect (the delivery is already in game.log).
   async deliver(team, items, seq) {
@@ -247,7 +258,7 @@ export class DirectorRoom {
 // status: 'connecting' | 'waiting' | 'approved' | 'denied' | 'out'
 export class DeviceRoom {
   // `session` is what survives a reload: {pin, team, room, c, l, v} (null before the first approval).
-  constructor({ id, name, pin, session, onStatus = () => {}, onMessage = () => {}, onSession = () => {} }) {
+  constructor({ id, name, pin, session, onStatus = () => {}, onMessage = () => {}, onSession = () => {}, onData = () => {}, onDirector = () => {} }) {
     this.id = id;
     this.name = name;
     this.pin = pin;
@@ -255,6 +266,8 @@ export class DeviceRoom {
     this.onStatus = onStatus;
     this.onMessage = onMessage;
     this.onSession = onSession;
+    this.onData = onData;               // messages that are not deliveries (the balance: {k:'bal'})
+    this.onDirector = onDirector;       // the director is connected in the team room (again): send what is pending
     this.status = 'connecting';
     this.vestibule = null;
     this.team = null;
@@ -307,7 +320,7 @@ export class DeviceRoom {
     if (old) setTimeout(() => old.close(), 1500);       // the acknowledgement of the message that sent us here still has to leave
     this.team = new Canal({ room, name: this.name, role: 'equipo', id: this.id, mode: 'dial' });
     this.team.on('message', (_from, m) => this._teamMessage(m));
-    this.team.on('peer', (p) => { if (p.role === 'director') { this.directorSeen = true; this.onStatus(this.status, this); } });
+    this.team.on('peer', (p) => { if (p.role === 'director') { this.directorSeen = true; this.onStatus(this.status, this); this.onDirector(p); } });
     this.team.on('peerleave', () => this.onStatus(this.status, this));
     await this.team.connect();
   }
@@ -322,6 +335,7 @@ export class DeviceRoom {
     }
     if (m.k === 'approved') return this._vestibuleMessage(m);     // moved to another team
     if (m.k === 'out') { this.session = null; this.onSession(null); this.team?.close(); this.team = null; this._set('out'); return; }
+    if (m.k === 'bal') { this.onData(m); return; }
     if (m.k === 'deliver' || m.k === 'sync') {
       const msg = validate({ c: m.c, l: m.l, v: m.v, t: m.t, s: m.s, i: m.i });
       if (!msg || (this.session && msg.team !== this.session.team)) return;      // a message for another team is never used
@@ -330,6 +344,13 @@ export class DeviceRoom {
   }
 
   get connected() { return !!(this.team && this.team.peers().some((p) => p.role === 'director')); }
+
+  // A message to the director through the team room. Resolves true when it was sent, false when the director is not there.
+  async sendToDirector(msg) {
+    const dir = this.team && this.team.peers().find((p) => p.role === 'director');
+    if (!dir) return false;
+    try { await this.team.send(dir.id, msg); return true; } catch (e) { return false; }
+  }
 
   async stop() { await this.vestibule?.close(); await this.team?.close(); }
 }
