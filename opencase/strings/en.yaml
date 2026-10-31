@@ -128,6 +128,7 @@ print:
     code: Code
     sheet: Sheet
     where: Where it is
+    sheets: " · {n} sheets"
   team_package: Each team's package
   team_package_note: Put together before playing and handed over whole.
   director_package: The director's package
