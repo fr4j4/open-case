@@ -278,6 +278,7 @@ groups:
       - code: C3+
         type: follow-up
         question: ¿Matías le pagó alguna vez por algo?
+        unlocked_by: [E15-M, E15-C]      # la cartola de Matías o la de Claudia muestra el pago
         answer: '"…Una asesoría. Por los animales. Nada raro."'
         guide_note: '[false] "Una asesoría". Empuja hacia E15·M o E15·C.'
 
