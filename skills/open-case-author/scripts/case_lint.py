@@ -15,6 +15,8 @@ Warnings (exit 0):
   - the kit never mentions the number of tokens of case.yaml (cases with engine_sheets: false), or a kit,
     guide or notice sheet writes by hand a figure the engine prints (tokens, minutes, hint costs), or
     session_minutes is shorter than the phases and the closing add up to
+  - an acronym used before its long form is written, or a word in capitals that is in no glossary (the
+    exporter's own check, see "Acronyms" in docs/case-format.md)
   - the culprit (from a `# culprit: X` comment in suspects.yaml, optional) is listed first in suspects.yaml
 
 Needs pyyaml (the exporter needs it too).
@@ -195,6 +197,21 @@ def main():
                 continue
             if re.match(r"^[A-ZÑ]{1,4}\d+[+✕]?$|^E\d+", t):
                 info.append(f"guide/{f.name}: code `{t}` is not a card, a sheet or a procedure (typo?)")
+
+    # Acronyms: the exporter's own check (needs the exporter next to the skill; skipped if it is not there)
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+    try:
+        from opencase.acronyms import check as check_acronyms
+        from opencase.loader import CaseError, load_case
+        from opencase.templates import sheets_for
+        try:
+            c = load_case(root, lang)
+            check_acronyms(c, sheets_for(c, "kit", c.kit) if c.kit else [], sheets_for(c, "guide", c.guide) if c.guide else [])
+            warnings += [w for w in c.warnings if "acronym" in w or "glossary" in w or "long form" in w]
+        except CaseError as ex:
+            errors.append(str(ex))
+    except ImportError:
+        info.append("acronyms were not checked (the exporter is not next to this script)")
 
     for e in errors:
         print("!! " + e)

@@ -21,6 +21,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, TemplateNotFound, TemplateSyntaxError
 from jinja2.exceptions import UndefinedError
 
+from .acronyms import table_rows
 from .loader import CaseError, Sheet, as_list, parse_sheet, read_yaml
 
 TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
@@ -52,6 +53,11 @@ def _number(strings):
             return "−" + text
         return ("+" + text) if signed and value > 0 else text
     return fmt
+
+
+def _fail(message):
+    """{{ fail("...") }} in a template: stops the export with that message (for data the case got wrong)."""
+    raise CaseError(message)
 
 
 def _team_label(team):
@@ -153,6 +159,7 @@ def context(case, data=None):
         "hint_groups": _hint_groups(penalties),
         "how_to_play_in_kit": how_to_play_in_kit,
         "case_title": case.title,
+        "glossary": table_rows(case),
         "data": data if data is not None else {},
     }
 
@@ -173,6 +180,7 @@ def render(case, name, data=None):
     env = environment(case.lang)
     env.filters["num"] = _number(case.strings)
     env.filters["team_label"] = _team_label
+    env.globals["fail"] = _fail
     path = language_dir(case.lang) / name
     try:
         template = env.get_template(name)
@@ -235,6 +243,8 @@ def sheets_for(case, doc, own):
         if Path(name).stem in skip:
             continue
         sheet = render_sheet(case, f"{doc}/{name}")
+        if not sheet.blocks:   # a sheet that has nothing to say in this case (an empty glossary)
+            continue
         place = str(sheet.data.get("place", "anchor")).strip()
         groups.setdefault(place, []).append(sheet)
     out = list(own)

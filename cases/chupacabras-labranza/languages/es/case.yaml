@@ -51,6 +51,19 @@ dossier:
       title: Avisos de la Fiscalía
       note: El director los lee a todos los equipos a la vez
 
+# Siglas que usan los documentos. Las hojas escriben completas las que no son `expand: false`
+# la primera vez que aparecen; la guía del director trae la tabla completa.
+glossary:
+  PDI: Policía de Investigaciones de Chile
+  BH: Brigada de Homicidios
+  SML: Servicio Médico Legal
+  LACRIM: Laboratorio de Criminalística
+  SAG: Servicio Agrícola y Ganadero
+  SUV: {long: vehículo utilitario deportivo, expand: false}
+  ADN: {long: ácido desoxirribonucleico, expand: false}
+  RUC: {long: Rol Único de Causa, expand: false}
+  DM: {long: mensaje directo, expand: false}
+
 # Etiquetas para pegar en los sobres (una por equipo).
 envelope_labels:
   - number: 1

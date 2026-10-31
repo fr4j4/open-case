@@ -28,6 +28,10 @@ Tone, voice and conventions for every piece of text, taken from the brand guide 
 
 Backticks for codes in Markdown (`` `E13a` ``), bare codes in YAML fields (`attach: E30`). The middle dot `·` separates parts of a code and the two lines of a letterhead. Quotes are straight or typographic but consistent across the case. Ellipsis is one character (…).
 
+## Acronyms
+
+Write an acronym out the first time a team can read it (`Servicio Agrícola y Ganadero (SAG)`), in the order the teams read: the kit, then the envelopes. Put every acronym in `glossary` of `languages/<lang>/case.yaml`; the ones everybody knows (SUV, ADN) as `{long: …, expand: false}`. `--check` and the lint warn about an acronym used before its long form and about a word in capitals that is in no glossary (`glossary_ignore` for the ones that are not). Do not expand inside what someone says: a chat, a statement or a quoted answer keeps the way the person talks.
+
 ## Names
 
 - Each suspect has a unique initial; if two share one, pick a nickname or a surname initial and keep it everywhere.

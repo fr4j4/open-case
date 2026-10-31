@@ -3,6 +3,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from . import acronyms
 from . import cards as C
 from . import templates
 from .components import Context, render_blocks
@@ -120,6 +121,7 @@ def build_documents(case):
     ctx = Context(case, REPO_ROOT)
     t = case.t
     docs = []
+    kit_sheets, guide_sheets = [], []
     title = case.title
     brand = case.get("brand", "Open Case")
 
@@ -136,7 +138,8 @@ def build_documents(case):
         body = _screen_header(f"{brand} · {title}", t("docs.kit.title"), kit_cfg.get("description", ""))
         body += cover(case, ctx, t("docs.kit.title"), kit_cfg.get("cover_note", ""), team_line=True)
         defaults = {"logo": True, "team_line": True, "brand_footer": _brand_footer(case, "kit")}
-        body += "".join(sheet(h, ctx, defaults) for h in templates.sheets_for(case, "kit", case.kit))
+        kit_sheets = templates.sheets_for(case, "kit", case.kit)
+        body += "".join(sheet(h, ctx, defaults) for h in kit_sheets)
         doc("kit", "teams", "01", "kit", page("kit", body, "oc-mesa"), "sheets", True)
 
     # --- Dossier: by envelope for the teams, and complete for the director ----------------
@@ -171,7 +174,8 @@ def build_documents(case):
         body = _screen_header(t("guide_kicker"), t("docs.guide.title"), guide_cfg.get("description", ""))
         body += cover(case, ctx, t("docs.guide.title"), guide_cfg.get("cover_note", ""), reserved=True)
         defaults = {"logo": True, "reserved": True, "tag": t("director_only"), "brand_footer": _brand_footer(case, "guide")}
-        body += "".join(sheet(h, ctx, defaults) for h in templates.sheets_for(case, "guide", case.guide))
+        guide_sheets = templates.sheets_for(case, "guide", case.guide)
+        body += "".join(sheet(h, ctx, defaults) for h in guide_sheets)
         doc("guide", "director", "01", "guide", page("guide", body, "oc-mesa"), "sheets")
 
     # --- Answer cards and notices -----------------------------------------------------------
@@ -217,6 +221,7 @@ def build_documents(case):
         sheets = C.card_sheets(cards, case, t("labels.envelope_labels"))
         doc("labels", "teams", "14", "envelope_labels",
             page("envelope_labels", _screen_header(title, t("docs.envelope_labels.title")) + "".join(sheets)), "card-sheets")
+    acronyms.check(case, kit_sheets, guide_sheets)
     return docs
 
 

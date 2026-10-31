@@ -19,6 +19,15 @@ guide:
     guion por fases, cómo responder cada solicitud y cómo evaluar la acusación.
   cover_note: Contiene la solución. No la muestres ni la mandes a los equipos.
 
+# Siglas que usan los documentos (ver el caso El Chupacabras de Labranza).
+glossary:
+  PDI: Policía de Investigaciones de Chile
+  SML: Servicio Médico Legal
+  ADN: {long: ácido desoxirribonucleico, expand: false}
+  GPS: {long: sistema de posicionamiento global, expand: false}
+  DVR: {long: grabador de video digital, expand: false}
+glossary_ignore: [BIRO, AM]
+
 dossier:
   title: Expediente El Trébol
   kicker: PDI · Brigada de Robos Rancagua · RUC 2601197730-1
