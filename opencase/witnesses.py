@@ -10,18 +10,10 @@ in none of those places cannot be found and the case gets a warning.
 """
 import re
 
-from .loader import CaseError, as_list, normalize_code
+from .loader import CaseError, as_list, card_kind as _kind, display_code, iter_cards as _cards, normalize_code
 from .markup import plain_text
 
 KIND = "witness"
-
-
-def _kind(c, g):
-    return str(c.get("type", g.get("type", "answer"))).lower()
-
-
-def _cards(case):
-    return [(c, g) for g in case.card_groups for c in g.get("cards", []) or []]
 
 
 def name_of(who):
@@ -44,20 +36,13 @@ def witnesses(case):
             w["note"] = (w["note"] + " " + c["guide_note"]).strip()
     for w in people.values():
         w["appears_in_shown"] = [display_code(case, x) for x in w["appears_in"]]
+        w["attach"] = [display_code(case, x) for x in w["attach"]]
     return list(people.values())
 
 
 def _list(v):
     """Like as_list, but an alias may hold commas only when written as a YAML list."""
     return list(v) if isinstance(v, (list, tuple)) else as_list(v)
-
-
-def display_code(case, ref):
-    """How a code is shown in the guide: the dossier sheet's own code (DEC·T) or the card's."""
-    for sheet_id, s in case.dossier.items():
-        if normalize_code(ref) in (normalize_code(sheet_id), normalize_code(s.get("code", sheet_id))):
-            return re.sub(r"\s*·\s*", "·", str(s.get("code", sheet_id)))
-    return str(ref)
 
 
 def source_text(case, ref):

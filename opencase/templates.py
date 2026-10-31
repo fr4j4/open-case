@@ -22,9 +22,9 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, TemplateNotFound, TemplateSyntaxError
 from jinja2.exceptions import UndefinedError
 
-from . import followups, witnesses
+from . import followups, procedures, witnesses
 from .acronyms import table_rows
-from .loader import CaseError, Sheet, as_list, parse_sheet, read_yaml
+from .loader import CaseError, Sheet, as_list, card_kind, parse_sheet, read_yaml
 
 TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
 ENGINE_KEYS = ("place", "join", "optional")
@@ -85,10 +85,6 @@ def _hint_groups(penalties):
     return groups
 
 
-def _card_kind(c, g):
-    return str(c.get("type", g.get("type", "answer"))).lower()
-
-
 def notice_minute(case, n):
     """Suggested minute for the n-th notice (1-based), or None when the figures have fewer."""
     minutes = case.figures["notice_minutes"] or []
@@ -108,12 +104,12 @@ def context(case, data=None):
     notices = [{"n": n, "code": h.get("code", h.id), "title": h.get("title", ""), "minute": notice_minute(case, n)}
                for n, h in enumerate(notice_sheets, 1)]
     if not notice_sheets:   # the notices are only cards (the usual case): the control sheet lists the cards
-        notice_cards = [c for c, g in cards if _card_kind(c, g) == "notice"]
+        notice_cards = [c for c, g in cards if card_kind(c, g) == "notice"]
         notices = [{"n": n, "code": str(c.get("code", "")), "title": c.get("title") or c.get("headline", ""),
                     "minute": notice_minute(case, n)} for n, c in enumerate(notice_cards, 1)]
     readings, n_notice = [], 0
     for c, g in cards:
-        kind = _card_kind(c, g)
+        kind = card_kind(c, g)
         if kind == "notice":
             n_notice += 1
             readings.append({"kind": kind, "n": n_notice, "code": str(c.get("code", "")),
@@ -135,7 +131,7 @@ def context(case, data=None):
     penalties = list(f["hint_penalties"] or [])
     hints = [{"n": n, "code": str(c.get("code", "")), "answer": c.get("answer", ""),
               "penalty": penalties[n - 1] if n <= len(penalties) else None}
-             for n, (c, g) in enumerate([(c, g) for c, g in cards if _card_kind(c, g) == "hint"], 1)]
+             for n, (c, g) in enumerate([(c, g) for c, g in cards if card_kind(c, g) == "hint"], 1)]
     if len(hints) > len(penalties):
         raise CaseError(f"the case has {len(hints)} hint cards but hint_penalties gives {len(penalties)} costs: "
                         "add the missing ones in case.yaml", case.root / "case.yaml")
@@ -171,6 +167,10 @@ def context(case, data=None):
         "how_to_play_in_kit": how_to_play_in_kit,
         "follow_ups": followups.follow_ups(case),
         "witnesses": witnesses.witnesses(case),
+        "procedures": case.procedures,
+        "locations": case.locations,
+        "procedure_cards": procedures.card_rows(case),
+        "procedure_also": procedures.also_rows(case),
         "case_title": case.title,
         "glossary": table_rows(case),
         "data": data if data is not None else {},
@@ -195,6 +195,8 @@ def render(case, name, data=None):
     env.filters["team_label"] = _team_label
     env.globals["fail"] = _fail
     env.filters["cell"] = _cell
+    env.filters["source_word"] = lambda source: case.t(f"procedures.sources.{source}")
+    env.filters["capitalize_first"] = lambda text: str(text)[:1].upper() + str(text)[1:]
     path = language_dir(case.lang) / name
     try:
         template = env.get_template(name)

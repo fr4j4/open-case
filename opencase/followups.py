@@ -7,18 +7,10 @@ of evidence, the follow-up card says which in `unlocked_by` (one or several code
 cards; any one of them is enough). The team's card only shows the code, the cost and that condition:
 the full question is in the director's guide.
 """
-from .loader import CaseError, as_list, normalize_code
+from .loader import CaseError, as_list, card_kind as _kind, display_code, iter_cards as _cards, normalize_code
 from .markup import e
 
 KIND = "follow-up"
-
-
-def _kind(c, g):
-    return str(c.get("type", g.get("type", "answer"))).lower()
-
-
-def _cards(case):
-    return [(c, g) for g in case.card_groups for c in g.get("cards", []) or []]
 
 
 def index(case):
@@ -40,7 +32,7 @@ def card_box(c, case):
     for code in codes:
         text = case.t("follow_up.box", code=code)
         target = found.get(normalize_code(code))
-        unlock = as_list(target.get("unlocked_by")) if target else []
+        unlock = [display_code(case, x) for x in as_list(target.get("unlocked_by"))] if target else []
         if unlock:
             text += " · " + case.t("follow_up.box_condition", codes=join_or(case, unlock))
         out.append(f'<div class="oc-tarjeta__seguimiento">{e(text)}</div>')
@@ -68,8 +60,8 @@ def follow_ups(case):
             "code": str(c["code"]),
             "question": c.get("question", ""),
             "mothers": mothers.get(normalize_code(c["code"]), []),
-            "unlocked_by": [str(x) for x in as_list(c.get("unlocked_by"))],
-            "attach": [str(x) for x in as_list(c.get("attach"))],
+            "unlocked_by": [display_code(case, x) for x in as_list(c.get("unlocked_by"))],
+            "attach": [display_code(case, x) for x in as_list(c.get("attach"))],
             "note": c.get("guide_note", ""),
         })
     return out

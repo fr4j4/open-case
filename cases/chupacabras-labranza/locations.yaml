@@ -1,0 +1,19 @@
+# El Chupacabras de Labranza: the places a team may ask about, and the sources each one has
+# (camera, register). Asking the director whether a place has one is free; seeing what it shows is
+# the procedure. The names are in languages/<lang>/locations.yaml.
+
+locations:
+  - id: parcel
+    sources: []                # E01: the plot has no cameras
+  - id: copec
+    sources: [camera]
+  - id: building
+    sources: [camera, register]   # the gate and the concierge's log (E14)
+  - id: clinic
+    sources: [camera, register]   # the emergency record and the camera (E22)
+  - id: hospital
+    sources: [register]
+  - id: karaoke
+    sources: []
+  - id: stream
+    sources: []

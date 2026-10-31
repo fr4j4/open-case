@@ -1,0 +1,9 @@
+# Nombres de los lugares de locations.yaml y una nota para el director (opcional).
+locations:
+  parcel: {name: parcela El Arrayán, note: E01 ya lo dice; no se cobra}
+  copec: {name: Copec}
+  building: {name: edificio de Benjamín}
+  clinic: {name: clínica}
+  hospital: {name: hospital}
+  karaoke: {name: karaoke}
+  stream: {name: estero}

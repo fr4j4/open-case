@@ -79,24 +79,9 @@ others:
   card: NADA QUE APORTAR
 ```
 
-### Diligencias del menú del equipo
-
-| Código | Si piden… | Entrega |
-|---|---|---|
-| `DG1` | Informe del SAG | E12 |
-| `DG2` | Celular de la víctima: llamadas y calendario | E13a |
-| `DG2W` | Celular de la víctima: WhatsApp | E13b |
-| `DG2C` | Celular de la víctima: cuentas e Instagram | E13c |
-| `DG3` | Cartola de Benjamín · Toto · Rivas · Pía · Hernán · Javiera · Matías o la empresa | E15·B · E15·T · E15·C · E15·P · E15·H · E15·J · E15·M |
-| `DG4` | Redes de los sospechosos (1 ficha) | E16 (solo publicaciones públicas; las de Javiera están en E03 y su live no sale aquí: sale con J2 o con DG12). Las historias de Maca y de Pía no salen aquí: las entregan M1 y F1. |
-| `DG5` | Vehículo de Benjamín · Toto · Hernán · Rivas · Pía · Javiera | E17·B · E17·T · E17·H · E17·C · E17·P · E17·J |
-| `DG6` | Rastrear el estero (si piden otro lugar: sin hallazgos) | E18 |
-| `DG7` | Ropa o pertenencias de Toto · Benjamín · Javiera · Pía · Hernán · Rivas | E19·T · E19·B · E19·J · E19·P · E19·H · E19·C |
-| `DG8` | Allanar la caseta de El Arrayán: el escritorio · la caja fuerte (1 ficha cada uno) | E24 · E25 |
-| `DG9` | Antenas de Benjamín · Toto · Pía · Rivas · Hernán · Javiera | E26·B · E26·T · E26·P · E26·C · E26·H · E26·J |
-| `DG11` | Cámaras del Copec · del edificio de Benjamín · de la clínica · del hospital · del karaoke | E28 · E14 · E22 · E20 · "Sin hallazgos" (el local no tiene cámaras; las historias las tiene Fernanda, F1) |
-| `DG12` | Celular de Pía · de Benjamín · de Javiera · de otro sospechoso | E29·P · E29·B · E29·J + E08 · E29·X |
-| `DG10` | Recuperar el mensaje borrado (2 fichas) · otra cosa | E13d · si existe en el material, entrégalo; si no, "Sin hallazgos". Nunca inventes una pista. |
+<!-- Las diligencias salen de procedures.yaml, con sus textos en languages/es/procedures.yaml. -->
+```procedure-answers
+```
 
 ### Preguntas fuera del menú
 

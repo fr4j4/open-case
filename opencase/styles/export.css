@@ -104,6 +104,8 @@ body{background:var(--mesa);-webkit-print-color-adjust:exact;print-color-adjust:
 .oc-ficha--vacia{visibility:hidden}
 /* Alibi tokens: dashed border. Team colours (C violet, D copper) come from the design system. */
 .oc-ficha--coartada{border-style:dashed}
+/* A procedure that alibi tokens can pay for (alibi: true in procedures.yaml): its code with the same dashed border. */
+.oc-hoja code.oc-codigo--coartada{border:1.5px dashed var(--laton-oscuro);border-radius:4px;padding:0 4px}
 
 /* Card sheets on screen: one centred column on the table */
 @media screen{

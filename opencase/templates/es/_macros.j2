@@ -32,3 +32,23 @@
 {{ x }}{% if not loop.last %}{{ " y " if loop.revindex == 2 else ", " }}{% endif %}
 {%- endfor %}
 {%- endmacro %}
+
+{#- El código de una diligencia: con borde punteado si se puede pagar con ficha de coartada. -#}
+{% macro dg(p, f) -%}
+{% if p.alibi and f.alibi_tokens_per_team %}<code class="oc-codigo--coartada">{{ p.code }}</code>{% else %}`{{ p.code }}`{% endif %}
+{%- endmacro %}
+
+{#- Lo que cuesta en el menú: "1", "1 c/u", "1 o 2" -#}
+{% macro dg_cost(p) -%}
+{% if p.each %}{{ p.cost }} c/u{% else %}{{ p.costs|join(" o ") }}{% endif %}
+{%- endmacro %}
+
+{#- "(2 fichas)" junto a un destino que cuesta distinto -#}
+{% macro tokens(n) -%}
+{{ n }} {{ "ficha" if n == 1 else "fichas" }}
+{%- endmacro %}
+
+{#- Lo que se entrega por un destino: E29·J + E08, "Sin hallazgos" o lo que diga el material -#}
+{% macro result(r, quick=False) -%}
+{% if r.special == "none" %}{{ "sin hallazgos" if quick else '"Sin hallazgos"' }}{% elif r.special == "material" %}{{ "si existe en el material" if quick else 'si existe en el material, entrégalo; si no, "Sin hallazgos". Nunca inventes una pista.' }}{% else %}{{ r.shown|join(" + ") }}{% endif %}
+{%- endmacro %}

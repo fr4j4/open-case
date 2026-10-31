@@ -12,6 +12,7 @@ Warnings (exit 0):
   - a suspect has no statement file (DEC-<letter>.md)
   - a card code or a dossier code that is never mentioned in the guide (no row to answer it)
   - a code written in backticks in the kit or the guide that is neither a card, a dossier sheet nor a DG code of the kit
+    (or of procedures.yaml)
   - a kit sheet that mentions a dossier code that is not in an envelope section (possible spoiler)
   - the kit never mentions the number of tokens of case.yaml (cases with engine_sheets: false), or a kit,
     guide or notice sheet writes by hand a figure the engine prints (tokens, minutes, hint costs), or
@@ -117,6 +118,18 @@ def main():
     # Cards used at fixed moments (notices, press, hints, closing, wildcards) and the free sheets
     # (envelopes, notices) do not need a row in the response table.
     guide_text = "\n".join(f.read_text(encoding="utf-8") for f in sorted((L / "guide").glob("*.md")))
+    # With procedures.yaml the engine draws the procedures' tables (```procedures, ```procedure-answers,
+    # ```quick-procedures, ```control): its codes and the sheets they hand out are covered.
+    procedures = load_yaml(root / "procedures.yaml").get("procedures") or [] if (root / "procedures.yaml").exists() else []
+    proc_codes = {norm(p.get("code")) for p in procedures if p.get("code")}
+    proc_sheets = set()
+    for proc in procedures:
+        results = [proc.get("gives")] if "gives" in proc else list((proc.get("targets") or {}).values())
+        for r in results:
+            r = r.get("gives") if isinstance(r, dict) else r
+            proc_sheets.update(norm(x) for x in (r if isinstance(r, list) else [r]) if x not in (None, "none", "material"))
+    if re.search(r"^`{3,}\s*(?:procedure-answers|quick-procedures|control)\b", guide_text, re.M):
+        guide_text += "\n" + " ".join(sorted(proc_codes | proc_sheets))
     guide_norm = norm(guide_text).casefold()
     fixed = {"notice", "press", "hint", "closing", "wildcard"}
     # The engine draws the tables of follow-ups and witnesses from cards.yaml (```follow-ups, ```witnesses and
@@ -139,7 +152,7 @@ def main():
     # Kit: DG codes, spoiler scan, tokens
     kit_files = sorted((L / "kit").glob("*.md"))
     kit_text = "\n".join(f.read_text(encoding="utf-8") for f in kit_files)
-    dg_codes = {t for t in tokens_in_ticks(kit_text) if DG.match(t)}
+    dg_codes = {t for t in tokens_in_ticks(kit_text) if DG.match(t)} | proc_codes
     for dg in sorted(dg_codes):
         if dg.casefold() not in guide_norm:
             warnings.append(f"procedure {dg} is in the kit but never mentioned in the guide")

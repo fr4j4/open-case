@@ -164,6 +164,8 @@ class Case:
     guide: list              # sheets
     strings: Strings
     warnings: list = field(default_factory=list)
+    procedures: list = field(default_factory=list)   # procedures.yaml joined with its texts (opencase/procedures.py)
+    locations: list = field(default_factory=list)    # locations.yaml joined with its texts
     neutral: dict = field(default_factory=dict, repr=False)   # case.yaml (neutral) alone: the figures come from it
     _figures: dict = field(default=None, repr=False)
 
@@ -262,6 +264,25 @@ def normalize_code(code):
     return re.sub(r"\s*[·\-]\s*", "·", str(code).strip()).upper()
 
 
+def card_kind(c, g):
+    """A card's type: its own `type`, or its group's, or "answer"."""
+    return str(c.get("type", g.get("type", "answer"))).lower()
+
+
+def iter_cards(case):
+    """Every card of cards.yaml with its group, in the order of the file: [(card, group), ...]."""
+    return [(c, g) for g in case.card_groups for c in g.get("cards", []) or []]
+
+
+def display_code(case, ref):
+    """How a code is printed for the players and the director: the dossier sheet's own code (E15·M, DEC·T)
+    when it is one, else the code as written (a card)."""
+    for sheet_id, s in case.dossier.items():
+        if normalize_code(ref) in (normalize_code(sheet_id), normalize_code(s.get("code", sheet_id))):
+            return re.sub(r"\s*[·\-]\s*", "·", str(s.get("code") or sheet_id))
+    return str(ref)
+
+
 def case_languages(root):
     """(base language, all languages) as declared in the neutral case.yaml."""
     neutral = read_yaml_file(Path(root).resolve() / "case.yaml")
@@ -310,6 +331,8 @@ def load_case(root, lang=None):
                 {s.id: s for s in read_sheet_folder(lang_root / "dossier")},
                 read_sheet_folder(lang_root / "guide"),
                 Strings.load(lang, texts.get("strings")), neutral=neutral)
+    from . import procedures   # imported here because it imports this module
+    procedures.load(case)
     validate(case)
     return case
 
@@ -361,9 +384,10 @@ def validate(case):
         if s.get("portrait") and resolve_media(case, s["portrait"]) is None:
             raise CaseError(f"the portrait '{s['portrait']}' does not exist in the case folder",
                             case.lang_root / "suspects.yaml")
-    from . import followups, witnesses   # imported here because they import this module
+    from . import followups, procedures, witnesses   # imported here because they import this module
     followups.check(case)
     witnesses.check(case)
+    procedures.check(case)
 
 
 def resolve_media(case, ref):
@@ -393,6 +417,12 @@ def compare_languages(base, other):
         problems.append(f"cards.yaml ({other.lang}): card {missing} is missing")
     for extra in [c for c in b if c not in a]:
         problems.append(f"cards.yaml ({other.lang}): card {extra} does not exist in '{base.lang}'")
+    from .procedures import text_fields
+    a, b = text_fields(base), text_fields(other)
+    for missing in sorted(a - b):
+        problems.append(f"procedures.yaml ({other.lang}): {missing} is missing")
+    for extra in sorted(b - a):
+        problems.append(f"procedures.yaml ({other.lang}): {extra} does not exist in '{base.lang}'")
     sa, sb = [s.get("letter") for s in base.suspects], [s.get("letter") for s in other.suspects]
     if sa != sb:
         problems.append(f"suspects.yaml ({other.lang}): the suspects ({', '.join(map(str, sb))}) differ from "

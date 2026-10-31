@@ -196,3 +196,26 @@ print:
     actual_size: >-
       Imprime siempre al 100 % ("tamaño real"), nunca "ajustar a la página": las tarjetas deben medir
       88 × 63 mm y las fichas 30 mm de diámetro.
+
+# Diligencias (opencase/procedures.py): los tipos que conoce el motor. Cada caso pone sus códigos, y puede
+# cambiar label (menú del kit) y short (guía) en languages/<idioma>/procedures.yaml.
+procedures:
+  kinds:
+    report: {label: Informe técnico de un organismo (indiquen cuál), short: Informe}
+    phone: {label: Revisar el celular de una persona (indiquen de quién), short: Celular}
+    bank_statement: {label: Cartola bancaria de una persona (indiquen de quién), short: Cartola}
+    social_media: {label: Revisar las redes sociales públicas de los sospechosos, short: Redes}
+    vehicle: {label: Inspeccionar el vehículo de una persona (indiquen de quién), short: Vehículo}
+    area_search: {label: Rastrear un lugar de los alrededores de la escena (indiquen cuál), short: Rastreo}
+    belongings: {label: "Peritar la ropa, el calzado o las pertenencias de una persona (indiquen de quién)", short: Ropa o pertenencias}
+    premises_search: {label: Allanar un lugar (indiquen cuál), short: Allanamiento}
+    phone_towers: {label: Tráfico de antenas del celular de una persona (indiquen de quién), short: Antenas}
+    cameras: {label: Cámaras o registros de seguridad de un lugar (indiquen cuál), short: Cámaras o registros}
+    other: {label: Otra diligencia que se les ocurra (el director decide si procede y cuánto cuesta), short: Otra}
+  other_target:
+    person: otra persona
+    place: otro lugar
+    thing: otra cosa
+  sources:
+    camera: cámara
+    register: registro
