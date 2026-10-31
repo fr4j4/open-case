@@ -22,6 +22,15 @@ def relay():
     return LocalRelay()
 
 
+def _start_investigation(director, *phones):
+    """Requests are only possible in the investigation (rule 1 of the kit): the director moves the clock there."""
+    director.click("#oc-tab-game")
+    director.click('#oc-clock-card [data-phase="investigation"]')
+    director.wait_for_selector('#oc-clock-card[data-phase="investigation"][data-running="true"]')
+    for phone in phones:
+        phone.wait_for_selector('#oc-clock[data-asking="true"]', timeout=20000)
+
+
 def _norm(code):
     return re.sub(r"[\s·\-.]+", "", code).lower()
 
@@ -71,6 +80,7 @@ def test_three_teams_play_the_v8_rounds_through_the_forms_and_the_panel(site, br
         _wait(lambda t=team: phones[t][1].query_selector('#oc-room-status[data-connected="true"]') or phones[t][1].query_selector("#oc-tab-ask"), what="connected")
     director.click("#oc-tab-room")
     _wait(lambda: len(director.query_selector_all('[data-online="true"]')) == 3, what="3 phones online")
+    _start_investigation(director, *(p for _, p in phones.values()))
     director.click("#oc-tab-requests")
 
     start = {}
@@ -133,6 +143,7 @@ def test_a_request_made_while_the_director_is_away_waits_and_arrives_when_it_ret
     _approve(director, "Tel-A", "A")
     _wait(lambda: (_state(phone) or {}).get("team") == "A", what="folder")
     phone.wait_for_selector("#oc-tab-ask")
+    _start_investigation(director, phone)                          # requests only open in the investigation (F5)
     director.close()                                               # the director's page goes away; its game stays in IndexedDB
     _wait(lambda: phone.query_selector("#oc-room-status[data-connected='false']"), seconds=40, what="the phone sees the director leave")
     _fill_form(phone, {"kind": "procedure", "code": "DG2", "text": "llamadas"})

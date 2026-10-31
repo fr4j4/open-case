@@ -9,6 +9,8 @@ import { openViewer } from '../js/viewer.js';
 import { DeviceRoom, keepAwake, newId, normalizePin, validPin, pinFromHash } from '../js/room.js';
 import { createGame } from '../js/requests.js';
 import { askView, historyView } from './pedir.js';
+import { clockBar, tick, formsView } from './partida.js';
+import { fromWire, canRequest, CLOSING } from '../js/clock.js';
 
 const app = document.getElementById('app');
 let state = null;          // what this device knows (also saved in IndexedDB under 'team')
@@ -22,7 +24,10 @@ let deviceId = null;       // this phone's id in rooms; kept, so a reload is the
 let stopAwake = null;
 let netQueue = Promise.resolve();
 let rgame = null;          // the rules (js/rules.js) over team.json: costs and what can be asked
-let reqs = { pending: [], bal: null };   // F4b: requests sent and not answered yet, and the last balance the director sent
+let reqs = blankReqs();   // F4b: requests sent and not answered yet, and the last balance the director sent
+
+// F4b requests, plus F5: the clock of the phases the director told us and the sheets (accusation, discard) being filled in.
+function blankReqs() { return { pending: [], bal: null, clock: null, forms: {} }; }
 
 const caseUrl = (version, file = '') => new URL(`cases/${state.slug}/${state.lang}/${version}/${file}`, PLAY_ROOT);
 const save = () => store.set('team', state);
@@ -147,7 +152,7 @@ async function start(msg) {
     state.schema = manifest.schema_version;
     teamJson = await fetchJson(caseUrl(v, 'team.json'));
     rgame = createGame(teamJson);
-    reqs = { pending: [], bal: null };
+    reqs = blankReqs();
     await saveRequests();
   } catch (e) {
     busy = null; state = null; teamJson = null; rgame = null;
@@ -194,7 +199,7 @@ function askSwitch(msg) {
       h('h2', {}, t('team.switch.title')),
       h('p', {}, t('team.switch.text', { current: state.team, other: msg.team })),
       h('div', { class: 'oc-row' },
-        h('button', { class: 'oc-btn', type: 'button', onclick: close(async () => { await store.del('team'); await store.del('requests'); state = null; rgame = null; reqs = { pending: [], bal: null }; await receive(msg); resolve(); }) }, t('team.switch.yes', { team: msg.team })),
+        h('button', { class: 'oc-btn', type: 'button', onclick: close(async () => { await store.del('team'); await store.del('requests'); state = null; rgame = null; reqs = blankReqs(); await receive(msg); resolve(); }) }, t('team.switch.yes', { team: msg.team })),
         h('button', { class: 'oc-btn oc-btn--ghost', type: 'button', onclick: close(resolve) }, t('team.switch.no')))));
     document.body.append(modal);
   });
@@ -219,10 +224,11 @@ function netReceive(msg, kind) {
     if (state && (state.team !== msg.team || state.slug !== msg.slug || state.lang !== msg.lang)) {
       // The director moved this phone to another team: its folder is replaced, with no question.
       await store.del('team'); await store.del('teamjson'); await store.del('requests');
-      state = null; teamJson = null; rgame = null; reqs = { pending: [], bal: null };
+      state = null; teamJson = null; rgame = null; reqs = blankReqs();
       toast(t('room.join.other_team', { team: msg.team }), 6000);
     }
     await receive(msg, kind === 'sync');
+    if (earlyClock && teamJson) { const e = earlyClock; earlyClock = null; await applyClock(e.m, e.at); }
     render();
   }).catch((e) => console.error(e));
   return netQueue;
@@ -240,8 +246,8 @@ async function joinRoom(pin, session = null) {
     onStatus: () => render(),
     onMessage: (msg, kind) => netReceive(msg, kind),
     onSession: (sess) => { if (sess) store.set('session', sess); else store.del('session'); },
-    onData: (m) => onBalance(m),
-    onDirector: () => flushRequests(),
+    onData: (m) => onData(m),
+    onDirector: () => { flushRequests(); flushForms(); },
   });
   stopAwake = keepAwake();
   render();
@@ -276,6 +282,80 @@ function roomBox() {
 // --- Requests (F4b) --------------------------------------------------------------------------------------------
 
 const saveRequests = () => store.set('requests', reqs);
+
+// What the director tells the phones besides deliveries: the balance, the clock of the phases and that a sheet arrived.
+async function onData(m) {
+  if (!m) return;
+  if (m.k === 'bal') return onBalance(m);
+  if (m.k === 'clock') await applyClock(m, Date.now());
+  if (m.k === 'formok' && state && reqs.forms[m.id]) {
+    Object.assign(reqs.forms[m.id], { sent: true, queued: false, at: Date.now() });
+    await saveRequests();
+    render();
+  }
+}
+
+// The clock arrives as soon as the phone connects, perhaps before its folder exists: it is kept and applied counting from when it came.
+let earlyClock = null;
+async function applyClock(m, at) {
+  if (!state || !teamJson) { earlyClock = { m, at }; return; }
+  earlyClock = null;      // a newer message always wins over one that was waiting
+  const c = fromWire(teamJson.figures, m, at);
+  if (!c) return;
+  reqs.clock = c;
+  if (c.phase === CLOSING) await submitAll();       // the phase of the accusation is over: what was written goes to the director
+  await saveRequests();
+  render();
+}
+
+// --- The sheets handed to the director (F5) ---------------------------------------------------------------------
+
+const formOf = (id) => ((teamJson && teamJson.forms) || []).find((f) => f.id === id);
+
+function saveForm(id, values) {
+  (reqs.forms[id] = reqs.forms[id] || { values: {}, sent: false }).values = values;
+  clearTimeout(saveForm.timer);
+  saveForm.timer = setTimeout(saveRequests, 300);
+}
+
+// A sheet goes to the director as soon as it is submitted, or stays "queued" and is sent each time the director connects.
+async function submitForm(id) {
+  const rec = reqs.forms[id];
+  if (!rec || !formOf(id)) return;
+  rec.queued = true;
+  await saveRequests();
+  await flushForms();
+  render();
+}
+
+async function submitAll() {
+  for (const form of (teamJson.forms || [])) {
+    const rec = reqs.forms[form.id];
+    if (rec && !rec.sent && Object.values(rec.values || {}).some((v) => String(v).trim())) rec.queued = true;
+  }
+  await flushForms();
+}
+
+async function flushForms() {
+  if (!room) return;
+  for (const [id, rec] of Object.entries(reqs.forms)) {
+    if (rec.queued && !rec.sent) await room.sendToDirector({ k: 'form', id, values: rec.values });
+  }
+}
+
+async function reopenForm(id) {
+  if (reqs.forms[id]) { reqs.forms[id].sent = false; reqs.forms[id].queued = false; await saveRequests(); render(); }
+}
+
+function openSheet(file, title) {
+  openViewer({ items: [{ url: caseUrl(state.version, file).href, title }], index: 0,
+    labels: { close: t('team.viewer.close'), prev: t('team.viewer.prev'), next: t('team.viewer.next'), zoomIn: t('team.viewer.zoom_in'), zoomOut: t('team.viewer.zoom_out'), fit: t('team.viewer.fit') } });
+}
+
+function gameUi() {
+  return { team: teamJson, clock: reqs.clock, forms: reqs.forms, connected: !!(room && room.status === 'approved' && room.connected),
+    save: saveForm, submit: submitForm, reopen: reopenForm, openSheet, redraw: () => render() };
+}
 
 function startBalance() {
   const rules = rgame.rules;
@@ -312,7 +392,8 @@ async function flushRequests() {
 function requestsUi() {
   const folder = Object.values(state.items).filter((i) => i.group === 'folder' && i.code);
   return { team: teamJson, game: rgame, bal: balance(), pending: reqs.pending, folder, held: new Set(folder.map((i) => i.code)),
-    connected: !!(room && room.status === 'approved' && room.connected), send: sendRequests, redraw: () => render() };
+    connected: !!(room && room.status === 'approved' && room.connected), send: sendRequests, redraw: () => render(),
+    open: !reqs.clock || canRequest(reqs.clock) };
 }
 
 // --- Drawing --------------------------------------------------------------------------------------------------
@@ -331,9 +412,11 @@ function render(error) {
   if (state.notice === 'format') main.append(h('div', { class: 'oc-notice oc-notice--bad' }, t('team.notice.format')));
   if (busy) main.append(h('div', {}, h('p', {}, t('team.downloading')), h('div', { class: 'oc-progress' }, h('i', {}))));
   main.append(tabs());
+  if (reqs.clock && teamJson) main.append(clockBar(gameUi()));
   if (tab === 'folder') main.append(folderView());
   else if (tab === 'ask' && rgame) main.append(askView(requestsUi()));
   else if (tab === 'history' && rgame) main.append(historyView(requestsUi()));
+  else if (tab === 'forms' && teamJson) main.append(formsView(gameUi()));
   else if (tab === 'room') main.append(room ? h('p', { class: 'oc-muted' }, roomStatusText()) : roomBox());
   else if (tab === 'kit') main.append(listView(group('kit'), false));
   else main.append(listView(group('suspects'), false));
@@ -364,7 +447,7 @@ function joinScreen(error) {
 
 function tabs() {
   const mk = (id, text) => h('button', { class: 'oc-tab', id: `oc-tab-${id}`, role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
-  return h('div', { class: 'oc-tabs', role: 'tablist' }, mk('folder', t('team.tab.folder')), mk('kit', t('team.tab.kit')), mk('suspects', t('team.tab.suspects')), mk('ask', t('requests.tab')), mk('history', t('requests.tab_history')), mk('room', t('room.tab')));
+  return h('div', { class: 'oc-tabs', role: 'tablist' }, mk('folder', t('team.tab.folder')), mk('kit', t('team.tab.kit')), mk('suspects', t('team.tab.suspects')), mk('ask', t('requests.tab')), mk('history', t('requests.tab_history')), mk('forms', t('game.forms.tab')), mk('room', t('room.tab')));
 }
 
 const group = (g) => Object.values(state.items).filter((i) => i.group === g);
@@ -452,7 +535,8 @@ async function main() {
   state = (await store.get('team')) || null;
   teamJson = state ? (await store.get('teamjson')) || null : null;
   rgame = teamJson ? createGame(teamJson) : null;
-  reqs = (state && (await store.get('requests'))) || { pending: [], bal: null };
+  reqs = { ...blankReqs(), ...((state && (await store.get('requests'))) || {}) };
+  reqs.forms = reqs.forms || {};
   const lang = (fragment && fragment.lang) || (state && state.lang) || navigator.language.slice(0, 2);
   await loadStrings(lang);
   document.title = t('team.page_title');
@@ -467,6 +551,7 @@ async function main() {
   });
   await registerWorker();
   render();
+  setInterval(() => { if (reqs.clock && teamJson) tick(gameUi()); }, 1000);
   if (fragment) {
     history.replaceState(null, '', location.pathname + location.search);   // the link's data is not kept in the address bar
     await receive(fragment);

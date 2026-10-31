@@ -336,3 +336,18 @@ def test_file_slug_never_makes_two_codes_one():
     codes = ["B1", "B1+", "B1_2b", "B✕", "B 1", "Aviso 1", "Aviso_1", "E15·B", "E15-B", "B_002b"]
     assert len({web.file_slug(c) for c in codes}) == len(codes)
     assert all(re.fullmatch(r"[A-Za-z0-9_\-]+", web.file_slug(c)) for c in codes)
+
+
+def test_forms_are_the_sheets_the_team_hands_in(site):
+    """F5: the accusation and the discard sheet come from the kit's own `fields` and work table blocks, in their order; the
+    timeline (a schedule the team keeps) is not one of them."""
+    folder, case, _ = site
+    team = _json(folder, "team.json")
+    forms = {f["id"]: f for f in team["forms"]}
+    assert list(forms) == ["05-acusacion", "06-descarte"]
+    accusation, discard = forms["05-acusacion"], forms["06-descarte"]
+    assert [p["kind"] for p in accusation["parts"]] == ["fields"] and len(accusation["parts"][0]["items"]) == 8
+    assert accusation["parts"][0]["items"][1]["type"] == "box"
+    table = discard["parts"][0]
+    assert table["kind"] == "table" and len(table["columns"]) == 3 and len(table["rows"]) == len(team["suspects"])
+    assert all((folder / f["file"]).exists() for f in team["forms"])

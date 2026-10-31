@@ -9,6 +9,10 @@ import { openViewer } from '../js/viewer.js';
 import { DirectorRoom, roomLink, keepAwake } from '../js/room.js';
 import { createGame, newBook, receive as receiveRequest, answer as answerOne, balanceFor, holdItems } from '../js/requests.js';
 import { queueView, registerView, pendingList } from './panel.js';
+import { gameView, scoreView, tickClock, reportText } from './partida.js';
+import * as clock from '../js/clock.js';
+import { cleanMarks } from '../js/score.js';
+import { norm } from '../js/rules.js';
 
 const app = document.getElementById('app');
 let game = null;         // {slug, lang, version, teams: ['A','B'], seq, log: [{seq, team, items, at}]}
@@ -71,6 +75,10 @@ async function loadCase() {
   document.title = t('director.page_title');
   dgame = createGame(teamJson, directorJson);
   if (!game.play) game.play = newBook();
+  // F5: the clock of the phases (it starts in the first one, stopped), what was read, the hints given, the sheets handed in and the marks
+  const p = game.play;
+  if (!p.clock) p.clock = clock.newClock(teamJson.figures);
+  p.notices = p.notices || {}; p.hints = p.hints || {}; p.forms = p.forms || {}; p.marks = p.marks || {};
   checkVersion();
   if (game.room && !room) startRoom();     // a reload: the room opens again with the same PIN and the same devices
 }
@@ -85,7 +93,7 @@ async function startRoom() {
     if (tab === 'room') render(); else refreshRoomTab();
   } });
   room.onMessage = (team, from, m) => onTeamMessage(team, from, m);
-  room.onOnline = (team, id) => sendBalance(team, id);
+  room.onOnline = (team, id) => { sendBalance(team, id); sendClock(team, id); };
   stopAwake = keepAwake();
   await room.start();
   await save();
@@ -104,6 +112,7 @@ async function sendBalance(team, to = null) {
 // A phone of a team asks for something: it goes in the register once (it is sent again until answered) and the team is told
 // the balance, so the phone that sent it sees that it arrived.
 async function onTeamMessage(team, from, m) {
+  if (m && m.k === 'form') return onForm(team, from, m);
   if (!m || m.k !== 'req' || !game.play) return;
   const device = room.r.devices[from];
   const got = receiveRequest(dgame, game.play, team, device, m.r);
@@ -115,6 +124,99 @@ async function onTeamMessage(team, from, m) {
     render();
   } else if (got.record.status === 'done') sendBalance(team, from);
 }
+
+// --- Phases, notices, hints and score (F5) ---------------------------------------------------------------------------
+
+const MAX_FORM_TEXT = 2000;
+
+// The clock goes to the phones as the phase, whether it runs and how much has gone by: each phone counts from there.
+async function sendClock(team = null, to = null) {
+  if (!room || !game.play) return;
+  const w = { k: 'clock', ...clock.wire(game.play.clock, Date.now()) };
+  for (const tm of team ? [team] : game.teams) await room.sendTeam(tm, w, team ? to : null);
+}
+
+async function clockDo(action, arg) {
+  const p = game.play;
+  const now = Date.now();
+  const before = p.clock.phase;
+  if (action === 'start') p.clock = clock.start(p.clock, now);
+  else if (action === 'pause') p.clock = clock.pause(p.clock, now);
+  else if (action === 'phase') p.clock = clock.toPhase(teamJson.figures, p.clock, arg, now);
+  else if (action === 'next') p.clock = clock.next(teamJson.figures, p.clock, now);
+  else if (action === 'shift') p.clock = clock.shift(p.clock, arg, now);
+  room?.log.append('clock', { action, phase: p.clock.phase, from: before });
+  await save();
+  await sendClock();
+  render();
+}
+
+// A sheet a team handed in (the accusation, the discard sheet): checked against the sheets of team.json and kept once per team and
+// sheet (the last version wins). The phone is told it arrived.
+async function onForm(team, from, m) {
+  const form = (teamJson.forms || []).find((f) => f.id === m.id);
+  if (!form || !game.play || !m.values || typeof m.values !== 'object') return;
+  const values = {};
+  for (const [k, v] of Object.entries(m.values).slice(0, 300)) if (/^[ft]\d+\.\d+(\.\d+)?$/.test(k) && typeof v === 'string') values[k] = v.slice(0, MAX_FORM_TEXT);
+  (game.play.forms[team] = game.play.forms[team] || {})[form.id] = { values, at: Date.now(), device: from };
+  room.log.append('form', { team, id: form.id, device: from });
+  await save();
+  await room.sendTeam(team, { k: 'formok', id: form.id }, from);
+  if (tab !== 'score') toast(t('game.score.new_form', { team, title: form.title }));
+  render();
+}
+
+function fileOfCode(code) {
+  const c = dgame.cards.get(norm(code));
+  if (c && c.file) return [c.file, c.code];
+  const s = directorJson.sheets.find((x) => norm(x.code) === norm(code));
+  return s ? [s.file, s.code] : null;
+}
+
+async function sendNotice(n) {
+  const item = fileOfCode(n.code);
+  if (!item) return toast(t('game.notices.missing', { code: n.code }));
+  for (const tm of game.teams) await handOut(tm, [item], true);
+  game.play.notices[n.code] = Date.now();
+  await save();
+  toast(t('game.notices.sent', { code: n.code }));
+  render();
+}
+
+async function giveHint(team, hint) {
+  const item = hint && fileOfCode(hint.code);
+  if (!item) return;
+  await handOut(team, [item], true);
+  (game.play.hints[team] = game.play.hints[team] || []).push(hint.n);
+  await save();
+  toast(t('game.hints.sent', { team }));
+  render();
+}
+
+async function setMarks(team, marks) {
+  game.play.marks[team] = cleanMarks(marks);
+  await save();
+  render();
+}
+
+function downloadReport() {
+  const blob = new Blob([reportText(partidaUi())], { type: 'text/markdown' });
+  const a = h('a', { href: URL.createObjectURL(blob), download: `${game.slug}-${t('game.report.file')}.md` });
+  document.body.append(a); a.click(); a.remove();
+}
+
+const partidaUi = () => ({ dgame, book: game.play, teamJson, teams: game.teams, log: game.log, clockDo, sendNotice, giveHint, setMarks, downloadReport, redraw: () => render() });
+
+// Once a second: the numbers of the clock, and a notice that comes due (it is only a suggestion) is shown at once.
+let dueKey = '';
+setInterval(() => {
+  if (!game || !game.play || !teamJson) return;
+  if (tab === 'game') tickClock(partidaUi());
+  const read = game.play.notices || {};
+  const only = directorJson.notices.filter((n) => n.kind === 'notice');
+  const key = clock.due(only, game.play.clock, Date.now(), only.filter((n) => read[n.code]).map((n) => n.n)).map((n) => n.code).join(',');
+  if (key !== dueKey) { dueKey = key; if (key) { toast(t('game.notices.due_toast')); if (tab === 'game') render(); } }
+}, 1000);
 
 async function answerRequest(rec, button, options) {
   const res = answerOne(dgame, game.play, rec, button, options, game.log);
@@ -224,8 +326,8 @@ function draw() {
   if (!store.store.persistent) main.append(h('div', { class: 'oc-notice' }, t('director.no_storage')));
   if (outdated) main.append(h('div', { class: `oc-notice${outdated.sameFormat ? '' : ' oc-notice--bad'}` }, outdated.sameFormat ? t('director.outdated.same') : t('director.outdated.format')));
   const mk = (id, text) => h('button', { class: 'oc-tab', id: `oc-tab-${id}`, role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
-  main.append(h('div', { class: 'oc-tabs', role: 'tablist' }, mk('requests', game.play && pendingList(game.play).length ? t('requests.panel.tab_pending', { n: pendingList(game.play).length }) : t('requests.panel.tab')), mk('give', t('director.tab.give')), mk('teams', t('director.tab.teams')), mk('room', room && room.pending().length ? t('room.tab_pending', { n: room.pending().length }) : t('room.tab')), mk('kit', t('director.tab.kit')), mk('register', t('requests.panel.register')), mk('log', t('director.tab.log'))));
-  main.append(tab === 'requests' ? queueView(panelUi()) : tab === 'register' ? registerView(panelUi()) : tab === 'give' ? giveView() : tab === 'room' ? roomView() : tab === 'teams' ? teamsView() : tab === 'kit' ? kitView() : logView());
+  main.append(h('div', { class: 'oc-tabs', role: 'tablist' }, mk('game', t('game.tab')), mk('requests', game.play && pendingList(game.play).length ? t('requests.panel.tab_pending', { n: pendingList(game.play).length }) : t('requests.panel.tab')), mk('give', t('director.tab.give')), mk('teams', t('director.tab.teams')), mk('room', room && room.pending().length ? t('room.tab_pending', { n: room.pending().length }) : t('room.tab')), mk('kit', t('director.tab.kit')), mk('register', t('requests.panel.register')), mk('score', t('game.score.tab')), mk('log', t('director.tab.log'))));
+  main.append(tab === 'game' ? gameView(partidaUi()) : tab === 'score' ? scoreView(partidaUi()) : tab === 'requests' ? queueView(panelUi()) : tab === 'register' ? registerView(panelUi()) : tab === 'give' ? giveView() : tab === 'room' ? roomView() : tab === 'teams' ? teamsView() : tab === 'kit' ? kitView() : logView());
 }
 
 const panelUi = () => ({ dgame, book: game.play, teamJson, log: game.log, choices, answer: answerRequest, redraw: () => render() });

@@ -45,7 +45,7 @@ play/
 
 ## `schema_version`
 
-All the JSON carries `schema_version` (today **2**). The JSON Schemas in `docs/web-schema/` (`team`, `director`,
+All the JSON carries `schema_version` (today **3**). The JSON Schemas in `docs/web-schema/` (`team`, `director`,
 `manifest`) describe every field and are checked by `tests/test_web.py` against the real files. They have
 `additionalProperties: false`: adding a field is a change of the contract. To change the schema:
 
@@ -68,6 +68,7 @@ A test fails if the schema changes without a new `SCHEMA_VERSION`.
 | `follow_ups[]` | `code`, `cost`, `unlocked_by` (codes the team must already have). The question is only in the guide |
 | `procedures[]` | the menu of procedures: `code`, `kind`, `label`, `target` (person, place or thing), `cost`, `costs`, `each`, `alibi`, `source`, and `targets` (suspects, places and "other" only: a target of the case's own, like the deleted message, is left out because its name would say something) |
 | `envelopes[]` | envelope `number` and its `sections` with the `code`, `id` and `file` of each sheet |
+| `forms[]` | the sheets the team fills in and hands to the director (F5): `id`, `title`, `file` and `parts`, taken from the kit's own blocks: `{kind: fields, items: [{label, type: line\|box}]}` and `{kind: table, columns, rows}`. The kit sheet with the schedule (the timeline) is left out |
 | `kit[]` | the pages of the team kit, in order |
 | `texts` | `title`, `tagline` |
 

@@ -10,6 +10,7 @@
 //   kind: question {code | suspect + text}, follow_up {code}, witness {who, detail (where the name appeared), text},
 //         confrontation {suspect, evidence}, procedure {code, target?, text, alibi?}, source {code, place}
 import { createGame, newState, hold, quote, answers, resolve, acceptsAlibi, norm } from './rules.js';
+import { canRequest } from './clock.js';
 
 export { createGame, quote, acceptsAlibi };
 export const KINDS = ['question', 'follow_up', 'witness', 'confrontation', 'procedure', 'source'];
@@ -134,7 +135,8 @@ export function available(game, bal, pending) {
 
 /** Whether a team can send this request now: { ok } or { ok: false, reason } (`tokens`, `alibi`, `unknown`). A request with
  * a cost it cannot pay is not sent at all (the saldo is also checked by the director). */
-export function canAsk(game, bal, pending, req) {
+export function canAsk(game, bal, pending, req, open = true) {
+  if (!open) return { ok: false, reason: 'phase' };
   const q = quote(game, req);
   if (q.error) return { ok: false, reason: 'unknown' };
   const a = req.alibi || 0;
@@ -262,6 +264,8 @@ export function itemsOf(game, delivers) {
  * Returns { ok: true, record, items, charged } and the book is changed, or { ok: false, error } and nothing is. */
 export function answer(game, book, rec, button, options = {}, log = [], now = Date.now()) {
   if (rec.status !== 'pending') return { ok: false, error: 'done' };
+  // rule 1 of the kit: only in the investigation. The app keeps the clock in `book.clock` (a book without one has no phases).
+  if (book.clock && !canRequest(book.clock)) return { ok: false, error: 'phase' };
   const state = teamState(game, book, rec.team, log);
   const request = rulesRequest(game, rec, options);
   if (request.kind === 'witness' && !request.who) return { ok: false, error: 'unknown_witness' };

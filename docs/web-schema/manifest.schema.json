@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": 2,
+      "const": 3,
       "description": "schema_version: raise it (and save the new fingerprint) when this schema changes"
     },
     "version": {

@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": 2,
+      "const": 3,
       "description": "schema_version: raise it (and save the new fingerprint) when this schema changes"
     },
     "kind": {
@@ -877,6 +877,100 @@
         "additionalProperties": false
       }
     },
+    "forms": {
+      "type": "array",
+      "description": "The kit sheets the team fills in and hands to the director (accusation, discard).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_\\-]+(/[A-Za-z0-9_\\-]+)*\\.html$"
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "fields"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "line",
+                              "box"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "type"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "items"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "table"
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "columns",
+                    "rows"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "file",
+          "parts"
+        ],
+        "additionalProperties": false
+      }
+    },
     "kit": {
       "type": "array",
       "items": {
@@ -930,6 +1024,7 @@
     "follow_ups",
     "procedures",
     "envelopes",
+    "forms",
     "kit",
     "texts"
   ],

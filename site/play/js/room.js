@@ -11,6 +11,7 @@
 //   director → phone (vestibule)  {k:'wait'} | {k:'approved', team, room, c, l, v} | {k:'denied'}
 //   director → phone (team room)  {k:'sync'|'deliver', c, l, v, t, s, i}    same shape as the QR's message (delivery.js)
 //                                 {k:'room', room}  the team room changed    {k:'out'}  the director took the phone out
+//                                 {k:'bal', …} the balance (F4b)   {k:'clock', phase, running, elapsedMs} the phases (F5)   {k:'formok', id} a sheet arrived (F5)
 //
 // Nothing here is a secret that protects the game from a determined player (the PIN is short and the site is public):
 // what it does is keep a device that nobody approved from receiving what the director hands out.
@@ -335,7 +336,7 @@ export class DeviceRoom {
     }
     if (m.k === 'approved') return this._vestibuleMessage(m);     // moved to another team
     if (m.k === 'out') { this.session = null; this.onSession(null); this.team?.close(); this.team = null; this._set('out'); return; }
-    if (m.k === 'bal') { this.onData(m); return; }
+    if (m.k === 'bal' || m.k === 'clock' || m.k === 'formok') { this.onData(m); return; }
     if (m.k === 'deliver' || m.k === 'sync') {
       const msg = validate({ c: m.c, l: m.l, v: m.v, t: m.t, s: m.s, i: m.i });
       if (!msg || (this.session && msg.team !== this.session.team)) return;      // a message for another team is never used

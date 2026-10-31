@@ -63,7 +63,7 @@ function sendButton(ui) {
   let total = { min: 0, max: 0 };
   const pending = [...ui.pending];
   for (const r of requests) {
-    const ok = canAsk(ui.game, ui.bal, pending, r);
+    const ok = canAsk(ui.game, ui.bal, pending, r, ui.open !== false);
     if (!ok.ok) { reason = ok.reason; break; }
     total = { min: total.min + ok.cost.min, max: total.max + ok.cost.max };
     pending.push(r);
