@@ -48,7 +48,7 @@ cards:
   suspect_label: "sospechoso {letter}"
   notice_who: Aviso
   press_who: "Con el aviso {n}"
-  notice_of: "aviso {n} de {total}"
+  notice_of: "{n} de {total}"
   hint_footer_one: Resta 1 punto al equipo que la pidió
   hint_footer: "Resta {n} puntos al equipo que la pidió"
 badge:

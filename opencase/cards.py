@@ -33,7 +33,7 @@ def brand(case, right=None):
 
 def engine_fields(case):
     """What the engine writes on the notice, press and hint cards of a case that uses it, by id() of the card:
-    "aviso 1 de 2" after `who` on notices, which notice a press card comes with, and the points a hint costs
+    "1 de 2" after `who` on notices, which notice a press card comes with, and the points a hint costs
     as its footer. A field the case writes itself is kept (the "1 de 2" is always added to a notice).
     The suggested minutes are only in the guide: the cards go to the teams' tables."""
     if not case.uses_engine:

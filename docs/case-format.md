@@ -219,7 +219,7 @@ groups:
 | `menu` | `true` to show the question in the kit's menu. |
 | `suspect` | If the card is about another suspect than its group's. |
 
-Notice cards add which notice they are to `who` ("Fiscalía · aviso 1 de 2"); without `who`, a notice says "Aviso" and a press card "Con el aviso N". They never print the suggested minute: the cards go to the teams' tables, and the minute is only in the guide. Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters. If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
+Notice cards add which notice they are to `who` ("Fiscalía · 1 de 2"); without `who`, a notice says "Aviso" and a press card "Con el aviso N". They never print the suggested minute: the cards go to the teams' tables, and the minute is only in the guide. Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters. If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
 
 ## Sheets: kit, dossier and guide
 

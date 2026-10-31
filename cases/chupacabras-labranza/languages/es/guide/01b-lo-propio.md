@@ -1,5 +1,5 @@
 ---
-institution: 1 · Preparación
+institution: Reglas para dirigir
 description: Lo que cambia en este caso respecto de "Para que sea parejo"
 title: Lo propio de este caso
 ---

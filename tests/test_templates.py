@@ -208,7 +208,7 @@ def test_teams_never_see_the_suggested_minute(case_dir):
     case = load_case(case_dir, "es")
     use_strings(case.strings)
     docs = {d.key: d.html for d in build_documents(case)}
-    assert "aviso 1 de 2" in docs["cards"] and "Con el aviso 2" in docs["cards"]
+    assert "Aviso · 1 de 2" in docs["cards"] and "Con el aviso 2" in docs["cards"]
     assert "Aviso para todos los equipos · 2 de 2" in docs["dossier"]
     assert "minuto" not in docs["cards"] and "minuto" not in docs["dossier"]
     assert "el minuto 10 para el aviso 1 y el 20 para el aviso 2" in docs["guide"]
