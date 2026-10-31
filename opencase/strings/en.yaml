@@ -227,5 +227,125 @@ signatures:
   label_plain: Signature
 
 # Web app (site/play/): the words the app itself shows. Each phase of docs/web-plan adds its own subsection
-# (web.team, web.director, web.requests…) so two phases never edit the same lines. Empty on purpose in F1.
-web: {}
+# (web.team, web.director, web.requests…) so two phases never edit the same lines.
+web:
+  # --- F2: the team's folder (site/play/equipo/) -------------------------------------------------------------
+  team:
+    page_title: "Open Case · Team folder"
+    badge: "Team {team}"
+    scan: "Scan QR"
+    offline: "Offline"
+    new: "new"
+    pending: "not downloaded"
+    unavailable: "not available"
+    unavailable_toast: "This sheet is no longer on the site. Ask the director to show it to you on paper or another way."
+    from_director: "Handed out by the director"
+    empty: "Nothing here yet. What the director hands out will appear in this folder."
+    downloading: "Downloading your folder…"
+    no_storage: "This browser does not let the page save data (a private window?). The folder will be lost when you close the page."
+    no_offline: "No offline mode in this browser: you need a connection to open the sheets."
+    tab:
+      folder: "Folder"
+      kit: "Kit"
+      suspects: "Suspects"
+    filter:
+      all: "All"
+      sheets: "Evidence"
+      cards: "Cards"
+    toast:
+      received:
+        one: "You received {n} sheet"
+        other: "You received {n} sheets"
+      nothing_new: "That was already in your folder"
+    join:
+      title: "Join the game"
+      text: "Scan your team's QR that the director shows you, or paste the link they sent you."
+      paste: "Your team's link"
+      open: "Open link"
+    scanner:
+      title: "Scan QR"
+      hint: "Point the camera at the director's QR."
+      none: "No QR found in that image."
+      no_camera: "The camera could not be used. Try a photo of the QR or paste the link."
+      from_image: "Read from an image"
+    switch:
+      title: "This link is for another team"
+      text: "This device is on team {current} and the link is for team {other}. Switching deletes this device's folder."
+      yes: "Switch to team {team}"
+      no: "Stay as I am"
+    notice:
+      updated: "The case was updated on the site. What you have stays the same; what is missing comes from the new version. Tell the director."
+      format: "The case changed format. Finish the game with what you already have and ask the director for the rest on paper."
+    error:
+      offline: "Could not download. Check your connection and try again."
+      gone: "That version of the case is no longer on the site. Ask the director for a new link."
+      bad_link: "That link or QR is not from Open Case."
+    viewer:
+      close: "Close"
+      prev: "Previous"
+      next: "Next"
+      zoom_in: "Zoom in"
+      zoom_out: "Zoom out"
+      fit: "Fit to width"
+  # --- F2: the director's minimal panel (site/play/director/) -------------------------------------------------
+  director:
+    page_title: "Open Case · Director"
+    badge: "Director"
+    end: "End game"
+    end_confirm: "End the game? What was handed out is deleted from this device."
+    no_storage: "This browser does not let the page save data: closing it loses the game."
+    error:
+      load: "The saved game could not be opened. Start a new one."
+    outdated:
+      same: "The case was updated on the site. Teams will continue with the new version for what is missing."
+      format: "The case changed format on the site. Finish this game with what is already loaded."
+    setup:
+      title: "New game"
+      text: "Choose the case and how many teams play. To hand out evidence you show a QR or send a link; nothing goes through a server."
+      case: "Case"
+      teams: "Teams"
+      teams_count:
+        one: "{n} team"
+        other: "{n} teams"
+      start: "Start"
+      no_cases: "There are no published cases on the site."
+    tab:
+      give: "Hand out"
+      teams: "Teams"
+      kit: "Kit and guide"
+      log: "Log"
+    give:
+      help: "Pick the team, tick the evidence and cards, and make the QR."
+      to: "Hand out to"
+      team: "Team {team}"
+      all: "All"
+      envelope: "Envelope {n}"
+      in_envelope: "envelope {n}"
+      search: "Search by code or name"
+      card: "card"
+      button: "Hand out ({n})"
+      clear: "Clear"
+    delivery:
+      title: "Delivery"
+      count:
+        one: "{n} sheet"
+        other: "{n} sheets"
+      copy: "Copy link"
+      copied: "Link copied"
+      copy_failed: "Could not copy; select the link by hand."
+      open: "Open here"
+      done: "Done"
+      too_big: "That is too much for a QR. Use the link or hand it out in two rounds."
+    teams:
+      title: "Team {team}"
+      join_help: "Each team scans its QR once to open its folder (kit and envelope 1)."
+      resend: "Resend everything handed out"
+      has: "Has: {codes}"
+      nothing: "Nothing handed out yet besides envelope 1."
+    kit:
+      help: "The sheets of the kit, to read the rules with the team."
+      guide_title: "Director's guide"
+      guide_text: "The guide with the solution and the script is in the director's PDF. Open it yourself only."
+      guide_download: "Download guide"
+    log:
+      empty: "No deliveries yet."
