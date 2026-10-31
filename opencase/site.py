@@ -96,6 +96,12 @@ def main(argv=None):
     (out / "cases.json").write_text(json.dumps({"cases": entries}, ensure_ascii=False, indent=2, sort_keys=False) + "\n",
                                     encoding="utf-8")
     assemble_site(out)
+    from . import web   # the cases for the web app (play/cases/): no PDFs needed, the same data
+    try:
+        web.build_cases([m["folder"] for m in metas], out, {m["folder"].name: m["slug"] for m in metas})
+    except CaseError as ex:
+        print(f"Error: {ex}", file=sys.stderr)
+        return 2
     total = sum(f.stat().st_size for f in out.rglob("*") if f.is_file())
     print(f"Site ready: {out}/  ({len(entries)} cases, {total / 1e6:.1f} MB)")
     return 0

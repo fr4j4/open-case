@@ -256,3 +256,24 @@ def split_cards(case):
 
 def short_code(c):
     return re.sub(r"\s+", " ", str(c["code"]))
+
+
+def find_card(case, code):
+    """(card, group) of cards.yaml with this code, or None."""
+    for g in case.card_groups:
+        for c in g.get("cards", []) or []:
+            if str(c.get("code")) == str(code):
+                return c, g
+    return None
+
+
+def render_card(case, code, extra=None):
+    """The HTML of one card of cards.yaml (the same <div> the PDF prints), with what the engine writes on it.
+    `extra` is engine_fields(case), to not work it out again for every card."""
+    found = find_card(case, code)
+    if found is None:
+        raise CaseError(f"there is no card '{code}' in cards.yaml", case.lang_root / "cards.yaml")
+    c, g = found
+    if extra is None:
+        extra = engine_fields(case)
+    return card(c, g, case, extra.get(id(c)))

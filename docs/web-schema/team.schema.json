@@ -1,0 +1,643 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "team.json",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "description": "schema_version: raise it (and save the new fingerprint) when this schema changes"
+    },
+    "kind": {
+      "const": "team"
+    },
+    "case": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "paper": {
+          "enum": [
+            "letter",
+            "a4"
+          ]
+        },
+        "brand": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "slug",
+        "language",
+        "title",
+        "summary",
+        "paper",
+        "brand"
+      ],
+      "additionalProperties": false
+    },
+    "figures": {
+      "type": "object",
+      "properties": {
+        "tokens_per_team": {
+          "type": "integer"
+        },
+        "alibi_tokens_per_team": {
+          "type": "integer"
+        },
+        "team_size_min": {
+          "type": "integer"
+        },
+        "phases": {
+          "type": "object",
+          "properties": {
+            "setup": {
+              "type": "integer"
+            },
+            "scene": {
+              "type": "integer"
+            },
+            "investigation": {
+              "type": "integer"
+            },
+            "accusation": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "setup",
+            "scene",
+            "investigation",
+            "accusation"
+          ],
+          "additionalProperties": false
+        },
+        "closing_minutes": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "accusation_writing": {
+          "type": "integer"
+        },
+        "pitch_minutes": {
+          "type": "integer"
+        },
+        "session_minutes": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "notice_minutes": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "hint_penalties": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "request_log_rows": {
+          "type": "integer"
+        },
+        "score": {
+          "type": "object",
+          "properties": {
+            "culprit": {
+              "type": "number"
+            },
+            "culprit_no_evidence": {
+              "type": "number"
+            },
+            "how": {
+              "type": "number"
+            },
+            "why": {
+              "type": "number"
+            },
+            "window": {
+              "type": "number"
+            },
+            "contradiction": {
+              "type": "number"
+            },
+            "discard_two": {
+              "type": "number"
+            },
+            "discard_one": {
+              "type": "number"
+            },
+            "discard_blank": {
+              "type": "number"
+            },
+            "red_herring": {
+              "type": "number"
+            },
+            "spare_token": {
+              "type": "number"
+            },
+            "wrong_accusation": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "culprit",
+            "culprit_no_evidence",
+            "how",
+            "why",
+            "window",
+            "contradiction",
+            "discard_two",
+            "discard_one",
+            "discard_blank",
+            "red_herring",
+            "spare_token",
+            "wrong_accusation"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "tokens_per_team",
+        "alibi_tokens_per_team",
+        "team_size_min",
+        "phases",
+        "closing_minutes",
+        "accusation_writing",
+        "pitch_minutes",
+        "session_minutes",
+        "notice_minutes",
+        "hint_penalties",
+        "request_log_rows",
+        "score"
+      ],
+      "additionalProperties": false,
+      "description": "opencase/defaults.yaml already combined with the figures the case changes"
+    },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "tokens_per_team": {
+          "type": "integer"
+        },
+        "alibi_tokens_per_team": {
+          "type": "integer"
+        },
+        "costs": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "integer"
+            },
+            "witness": {
+              "type": "integer"
+            },
+            "confrontation": {
+              "type": "integer"
+            },
+            "follow_up": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "question",
+            "witness",
+            "confrontation",
+            "follow_up"
+          ],
+          "additionalProperties": false
+        },
+        "procedure_kinds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "enum": [
+                  "person",
+                  "place",
+                  "thing"
+                ]
+              },
+              "locates": {
+                "type": "boolean"
+              },
+              "source": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "target",
+              "locates",
+              "source"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "alibi_procedures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "free_source_procedures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "tokens_per_team",
+        "alibi_tokens_per_team",
+        "costs",
+        "procedure_kinds",
+        "alibi_procedures",
+        "free_source_procedures"
+      ],
+      "additionalProperties": false,
+      "description": "what is needed to charge and give back tokens"
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "alibi_tokens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "tokens",
+          "alibi_tokens"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "suspects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "letter": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "short_name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "facts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "portrait": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "card": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_\\-]+(/[A-Za-z0-9_\\-]+)*\\.html$"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "confront": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "letter",
+          "name",
+          "short_name",
+          "role",
+          "facts",
+          "portrait",
+          "card",
+          "questions",
+          "confront"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "menu": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "suspect": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "suspect",
+          "question"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "follow_ups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "cost": {
+            "type": "integer"
+          },
+          "unlocked_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "cost",
+          "unlocked_by"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "procedures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "target": {
+            "enum": [
+              "person",
+              "place",
+              "thing"
+            ]
+          },
+          "cost": {
+            "type": "integer"
+          },
+          "costs": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "each": {
+            "type": "boolean"
+          },
+          "alibi": {
+            "type": "boolean"
+          },
+          "source": {
+            "type": "boolean"
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "kind": {
+                  "enum": [
+                    "suspect",
+                    "place",
+                    "other"
+                  ]
+                }
+              },
+              "required": [
+                "key",
+                "label",
+                "kind"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "code",
+          "kind",
+          "label",
+          "target",
+          "cost",
+          "costs",
+          "each",
+          "alibi",
+          "source",
+          "targets"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "envelopes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "file": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9_\\-]+(/[A-Za-z0-9_\\-]+)*\\.html$"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "code",
+                      "file"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "note",
+                "items"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "number",
+          "sections"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "kit": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_\\-]+(/[A-Za-z0-9_\\-]+)*\\.html$"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "file"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "texts": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "tagline"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "case",
+    "figures",
+    "rules",
+    "teams",
+    "suspects",
+    "menu",
+    "follow_ups",
+    "procedures",
+    "envelopes",
+    "kit",
+    "texts"
+  ],
+  "additionalProperties": false,
+  "description": "Everything a team's device may know. No result of a procedure, no card text, no guide."
+}

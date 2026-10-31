@@ -1,0 +1,634 @@
+{
+  "schema_version": 1,
+  "teams": {
+    "A": {
+      "tokens": 16,
+      "alibi": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    "B": {
+      "tokens": 16,
+      "alibi": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    "C": {
+      "tokens": 16,
+      "alibi": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    "D": {
+      "tokens": 16,
+      "alibi": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    }
+  },
+  "suspects": [
+    "B",
+    "H",
+    "J",
+    "P",
+    "T",
+    "C"
+  ],
+  "menu": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "H1",
+    "H2",
+    "H3",
+    "H4",
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "follow_ups": {
+    "B1+": [],
+    "B3+": [],
+    "H2+": [
+      "E13b"
+    ],
+    "J3+": [],
+    "P2+": [
+      "E13a"
+    ],
+    "T4+": [],
+    "C3+": [
+      "E15·M",
+      "E15·C"
+    ],
+    "I1+": []
+  },
+  "procedures": {
+    "DG1": {
+      "kind": "report",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG2": {
+      "kind": "phone",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG2W": {
+      "kind": "phone",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG2C": {
+      "kind": "phone",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG3": {
+      "kind": "bank_statement",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG4": {
+      "kind": "social_media",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG5": {
+      "kind": "vehicle",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG6": {
+      "kind": "area_search",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG7": {
+      "kind": "belongings",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG8": {
+      "kind": "premises_search",
+      "costs": [
+        1
+      ],
+      "each": true,
+      "alibi": false,
+      "source": false
+    },
+    "DG9": {
+      "kind": "phone_towers",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": true,
+      "source": false
+    },
+    "DG11": {
+      "kind": "cameras",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": true,
+      "source": true
+    },
+    "DG12": {
+      "kind": "phone",
+      "costs": [
+        1
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    },
+    "DG10": {
+      "kind": "other",
+      "costs": [
+        1,
+        2
+      ],
+      "each": false,
+      "alibi": false,
+      "source": false
+    }
+  },
+  "envelopes": {
+    "1": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E05",
+      "E07",
+      "DEC·B",
+      "DEC·H",
+      "DEC·J",
+      "DEC·P",
+      "DEC·T",
+      "DEC·C"
+    ],
+    "2": [
+      "E06"
+    ]
+  },
+  "kit": [
+    "01-mision",
+    "oc-20-rules",
+    "oc-25-during-the-game",
+    "oc-30-score",
+    "02-menu",
+    "03-diligencias",
+    "04-linea-de-tiempo",
+    "05-acusacion",
+    "06-descarte"
+  ],
+  "costs": {
+    "question": 1,
+    "witness": 1,
+    "confrontation": 1,
+    "follow_up": 1
+  },
+  "cards": {
+    "answer": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "H1",
+      "H2",
+      "H3",
+      "H4",
+      "J1",
+      "J2",
+      "J3",
+      "J4",
+      "P1",
+      "P2",
+      "P3",
+      "P4",
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "C1",
+      "C2",
+      "C3",
+      "C4"
+    ],
+    "confrontation": [
+      "B5",
+      "B5a",
+      "B6",
+      "B7",
+      "B7a",
+      "B8",
+      "B9",
+      "B10",
+      "B11",
+      "B12",
+      "B13",
+      "H5",
+      "H6",
+      "J5",
+      "J6",
+      "P5",
+      "P6",
+      "T5",
+      "T6",
+      "T7",
+      "C5",
+      "C6"
+    ],
+    "failed": [
+      "B✕",
+      "◆ ✕"
+    ],
+    "follow-up": [
+      "B1+",
+      "B3+",
+      "H2+",
+      "J3+",
+      "P2+",
+      "T4+",
+      "C3+",
+      "I1+"
+    ],
+    "hint": [
+      "Pista 1",
+      "Pista 2",
+      "Pista 3",
+      "Pista 4",
+      "Pista 5"
+    ],
+    "notice": [
+      "Aviso 1",
+      "Aviso 2"
+    ],
+    "press": [
+      "Prensa"
+    ],
+    "wildcard": [
+      "SIN HALLAZGOS",
+      "TESTIGO",
+      "NADA QUE APORTAR"
+    ],
+    "witness": [
+      "R1",
+      "R2",
+      "K1",
+      "EL1",
+      "CL1",
+      "L1",
+      "M1",
+      "PS1",
+      "CO1",
+      "PER1",
+      "I1",
+      "F1"
+    ]
+  },
+  "gives": {
+    "DG1": [
+      "E12"
+    ],
+    "DG2": [
+      "E13a"
+    ],
+    "DG2W": [
+      "E13b"
+    ],
+    "DG2C": [
+      "E13c"
+    ],
+    "DG3": {
+      "B": [
+        [
+          "E15·B"
+        ]
+      ],
+      "T": [
+        [
+          "E15·T"
+        ]
+      ],
+      "C": [
+        [
+          "E15·C"
+        ]
+      ],
+      "P": [
+        [
+          "E15·P"
+        ]
+      ],
+      "H": [
+        [
+          "E15·H"
+        ]
+      ],
+      "J": [
+        [
+          "E15·J"
+        ]
+      ],
+      "M": [
+        [
+          "E15·M"
+        ]
+      ]
+    },
+    "DG4": [
+      "E16"
+    ],
+    "DG5": {
+      "B": [
+        [
+          "E17·B"
+        ]
+      ],
+      "T": [
+        [
+          "E17·T"
+        ]
+      ],
+      "H": [
+        [
+          "E17·H"
+        ]
+      ],
+      "C": [
+        [
+          "E17·C"
+        ]
+      ],
+      "P": [
+        [
+          "E17·P"
+        ]
+      ],
+      "J": [
+        [
+          "E17·J"
+        ]
+      ]
+    },
+    "DG6": {
+      "stream": [
+        [
+          "E18"
+        ]
+      ],
+      "other": [
+        "none"
+      ]
+    },
+    "DG7": {
+      "T": [
+        [
+          "E19·T"
+        ]
+      ],
+      "B": [
+        [
+          "E19·B"
+        ]
+      ],
+      "J": [
+        [
+          "E19·J"
+        ]
+      ],
+      "P": [
+        [
+          "E19·P"
+        ]
+      ],
+      "H": [
+        [
+          "E19·H"
+        ]
+      ],
+      "C": [
+        [
+          "E19·C"
+        ]
+      ]
+    },
+    "DG8": {
+      "desk": [
+        [
+          "E24"
+        ]
+      ],
+      "safe": [
+        [
+          "E25"
+        ]
+      ]
+    },
+    "DG9": {
+      "B": [
+        [
+          "E26·B"
+        ]
+      ],
+      "T": [
+        [
+          "E26·T"
+        ]
+      ],
+      "P": [
+        [
+          "E26·P"
+        ]
+      ],
+      "C": [
+        [
+          "E26·C"
+        ]
+      ],
+      "H": [
+        [
+          "E26·H"
+        ]
+      ],
+      "J": [
+        [
+          "E26·J"
+        ]
+      ]
+    },
+    "DG11": {
+      "copec": [
+        [
+          "E28"
+        ]
+      ],
+      "building": [
+        [
+          "E14"
+        ]
+      ],
+      "clinic": [
+        [
+          "E22"
+        ]
+      ],
+      "hospital": [
+        [
+          "E20"
+        ]
+      ],
+      "karaoke": [
+        "none"
+      ]
+    },
+    "DG12": {
+      "P": [
+        [
+          "E29·P"
+        ]
+      ],
+      "B": [
+        [
+          "E29·B"
+        ]
+      ],
+      "J": [
+        [
+          "E29·J",
+          "E08"
+        ]
+      ],
+      "other": [
+        [
+          "E29·X"
+        ]
+      ]
+    },
+    "DG10": {
+      "deleted_message": [
+        [
+          "E13d"
+        ]
+      ],
+      "other": [
+        "material"
+      ]
+    }
+  },
+  "notice_minutes": {
+    "Aviso 1": 10,
+    "Aviso 2": 20,
+    "Prensa": 20
+  },
+  "hint_penalties": {
+    "Pista 1": 1,
+    "Pista 2": 1,
+    "Pista 3": 1,
+    "Pista 4": 2,
+    "Pista 5": 2
+  },
+  "witnesses": [
+    "Claudia Carrasco",
+    "Elena Mardones",
+    "Fernanda Ortiz",
+    "Juan Cifuentes",
+    "Kevin Huenchumilla",
+    "Luis Riquelme",
+    "Macarena Vidal",
+    "Patricio Sepúlveda",
+    "Perito informático",
+    "Rodrigo Iturra",
+    "Rosa Huenchumilla"
+  ],
+  "score": {
+    "points": {
+      "culprit": 5,
+      "culprit_no_evidence": 2,
+      "how": 2,
+      "why": 2,
+      "window": 1,
+      "contradiction": 1,
+      "discard_two": 2,
+      "discard_one": 1,
+      "discard_blank": -1,
+      "red_herring": 1,
+      "spare_token": 0.25,
+      "wrong_accusation": -5
+    },
+    "bonus": {
+      "points": 3,
+      "text": "Explicar qué pasó con los ataques a los animales y por qué"
+    },
+    "hint_penalties": [
+      1,
+      1,
+      1,
+      2,
+      2
+    ]
+  }
+}
