@@ -6,6 +6,7 @@ import * as store from '../js/store.js';
 import { encode, naturalCompare } from '../js/delivery.js';
 import { drawQr } from '../js/qr.js';
 import { openViewer } from '../js/viewer.js';
+import { DirectorRoom, roomLink, keepAwake } from '../js/room.js';
 
 const app = document.getElementById('app');
 let game = null;         // {slug, lang, version, teams: ['A','B'], seq, log: [{seq, team, items, at}]}
@@ -16,6 +17,8 @@ let target = [];         // teams the next delivery goes to
 let picked = new Map();  // file -> code
 let search = '';
 let outdated = null;     // {version, same_format}
+let room = null;         // the live room (js/room.js), once the director creates it
+let stopAwake = null;
 
 const caseUrl = (file = '') => new URL(`cases/${game.slug}/${game.lang}/${game.version}/${file}`, PLAY_ROOT);
 const save = () => store.set('game', game);
@@ -63,6 +66,67 @@ async function loadCase() {
   await loadStrings(game.lang);
   document.title = t('director.page_title');
   checkVersion();
+  if (game.room && !room) startRoom();     // a reload: the room opens again with the same PIN and the same devices
+}
+
+// --- The live room --------------------------------------------------------------------------------------------
+
+async function startRoom() {
+  let known = new Set(game.room ? game.room.devices ? Object.keys(game.room.devices).filter((id) => game.room.devices[id].status === 'pending') : [] : []);
+  room = new DirectorRoom({ game, save, onChange: () => {
+    const fresh = room.pending().filter((d) => !known.has(d.id));
+    for (const d of fresh) { known.add(d.id); if (tab !== 'room') toast(t('room.tab_pending', { n: room.pending().length })); }
+    if (tab === 'room') render(); else refreshRoomTab();
+  } });
+  stopAwake = keepAwake();
+  await room.start();
+  await save();
+  if (tab === 'room') render();
+}
+
+function refreshRoomTab() {
+  const b = document.getElementById('oc-tab-room');
+  if (b && room) b.textContent = room.pending().length ? t('room.tab_pending', { n: room.pending().length }) : t('room.tab');
+}
+
+const roomUrl = () => roomLink(new URL('../equipo/', location.href).href, room.pin);
+const time = (ms) => new Date(ms).toLocaleTimeString(language(), { hour: '2-digit', minute: '2-digit' });
+const deviceName = (d) => d.name || t('room.unnamed', { id: d.id.slice(0, 4) });
+
+function roomView() {
+  if (!room) {
+    return h('div', { class: 'oc-card' }, h('h3', {}, t('room.create_title')), h('p', {}, t('room.create_text')),
+      h('button', { class: 'oc-btn', type: 'button', id: 'oc-room-create', onclick: async () => { await startRoom(); render(); } }, t('room.create')));
+  }
+  const link = roomUrl();
+  const qr = drawQr(link);
+  const kinds = room.vestibule ? room.vestibule.kinds.join(' + ') : '';
+  const pending = room.pending();
+  return h('div', {},
+    h('section', { class: 'oc-card' },
+      h('p', { class: 'oc-muted' }, t('room.share_help')),
+      h('p', {}, t('room.pin'), ': ', h('strong', { id: 'oc-room-pin', style: 'font-size:2rem;letter-spacing:.18em;font-family:var(--mono,monospace)' }, room.pin)),
+      qr ? h('div', { class: 'oc-qr' }, qr) : null,
+      h('code', { class: 'oc-link', id: 'oc-room-link' }, link),
+      h('div', { class: 'oc-row' }, h('button', { class: 'oc-btn oc-btn--small', type: 'button', onclick: () => copy(link) }, t('room.copy'))),
+      kinds ? h('p', { class: 'oc-muted' }, t('room.transport', { kinds })) : null),
+    h('h3', {}, t('room.pending_title')),
+    pending.length ? pending.map((d) => h('section', { class: 'oc-card', dataset: { device: d.id } },
+      h('p', {}, h('strong', {}, deviceName(d)), ' ', h('small', { class: 'oc-muted' }, room.seenInVestibule(d.id) ? t('room.online', { time: time(d.joined) }) : t('room.offline'))),
+      h('div', { class: 'oc-chips' },
+        game.teams.map((tm) => h('button', { class: `oc-chip oc-team-${tm}`, type: 'button', dataset: { approve: tm }, onclick: () => room.approve(d.id, tm) }, t('room.approve_to', { team: tm }))),
+        h('button', { class: 'oc-chip', type: 'button', dataset: { deny: '1' }, onclick: () => room.deny(d.id) }, t('room.deny'))))) : h('p', { class: 'oc-muted', id: 'oc-room-none' }, t('room.pending_none')),
+    game.teams.map((tm) => {
+      const members = room.members(tm);
+      return h('section', { class: `oc-card oc-team-${tm}`, dataset: { team: tm } },
+        h('h3', {}, teamBadge(tm), ' ', t('room.team_title', { team: tm })),
+        members.length ? members.map((d) => h('div', { class: 'oc-row', dataset: { device: d.id, online: String(room.isOnline(d.id)) } },
+          h('span', {}, h('strong', {}, deviceName(d)), ' · ', room.isOnline(d.id) ? t('room.online', { time: time(room.online.get(d.id)) }) : t('room.offline')),
+          h('span', { class: 'oc-grow' }),
+          game.teams.filter((x) => x !== tm).map((x) => h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', onclick: () => room.approve(d.id, x) }, t('room.move_to', { team: x }))),
+          h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', onclick: () => room.deny(d.id) }, t('room.remove')))) : h('p', { class: 'oc-muted' }, t('room.nobody')));
+    }),
+    h('p', { class: 'oc-muted' }, t('room.qr_help')));
 }
 
 // Is the case on the site newer than the one this game started with? (Pages replaces the whole site on every deployment.)
@@ -91,6 +155,8 @@ function topBar() {
 async function endGame() {
   if (!confirm(t('director.end_confirm'))) return;
   await store.del('game');
+  if (room) { await room.stop(); room = null; }
+  if (stopAwake) { stopAwake(); stopAwake = null; }
   game = teamJson = directorJson = null; picked.clear();
   setupScreen();
 }
@@ -103,9 +169,9 @@ function render() {
   app.append(main);
   if (!store.store.persistent) main.append(h('div', { class: 'oc-notice' }, t('director.no_storage')));
   if (outdated) main.append(h('div', { class: `oc-notice${outdated.sameFormat ? '' : ' oc-notice--bad'}` }, outdated.sameFormat ? t('director.outdated.same') : t('director.outdated.format')));
-  const mk = (id, text) => h('button', { class: 'oc-tab', role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
-  main.append(h('div', { class: 'oc-tabs', role: 'tablist' }, mk('give', t('director.tab.give')), mk('teams', t('director.tab.teams')), mk('kit', t('director.tab.kit')), mk('log', t('director.tab.log'))));
-  main.append(tab === 'give' ? giveView() : tab === 'teams' ? teamsView() : tab === 'kit' ? kitView() : logView());
+  const mk = (id, text) => h('button', { class: 'oc-tab', id: `oc-tab-${id}`, role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
+  main.append(h('div', { class: 'oc-tabs', role: 'tablist' }, mk('give', t('director.tab.give')), mk('teams', t('director.tab.teams')), mk('room', room && room.pending().length ? t('room.tab_pending', { n: room.pending().length }) : t('room.tab')), mk('kit', t('director.tab.kit')), mk('log', t('director.tab.log'))));
+  main.append(tab === 'give' ? giveView() : tab === 'room' ? roomView() : tab === 'teams' ? teamsView() : tab === 'kit' ? kitView() : logView());
 }
 
 const teamBadge = (letter) => h('span', { class: `oc-badge oc-team-${letter}` }, letter);
@@ -171,7 +237,13 @@ async function give() {
   }
   await save();
   picked.clear();
-  showDeliveries(deliveries);
+  // Teams with a phone connected get it over the network; the QR is for the others (and is always in Teams).
+  const byQr = [];
+  for (const d of deliveries) {
+    const n = room ? room.reach(d.team) : 0;
+    if (n) { room.deliver(d.team, d.items, d.seq); toast(plural('room.sent', n, { team: d.team })); } else byQr.push(d);
+  }
+  if (byQr.length) showDeliveries(byQr);
   render();
 }
 

@@ -9,9 +9,8 @@ solo módulo ES, sin dependencias sueltas. Una línea por librería (versión, l
 | `trystero-torrent.js` | `@trystero-p2p/torrent` | 0.26.0 | MIT | Lo mismo, encontrándose por trackers BitTorrent. |
 | `trystero-mqtt.js` | `@trystero-p2p/mqtt` + `mqtt` 5.16.1 | 0.26.0 | MIT, `licenses/mqtt.txt` | Lo mismo, por brokers MQTT. Pesa 400 KB: solo se descarga si se prueba esa estrategia. |
 | `noble-secp256k1.js` | `@noble/secp256k1` | 3.2.0 | MIT, `licenses/noble-secp256k1.txt` | Firma Schnorr de los eventos del transporte `relay`. |
-| `qrcode-generator.js` | `qrcode-generator` (Kazuhiko Arase) | 2.0.4 | MIT, `licenses/qrcode-generator.txt` | Dibuja el QR para unirse a una sala. |
-
-Un lector de QR (para el modo sin red) llega con F2, que es quien lo usa.
+| `qrcode-generator.js` | `qrcode-generator` (Kazuhiko Arase) | 2.0.4 | MIT, `licenses/qrcode-generator.txt` | Dibuja el QR de las entregas y de la sala. |
+| `jsQR.js` | `jsqr` (Cosmo Wolfe) | 1.4.0 | Apache-2.0, `licenses/jsqr.txt` | Lee el QR de la cámara o de una imagen donde el navegador no trae `BarcodeDetector` (iOS). Es `dist/jsQR.js` del paquete, sin cambios; se carga solo cuando hace falta. |
 
 ## Cómo se hicieron
 
@@ -25,6 +24,6 @@ npx esbuild e.js --bundle --format=esm --minify --platform=browser --target=es20
 # igual con mqtt y torrent, y con '@noble/secp256k1' para noble-secp256k1.js
 ```
 
-`qrcode-generator.js` es `dist/qrcode.mjs` del paquete `qrcode-generator@2.0.4`, sin cambios.
+`qrcode-generator.js` es `dist/qrcode.mjs` del paquete `qrcode-generator@2.0.4`, sin cambios. `jsQR.js` es `dist/jsQR.js` de `jsqr@1.4.0`, sin cambios.
 
 Para actualizar una: repetir lo de arriba con la versión nueva, cambiar la tabla y correr `pytest -m web`.

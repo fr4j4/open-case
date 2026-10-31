@@ -36,5 +36,7 @@ it says so and the game goes on with what is loaded. The director's panel shows 
 | `sw.js` | cache-first for each version of a case; network-first for the app and `index.json` |
 | `equipo/`, `director/` | the two pages |
 
+The live room (PIN, approval, delivery over the network) is described in `web-room.md`.
+
 Tests: `tests/web/test_folder.py` (`pytest -m web`). Not covered by the CI (it needs real phones): Safari/iOS, the camera, and a
 full game at a table.
