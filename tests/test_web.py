@@ -92,7 +92,8 @@ def test_the_index_and_the_strings_are_published(site):
     index = _json(out / "play" / "cases", "index.json")
     assert [(e["slug"], e["language"]) for e in index["cases"]] == [(CASE, "es")]
     assert (out / "play" / index["cases"][0]["path"] / "team.json").is_file()
-    assert _json(out / "play" / "strings", "es.json")["web"] == {}
+    words = _json(out / "play" / "strings", "es.json")["web"]      # each phase adds its own subsection (web.team, web.director…)
+    assert {"team", "director"} <= set(words)
 
 
 # --- Fidelity ----------------------------------------------------------------------------------
