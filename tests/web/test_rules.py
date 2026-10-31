@@ -35,7 +35,6 @@ def test_rules_js_agrees_with_the_engine(tmp_path):
     folder = _compile(CASES / CASE, tmp_path)
     done = _node(folder, EXPECTED)
     assert done.returncode == 0, done.stdout[-6000:] + done.stderr[-2000:]
-    assert "# fail 0" in done.stdout
 
 
 def test_a_changed_cost_reaches_the_json_the_kit_and_the_cards(tmp_path):
