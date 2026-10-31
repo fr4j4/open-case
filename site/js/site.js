@@ -8,7 +8,7 @@
       loading: "Cargando los casos…",
       error: "No se pudo cargar la lista de casos. Recarga la página o descarga los archivos desde el repositorio.",
       empty: "Todavía no hay casos publicados.",
-      teams: "equipos", team: "equipo", minutes: "min", players: "personas por equipo", to: " a ",
+      teams: "equipos", team: "equipo", minutes: "min", playersFrom: " o más personas por equipo", to: " a ",
       teamsZip: "Material de los equipos", teamsNote: "Kit, sobres, tarjetas, placas y fichas",
       directorZip: "Material del director", directorWarn: "Contiene la solución. Solo para quien dirige.",
       by: "Autoría", noCover: "Caso",
@@ -18,7 +18,7 @@
       loading: "Loading the cases…",
       error: "The list of cases could not be loaded. Reload the page or download the files from the repository.",
       empty: "No cases published yet.",
-      teams: "teams", team: "team", minutes: "min", players: "people per team", to: " to ",
+      teams: "teams", team: "team", minutes: "min", playersFrom: " or more people per team", to: " to ",
       teamsZip: "Material for the teams", teamsNote: "Kit, envelopes, cards, badges and tokens",
       directorZip: "Material for the director", directorWarn: "It contains the solution. For the director only.",
       by: "Author", noCover: "Case",
@@ -89,7 +89,7 @@
     [Object.keys(c.languages).map(function (l) { return l.toUpperCase(); }).join(" · "),
      teams + " " + (c.max_teams === 1 ? t.team : t.teams),
      range(c.duration_minutes, t.minutes),
-     range(c.players_per_team, t.players)].forEach(function (m) { if (m) meta.appendChild(el("span", null, m)); });
+     (c.players_per_team ? c.players_per_team[0] + t.playersFrom : "")].forEach(function (m) { if (m) meta.appendChild(el("span", null, m)); });
     body.appendChild(meta);
     body.appendChild(el("p", null, texts.summary));
     var zips = el("div", "zips");

@@ -71,7 +71,7 @@ site:
   cover: photos/e09_2250.jpg       # optional: image of the card (a spoiler-free one)
   min_teams: 2                     # the maximum is the length of `teams`
   duration_minutes: [60, 70]       # a number or [min, max]
-  players_per_team: [5, 7]         # a number or [min, max]
+  players_per_team: 2              # minimum people per team; the site shows "N or more" (no maximum)
   slug: my-case                    # optional: defaults to the folder name
 ```
 

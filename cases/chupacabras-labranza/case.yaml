@@ -50,4 +50,4 @@ site:
   cover: photos/e09_2250.jpg
   min_teams: 2
   duration_minutes: [65, 75]
-  players_per_team: [5, 7]
+  players_per_team: 2   # from how many people per team (no maximum); the site shows "2 or more"
