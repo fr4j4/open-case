@@ -209,3 +209,17 @@ def test_translation_missing_procedure_texts(case_dir):
     edit_yaml(case_dir / "languages" / "en" / "procedures.yaml", lambda d: d["procedures"].pop("DG7"))
     problems = compare_languages(load_case(case_dir, "es"), load_case(case_dir, "en"))
     assert "procedures.yaml (en): DG7 notes.bar is missing" in problems
+
+
+def test_second_sheet_of_a_target_joins_the_card_row(case_dir):
+    """DG12 J hands out E29·J + E08 and J2 hands out E08: the control sheet says J2 o DG12 J → E08. Without the
+    card the sheet gets its own row among the procedures."""
+    add_procedures(case_dir)
+    edit_yaml(case_dir / "procedures.yaml", lambda d: d["procedures"][1]["targets"].update(A=["E04-A", "E06"]))
+    edit_yaml(cards_file(case_dir), lambda d: d["groups"][0]["cards"][0].update(attach="E06"))
+    case, html = docs(case_dir)
+    assert "A1 o DG4 A → E06" in html["guide"]
+    edit_yaml(cards_file(case_dir), lambda d: d["groups"][0]["cards"][0].pop("attach"))
+    case, html = docs(case_dir)
+    guide = html["guide"]
+    assert guide.index("DG4 A → E06") < guide.index("Pruebas que entregan las tarjetas")

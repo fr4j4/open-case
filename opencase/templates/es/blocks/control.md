@@ -26,7 +26,9 @@
 ```table control
 {{ head }}{% for p in procedures %}{% for r in p.control_rows %}
 | `{{ p.code }} → {{ r.base }}` | {{ p.short|cell }}{{ (": " ~ r.label|cell) if r.label else "" }}{{ (" (·" ~ r.suffixes|join(" ·") ~ ")") if r.suffixes else "" }} | {{ r.cost }} |{{ "  |" * n }}
-{% endfor %}{% endfor %}
+{% endfor %}{% endfor %}{% for r in procedure_also %}
+| `{{ r.code }} → {{ r.shown }}` | {{ r.what|cell }} | 1 |{{ "  |" * n }}
+{% endfor %}
 ```
 
 ### Pruebas que entregan las tarjetas
@@ -34,7 +36,7 @@
 
 ```table control
 {{ head }}{% for c in procedure_cards %}
-| `{{ c.code }} → {{ c.shown|join(" · ") }}` | {{ c.what|cell }} | 1 |{{ "  |" * n }}
+| `{{ c.codes|join(" o ") }} → {{ c.shown|join(" · ") }}` | {{ c.what|cell }} | 1 |{{ "  |" * n }}
 {% endfor %}
 {% endif %}
 {% for a in notices %}

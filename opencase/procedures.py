@@ -161,7 +161,7 @@ def load(case):
                         raise CaseError(f"{code}: the target '{key}' is neither a suspect, a place of "
                                         "locations.yaml nor other; give it a label under targets: in "
                                         f"languages/{case.lang}/procedures.yaml", tpath)
-                result.update(key=key, label=str(label), note=str(notes.get(key, "")))
+                result.update(key=key, label=str(label), note=str(notes.get(key, "")), suspect=key in letters)
                 proc["targets"].append(result)
                 if key in places_by_id:
                     place = places_by_id[key]
@@ -256,17 +256,43 @@ def reachable(case):
 
 
 def card_rows(case):
-    """The cards that hand out a sheet (attach), for the control sheet: [{code, shown, what}], in the order
-    of cards.yaml. `what` is the sheet's `short` (front matter) or its title."""
+    """The cards that hand out a sheet (attach), for the control sheet: [{codes, shown, what}], in the order
+    of cards.yaml. `what` is the sheet's `short` (front matter) or its title. A procedure that hands the sheet
+    out besides its own (DG12 J: E29·J + E08) joins the card's row: J2 o DG12 J → E08."""
     rows = []
     for c, g in iter_cards(case):
         attach = as_list(c.get("attach"))
         if not attach or card_kind(c, g) in ("notice", "press", "hint", "closing"):
             continue
-        first = _sheet(case, attach[0])
-        what = (first.get("short") or first.get("title", "")) if first is not None else ""
-        rows.append({"code": str(c["code"]), "shown": [display_code(case, a) for a in attach], "what": str(what)})
+        rows.append({"codes": [str(c["code"])], "sheets": {normalize_code(a) for a in attach},
+                     "shown": [display_code(case, a) for a in attach], "what": _what(case, attach[0])})
+    for who, sheet in _also(case):
+        row = next((r for r in rows if normalize_code(sheet) in r["sheets"]), None)
+        if row is not None:
+            row["codes"].append(who)
     return rows
+
+
+def also_rows(case):
+    """The sheets a procedure hands out besides its own that no card hands out, as rows of the procedures'
+    table: [{code, shown, what}] (DG12 J → E08 when no card gives E08)."""
+    by_cards = {normalize_code(a) for c, g in iter_cards(case) for a in as_list(c.get("attach"))
+                if card_kind(c, g) not in ("notice", "press", "hint", "closing")}
+    return [{"code": who, "shown": display_code(case, sheet), "what": _what(case, sheet)}
+            for who, sheet in _also(case) if normalize_code(sheet) not in by_cards]
+
+
+def _also(case):
+    """(DG12 J, E08) for each sheet a procedure's target hands out after its first one."""
+    for p in case.procedures:
+        for r in ([p["gives"]] if p["gives"] else p["targets"]):
+            for sheet in r["sheets"][1:]:
+                yield (f"{p['code']} {r['key']}" if r.get("suspect") else p["code"]), sheet
+
+
+def _what(case, ref):
+    s = _sheet(case, ref)
+    return str((s.get("short") or s.get("title", "")) if s is not None else "")
 
 
 def _sheet(case, ref):
