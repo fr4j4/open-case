@@ -126,3 +126,9 @@ readme: |
   88 × 63 mm and tokens 30 mm across.
 
   {mode}
+
+# Follow-ups: the box at the bottom of the card that enables one (opencase/followups.py)
+follow_up:
+  box: "Follow-up {code} · 1 token"
+  box_condition: "only if you have {codes}"
+  or_word: " or "

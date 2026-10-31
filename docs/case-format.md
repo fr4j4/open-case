@@ -228,12 +228,20 @@ groups:
 | `headline` | A big headline before the text (used by press cards). |
 | `who` | What goes to the right of the code. If missing it is built from the group. |
 | `attach` | One or several evidence codes handed out with the card. |
-| `follow_up` | One or several question codes the card enables. |
+| `follow_up` | One or several follow-up codes the card enables (its follow-ups). On the team's card they show as a box with the code, the cost and, if the follow-up has `unlocked_by`, its condition: "Seguimiento H2+ · 1 ficha · si ya tienen E13b". The question itself is only in the guide. |
+| `unlocked_by` | Only on follow-ups: one or several codes of the dossier or of cards that the team must also have (any one of them is enough). Use it when the follow-up names something its mother card does not say (see below). |
+| `appears_in` | Only on witnesses: the dossier sheets or cards where the teams can read the person's name. The guide's witness table shows them. |
+| `aliases` | Only on witnesses: other ways the material calls the person ("conserje", "Maca"). |
+| `guide_note` | A note for the director, printed only in the guide's generated tables (follow-ups and witnesses), never on the card. It can use the pills `[true]`, `[false]`, `[key]`… |
 | `footer` | A free line at the bottom. Hint cards without one get it from `hint_penalties` ("Resta 1 punto al equipo que la pidió"). |
 | `menu` | `true` to show the question in the kit's menu. |
 | `suspect` | If the card is about another suspect than its group's. |
 
-Notice cards add which notice they are to `who` ("Fiscalía · 1 de 2"); without `who`, a notice says "Aviso" and a press card "Con el aviso N". They never print the suggested minute: the cards go to the teams' tables, and the minute is only in the guide. Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters. If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
+Notice cards add which notice they are to `who` ("Fiscalía · 1 de 2"); without `who`, a notice says "Aviso" and a press card "Con el aviso N". They never print the suggested minute: the cards go to the teams' tables, and the minute is only in the guide. Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters.
+
+**Follow-ups and witnesses.** A follow-up is one of two kinds. Kind A: the mother card's answer already opens the topic ("pelear por plata", then "¿De qué plata?"); `follow_up` on the mother card is enough. Kind B: the question names something the mother card did not say and that comes from another piece of evidence (H2+ asks about "papeles", which are in E13b); then `unlocked_by` is required and names that evidence. A witness is the set of cards of type `witness` with the same `who` (the name is what comes before a comma); `appears_in`, `aliases` and `guide_note` can go on any of them and add up. The export stops when `follow_up`, `unlocked_by` or `appears_in` name something that does not exist, and warns about a follow-up no card enables, a witness without `appears_in` and a witness whose name and aliases are in none of the places of its `appears_in` (the teams could never ask for them). The guide's tables come from these fields with the blocks `follow-ups`, `witnesses`, `quick-follow-ups` and `quick-witnesses`.
+
+If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
 
 ## Sheets: kit, dossier and guide
 
@@ -351,7 +359,7 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 
 | Block | What it draws | Content |
 |---|---|---|
-| `columns` | Side-by-side columns, for quick-reference sheets. Argument: minimum width of a column in px (default 230) | Markdown pieces separated by a line with `===` |
+| `columns` | Side-by-side columns, for quick-reference sheets. Argument: minimum width of a column in px (default 230) | Markdown pieces separated by a line with `===`. Open it with four backticks (```` ````columns ````) and a piece can also hold ```blocks, such as `quick-witnesses` |
 | `note`, `note-ok`, `note-warning` | Plain, green or amber notes. Argument: the label | Markdown |
 | `script` | What the director reads aloud. Optional argument: the label | Free text |
 | `steps` | Numbered steps | List of `title:` and `text:` |
@@ -376,6 +384,9 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 | `acronyms` | The glossary of the case as a table of acronym and long form | Optional `only: [PDI, SAG]` |
 | `discard-rule` | The kit's paragraph on ruling innocents out and what each discard is worth | Nothing |
 | `score-sheet` | The director's score sheet, one column per team, with the tie-break | Nothing |
+| `follow-ups` | The guide's follow-up table: each card of type `follow-up` with its full question, the cards that enable it (`follow_up`), the evidence it also needs (`unlocked_by`) and its `guide_note` | Nothing |
+| `witnesses` | The guide's witness table: each witness (the cards of type `witness` with the same `who`), where their name appears (`appears_in`) and what to hand out, with its `guide_note` | Optional: `others:` with `names`, `appears_in` and `card` for the row of the other names of the material |
+| `quick-follow-ups`, `quick-witnesses` | The same, short, for the quick sheet (inside a `columns` block) | Optional in `quick-witnesses`: `others: {card: ...}` |
 
 If you write a block that does not exist, the exporter stops and tells you which ones there are.
 

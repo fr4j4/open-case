@@ -18,7 +18,7 @@ It is for your team only: do not show it to the others. **Suspects can lie**; fo
 
 ### Follow-ups
 
-Some cards have a follow-up at the bottom: a code ending in +. You ask for it like any question and it costs 1 token.
+Some cards have a follow-up box at the bottom: a code ending in +. You ask for it like any question and it costs 1 token.{{ ' If the box says "only if you have" a piece of evidence, you can ask for it only once you have it.' if follow_ups|selectattr("unlocked_by")|list else "" }}
 
 {% if notice_minutes %}
 ### Notices

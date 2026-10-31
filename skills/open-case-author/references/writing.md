@@ -24,6 +24,13 @@ Tone, voice and conventions for every piece of text, taken from the brand guide 
 - The culprit's statement contains at most one slip, and the slip is worth a contradiction point, never a confession path (see `design-rules.md` §3).
 - Honest documents can still mislead by what they choose to show: a receipt that proves presence at 21:40 when the crime is at 23:15; a post with a visible earring near the scene at 21:55.
 
+## Follow-ups and witnesses
+
+- **Every follow-up is of kind A or B; decide which while writing it.** Kind A: the mother card's answer already opens the topic ("he called to fight about money", then "What money?"); `follow_up` on the mother card is enough. Kind B: the question names something the mother card did not say and that only another piece of evidence shows (H2+ asks about "the papers" Hernán wanted back, which are in his chat in E13b; P2+ asks about a call at 18:05, which is in the call log E13a); then `unlocked_by` on the follow-up card is required and names that evidence. The team's card shows only "Follow-up H2+ · 1 token · only if you have E13b"; the full question is in the guide, so write it so the director can read it aloud.
+- A kind-A follow-up whose mother does not really open the topic, or a kind-B one without `unlocked_by`, gives away something the team has not found yet. The exporter cannot tell the kinds apart (that is reading): the readers of `templates/audit-prompts.md` check it.
+- **No witness is invisible.** Each witness card says in `appears_in` where the teams can read the person's name (a dossier sheet or a card), and in `aliases` how the material calls them when it is not the full name ("the concierge", "Maca"). A name that only the guide knows can never be asked for. The exporter warns when the name and aliases are in none of those places.
+- `guide_note` on a follow-up or witness card is the director's note in the guide's generated tables (`[true]`, `[false]`, `[key]`, what it pushes toward). It never prints on the card.
+
 ## Codes in text
 
 Backticks for codes in Markdown (`` `E13a` ``), bare codes in YAML fields (`attach: E30`). The middle dot `·` separates parts of a code and the two lines of a letterhead. Quotes are straight or typographic but consistent across the case. Ellipsis is one character (…).

@@ -4,8 +4,9 @@
     python case_lint.py cases/<case> [--lang es]
 
 Errors (exit 1):
-  - a follow_up points to a card code that does not exist
   - a suspect letter is duplicated, or a card's suspect letter has no suspect
+(follow_up, unlocked_by and appears_in pointing nowhere, follow-ups no card enables and invisible witnesses
+are checked by the exporter itself: run export.py --check too.)
 Warnings (exit 0):
   - a suspect has fewer than 2 menu questions or no confrontation card
   - a suspect has no statement file (DEC-<letter>.md)
@@ -91,9 +92,6 @@ def main():
             cards.append(c)
     codes = {norm(c.get("code")) for c in cards if c.get("code")}
     for c in cards:
-        for fu in as_list(c.get("follow_up")):
-            if norm(fu) not in codes:
-                errors.append(f"cards.yaml: card {c.get('code')} enables {fu}, but no card has that code")
         if c["_suspect"] and str(c["_suspect"]) not in letters:
             errors.append(f"cards.yaml: card {c.get('code')} belongs to suspect {c['_suspect']}, who is not in suspects.yaml")
     for l in letters:
@@ -121,6 +119,11 @@ def main():
     guide_text = "\n".join(f.read_text(encoding="utf-8") for f in sorted((L / "guide").glob("*.md")))
     guide_norm = norm(guide_text).casefold()
     fixed = {"notice", "press", "hint", "closing", "wildcard"}
+    # The engine draws the tables of follow-ups and witnesses from cards.yaml (```follow-ups, ```witnesses and
+    # their quick- versions): a guide that uses them covers those cards.
+    for kind, block in (("follow-up", "follow-ups"), ("witness", "witnesses")):
+        if re.search(rf"^`{{3,}}\s*(?:quick-)?{block}\b", guide_text, re.M):
+            fixed.add(kind)
     for c in cards:
         code = norm(c.get("code"))
         if c["_type"] in fixed or (c["_type"] == "failed" and not c["_suspect"]):
@@ -222,14 +225,6 @@ def main():
     print(f"Lint finished: {len(errors)} errors, {len(warnings)} warnings, {len(set(info))} notes "
           f"({len(suspects)} suspects, {len(cards)} cards, {len(dossier_files)} dossier sheets).")
     return 1 if errors else 0
-
-
-def as_list(v):
-    if v is None:
-        return []
-    if isinstance(v, (list, tuple)):
-        return [str(x) for x in v]
-    return [x.strip() for x in str(v).split(",") if x.strip()]
 
 
 if __name__ == "__main__":

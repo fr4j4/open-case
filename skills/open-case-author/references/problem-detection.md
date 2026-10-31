@@ -32,7 +32,7 @@ Severity: **breaks** (an innocent can be convicted, the culprit is reachable for
 10. Free material: read envelope 1, statements and envelope 2 as a sharp player. Can you name the culprit with certainty? If yes, move a datum to a paid sheet or soften it.
 11. Discards: each innocent has two sources of different origin inside the window; no tower covering the scene; no sighting outside the window; the sum to discard everyone is 50–65 % of the budget.
 12. Red herrings: each one has at least one explaining sheet; the main one is pushed by a notice and dissolves with an alibi plus an innocent explanation of the damning fact.
-13. Dead ends: every procedure target has a sheet or a documented "no findings"; every follow-up has a base card; every witness has an "appears in"; every expert card has the sheet it interprets.
+13. Dead ends: every procedure target has a sheet or a documented "no findings"; every follow-up has a base card, and one that names something its base card does not say has `unlocked_by`; every witness has an `appears_in` where their name (or an alias) is really written; every expert card has the sheet it interprets.
 14. Hidden routes: anything reachable only by a procedure that is not in the menu has a visible alternative.
 15. Confrontation table: every sheet the guide calls a contradiction has a row; combinations are unambiguous; the failed card exists and hints at what is missing without director's notes.
 

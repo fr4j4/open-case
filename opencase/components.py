@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 from . import templates
-from .loader import CaseError, Sheet, read_yaml, resolve_media
+from .loader import CaseError, Sheet, read_yaml, resolve_media, split_blocks
 from .markup import e, line, line_pre, md, plain_text
 
 ARROWS = {"incoming": "↘", "outgoing": "↗", "missed": "✕"}
@@ -440,15 +440,29 @@ def c_checkboxes(b, ctx):
 
 def c_columns(b, ctx):
     """Side-by-side Markdown pieces (tables, lists) separated by a line with `===`.
-    Argument: the minimum width of a column in px (default 230)."""
+    Argument: the minimum width of a column in px (default 230). With four backticks (````columns) a piece
+    can also hold ```blocks, like the body of a sheet."""
     width = (b.arg or "230").strip()
     if not width.isdigit():
         raise CaseError("columns: the argument is the minimum column width in px (for example ```columns 230)",
                         ctx.sheet.path, b.line)
     parts = re.split(r"(?m)^===\s*$", b.content)
-    cells = "".join(f"<div>{md(p)}</div>" for p in parts if p.strip())
+    cells = "".join(f"<div>{_column(p, b, ctx)}</div>" for p in parts if p.strip())
     return (f'<div class="oc-columnas-libres" style="display:grid;grid-template-columns:repeat(auto-fit,minmax({width}px,1fr));'
             f'gap:10px;font-size:11px;line-height:1.3">{cells}</div>')
+
+
+def _column(text, b, ctx):
+    try:
+        blocks = split_blocks(text, b.line + 1)
+    except CaseError as ex:
+        raise CaseError(str(ex).split(": ", 1)[-1], ctx.sheet.path, ex.line) from None
+    if all(x.type == "md" for x in blocks):
+        return md(text)
+    sheet = ctx.sheet
+    html = render_blocks(Sheet(sheet.id, sheet.path, sheet.data, blocks), ctx)
+    ctx.sheet = sheet
+    return html
 
 
 def c_menu(b, ctx):

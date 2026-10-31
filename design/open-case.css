@@ -317,6 +317,7 @@
 .oc-tarjeta__respuesta{flex:1;min-height:0}
 .oc-tarjeta__pie{font-family:var(--font-mono);font-size:10.5px;line-height:14px;color:var(--sello)}
 .oc-tarjeta__pie--seg{color:var(--marino)}
+.oc-tarjeta__seguimiento{align-self:flex-start;font-family:var(--font-mono);font-size:10px;letter-spacing:-.02em;line-height:12px;color:var(--marino);border:1px solid var(--marino);border-radius:2px;padding:0 5px}
 .oc-tarjeta__marca{font-family:var(--font-display);font-weight:600;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave);display:flex;justify-content:space-between;border-top:1px solid var(--regla);padding-top:3px;margin-top:auto}
 .oc-tarjeta__banda{position:absolute;left:0;top:0;right:0;height:4px;background:var(--marino)}
 .oc-tarjeta--confrontacion .oc-tarjeta__banda{background:var(--sello)}
