@@ -37,15 +37,20 @@ export function validate(m) {
   if (typeof m.l !== 'string' || !/^[a-z]{2}(-[A-Za-z]{2})?$/.test(m.l)) return null;
   if (typeof m.v !== 'string' || !/^[0-9a-f]{12}$/.test(m.v)) return null;
   if (typeof m.t !== 'string' || !/^[A-Z]$/.test(m.t)) return null;
-  const items = Array.isArray(m.i) ? m.i : [];
-  if (items.length > 300) return null;
+  const out = checkItems(Array.isArray(m.i) ? m.i : []);
+  if (!out) return null;
+  return { slug: m.c, lang: m.l, version: m.v, team: m.t, seq: Number.isInteger(m.s) ? m.s : 0, items: out };
+}
+
+// A list of [file, code] checked: at most 300, each file a page of the case folder. null if any is not.
+export function checkItems(items) {
+  if (!Array.isArray(items) || items.length > 300) return null;
   const out = [];
   for (const it of items) {
     if (!Array.isArray(it) || typeof it[0] !== 'string' || !FILE.test(it[0])) return null;
-    const code = typeof it[1] === 'string' ? it[1].slice(0, 40) : '';
-    out.push([it[0], code]);
+    out.push([it[0], typeof it[1] === 'string' ? it[1].slice(0, 40) : '']);
   }
-  return { slug: m.c, lang: m.l, version: m.v, team: m.t, seq: Number.isInteger(m.s) ? m.s : 0, items: out };
+  return out;
 }
 
 export function kindOf(file) {

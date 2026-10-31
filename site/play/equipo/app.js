@@ -4,13 +4,14 @@ import { h, clear, toast } from '../js/dom.js';
 import { loadStrings, t, plural, registerWorker, PLAY_ROOT } from '../js/i18n.js';
 import * as store from '../js/store.js';
 import { decode, kindOf, naturalCompare } from '../js/delivery.js';
-import { decodeFile, scanCamera } from '../js/qr.js';
+import { decodeFile, scanCamera, drawQr } from '../js/qr.js';
 import { openViewer } from '../js/viewer.js';
 import { DeviceRoom, keepAwake, newId, normalizePin, validPin, pinFromHash } from '../js/room.js';
 import { createGame } from '../js/requests.js';
 import { askView, historyView } from './pedir.js';
 import { clockBar, tick, formsView } from './partida.js';
 import { fromWire, canRequest, CLOSING } from '../js/clock.js';
+import { buildRegistro, splitRegistro, recoveryLink } from '../js/recover.js';
 
 const app = document.getElementById('app');
 let state = null;          // what this device knows (also saved in IndexedDB under 'team')
@@ -287,12 +288,35 @@ const saveRequests = () => store.set('requests', reqs);
 async function onData(m) {
   if (!m) return;
   if (m.k === 'bal') return onBalance(m);
+  if (m.k === 'recover') return sendRegistro(m.rid);
   if (m.k === 'clock') await applyClock(m, Date.now());
   if (m.k === 'formok' && state && reqs.forms[m.id]) {
     Object.assign(reqs.forms[m.id], { sent: true, queued: false, at: Date.now() });
     await saveRequests();
     render();
   }
+}
+
+// F6a: a new director device asks what this phone knows (its folder, the answered requests, the sheets, the clock) to make the game
+// again. It goes in small messages; the director reads them, shows what differs between phones and decides.
+async function sendRegistro(rid) {
+  if (!state || !room || typeof rid !== 'string' || rid.length > 24) return;
+  const reg = buildRegistro({ state, reqs, deviceId, name: room.name, now: Date.now() });
+  for (const part of splitRegistro(reg, rid)) if (!(await room.sendToDirector({ k: 'reg', ...part }))) return;
+}
+
+// What this phone shows so that a new director device can find the team's room (the name of the room is only on the team's phones).
+let recoverOpen = false;
+function recoverBox() {
+  const sess = room && room.session;
+  if (!sess || !sess.room || room.status !== 'approved') return null;
+  const link = recoveryLink(new URL('../director/', location.href).href, sess);
+  const qr = drawQr(link);
+  return h('details', { class: 'oc-card', id: 'oc-recover-box', open: recoverOpen, ontoggle: (e) => { recoverOpen = e.target.open; } }, h('summary', {}, t('recover.phone.title')),
+    h('p', { class: 'oc-muted' }, t('recover.phone.text')),
+    qr ? h('div', { class: 'oc-qr' }, qr) : null,
+    h('code', { class: 'oc-link', id: 'oc-recover-code' }, link),
+    h('button', { class: 'oc-btn oc-btn--small', type: 'button', id: 'oc-recover-copy', onclick: async () => { try { await navigator.clipboard.writeText(link); toast(t('recover.phone.copied')); } catch (e) { toast(t('recover.phone.copy_failed')); } } }, t('recover.phone.copy')));
 }
 
 // The clock arrives as soon as the phone connects, perhaps before its folder exists: it is kept and applied counting from when it came.
@@ -417,7 +441,7 @@ function render(error) {
   else if (tab === 'ask' && rgame) main.append(askView(requestsUi()));
   else if (tab === 'history' && rgame) main.append(historyView(requestsUi()));
   else if (tab === 'forms' && teamJson) main.append(formsView(gameUi()));
-  else if (tab === 'room') main.append(room ? h('p', { class: 'oc-muted' }, roomStatusText()) : roomBox());
+  else if (tab === 'room') main.append(room ? h('div', {}, h('p', { class: 'oc-muted' }, roomStatusText()), recoverBox()) : roomBox());
   else if (tab === 'kit') main.append(listView(group('kit'), false));
   else main.append(listView(group('suspects'), false));
   updateProgress();

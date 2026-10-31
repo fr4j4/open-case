@@ -6,13 +6,15 @@ import * as store from '../js/store.js';
 import { encode, naturalCompare } from '../js/delivery.js';
 import { drawQr } from '../js/qr.js';
 import { openViewer } from '../js/viewer.js';
-import { DirectorRoom, roomLink, keepAwake } from '../js/room.js';
+import { DirectorRoom, roomLink, keepAwake, newId } from '../js/room.js';
 import { createGame, newBook, receive as receiveRequest, answer as answerOne, balanceFor, holdItems } from '../js/requests.js';
 import { queueView, registerView, pendingList } from './panel.js';
 import { gameView, scoreView, tickClock, reportText } from './partida.js';
 import * as clock from '../js/clock.js';
 import { cleanMarks } from '../js/score.js';
 import { norm } from '../js/rules.js';
+import { makeBackup, readBackup, backupName, cleanPlay, parseCodes, gameFromCodes } from '../js/recover.js';
+import { backupCard, recoverBox, Recovery } from './recuperar.js';
 
 const app = document.getElementById('app');
 let game = null;         // {slug, lang, version, teams: ['A','B'], seq, log: [{seq, team, items, at}]}
@@ -26,6 +28,8 @@ let outdated = null;     // {version, same_format}
 let room = null;         // the live room (js/room.js), once the director creates it
 let stopAwake = null;
 let dgame = null;        // the rules (js/rules.js) over team.json and director.json
+let recovery = null;     // F6a: the collection of the teams' registros while a lost game is being recovered
+let lastBackup = null;   // when the backup file was last downloaded (ms)
 const choices = new Map();   // request id -> what the director has chosen in its card (kept when the panel is drawn again)
 
 const caseUrl = (file = '') => new URL(`cases/${game.slug}/${game.lang}/${game.version}/${file}`, PLAY_ROOT);
@@ -66,14 +70,82 @@ async function setupScreen() {
       await save();
       target = [game.teams[0]];
       render();
-    } }, t('director.setup.start')));
+    } }, t('director.setup.start')),
+    recoverBox({ initial: pendingCodes, start: startRecovery, load: loadBackup }));
+  pendingCodes = '';
 }
 
-async function loadCase() {
+// --- Recovering a lost game (F6a) ----------------------------------------------------------------------------------
+
+let pendingCodes = '';     // codes that came in the link of the page (#recuperar.…), shown in the form
+
+// From the codes the teams' phones show: the game is made again with the same PIN and the same team rooms, and the phones are
+// asked what they know. Nothing is sent to them until the director has chosen (recuperar.js).
+async function startRecovery(text) {
+  const { codes, bad } = parseCodes(text);
+  const g = gameFromCodes(codes);
+  if (g.error) return toast(t(`recover.start.error.${g.error}`), 6000);
+  if (bad) toast(t('recover.start.bad_codes', { n: bad }), 5000);
+  game = { slug: g.slug, lang: g.lang, version: g.version, teams: g.teams, seq: 0, log: [], created: Date.now(),
+    room: { pin: g.pin, id: newId(), teamRooms: {}, devices: {}, adopt: [] }, recovery: { teams: Object.keys(g.rooms), rooms: g.rooms } };
+  try { await loadCase(); } catch (e) { game = null; return toast(t('director.error.load'), 6000); }
+  await save();
+  target = [game.teams[0]];
+  render();
+}
+
+function makeRecovery() {
+  return new Recovery({ room: () => room, rg: () => dgame, game: () => game, now: () => Date.now(), redraw: () => render(), cancel: endGame,
+    done: async (result, teams, held) => {
+      game.log = result.log; game.seq = result.seq; game.play = result.play;
+      delete game.recovery;
+      recovery = null;
+      await save();
+      room.endRecovery(teams);                       // now the phones get their folder, balance and clock
+      for (const [team, from, m] of held) await onTeamMessage(team, from, m);
+      toast(t('recover.panel.done'), 6000);
+      render();
+    } });
+}
+
+// --- The backup file ---------------------------------------------------------------------------------------------------
+
+async function downloadBackup() {
+  if (!game) return;
+  const now = Date.now();
+  const { recovery: _r, ...saved } = game;
+  const blob = new Blob([makeBackup(saved, now)], { type: 'application/json' });
+  const a = h('a', { href: URL.createObjectURL(blob), download: backupName(game.slug, now) });
+  document.body.append(a); a.click(); a.remove();
+  lastBackup = now;
+  await store.set('backupAt', now);
+  toast(t('recover.backup.saved'));
+  render();
+}
+
+// The game of a backup file replaces the one of this device (the room opens again with the same PIN and the same phones).
+async function loadBackup(text) {
+  const r = readBackup(text);
+  if (!r.ok) return toast(t(`recover.backup.error.${r.error}`), 6000);
+  if (game && !confirm(t('recover.backup.confirm'))) return;
+  if (room) { await room.stop(); room = null; }
+  if (stopAwake) { stopAwake(); stopAwake = null; }
+  game = r.game; recovery = null;
+  try { await loadCase(true); } catch (e) { game = null; await store.del('game'); toast(t('director.error.load'), 6000); return render(); }
+  lastBackup = r.at || null;
+  await store.set('backupAt', lastBackup);
+  await save();
+  target = [game.teams[0]];
+  toast(t('recover.backup.loaded'), 5000);
+  render();
+}
+
+async function loadCase(clean = false) {
   [teamJson, directorJson] = await Promise.all([json(caseUrl('team.json')), json(caseUrl('director.json'))]);
   await loadStrings(game.lang);
   document.title = t('director.page_title');
   dgame = createGame(teamJson, directorJson);
+  if (clean) game.play = cleanPlay(game.play, dgame, game.teams);      // a backup file is checked against the rules of the case
   if (!game.play) game.play = newBook();
   // F5: the clock of the phases (it starts in the first one, stopped), what was read, the hints given, the sheets handed in and the marks
   const p = game.play;
@@ -95,7 +167,13 @@ async function startRoom() {
   room.onMessage = (team, from, m) => onTeamMessage(team, from, m);
   room.onOnline = (team, id) => { sendBalance(team, id); sendClock(team, id); };
   stopAwake = keepAwake();
+  if (game.recovery) {            // F6a: the phones' rooms are opened quietly; their registros are asked for one by one
+    recovery = makeRecovery();
+    room.onRecoverPeer = (team, id) => recovery.ask(team, id);
+    for (const [tm, name] of Object.entries(game.recovery.rooms)) { room.r.teamRooms[tm] = name; room.quiet.add(tm); if (!room.r.adopt.includes(tm)) room.r.adopt.push(tm); }
+  }
   await room.start();
+  if (game.recovery) await room.recover(game.recovery.rooms);
   await save();
   if (tab === 'room') render();
 }
@@ -112,6 +190,7 @@ async function sendBalance(team, to = null) {
 // A phone of a team asks for something: it goes in the register once (it is sent again until answered) and the team is told
 // the balance, so the phone that sent it sees that it arrived.
 async function onTeamMessage(team, from, m) {
+  if (recovery && room.quiet.has(team)) return recovery.onMessage(team, from, m);     // the game is not back yet: first the registros
   if (m && m.k === 'form') return onForm(team, from, m);
   if (!m || m.k !== 'req' || !game.play) return;
   const device = room.r.devices[from];
@@ -240,8 +319,9 @@ const deviceName = (d) => d.name || t('room.unnamed', { id: d.id.slice(0, 4) });
 
 function roomView() {
   if (!room) {
-    return h('div', { class: 'oc-card' }, h('h3', {}, t('room.create_title')), h('p', {}, t('room.create_text')),
-      h('button', { class: 'oc-btn', type: 'button', id: 'oc-room-create', onclick: async () => { await startRoom(); render(); } }, t('room.create')));
+    return h('div', {}, h('div', { class: 'oc-card' }, h('h3', {}, t('room.create_title')), h('p', {}, t('room.create_text')),
+      h('button', { class: 'oc-btn', type: 'button', id: 'oc-room-create', onclick: async () => { await startRoom(); render(); } }, t('room.create'))),
+      backupCard({ lastBackup, download: downloadBackup, load: loadBackup }));
   }
   const link = roomUrl();
   const qr = drawQr(link);
@@ -271,7 +351,8 @@ function roomView() {
           game.teams.filter((x) => x !== tm).map((x) => h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', onclick: () => room.approve(d.id, x) }, t('room.move_to', { team: x }))),
           h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', onclick: () => room.deny(d.id) }, t('room.remove')))) : h('p', { class: 'oc-muted' }, t('room.nobody')));
     }),
-    h('p', { class: 'oc-muted' }, t('room.qr_help')));
+    h('p', { class: 'oc-muted' }, t('room.qr_help')),
+    backupCard({ lastBackup, download: downloadBackup, load: loadBackup }));
 }
 
 // Is the case on the site newer than the one this game started with? (Pages replaces the whole site on every deployment.)
@@ -294,12 +375,14 @@ function topBar() {
     h('span', { class: 'oc-badge' }, t('director.badge')),
     teamJson ? h('span', { class: 'oc-case' }, teamJson.texts.title) : null,
     h('span', { class: 'oc-grow' }),
+    game && !game.recovery ? h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', id: 'oc-backup-top', onclick: downloadBackup }, t('recover.backup.button')) : null,
     game ? h('button', { class: 'oc-btn oc-btn--small oc-btn--ghost', type: 'button', onclick: endGame }, t('director.end')) : null));
 }
 
 async function endGame() {
   if (!confirm(t('director.end_confirm'))) return;
-  await store.del('game');
+  await store.del('game'); await store.del('backupAt');
+  recovery = null; lastBackup = null;
   if (room) { await room.stop(); room = null; }
   if (stopAwake) { stopAwake(); stopAwake = null; }
   game = teamJson = directorJson = dgame = null; picked.clear(); choices.clear();
@@ -323,6 +406,7 @@ function draw() {
   app.append(topBar());
   const main = h('main', { class: 'oc-wrap' });
   app.append(main);
+  if (game.recovery) return main.append(recovery ? recovery.view() : h('p', { class: 'oc-muted' }, t('recover.panel.waiting')));
   if (!store.store.persistent) main.append(h('div', { class: 'oc-notice' }, t('director.no_storage')));
   if (outdated) main.append(h('div', { class: `oc-notice${outdated.sameFormat ? '' : ' oc-notice--bad'}` }, outdated.sameFormat ? t('director.outdated.same') : t('director.outdated.format')));
   const mk = (id, text) => h('button', { class: 'oc-tab', id: `oc-tab-${id}`, role: 'tab', type: 'button', 'aria-selected': String(tab === id), onclick: () => { tab = id; render(); } }, text);
@@ -497,6 +581,11 @@ async function main() {
   document.title = t('director.page_title');
   await registerWorker();
   game = (await store.get('game')) || null;
+  lastBackup = (await store.get('backupAt')) || null;
+  if (location.hash.includes('oc1r.')) {              // a team's phone sent the code as a link
+    pendingCodes = decodeURIComponent(location.hash);
+    history.replaceState(null, '', location.pathname + location.search);
+  }
   if (game) {
     try { await loadCase(); target = [game.teams[0]]; }
     catch (e) { toast(t('director.error.load'), 6000); game = null; }
