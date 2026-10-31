@@ -7,6 +7,8 @@ import yaml
 
 from .i18n import Strings
 
+DEFAULTS_FILE = Path(__file__).resolve().parent / "defaults.yaml"
+
 
 class CaseError(Exception):
     """A problem in the case files, with the file and line when known."""
@@ -112,7 +114,12 @@ def split_blocks(text, base_line=1):
 
 def read_sheet(path):
     path = Path(path)
-    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    return parse_sheet(path.read_text(encoding="utf-8"), path, path.stem)
+
+
+def parse_sheet(text, path, sheet_id):
+    """A sheet from its text: front matter and blocks. `path` is only used in error messages."""
+    text = text.replace("\r\n", "\n")
     data, body, body_line = {}, text, 1
     if text.startswith("---\n"):
         end = text.find("\n---", 4)
@@ -131,7 +138,7 @@ def read_sheet(path):
         blocks = split_blocks(body, body_line)
     except CaseError as e:
         raise CaseError(str(e).split(": ", 1)[-1], path, e.line) from None
-    return Sheet(path.stem, path, data, blocks)
+    return Sheet(sheet_id, path, data, blocks)
 
 
 def read_sheet_folder(folder):
@@ -156,6 +163,7 @@ class Case:
     guide: list              # sheets
     strings: Strings
     warnings: list = field(default_factory=list)
+    _figures: dict = field(default=None, repr=False)
 
     @property
     def title(self):
@@ -180,6 +188,59 @@ class Case:
     @property
     def paper(self):
         return str(self.get("paper", "letter")).lower()
+
+    @property
+    def figures(self):
+        """The game's figures (opencase/defaults.yaml) with the ones the case changes in its case.yaml."""
+        if self._figures is None:
+            self._figures = resolve_figures(self.data)
+        return self._figures
+
+    def engine_sheets(self, doc):
+        """`engine_sheets` in case.yaml for one document (kit, guide): False, or a dict with `after` and `skip`.
+        By default the engine's sheets go into the kit and the guide."""
+        value = self.get("engine_sheets", True)
+        if isinstance(value, dict):
+            value = value.get(doc, True)
+        if value is True or value is None:
+            return {}
+        if not value:
+            return False
+        if not isinstance(value, dict):
+            raise CaseError(f"engine_sheets.{doc} must be true, false or {{after: ..., skip: [...]}}",
+                            self.root / "case.yaml")
+        return value
+
+    @property
+    def uses_engine(self):
+        """False when the case turns the engine's sheets off everywhere (it still carries its own rules)."""
+        return bool(self.engine_sheets("kit") is not False or self.engine_sheets("guide") is not False)
+
+
+def load_defaults():
+    return read_yaml_file(DEFAULTS_FILE)
+
+
+def resolve_figures(data):
+    """Defaults first, then the case: a key of defaults.yaml that the case also has takes the case's value
+    (dicts are merged key by key). Keys the case has that are not figures are ignored here."""
+    defaults = load_defaults()
+    out = {}
+    for key, value in defaults.items():
+        mine = data.get(key)
+        if isinstance(value, dict):
+            merged = dict(value)
+            if isinstance(mine, dict):
+                for k, v in mine.items():
+                    if k not in value:
+                        raise CaseError(f"'{key}.{k}' is not a figure of the game (see opencase/defaults.yaml)")
+                    merged[k] = v
+            elif mine is not None:
+                raise CaseError(f"'{key}' must be a list of key: value fields, like in opencase/defaults.yaml")
+            out[key] = merged
+        else:
+            out[key] = value if mine is None else mine
+    return out
 
 
 def normalize_code(code):

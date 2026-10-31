@@ -49,7 +49,7 @@ Backticks for codes in Markdown (`` `E13a` ``), bare codes in YAML fields (`atta
 | Police report | one sheet: meta, victim, account, observations (6–10 lines in `mono`), signature |
 | Autopsy | one sheet: cause, time of death, other injuries, clothing and position, toxicology |
 | Register (log, statement, tower) | 6–12 rows; the datum never first or last |
-| Kit mission | one or two sheets: story in two paragraphs, "How to play" in 8–11 numbered rules, timing, scoring table |
+| Kit mission | the story in two paragraphs; "How to play", the rules, timing and score are the engine's sheets |
 | Solution page | one sheet: the note with what happened, why, the telling detail, the hidden plot, a table of what each suspect hides and their alibi |
 | Confession | 120–200 words, first person, no code names |
 | Closing | 60–100 words, the commissioner's voice, one line per suspect's fate |

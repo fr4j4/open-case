@@ -1,7 +1,6 @@
 ---
 code: AVISO 1
 institution: Fiscalía Local de Temuco
-description: Aviso para todos los equipos · minuto 10
 title: Toto intentó irse
 notice: true
 ---

@@ -1,0 +1,37 @@
+# The figures of the game: what the engine's rules print, recommended for a case of about 6 suspects
+# and teams of 5 to 7 players. A case changes any of them in its own case.yaml (the neutral one, next to
+# `teams`), with the same key; a key it leaves out keeps the value written here. Nested keys (phases,
+# score) are merged one by one: `phases: {investigation: 22}` changes only that phase.
+# The templates in opencase/templates/<lang>/ read these values as f.<key>; see docs/case-format.md.
+
+tokens_per_team: 16          # numbered tokens for questions and procedures
+alibi_tokens_per_team: 0     # dashed tokens that only check where a suspect was (0: the case has none)
+team_size_min: 2             # play in teams of 2 or more, so there is talk inside each team
+
+phases:                      # minutes of each phase
+  setup: 5                   # forming the teams and handing out the material
+  scene: 10                  # the report is read and envelope 1 handed out; no requests yet
+  investigation: 30          # minute 0 is when envelope 2 is opened
+  accusation: 15
+closing_minutes: [5, 10]     # score, confession and closing of the story
+accusation_writing: 5        # minutes of the accusation phase to fill in the accusation and discard sheets
+pitch_minutes: 2             # minutes each team has to present its theory
+session_minutes: [65, 75]    # the whole session, as the kit and the guide announce it
+
+notice_minutes: [10, 20]     # suggested minutes of the investigation to read each notice (the director decides)
+hint_penalties: [1, 1, 1, 2, 2]   # points each hint costs, in order; one per hint card
+request_log_rows: 18         # rows of the request log in the director's guide (one page)
+
+score:
+  culprit: 5                 # naming the culprit with at least one piece of evidence
+  culprit_no_evidence: 2     # naming the culprit without evidence
+  how: 2
+  why: 2
+  window: 1
+  contradiction: 1
+  discard_two: 2             # each innocent ruled out with two pieces of evidence of different origin
+  discard_one: 1             # ... with only one
+  discard_blank: -1          # each innocent left blank
+  red_herring: 1             # each red herring explained with its evidence
+  spare_token: 0.25          # each numbered token left over (alibi tokens do not count)
+  wrong_accusation: -5

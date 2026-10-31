@@ -59,28 +59,6 @@ Benjamín confiesa si el equipo que lo acusa cumple tres condiciones. **(1)** Pr
 Si no cumplen las tres condiciones, Benjamín responde: *"No tienen nada. Quiero un abogado."* El equipo igual gana los puntos de la pauta, pero no hay confesión en la acusación. Si varios equipos lo acusan y alguno cumple, la confesión se lee una vez, al final. Si ninguno cumple, igual la lees después del puntaje, como parte del cierre ("esa noche, en la unidad, Benjamín pidió hablar con el fiscal"): la historia se cierra para todos, y la diferencia para el equipo que cumplió es haberla arrancado en la mesa.
 ```
 
-### Desempate
-
-Gana el equipo con más puntos. Si empatan, gana el que gastó menos fichas; si siguen empatados, el que expuso la teoría más clara (lo decides tú).
-
-### Hoja de puntaje (imprime una por equipo)
-
-```table score
-| Punto | Pts | Equipo ______ |
-|---|---|---|
-| Asesino (con una prueba) · sin ninguna prueba | 5 · 2 |  |
-| Cómo | 2 |  |
-| Por qué | 2 |  |
-| Ventana | 1 |  |
-| Bonus ataques | 3 |  |
-| Contradicción | 1 |  |
-| Inocentes descartados (2 c/u, 1 con una prueba) × 5 | hasta 10 |  |
-| Inocentes sin explicar | −1 c/u |  |
-| Pistas falsas explicadas | 1 c/u |  |
-| Fichas que sobran × 0,25 | 0,25 c/u |  |
-| Pistas pedidas (1ª a 3ª −1; 4ª y 5ª −2) | − |  |
-| **Total** |  |  |
+<!-- Desempate y hoja de puntaje: del motor, con las cifras del juego y la línea propia del caso (score_bonus). -->
+```score-sheet
 ```
-
-Mientras un equipo expone, ve puntuando la hoja de otro. Si todos acusan a la persona equivocada, no hay ganador: lee igual el cierre.
-{.small}

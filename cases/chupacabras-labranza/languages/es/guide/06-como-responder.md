@@ -81,7 +81,7 @@ Una confrontación entrega una sola tarjeta. Si lo que muestran sirve para varia
 
 ### Testigos (1 ficha)
 
-Al comienzo solo está Rosa (R1 y R2). A los demás los piden con "TESTIGO nombre" cuando ese nombre ya apareció en su material. Un nombre en una lista de llamadas, una cartola o un registro también cuenta como aparecido (Iturra sale en E13a, el conserje en B1, Maca en la declaración de Toto). La primera vez que un nombre nuevo aparezca en una prueba que entregas, dilo en voz alta: "a esa persona ya la pueden entrevistar". Si todavía no apareció, entrega la tarjeta "Testigo no disponible" y no cobres. Todos los testigos dicen la verdad.
+Se piden con "TESTIGO nombre" cuando ese nombre ya apareció en su material (Rosa sale en E01, Iturra en E13a, el conserje en B1, Maca en la declaración de Toto). Si todavía no apareció, entrega la tarjeta TESTIGO "No disponible" y no cobres.
 
 | Testigo | Aparece en | Entrega |
 |---|---|---|
@@ -99,9 +99,6 @@ Al comienzo solo está Rosa (R1 y R2). A los demás los piden con "TESTIGO nombr
 | Jorge P8, la Dra. Ulloa, M. Fuentealba, el encargado del Copec u otro nombre del material | E04, E06, E12, E28 | Tarjeta "Nada que aportar". No se cobra. |
 
 ### Diligencias del menú del equipo
-
-Ninguna diligencia queda en blanco: cada persona tiene su propia hoja. Así ninguna ficha se pierde del todo y los equipos pueden descartar inocentes.
-{.small}
 
 | Código | Si piden… | Entrega |
 |---|---|---|

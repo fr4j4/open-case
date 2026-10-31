@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from . import cards as C
+from . import templates
 from .components import Context, render_blocks
 from .markup import e, line
 
@@ -51,6 +52,8 @@ def _screen_header(kicker, title, text=""):
 def sheet(h, ctx, defaults=None):
     d = dict(defaults or {})
     d.update(h.data)
+    if d.get("notice") and not d.get("description") and ctx.case.uses_engine:
+        d["description"] = _notice_description(ctx.case, h.id)
     classes = ["oc-hoja"]
     if d.get("reserved"):
         classes.append("oc-hoja--reservada")
@@ -91,6 +94,21 @@ def sheet(h, ctx, defaults=None):
     return f'<article class="{" ".join(classes)}" id="{e(h.id)}">{letterhead}{title}{body}{stamp}{footer}</article>'
 
 
+def _notice_description(case, sheet_id):
+    """"For every team · suggested at minute 10": the line under a notice sheet, from notice_minutes."""
+    n = 0
+    for sec in case.sections:
+        for pid in sec.get("items", []) or []:
+            if case.dossier[pid].get("notice"):
+                n += 1
+                if pid == sheet_id:
+                    minute = templates.notice_minute(case, n)
+                    if minute is None:
+                        return case.t("notice_description_plain")
+                    return case.t("notice_description", minute=minute)
+    return ""
+
+
 def cover(case, ctx, doc, note="", reserved=False, team_line=False):
     classes = "oc-hoja oc-tapa" + (" oc-hoja--reservada oc-tapa--reservada" if reserved else "")
     team = f'<span class="oc-equipo-linea">{e(case.t("team_line"))}</span>' if team_line else ""
@@ -122,7 +140,7 @@ def build_documents(case):
         body = _screen_header(f"{brand} · {title}", t("docs.kit.title"), kit_cfg.get("description", ""))
         body += cover(case, ctx, t("docs.kit.title"), kit_cfg.get("cover_note", ""), team_line=True)
         defaults = {"logo": True, "team_line": True, "brand_footer": _brand_footer(case, "kit")}
-        body += "".join(sheet(h, ctx, defaults) for h in case.kit)
+        body += "".join(sheet(h, ctx, defaults) for h in templates.sheets_for(case, "kit", case.kit))
         doc("kit", "teams", "01", "kit", page("kit", body, "oc-mesa"), "sheets", True)
 
     # --- Dossier: by envelope for the teams, and complete for the director ----------------
@@ -157,17 +175,18 @@ def build_documents(case):
         body = _screen_header(t("guide_kicker"), t("docs.guide.title"), guide_cfg.get("description", ""))
         body += cover(case, ctx, t("docs.guide.title"), guide_cfg.get("cover_note", ""), reserved=True)
         defaults = {"logo": True, "reserved": True, "tag": t("director_only"), "brand_footer": _brand_footer(case, "guide")}
-        body += "".join(sheet(h, ctx, defaults) for h in case.guide)
+        body += "".join(sheet(h, ctx, defaults) for h in templates.sheets_for(case, "guide", case.guide))
         doc("guide", "director", "01", "guide", page("guide", body, "oc-mesa"), "sheets")
 
     # --- Answer cards and notices -----------------------------------------------------------
     answers, separate = C.split_cards(case)
     if answers or separate:
-        card_html = [C.card(c, g, case) for c, g in answers]
+        extra = C.engine_fields(case)
+        card_html = [C.card(c, g, case, extra.get(id(c))) for c, g in answers]
         codes = [C.short_code(c) for c, g in answers]
         sheets = C.card_sheets(card_html, case, t("labels.cards"), codes)
         if separate:
-            sheets += C.card_sheets([C.card(c, g, case) for c, g in separate], case, t("labels.notices"))
+            sheets += C.card_sheets([C.card(c, g, case, extra.get(id(c))) for c, g in separate], case, t("labels.notices"))
         sheets = _renumber(case, sheets)
         body = _screen_header(f"{brand} · {title}", t("docs.cards.title"), t("docs.cards.note"))
         doc("cards", "director", "03", "cards", page("cards", body + "".join(sheets)), "card-sheets")

@@ -87,6 +87,8 @@ teams: [A, B]                  # up to four: A navy, B green, C violet, D copper
 tokens_per_team: 16
 alibi_tokens_per_team: 0       # optional: extra tokens with a dashed border, coded C1, C2… (A1… in English)
 players_per_team: 7            # badges per team
+score_bonus: 3                 # optional: the case's own line of the score (its text: score_texts.bonus)
+# engine_sheets: false         # optional: see "The game and the case" below
 
 brand_footer: [kit, guide, dossier]
 ink_saver: true
@@ -103,6 +105,8 @@ dossier:
 **brand_footer** says which documents carry, at the bottom of every sheet, the monogram with the brand and the case name. The values are `kit`, `guide` and `dossier`. By default all three do, so no sheet loses its case if the pages get mixed up. To leave one out, list only the others (`brand_footer: [kit, guide]`), or use `brand_footer: []` for none.
 
 **ink_saver** is on by default. It is explained at the end.
+
+**tokens_per_team**, **alibi_tokens_per_team** and any other figure of the game (minutes, notices, hints, score) can be written here to change the engine's recommended value for this case. They are listed in [The game and the case](#the-game-and-the-case).
 
 ### Dossier sections
 
@@ -146,7 +150,15 @@ envelope_labels:               # labels to stick on the paper envelopes (one per
     when: se entrega al comenzar
     description: Lo que sabemos hasta ahora.
     contents: [E01 Parte policial, E02 Set fotográfico]
-    footer: 16 fichas · 1 placa por jugador
+    token_footer: true         # "16 fichas · 1 placa por jugador", from the case's figures
+  - number: 2
+    when: al investigar
+    contents: [E06 Informe de autopsia]
+    footer: Al comenzar la investigación   # a free line instead
+
+score_texts:                   # required when the neutral case.yaml has score_bonus
+  bonus: Explicar qué pasó con los ataques a los animales y por qué
+  bonus_short: Bonus ataques   # optional: the shorter text of the director's score sheet
 
 strings: …                     # optional: replaces words the exporter prints
 ```
@@ -203,11 +215,11 @@ groups:
 | `who` | What goes to the right of the code. If missing it is built from the group. |
 | `attach` | One or several evidence codes handed out with the card. |
 | `follow_up` | One or several question codes the card enables. |
-| `footer` | A free line at the bottom. |
+| `footer` | A free line at the bottom. Hint cards without one get it from `hint_penalties` ("Resta 1 punto al equipo que la pidió"). |
 | `menu` | `true` to show the question in the kit's menu. |
 | `suspect` | If the card is about another suspect than its group's. |
 
-Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters. If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
+Notice and press cards add the suggested minute from `notice_minutes` to `who` ("Fiscalía · minuto sugerido 10"); without `who`, a notice says "Aviso" and a press card "Con el aviso N". Cards of type `notice`, `press`, `hint` and `closing` print on a separate sheet at the end, because they are used at another moment of the game. The exporter checks that every `attach` exists in the dossier and warns when an answer is over 420 characters. If a card does not fit when printing, it shrinks the type down to 8.5 pt; if it still does not fit, it outlines the card in red and says so in the console.
 
 ## Sheets: kit, dossier and guide
 
@@ -237,7 +249,7 @@ The sheets of the kit and the guide are ordered by file name (`01-mision.md`, `0
 | `logo` | `true` for the Open Case wordmark in the letterhead (the kit and the guide do). |
 | `reserved` | `true` for the red "reserved material" strip (the guide does). |
 | `stamp` | A stamp in the corner: `stamp: Confidencial`, or `stamp: {text: Anulado, color: ink}` (colours: `ink`, `brass`, `forest`). |
-| `notice` | `true` for the amber strip of the prosecutor's notices. |
+| `notice` | `true` for the amber strip of the prosecutor's notices. Without `description`, the engine writes "Aviso para todos los equipos · minuto sugerido M" from `notice_minutes`. |
 | `aged` | `true` for aged paper (letters, old documents). `paper: aged` also works. |
 
 ### Content
@@ -340,7 +352,53 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 | `menu` | The question menu, built from `suspects.yaml` and the cards with `menu: true` | Nothing |
 | `html` | HTML as it is, for odd cases | HTML |
 
+**The engine's blocks.** These draw a fixed part of the game with the case's figures. They live in `opencase/templates/<lang>/blocks/`, so they come in the language of the case:
+
+| Block | What it draws | Content |
+|---|---|---|
+| `control` | The director's control table: one column per team, the case's rows, then the notices, other questions, hints, tokens left and alibi tokens used | `rows:`, a list of `[code, what it is, tokens]` |
+| `notices` | What the director reads for each notice and press card, with its suggested minute, from the cards of type `notice` and `press` | Nothing |
+| `hints` | The hints in order, with what each one costs, from the cards of type `hint` | Nothing |
+| `discard-rule` | The kit's paragraph on ruling innocents out and what each discard is worth | Nothing |
+| `score-sheet` | The director's score sheet, one column per team, with the tie-break | Nothing |
+
 If you write a block that does not exist, the exporter stops and tells you which ones there are.
+
+## The game and the case
+
+What is the same in every game of Open Case (the rules, the phases, the glossary, the score, the costs) belongs to the engine; a case brings only its data. So a case's `kit/` and `guide/` hold only what is its own: the story, its menu, its answers and its notes. The engine adds the rest.
+
+**The figures** are in `opencase/defaults.yaml`. They are the recommended ones, and a case changes any of them in its neutral `case.yaml`, with the same key. Nested keys are merged one by one, so `phases: {investigation: 22}` changes only that phase. A key the engine does not know stops the export.
+
+| Key | Default | What it is |
+|---|---|---|
+| `tokens_per_team` | 16 | Numbered tokens for questions and procedures |
+| `alibi_tokens_per_team` | 0 | Dashed tokens that only check where a suspect was |
+| `team_size_min` | 2 | Smallest team |
+| `phases` | `{setup: 5, scene: 10, investigation: 30, accusation: 15}` | Minutes of each phase. Minute 0 of the investigation is when envelope 2 is opened |
+| `closing_minutes` | `[5, 10]` | Score, confession and the end of the story |
+| `accusation_writing` | 5 | Minutes to fill in the accusation and the discards |
+| `pitch_minutes` | 2 | Minutes each team has to present its theory |
+| `session_minutes` | `[65, 75]` | The whole session, as the kit and the guide announce it |
+| `notice_minutes` | `[10, 20]` | Suggested minute of the investigation for each notice; the director decides |
+| `hint_penalties` | `[1, 1, 1, 2, 2]` | Points each hint costs, in order; one per hint card |
+| `request_log_rows` | 18 | Rows of the request log in the guide |
+| `score` | culprit 5, culprit without evidence 2, how 2, why 2, window 1, contradiction 1, discard with two pieces of evidence 2 / with one 1 / blank −1, red herring 1, spare token 0.25, wrong accusation −5 | Points of the score (keys in `defaults.yaml`) |
+
+The case's own line of the score is `score_bonus` (its points) with `score_texts` in each language file (its text). A case without it has no bonus line.
+
+**The engine's sheets** are in `opencase/templates/<lang>/kit/` and `guide/`. The exporter inserts them by itself: in the kit, "How to play" at the bottom of the first sheet and then the rules, "During the game" and the score; in the guide, "Running the game" and "Fair play" after the first sheet, and the request log right after the sheet with the `control` block. They are written in Markdown with Jinja2 and print the case's figures; a value that no YAML defines stops the export and says in which file and line. A case cannot replace these files, but it can leave them out:
+
+```yaml
+engine_sheets: false                 # no engine sheets, no generated card lines (the case writes everything)
+engine_sheets:
+  kit:
+    after: 02-menu                   # put them after this sheet instead of the first one
+    skip: [30-score]                 # leave this one out
+  guide: false                       # none in the guide
+```
+
+The names in `after` and `skip` are file names without `.md`; a name that does not exist stops the export. With `engine_sheets: false` the case also writes its own card lines (who, hint footers) and notice descriptions, as before.
 
 ## Ink saver
 

@@ -10,7 +10,7 @@ One director, two teams (A and B; the exporter allows up to four, A to D) of 3 t
 |---|---|---|---|
 | Preparation | 5 min | 5 min | Teams, kit, tokens, one badge per player. The director reads "How to play" aloud. |
 | Scene | 10 min | 8 min | The director reads the opening script, hands out envelope 1. Teams read. No questions yet. |
-| Investigation | 30 min | 20–22 min | Teams send written requests with a token; the director answers with a card or a sheet, and marks the control sheet. Prosecutor's notices are read at fixed minutes. |
+| Investigation | 30 min | 20–22 min | Teams send written requests with a token; the director answers with a card or a sheet, and marks the control sheet. Prosecutor's notices are read when the director sees fit, at about the suggested minutes. |
 | Accusation | 15 min | 12–15 min | Teams fill the accusation and discard sheets. The director collects both before anyone speaks. Each team presents (2 min). The director scores, reads the confession if earned, and closes. |
 | Total | 65–75 min | 45–50 min | |
 
@@ -39,7 +39,7 @@ What is free: envelope 1 (the opening material), the statements, envelope 2 (usu
 
 | Piece | Content |
 |---|---|
-| Kit | Mission and rules (how to play, timing, scoring), question menu built from the suspects and the `menu: true` cards, procedures menu with the token tracker, timeline worksheet, accusation sheet, discard sheet. |
+| Kit | The mission (the case's story), then the engine's sheets (how to play, phases, glossary, rules, during the game, score), question menu built from the suspects and the `menu: true` cards, procedures menu with the token tracker, timeline worksheet, accusation sheet, discard sheet. |
 | Envelope 1 | The opening evidence: police report, scene photos or sketch, social media, a chat group, weather, the statements of every suspect. Enough to start, never enough to convict. |
 | Envelope 2 | What arrives when the investigation begins (the autopsy). |
 | Suspect cards | One vertical 63 × 88 card per suspect: name, role, five facts, optional portrait (never a recognisable face). |
@@ -49,7 +49,7 @@ What is free: envelope 1 (the opening material), the statements, envelope 2 (usu
 
 | Piece | Content |
 |---|---|
-| Guide | Preparation (what to print, how to arm the envelopes, the table), the solution in one page, diagrams (night, deduction), the script with timings (opening, notices, press, hints), the response table for every code, the control sheet, the evaluation (scoring rubric, discard table, red-herring table, confession conditions, score sheet), the confession and the closing. |
+| Guide | Preparation (what to print, how to arm the envelopes, the table, what is particular to the case), the engine's sheets (running the game, fair play, request log), the solution in one page, diagrams (night, deduction), the script with timings (opening, notices, press, hints), the response table for every code, the control sheet, the evaluation (scoring rubric, discard table, red-herring table, confession conditions, score sheet), the confession and the closing. |
 | Complete dossier | Every evidence sheet with an index by section. Handed out one sheet at a time, only to the team that earned it. |
 | Answer cards | Every card, two copies (one per team), printed 8 per sheet, 63 × 88 mm, with a common back. |
 
@@ -80,7 +80,7 @@ The dossier sections in the neutral `case.yaml` decide who gets what: sections w
 | Follow-ups | 6–8 | 2–4 |
 | Witnesses | 8–10 | 3–4 |
 | Procedures in the menu | 12–14, with a per-suspect sheet for cell tower, vehicle, belongings, bank | 8–9 |
-| Notices | 2 (minute 10 and 20) + press card | 2 (minute 7 and 14) |
+| Notices | 2 (suggested minutes 10 and 20) + press card | 2 (`notice_minutes: [7, 14]`) |
 | Hints | 5, ordered | 3, ordered |
 | Minimum tokens to confession (knowing what to ask) | 7–9 | 5–7 |
 | Expected spend of a good team | 10–16 | 7–10 |

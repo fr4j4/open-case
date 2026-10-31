@@ -1,7 +1,6 @@
 ---
 code: AVISO 2
 institution: Fiscalía Local de Temuco
-description: Aviso para todos los equipos · minuto 20
 title: Resultado de las huellas de la horqueta
 notice: true
 ---

@@ -1,0 +1,37 @@
+{#- Helpers for the English templates. -#}
+
+{#- "1 point", "2 points" -#}
+{% macro pts(n) -%}
+{{ n|num }} {{ "point" if n == 1 else "points" }}
+{%- endmacro %}
+
+{#- "hints 1 to 3: −1 point each; hints 4 and 5: −2 points each" -#}
+{% macro hint_costs(groups) -%}
+{% for g in groups -%}
+{% if g.first == g.last %}hint {{ g.first }}: −{{ pts(g.penalty) }}{% elif g.last == g.first + 1 %}hints {{ g.first }} and {{ g.last }}: −{{ pts(g.penalty) }} each{% else %}hints {{ g.first }} to {{ g.last }}: −{{ pts(g.penalty) }} each{% endif %}{{ "; " if not loop.last else "" }}
+{%- endfor %}
+{%- endmacro %}
+
+{#- Short, for tables: "1st–3rd −1; 4th and 5th −2" -#}
+{% macro ordinal(n) -%}
+{{ n }}{{ {1: "st", 2: "nd", 3: "rd"}.get(n if n < 20 else n % 10, "th") }}
+{%- endmacro %}
+{% macro hint_costs_short(groups) -%}
+{% for g in groups -%}
+{% if g.first == g.last %}{{ ordinal(g.first) }}{% elif g.last == g.first + 1 %}{{ ordinal(g.first) }} and {{ ordinal(g.last) }}{% else %}{{ ordinal(g.first) }}–{{ ordinal(g.last) }}{% endif %} −{{ g.penalty|num }}{{ "; " if not loop.last else "" }}
+{%- endfor %}
+{%- endmacro %}
+
+{#- "minute 10 for notice 1 and 20 for notice 2" -#}
+{% macro notice_plan(minutes) -%}
+{% for m in minutes -%}
+{% if loop.first %}minute {{ m }} for notice {{ loop.index }}{% else %}{{ " and " if loop.last else ", " }}{{ m }} for notice {{ loop.index }}{% endif %}
+{%- endfor %}
+{%- endmacro %}
+
+{#- "10, 30 and 15" -#}
+{% macro and_list(items) -%}
+{% for x in items -%}
+{{ x }}{% if not loop.last %}{{ " and " if loop.revindex == 2 else ", " }}{% endif %}
+{%- endfor %}
+{%- endmacro %}

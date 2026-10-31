@@ -357,41 +357,35 @@ groups:
     cards:
       - code: Aviso 1
         type: notice
-        who: Fiscalía · minuto 10
+        who: Fiscalía
         answer: Cristián "Toto" Lagos no llegó a su citación de hoy. Un vecino de la villa lo vio cargando un bolso en la moto. Carabineros lo ubicó en el terminal de buses de Labranza y lo trajo de vuelta. Toto dice que "no tiene nada que ver".
         footer: Se lee a todos los equipos a la vez
       - code: Aviso 2
         type: notice
-        who: Fiscalía · minuto 20
+        who: Fiscalía
         answer: El Laboratorio de Criminalística informa que las huellas parciales del mango de una herramienta encontrada en el estero corresponden a Cristián "Toto" Lagos. Para formalizar a alguien, la Fiscalía pide dos líneas de prueba distintas (por ejemplo, su vehículo y su ropa), cada una enfrentada con esa persona (◆), y el motivo.
         footer: Se lee a todos los equipos a la vez
       - code: Prensa
         type: press
-        who: Minuto 20 · después del aviso 2
         headline: Última hora
         answer: "Radio local: \"@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas.\" La Fiscalía llama: \"Comisario, en diez minutos quiero un nombre en mi escritorio\"."
       - code: Pista 1
         type: hint
         who: Pista guiada
         answer: '"¿Qué dice el SML de la causa de muerte? ¿Calza con un animal?"'
-        footer: Resta 1 punto al equipo que la pidió
       - code: Pista 2
         type: hint
         who: Pista guiada
         answer: '"¿A qué hora empezó a llover, y cómo estaba el cuerpo por debajo?"'
-        footer: Resta 1 punto al equipo que la pidió
       - code: Pista 3
         type: hint
         who: Pista guiada
         answer: '"El live muestra un vehículo. ¿Cuántas luces se ven cuando se va?"'
-        footer: Resta 1 punto al equipo que la pidió
       - code: Pista 4
         type: hint
         who: Pista guiada
         answer: '"El teléfono de Matías se desbloqueó a las 23:18. ¿Con qué dedo, y quién lo tenía en la mano?"'
-        footer: Resta 2 puntos al equipo que la pidió
       - code: Pista 5
         type: hint
         who: Pista guiada
         answer: '"Alguien dijo que estuvo toda la noche en su casa. ¿Lo comprobaron?"'
-        footer: Resta 2 puntos al equipo que la pidió

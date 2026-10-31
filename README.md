@@ -163,6 +163,8 @@ open-case/
 ├── design/        sistema de diseño: CSS, colores, logos, fuentes y la guía de marca
 ├── docs/          el formato de los casos
 ├── opencase/      el exportador y el build del sitio (site.py)
+│   ├── defaults.yaml   las cifras del juego (fichas, minutos, avisos, pistas, puntaje)
+│   └── templates/      las reglas del juego por idioma: hojas que el exportador agrega al kit y la guía
 ├── tools/         scripts de mantenimiento (bajar las fuentes, validar el sitio, comparar PDF)
 ├── tests/         pruebas con pytest y fotos del HTML de cada documento (tests/snapshots/)
 ├── export.py      el comando para exportar
