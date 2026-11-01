@@ -15,7 +15,7 @@ title: Nuestra teoría del caso
 - label: 6. Contradicciones del culpable que detectaron
 - label: 7. ¿Qué pasó con los ataques a los animales, y por qué?
   type: box
-- label: "8. Cosas raras que vimos y que NO tienen que ver con el crimen. Escriban cada una y el código de la prueba que muestra por qué no importaba. Ejemplo: «el ruido de la lavadora → E00»."
+- label: "8. Cosas raras que NO tienen que ver con el crimen, cada una con la prueba que muestra por qué (ej.: «ruido de lavadora → E00»)"
   type: box
-  height: 110px
+  height: 90px
 ```
