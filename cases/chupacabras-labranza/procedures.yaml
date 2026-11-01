@@ -34,7 +34,7 @@ procedures:
   - code: DG8
     kind: premises_search
     each: true                 # the desk and the safe are two requests
-    targets: {desk: E24, safe: E25}
+    targets: {desk: E24, safe: E25, shed: E31}
   - code: DG9
     kind: phone_towers
     alibi: true                # can be paid with an alibi token

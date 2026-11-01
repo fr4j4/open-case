@@ -8,6 +8,12 @@ pages: 3
 Lo mínimo para responder rápido con varios equipos. Si dudas, la tabla completa está en "Cómo responder". Fichas de coartada: solo DG9, DG11 o un testigo que ubique a alguien.
 {.small}
 
+### Diligencias sobre una persona: qué entrega cada una
+
+<!-- La tabla sale de los destinos de procedures.yaml: una fila por persona, una columna por diligencia. -->
+```quick-persons
+```
+
 <!-- Seguimientos y testigos salen de cards.yaml y las diligencias de procedures.yaml; por eso este bloque abre con cuatro comillas. -->
 ````columns 230
 | Pregunta | Entrega |
@@ -70,5 +76,6 @@ others:
 ```
 ===
 ```quick-procedures
+skip_persons: true
 ```
 ````
