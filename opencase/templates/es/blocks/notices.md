@@ -14,3 +14,8 @@
 ```
 
 {% endfor %}
+{% if readings|selectattr("kind", "equalto", "notice")|selectattr("minute", "none")|list %}
+Los avisos sin minuto sugerido son opcionales: léelos cuando el ritmo lo pida. Ninguno entrega pruebas ni cambia el puntaje.
+{.small}
+
+{% endif %}

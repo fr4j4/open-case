@@ -14,3 +14,8 @@
 ```
 
 {% endfor %}
+{% if readings|selectattr("kind", "equalto", "notice")|selectattr("minute", "none")|list %}
+Notices without a suggested minute are optional: read them when the pace calls for it. None of them hands out evidence or changes the score.
+{.small}
+
+{% endif %}

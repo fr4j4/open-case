@@ -404,6 +404,24 @@ groups:
         type: press
         headline: Última hora
         answer: "Radio local: \"@misterios.araucania acusa en un nuevo video a un vecino de El Arrayán: 'Él tiene escopeta y odiaba a Ferrada'. Vecinos de Labranza piden respuestas.\" La Fiscalía llama: \"Comisario, quiero un nombre en mi escritorio cuanto antes\"."
+      - code: Aviso 3
+        type: notice
+        title: El pueblo habla
+        who: Radio local
+        answer: 'Radio Araucanía: "La muerte de un corredor de propiedades en Labranza ya es tema en todo el sur. El alcalde pidió calma y que los vecinos no difundan rumores de monstruos. La Fiscalía no descarta ninguna hipótesis".'
+        footer: Se lee a todos los equipos a la vez
+      - code: Aviso 4
+        type: notice
+        title: La Fiscalía aprieta
+        who: Fiscalía
+        answer: 'La Fiscalía llama al comisario: "Tengo al fiscal regional preguntando por este caso. Necesito avances antes de que termine el turno. ¿Alguien con motivo y con oportunidad? Y que no se les escape nadie".'
+        footer: Se lee a todos los equipos a la vez
+      - code: Aviso 5
+        type: notice
+        title: Recordatorio del comisario
+        who: Comisario Painemal
+        answer: '"Detectives, un recordatorio: lo que dice un sospechoso hay que comprobarlo con una diligencia, un testigo o un seguimiento. Y para acusar a alguien, no basta con sospechar: cítenme las pruebas".'
+        footer: Se lee a todos los equipos a la vez
       - code: Pista 1
         type: hint
         who: Pista guiada
