@@ -12,8 +12,8 @@
 <circle cx="350" cy="140" fill="#9e2a2b" r="8"></circle><text fill="#9e2a2b" font-size="11" x="362" y="164">cuerpo</text>
 <g fill="#fff" stroke="#555"><circle cx="420" cy="225" r="3"></circle><circle cx="432" cy="225" r="3"></circle><circle cx="444" cy="225" r="3"></circle><circle cx="468" cy="225" r="3"></circle><circle cx="480" cy="225" r="3"></circle></g><text font-size="10" x="398" y="244">piedras blancas</text>
 <rect fill="#6d5a3a" height="6" width="110" x="400" y="218"></rect><text font-size="10" x="514" y="228">portón</text>
-<circle cx="255" cy="110" fill="#1d3557" r="7"></circle><text fill="#1d3557" font-size="11" x="160" y="100">Javiera (cerco)</text>
-<line stroke="#1d3557" stroke-dasharray="3 3" x1="262" x2="342" y1="112" y2="138"></line>
+<circle cx="300" cy="226" fill="#1d3557" r="7"></circle><text fill="#1d3557" font-size="11" x="200" y="284">Javiera (cerco, orilla del camino)</text>
+<line stroke="#1d3557" stroke-dasharray="3 3" x1="308" x2="440" y1="224" y2="196"></line>
 <rect fill="#e3e6d4" height="90" stroke="#7b8a5f" width="150" x="380" y="290"></rect><text font-weight="600" x="390" y="312">Casa Doña Rosa</text><text font-size="11" x="390" y="330">frente a El Arrayán</text>
 <text font-size="11" x="646" y="254">→ Labranza 3 km</text><text font-size="11" x="646" y="270">(Copec) · Temuco 12</text>
 <text font-size="11" x="12" y="300">← hacia Boroa</text>

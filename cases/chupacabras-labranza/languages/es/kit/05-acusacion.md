@@ -15,7 +15,7 @@ title: Nuestra teoría del caso
 - label: 6. Contradicciones del culpable que detectaron
 - label: 7. ¿Qué pasó con los ataques a los animales, y por qué?
   type: box
-- label: "8. Pistas falsas explicadas: pista → prueba que la explica"
+- label: "8. Cosas raras que vimos y que NO tienen que ver con el crimen. Escriban cada una y el código de la prueba que muestra por qué no importaba. Ejemplo: «el ruido de la lavadora → E00»."
   type: box
   height: 110px
 ```
