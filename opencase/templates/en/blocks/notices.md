@@ -15,7 +15,7 @@
 
 {% endfor %}
 {% if readings|selectattr("kind", "equalto", "notice")|selectattr("minute", "none")|list %}
-Notices without a suggested minute are optional: read them when the pace calls for it (for example, when the teams are quiet or stuck). None of them hands out evidence or adds or takes away points.
+Notices without a suggested minute are optional: read them when the pace calls for it. None of them hands out evidence or changes the score.
 {.small}
 
 {% endif %}

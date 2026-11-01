@@ -201,7 +201,7 @@ def test_notices_without_a_minute_are_optional(case_dir):
     text = templates.render(case, "blocks/notices.md")
     assert "### Aviso 2 (minuto sugerido 20)" in text and "### Aviso 3\n" in text
     assert "Los avisos sin minuto sugerido son opcionales" in text
-    assert "Ninguno entrega pruebas ni suma o resta puntos" in text
+    assert "Ninguno entrega pruebas ni cambia el puntaje" in text
 
 
 def test_teams_never_see_the_suggested_minute(case_dir):
