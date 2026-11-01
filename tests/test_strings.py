@@ -52,3 +52,19 @@ def test_same_placeholders(lang):
 @pytest.mark.parametrize("lang", LANGS)
 def test_no_empty_strings(lang):
     assert [k for k, v in load(lang).items() if v is None or str(v).strip() == ""] == []
+
+
+# Web app (F6c): every `web:` value in en.yaml must be translated. These are the only ones that may equal the
+# Spanish text: proper names, codes and symbols that read the same in both languages.
+WEB_SAME_AS_SPANISH = {
+    "web.team.tab.kit", "web.director.page_title", "web.director.badge",
+    "web.requests.panel.suggest_gives", "web.requests.panel.suggest_only",
+    "web.game.clock.back", "web.game.clock.forward", "web.game.hints.cost",
+}
+
+
+def test_web_english_is_translated():
+    es, en = load(BASE), load("en")
+    untranslated = {k for k in es if k.startswith("web.") and es[k] == en[k]}
+    assert sorted(untranslated - WEB_SAME_AS_SPANISH) == [], "web strings still in Spanish in en.yaml"
+    assert sorted(WEB_SAME_AS_SPANISH - untranslated) == [], "listed as exceptions but already different"
