@@ -91,6 +91,7 @@ def test_three_teams_play_the_v8_rounds_through_the_forms_and_the_panel(site, br
 
     spent = {t: [0, 0] for t in "ABC"}
     asked = {t: 0 for t in "ABC"}
+    suggested = []
     for i, step in enumerate(GAME["steps"]):
         team, req = step["team"], step["request"]
         page = phones[team][1]
@@ -103,6 +104,17 @@ def test_three_teams_play_the_v8_rounds_through_the_forms_and_the_panel(site, br
         card.wait_for(timeout=30000)
         choice = step.get("choice") or {}
         if choice.get("card"):
+            # the panel already suggests a card by the evidence (opens_with): never another one than the scripted game chose
+            panel = director.locator(f'.oc-request[data-team="{team}"]')
+            checked = panel.locator("[data-card] input:checked")
+            if checked.count():
+                assert checked.first.get_attribute("value") == choice["card"], f"step {i + 1}: the panel suggested another card"
+                suggested.append(choice["card"])
+            else:
+                near = panel.locator("[data-candidates]")
+                if near.count() and near.first.get_attribute("data-candidates"):
+                    assert choice["card"] in near.first.get_attribute("data-candidates").split(","), f"step {i + 1}: not among the candidates"
+                    suggested.append("?" + choice["card"])
             director.locator(f'.oc-request[data-team="{team}"] [data-card="{choice["card"]}"] input').check()
         director.locator(f'.oc-request[data-team="{team}"] [data-answer="{step["button"]}"]').click(timeout=15000)
         director.wait_for_selector(f'.oc-request[data-team="{team}"]', state="detached", timeout=15000)
@@ -114,6 +126,7 @@ def test_three_teams_play_the_v8_rounds_through_the_forms_and_the_panel(site, br
         want = (start[team][0] - spent[team][0], start[team][1] - spent[team][1])
         _wait(lambda p=page, w=want: _balance(p) == w, seconds=20, what=f"step {i + 1}: balance of {team} is {want}")
 
+    assert suggested, "the panel suggested a card for at least one confrontation of the game"
     # the folders and the tokens the simulation ended with
     expected_tokens = {"A": (start["A"][0] - 7, start["A"][1] - 2), "B": (start["B"][0] - 4, start["B"][1] - 2), "C": (start["C"][0] - 6, start["C"][1])}
     for team in "ABC":

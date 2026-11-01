@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": 3,
+      "const": 4,
       "description": "schema_version: raise it (and save the new fingerprint) when this schema changes"
     },
     "kind": {
@@ -680,6 +680,49 @@
           },
           "guide_note": {
             "type": "string"
+          },
+          "opens_with": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "held": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "priority": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "all",
+                "any",
+                "none",
+                "held",
+                "priority"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "required": [
@@ -697,7 +740,8 @@
           "attach",
           "follow_up",
           "unlocked_by",
-          "guide_note"
+          "guide_note",
+          "opens_with"
         ],
         "additionalProperties": false
       }

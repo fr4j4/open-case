@@ -22,7 +22,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, TemplateNotFound, TemplateSyntaxError
 from jinja2.exceptions import UndefinedError
 
-from . import followups, procedures, witnesses
+from . import confrontations, followups, procedures, witnesses
 from .acronyms import table_rows
 from .loader import CaseError, Sheet, as_list, card_kind, parse_sheet, read_yaml
 
@@ -167,6 +167,8 @@ def context(case, data=None):
         "how_to_play_in_kit": how_to_play_in_kit,
         "follow_ups": followups.follow_ups(case),
         "witnesses": witnesses.witnesses(case),
+        "confrontations": confrontations.rows(case),
+        "confrontation_failed": confrontations.failed_card(case),
         "procedures": case.procedures,
         "locations": case.locations,
         "procedure_cards": procedures.card_rows(case),

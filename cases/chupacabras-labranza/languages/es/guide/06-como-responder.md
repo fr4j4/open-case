@@ -38,35 +38,9 @@ pages: 6
 ```follow-ups
 ```
 
-### Confrontaciones ◆ (1 ficha): qué prueba vale
-
-| Código | Si muestran… | Entrega |
-|---|---|---|
-| `B◆` | E14 y E26·B juntas (salió del edificio y estuvo en el poniente) | Tarjeta B5 (nueva mentira: "no entré") |
-| `B◆` | E08 o E28 junto con E17·B (el vehículo con un foco) | Tarjeta B6 ("estaba vivo cuando me fui") |
-| `B◆` | E28 junto con E17·B (la camioneta gris con un foco es la suya) | Tarjeta B10 (admite que fue y discutieron) |
-| `B◆` | E28 junto con la boleta del Copec de E19·B (sin E17·B) | Tarjeta B8, no B10: el vehículo sigue exigiendo E17·B |
-| `B◆` | E13d, E29·P o E29·B (el mensaje recuperado, o que Benjamín lo leyó a las 22:16 y llamó a las 22:17) | Tarjeta B7 |
-| `B◆` | Solo la llamada de E13a (22:17, la hizo él) | Tarjeta B7a (admite la llamada, no el motivo) |
-| `B◆` | E13b o E13a (el borrado o el desbloqueo de las 23:18) | Tarjeta B9 ("yo no tenía su teléfono") |
-| `B◆` | T5 (Toto dijo que el hermano estuvo solo en el galpón), sola o junto con E13b (el chat del galpón) | Tarjeta B11 (vio la horqueta, dice que la dejó) |
-| `B◆` | E18 (la bolsa del Copec) o la boleta del Copec de las 22:52 en E19·B | Tarjeta B8. La boleta abre solo B8, no B6 ni B10: el camino del vehículo sigue exigiendo el foco de E17·B. |
-| `B◆` | DEC·B junto con E06 (habló del golpe antes de la autopsia) | Tarjeta B12 |
-| `B◆` | E19·B (la pintura blanca en las suelas) o E29·B (la búsqueda del barro) | Tarjeta B13. Con E19·B pueden señalar también la boleta: eso abre B8. |
-| `H◆` | E25·b (promesa de venta) o EL1 | Tarjeta H5 |
-| `H◆` | E13b (el chat de la multa) o la cláusula 7 de E25 | Tarjeta H6 |
-| `J◆` | E03 junto con E02 foto 4, E19·J o E15·J (el molde) | Tarjeta J5 |
-| `J◆` | E13c (Matías la vio poner la huella) | Tarjeta J6 |
-| `P◆` | E02 foto 6 con E16 o E19·P (el aro), R2, CO1, F1 o E26·P | Tarjeta P5 |
-| `P◆` | E29·P o E13d (el mensaje del grupo) | Tarjeta P6 |
-| `T◆` | E11, E12, E15·M, E15·T, E19·T o el chat del galpón de E13b (los animales) | Tarjeta T5 |
-| `T◆` | Aviso 2 (las huellas) o la amenaza de ir a la PDI (E13b) | Tarjeta T6. Si ya la tienen, tarjeta T7 |
-| `C◆` | E15·M o E15·C (la transferencia) o E12 (el SAG la contradice) | Tarjeta C5 + E11 |
-| `C◆` | E13b (el chantaje de los 800 mil) | Tarjeta C6 + E22 |
-| `B◆` | Solo E14 (el portón: salió a las 22:31) | Tarjeta B5a (admite que salió, no dice adónde). La ficha se cobra. |
-| `B◆` | E15·B (el crédito y la transferencia de 40 millones) | Tarjeta B3+ (admite que puso la plata; no dice nada de la venta). La ficha se cobra. |
-| `B◆` | Solo E26·B, solo E17·B, o las dos sin E08 ni E28 | Tarjeta B✕ (fallida, pero le dice al equipo qué le falta cruzar). La ficha se cobra. |
-| `Cualquier ◆` | Cualquier otra prueba | Tarjeta "Eso no prueba nada". La ficha se cobra. |
+<!-- La tabla sale de las reglas opens_with de las tarjetas de confrontación de cards.yaml (qué prueba abre cada una y cuál gana). -->
+```confrontations
+```
 
 Una confrontación entrega una sola tarjeta. Si lo que muestran sirve para varias, entrega la de la combinación más específica (por ejemplo, E13b junto con T5 abre B11, no B9). Las otras se consiguen con otra confrontación. Si muestran E29·B, pregúntales qué quieren señalar: la lectura del mensaje y la llamada abren B7; la búsqueda del barro abre B13. Si muestran E19·B, igual: la pintura blanca de las suelas abre B13; la boleta del Copec abre B8.
 {.small}

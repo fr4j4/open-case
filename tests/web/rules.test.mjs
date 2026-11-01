@@ -5,7 +5,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { createGame, newState, hold, answers, resolve, quote, checkState, spareTokenScore, spent, norm } from '../../site/play/js/rules.js';
+import { createGame, newState, hold, answers, resolve, quote, checkState, spareTokenScore, spent, norm, matchConfrontation } from '../../site/play/js/rules.js';
 
 const read = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 const team = read(path.join(process.env.OC_WEB_DIR, 'team.json'));
@@ -275,4 +275,27 @@ test('nothing is hard-coded: costs and alibi tokens come from rules', () => {
   assert.equal(r.cost, 3);
   assert.equal(resolve(g2, newState(g2), { kind: 'procedure', code: 'DG3', target: 'B' }, 'give', { alibi: 1 }).ok, true);
   assert.equal(resolve(g2, newState(g2), { kind: 'procedure', code: 'DG11', target: 'copec' }, 'give', { alibi: 1 }).error, 'alibi_not_accepted');
+});
+
+// --- Which card a confrontation opens (opens_with): the cases of the old guide table, written by hand ----------------
+
+const golden = process.env.OC_CONFRONTATIONS ? read(process.env.OC_CONFRONTATIONS).cases : [];
+
+test('the hand-written table of confrontations is there', () => {
+  assert.ok(golden.length >= 50);
+});
+
+for (const g of golden) {
+  test(`confrontation ${g.suspect}: ${g.evidence.join(' + ') || '(nothing)'}${g.held.length ? ` (holding ${g.held})` : ''} opens ${g.card ?? (g.candidates.join(' or ') || 'nothing')}`, () => {
+    const state = hold(fresh(), { cards: g.held });
+    const got = matchConfrontation(game, state, g.suspect, g.evidence.map((c) => [c, '']));
+    assert.deepEqual(got, { card: g.card, candidates: g.candidates });
+  });
+}
+
+test('a card the rules name is accepted by the confrontation, one of another suspect is not', () => {
+  const state = fresh();
+  assert.ok(answers(game, state, { kind: 'confrontation', suspect: 'B', card: 'B3+' }).find((a) => a.answer === 'give').available);
+  assert.equal(answers(game, state, { kind: 'confrontation', suspect: 'B', card: 'B1+' }).error, 'unknown_card');
+  assert.equal(answers(game, state, { kind: 'confrontation', suspect: 'B', card: 'H5' }).error, 'unknown_card');
 });

@@ -386,8 +386,9 @@ def validate(case):
         if s.get("portrait") and resolve_media(case, s["portrait"]) is None:
             raise CaseError(f"the portrait '{s['portrait']}' does not exist in the case folder",
                             case.lang_root / "suspects.yaml")
-    from . import followups, procedures, signatures, witnesses   # imported here because they import this module
+    from . import confrontations, followups, procedures, signatures, witnesses   # imported here because they import this module
     followups.check(case)
+    confrontations.check(case)
     witnesses.check(case)
     procedures.check(case)
     signatures.check(case)

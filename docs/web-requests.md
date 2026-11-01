@@ -39,7 +39,7 @@ The **history** tab lists every answered request and what it cost.
   and the buttons of `rules.requests[kind].answers` with their cost; the suggested one is highlighted, the ones that cannot be
   given are disabled and say why.
 - The director's choices: for a **witness**, which one (the typed name is matched against `who`, `name` and `aliases`); for a
-  **confrontation**, which of the suspect's cards (the card list and the `guide_note`); for a procedure of an open request
+  **confrontation**, which of the suspect's cards (the card list and the `guide_note`). When the case writes `opens_with`, the panel already marks the card the evidence opens, and says so; if the evidence opens several cards equally it lists them and leaves the choice (the guide says to ask what they point at); for a procedure of an open request
   (`material`), which sheets; the alibi tokens used; and what is handed out (the suggestion can be edited by taking
   something out; the answer is charged anyway). A message to the team can go with any answer; it is the **free answer**
   (`give` or `obvious` with a text, for questions off the menu).
