@@ -22,7 +22,7 @@ A medianoche la Fiscalía quiere un nombre. Muévanse.
 ```notices
 ```
 
-Los dos avisos empujan hacia Toto a propósito. Es la pista falsa principal: se resuelve con T5 (la horqueta desapareció el martes, cuando Benjamín estuvo solo en el galpón) y con su coartada (E21, M1, E28). Si ningún equipo ha investigado a Toto cuando leas el aviso 1, ese aviso los obliga a mirarlo.
+Los avisos 1 y 2 empujan hacia Toto a propósito. Es la pista falsa principal: se resuelve con T5 (la horqueta desapareció el martes, cuando Benjamín estuvo solo en el galpón) y con su coartada (E21, M1, E28). Si ningún equipo ha investigado a Toto cuando leas el aviso 1, ese aviso los obliga a mirarlo.
 {.small}
 
 <!-- Las pistas salen de cards.yaml, con lo que resta cada una (hint_penalties). -->

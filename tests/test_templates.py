@@ -190,11 +190,18 @@ def test_counts_come_from_the_case(case_dir):
     assert "el último viene con una tarjeta de prensa" in kit
 
 
-def test_more_notices_than_minutes_stops_the_export(case_dir):
+def test_notices_without_a_minute_are_optional(case_dir):
+    """A case may have more notices than notice_minutes: the extra ones have no suggested minute and the guide
+    says they are optional and hand out nothing."""
     edit_yaml(case_dir / "languages" / "es" / "cards.yaml", lambda d: d["groups"].append({"title": "Avisos", "cards": [
         {"code": f"N{i}", "type": "notice", "answer": "Algo."} for i in (1, 2, 3)]}))
-    with pytest.raises(CaseError, match="3 notices but notice_minutes gives 2"):
-        kit_and_guide(case_dir, "es")
+    from opencase import templates
+    case = load_case(case_dir, "es")
+    use_strings(case.strings)
+    text = templates.render(case, "blocks/notices.md")
+    assert "### Aviso 2 (minuto sugerido 20)" in text and "### Aviso 3\n" in text
+    assert "Los avisos sin minuto sugerido son opcionales" in text
+    assert "Ninguno entrega pruebas ni suma o resta puntos" in text
 
 
 def test_teams_never_see_the_suggested_minute(case_dir):

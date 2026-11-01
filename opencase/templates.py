@@ -123,10 +123,7 @@ def context(case, data=None):
     # only give each one its minute or its cost, so a case with fewer uses the first ones.
     n_notices = max(sum(1 for r in readings if r["kind"] == "notice"), len(notice_sheets))
     minutes = list(f["notice_minutes"] or [])
-    if n_notices > len(minutes):
-        raise CaseError(f"the case has {n_notices} notices but notice_minutes gives {len(minutes)} minutes: "
-                        "add the missing ones in case.yaml", case.root / "case.yaml")
-    minutes = minutes[:n_notices]
+    minutes = minutes[:n_notices]   # a notice with no minute in the figures is optional: the director reads it when the pace calls for it
     has_press = any(r["kind"] == "press" for r in readings)
     penalties = list(f["hint_penalties"] or [])
     hints = [{"n": n, "code": str(c.get("code", "")), "answer": c.get("answer", ""),

@@ -14,3 +14,8 @@
 ```
 
 {% endfor %}
+{% if readings|selectattr("kind", "equalto", "notice")|selectattr("minute", "none")|list %}
+Los avisos sin minuto sugerido son opcionales: léelos cuando el ritmo lo pida (por ejemplo, si los equipos están callados o estancados). Ninguno entrega pruebas ni suma o resta puntos.
+{.small}
+
+{% endif %}

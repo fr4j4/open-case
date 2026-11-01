@@ -537,7 +537,7 @@ What is the same in every game of Open Case (the rules, the phases, the glossary
 
 **The figures** are in `opencase/defaults.yaml`. They are the recommended ones, and a case changes any of them in its neutral `case.yaml`, with the same key. Nested keys are merged one by one, so `phases: {investigation: 22}` changes only that phase. A key the neutral `case.yaml` does not know (a figure or one of the keys above) stops the export, so a misspelt `tokens_per_teams` does not go unnoticed; so does a figure written in `languages/<lang>/case.yaml`, because every language plays with the same rules.
 
-How many notices, press cards and hints the rules mention comes from the case (its cards of type `notice`, `press` and `hint`, and its sheets with `notice: true`); the figures only give each one its suggested minute or its cost. A case with more notices than `notice_minutes` or more hints than `hint_penalties` stops the export, and a case with none leaves those paragraphs out. The lint warns when `session_minutes` is shorter than the phases and `closing_minutes` add up to.
+How many notices, press cards and hints the rules mention comes from the case (its cards of type `notice`, `press` and `hint`, and its sheets with `notice: true`); the figures only give each one its suggested minute or its cost. A notice with no minute in `notice_minutes` is an optional one (the guide says the director reads it when the pace calls for it, and that no notice hands out evidence or changes the score); a case with more hints than `hint_penalties` stops the export, and a case with none leaves those paragraphs out. The lint warns when `session_minutes` is shorter than the phases and `closing_minutes` add up to.
 
 | Key | Default | What it is |
 |---|---|---|
