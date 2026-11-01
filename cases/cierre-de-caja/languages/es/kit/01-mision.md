@@ -43,7 +43,7 @@ Escena: 8 minutos · Investigación: 22 minutos · Acusación: 15 minutos (5 par
 | Cada ficha que les sobre | 0,25 c/u |
 | Cada pista pedida al director | −1 c/u (la tercera, −2) |
 | Acusar a la persona equivocada | −5, y el equipo no puede ganar (si los dos se equivocan, no hay ganador) |
-| No acusar a nadie | Solo suman las fichas que les sobren |
+| No presentar acusación | 0 en acusación y descarte; solo suman las fichas que les sobren, las pistas pedidas siguen restando |
 
 Gana el equipo con más puntos. Si empatan, gana el que gastó menos fichas; si siguen empatados, el que expuso la teoría más clara.
 {.small}
