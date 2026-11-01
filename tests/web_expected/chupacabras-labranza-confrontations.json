@@ -1,0 +1,631 @@
+{
+ "_": "Hand-written: what the guide's old confrontation table said (card = the one card the evidence opens, null with candidates = ask what they point at). Both engines must agree.",
+ "cases": [
+  {
+   "suspect": "B",
+   "evidence": [
+    "E14",
+    "E26·B"
+   ],
+   "held": [],
+   "card": "B5",
+   "candidates": [
+    "B5"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E08",
+    "E17·B"
+   ],
+   "held": [],
+   "card": "B6",
+   "candidates": [
+    "B6"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E28",
+    "E17·B"
+   ],
+   "held": [],
+   "card": "B10",
+   "candidates": [
+    "B10"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E28",
+    "E17·B",
+    "E08"
+   ],
+   "held": [],
+   "card": "B10",
+   "candidates": [
+    "B10"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E28",
+    "E19·B"
+   ],
+   "held": [],
+   "card": "B8",
+   "candidates": [
+    "B8"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E28",
+    "E17·B",
+    "E19·B"
+   ],
+   "held": [],
+   "card": "B10",
+   "candidates": [
+    "B10"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E13d"
+   ],
+   "held": [],
+   "card": "B7",
+   "candidates": [
+    "B7"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E29·P"
+   ],
+   "held": [],
+   "card": "B7",
+   "candidates": [
+    "B7"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E29·B"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": [
+    "B7",
+    "B13"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E13a"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": [
+    "B7a",
+    "B9"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E13b"
+   ],
+   "held": [],
+   "card": "B9",
+   "candidates": [
+    "B9"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "T5"
+   ],
+   "held": [],
+   "card": "B11",
+   "candidates": [
+    "B11"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "T5",
+    "E13b"
+   ],
+   "held": [],
+   "card": "B11",
+   "candidates": [
+    "B11"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E18"
+   ],
+   "held": [],
+   "card": "B8",
+   "candidates": [
+    "B8"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E19·B"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": [
+    "B8",
+    "B13"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "DEC·B",
+    "E06"
+   ],
+   "held": [],
+   "card": "B12",
+   "candidates": [
+    "B12"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E14"
+   ],
+   "held": [],
+   "card": "B5a",
+   "candidates": [
+    "B5a"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E14",
+    "E26·B"
+   ],
+   "held": [],
+   "card": "B5",
+   "candidates": [
+    "B5"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E15·B"
+   ],
+   "held": [],
+   "card": "B3+",
+   "candidates": [
+    "B3+"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E26·B"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E17·B"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E26·B",
+    "E17·B"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E28"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "B",
+   "evidence": [
+    "E26·B",
+    "E17·B",
+    "E08"
+   ],
+   "held": [],
+   "card": "B6",
+   "candidates": [
+    "B6"
+   ]
+  },
+  {
+   "suspect": "B",
+   "evidence": [],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "H",
+   "evidence": [
+    "E25"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": [
+    "H5",
+    "H6"
+   ]
+  },
+  {
+   "suspect": "H",
+   "evidence": [
+    "EL1"
+   ],
+   "held": [],
+   "card": "H5",
+   "candidates": [
+    "H5"
+   ]
+  },
+  {
+   "suspect": "H",
+   "evidence": [
+    "E13b"
+   ],
+   "held": [],
+   "card": "H6",
+   "candidates": [
+    "H6"
+   ]
+  },
+  {
+   "suspect": "J",
+   "evidence": [
+    "E03",
+    "E02"
+   ],
+   "held": [],
+   "card": "J5",
+   "candidates": [
+    "J5"
+   ]
+  },
+  {
+   "suspect": "J",
+   "evidence": [
+    "E03",
+    "E19·J"
+   ],
+   "held": [],
+   "card": "J5",
+   "candidates": [
+    "J5"
+   ]
+  },
+  {
+   "suspect": "J",
+   "evidence": [
+    "E03",
+    "E15·J"
+   ],
+   "held": [],
+   "card": "J5",
+   "candidates": [
+    "J5"
+   ]
+  },
+  {
+   "suspect": "J",
+   "evidence": [
+    "E03"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "J",
+   "evidence": [
+    "E02"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "J",
+   "evidence": [
+    "E13c"
+   ],
+   "held": [],
+   "card": "J6",
+   "candidates": [
+    "J6"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "E02",
+    "E16"
+   ],
+   "held": [],
+   "card": "P5",
+   "candidates": [
+    "P5"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "E02",
+    "E19·P"
+   ],
+   "held": [],
+   "card": "P5",
+   "candidates": [
+    "P5"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "R2"
+   ],
+   "held": [],
+   "card": "P5",
+   "candidates": [
+    "P5"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "CO1"
+   ],
+   "held": [],
+   "card": "P5",
+   "candidates": [
+    "P5"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "F1"
+   ],
+   "held": [],
+   "card": "P5",
+   "candidates": [
+    "P5"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "E26·P"
+   ],
+   "held": [],
+   "card": "P5",
+   "candidates": [
+    "P5"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "E02"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": []
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "E29·P"
+   ],
+   "held": [],
+   "card": "P6",
+   "candidates": [
+    "P6"
+   ]
+  },
+  {
+   "suspect": "P",
+   "evidence": [
+    "E13d"
+   ],
+   "held": [],
+   "card": "P6",
+   "candidates": [
+    "P6"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "E11"
+   ],
+   "held": [],
+   "card": "T5",
+   "candidates": [
+    "T5"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "E12"
+   ],
+   "held": [],
+   "card": "T5",
+   "candidates": [
+    "T5"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "E15·M"
+   ],
+   "held": [],
+   "card": "T5",
+   "candidates": [
+    "T5"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "E15·T"
+   ],
+   "held": [],
+   "card": "T5",
+   "candidates": [
+    "T5"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "E19·T"
+   ],
+   "held": [],
+   "card": "T5",
+   "candidates": [
+    "T5"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "E13b"
+   ],
+   "held": [],
+   "card": null,
+   "candidates": [
+    "T5",
+    "T6"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "Aviso 2"
+   ],
+   "held": [],
+   "card": "T6",
+   "candidates": [
+    "T6"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "Aviso 2"
+   ],
+   "held": [
+    "T6"
+   ],
+   "card": "T7",
+   "candidates": [
+    "T7"
+   ]
+  },
+  {
+   "suspect": "T",
+   "evidence": [
+    "E13b"
+   ],
+   "held": [
+    "T6"
+   ],
+   "card": "T7",
+   "candidates": [
+    "T7"
+   ]
+  },
+  {
+   "suspect": "C",
+   "evidence": [
+    "E15·M"
+   ],
+   "held": [],
+   "card": "C5",
+   "candidates": [
+    "C5"
+   ]
+  },
+  {
+   "suspect": "C",
+   "evidence": [
+    "E15·C"
+   ],
+   "held": [],
+   "card": "C5",
+   "candidates": [
+    "C5"
+   ]
+  },
+  {
+   "suspect": "C",
+   "evidence": [
+    "E12"
+   ],
+   "held": [],
+   "card": "C5",
+   "candidates": [
+    "C5"
+   ]
+  },
+  {
+   "suspect": "C",
+   "evidence": [
+    "E13b"
+   ],
+   "held": [],
+   "card": "C6",
+   "candidates": [
+    "C6"
+   ]
+  }
+ ]
+}

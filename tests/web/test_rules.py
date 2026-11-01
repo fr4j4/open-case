@@ -15,6 +15,7 @@ REPO = Path(__file__).resolve().parent.parent.parent
 CASES = REPO / "cases"
 CASE = "chupacabras-labranza"
 EXPECTED = REPO / "tests" / "web_expected" / f"{CASE}.json"
+CONFRONTATIONS = REPO / "tests" / "web_expected" / f"{CASE}-confrontations.json"
 NODE = shutil.which("node")
 
 pytestmark = pytest.mark.skipif(NODE is None, reason="node is not installed")
@@ -26,7 +27,7 @@ def _compile(case_dir, out):
 
 
 def _node(version_folder, expected):
-    env = {"OC_WEB_DIR": str(version_folder), "OC_EXPECTED": str(expected), "PATH": str(Path(NODE).parent)}
+    env = {"OC_WEB_DIR": str(version_folder), "OC_EXPECTED": str(expected), "OC_CONFRONTATIONS": str(CONFRONTATIONS), "PATH": str(Path(NODE).parent)}
     return subprocess.run([NODE, "--test", str(REPO / "tests" / "web" / "rules.test.mjs")], cwd=REPO, env=env,
                           capture_output=True, text=True)
 

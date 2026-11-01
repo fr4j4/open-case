@@ -9,10 +9,10 @@
 //   { id, kind, code?, target?, suspect?, who?, place?, text?, detail?, evidence?: [[code, text]], alibi? }
 //   kind: question {code | suspect + text}, follow_up {code}, witness {who, detail (where the name appeared), text},
 //         confrontation {suspect, evidence}, procedure {code, target?, text, alibi?}, source {code, place}
-import { createGame, newState, hold, quote, answers, resolve, acceptsAlibi, norm } from './rules.js';
+import { createGame, newState, hold, quote, answers, resolve, acceptsAlibi, norm, matchConfrontation, confrontationCards } from './rules.js';
 import { canRequest } from './clock.js';
 
-export { createGame, quote, acceptsAlibi };
+export { createGame, quote, acceptsAlibi, confrontationCards };
 export const KINDS = ['question', 'follow_up', 'witness', 'confrontation', 'procedure', 'source'];
 export const MAX_TEXT = 400;
 export const MAX_EVIDENCE = 12;
@@ -209,14 +209,19 @@ export function matchWitness(game, typed) {
     || list.find((w) => names(w).some((n) => text.includes(n) || n.includes(text))) || null;
 }
 
-/** The request of the rules (rules.js) for a team's request; `choice` is what the director decides: { who, card, sheets }. */
-export function rulesRequest(game, rec, choice = {}) {
+/** The request of the rules (rules.js) for a team's request; `choice` is what the director decides: { who, card, sheets }.
+ * A confrontation the director has not chosen a card for takes the card its evidence opens (opens_with), if it is only one;
+ * that needs the team's `state` (T7 comes only once T6 is held). */
+export function rulesRequest(game, rec, choice = {}, state = null) {
   const q = rec.req;
   switch (q.kind) {
     case 'question': return { kind: 'question', ...(q.code ? { code: q.code } : { suspect: q.suspect }) };
     case 'follow_up': return { kind: 'follow_up', code: q.code };
     case 'witness': { const w = choice.who ? { who: choice.who } : matchWitness(game, q.who); return { kind: 'witness', who: w ? w.who : '' }; }
-    case 'confrontation': return { kind: 'confrontation', suspect: q.suspect, ...(choice.card ? { card: choice.card } : {}) };
+    case 'confrontation': {
+      const card = choice.card || (state ? matchConfrontation(game, state, q.suspect, q.evidence).card : null);
+      return { kind: 'confrontation', suspect: q.suspect, ...(card ? { card } : {}) };
+    }
     case 'source': return { kind: 'source', code: q.code, place: q.place };
     default: return { kind: 'procedure', code: q.code, target: q.target, ...(choice.sheets ? { sheets: choice.sheets } : {}) };
   }
@@ -228,9 +233,10 @@ const PREFER = ['give', 'nothing_found', 'already_have', 'locked', 'unavailable'
  * `buttons` are rules.js `answers` (one per button, each with its cost and whether it can be pressed); `suggested` is the one
  * to press; `conditions` are the codes that decide it, each with whether the team already holds it. */
 export function suggest(game, state, rec, choice = {}) {
-  const request = rulesRequest(game, rec, choice);
+  const request = rulesRequest(game, rec, choice, state);
   const list = request.kind === 'witness' && !request.who ? { error: 'unknown_witness' } : answers(game, state, request);
-  const out = { request, buttons: Array.isArray(list) ? list : [], error: Array.isArray(list) ? null : list.error, suggested: null, cost: 0, conditions: [] };
+  const out = { request, buttons: Array.isArray(list) ? list : [], error: Array.isArray(list) ? null : list.error, suggested: null, cost: 0, conditions: [], match: null };
+  if (request.kind === 'confrontation') out.match = matchConfrontation(game, state, rec.req.suspect, rec.req.evidence);
   if (out.error) return out;
   const flagged = out.buttons.find((b) => b.suggested === true && b.available);
   const first = flagged || PREFER.map((a) => out.buttons.find((b) => b.answer === a && b.available)).find(Boolean)
@@ -267,7 +273,7 @@ export function answer(game, book, rec, button, options = {}, log = [], now = Da
   // rule 1 of the kit: only in the investigation. The app keeps the clock in `book.clock` (a book without one has no phases).
   if (book.clock && !canRequest(book.clock)) return { ok: false, error: 'phase' };
   const state = teamState(game, book, rec.team, log);
-  const request = rulesRequest(game, rec, options);
+  const request = rulesRequest(game, rec, options, state);
   if (request.kind === 'witness' && !request.who) return { ok: false, error: 'unknown_witness' };
   // an alibi token pays only a charged answer, and never more than it costs
   const pressed = answers(game, state, request);

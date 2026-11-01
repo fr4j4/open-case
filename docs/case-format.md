@@ -257,6 +257,7 @@ groups:
 | `unlocked_by` | Only on follow-ups: one or several codes of the dossier or of cards that the team must also have (any one of them is enough). Use it when the follow-up names something its mother card does not say (see below). |
 | `appears_in` | Only on witnesses: the dossier sheets or cards where the teams can read the person's name. The guide's witness table shows them. |
 | `aliases` | Only on witnesses: other ways the material calls the person ("conserje", "Maca"). |
+| `opens_with` | Only on confrontations (and on a follow-up or failed card that a confrontation also hands out): the evidence that opens the card, a list of alternative rules. Each rule has `all` (codes to show together), `any` (at least one of these), `none` (codes that make the rule not apply), `held` (cards the team must already hold: T7 only after T6), `priority` (whole number, 0 by default: the highest wins when several cards fit; a tie means "ask what they point at"), `shows` (the guide's "si muestran…"; written from the codes when missing) and `note` (what the table adds after the card). Codes are those of the dossier or of cards. The guide's confrontation table (block `confrontations`) and the web panel's suggestion come from it. A case without `opens_with` writes its table by hand, as before. |
 | `guide_note` | A note for the director, printed only in the guide's generated tables (follow-ups and witnesses), never on the card. It can use the pills `[true]`, `[false]`, `[key]`… |
 | `footer` | A free line at the bottom. Hint cards without one get it from `hint_penalties` ("Resta 1 punto al equipo que la pidió"). |
 | `menu` | `true` to show the question in the kit's menu. |
@@ -526,6 +527,7 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 | `discard-rule` | The kit's paragraph on ruling innocents out and what each discard is worth | Nothing |
 | `score-sheet` | The director's score sheet, one column per team, with the tie-break | Nothing |
 | `follow-ups` | The guide's follow-up table: each card of type `follow-up` with its full question, the cards that enable it (`follow_up`), the evidence it also needs (`unlocked_by`) and its `guide_note` | Nothing |
+| `confrontations` | The guide's confrontation table: a row per rule `opens_with` of the cards (evidence shown, card handed out with what it attaches, note) and the row of the confrontation that proves nothing | Nothing |
 | `witnesses` | The guide's witness table: each witness (the cards of type `witness` with the same `who`), where their name appears (`appears_in`) and what to hand out, with its `guide_note` | Optional: `others:` with `names`, `appears_in` and `card` for the row of the other names of the material |
 | `quick-follow-ups`, `quick-witnesses` | The same, short, for the quick sheet (inside a `columns` block) | Optional in `quick-witnesses`: `others: {card: ...}` |
 

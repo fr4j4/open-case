@@ -45,7 +45,7 @@ play/
 
 ## `schema_version`
 
-All the JSON carries `schema_version` (today **3**). The JSON Schemas in `docs/web-schema/` (`team`, `director`,
+All the JSON carries `schema_version` (today **4**). The JSON Schemas in `docs/web-schema/` (`team`, `director`,
 `manifest`) describe every field and are checked by `tests/test_web.py` against the real files. They have
 `additionalProperties: false`: adding a field is a change of the contract. To change the schema:
 
@@ -84,7 +84,7 @@ what is not yet handed out out of the way, in good faith, as agreed in the plan.
 |---|---|
 | `case`, `figures`, `rules` | as in `team.json` |
 | `sheets[]` | every sheet of the dossier, in the order of `case.yaml`: `id`, `code`, `title`, `file`, `section`, `envelope` (`null` when it is handed out by a procedure or a card) |
-| `cards[]` | every card of `cards.yaml`: `code`, `type`, `file`, `suspect`, `who`, `headline`, `question`, `answer`, `note`, `footer` (what the engine writes: the points of a hint, "1 de 2" of a notice), `menu`, `attach` (sheets it hands out), `follow_up`, `unlocked_by`, `guide_note` |
+| `cards[]` | every card of `cards.yaml`: `code`, `type`, `file`, `suspect`, `who`, `headline`, `question`, `answer`, `note`, `footer` (what the engine writes: the points of a hint, "1 de 2" of a notice), `menu`, `attach` (sheets it hands out), `follow_up`, `unlocked_by`, `guide_note`, `opens_with` (the rules of the evidence that open a confrontation card: `all`, `any`, `none`, `held`, `priority`; empty on the other cards) |
 | `procedures[]` | those of `team.json` plus `short`, `note` and **what each hands out**: `gives` (one result) or, per target, `sheets` (printed codes), `special` (`none`: "sin hallazgos"; `material`: hand out what the material has), `cost` and `note` |
 | `locations[]` | the places and the `sources` (`camera`, `register`) each has |
 | `witnesses[]` | `name`, `cards`, `appears_in` (where the teams can read the name), `aliases`, `attach` |
@@ -127,6 +127,7 @@ The module is pure (no DOM, no network) and reads only these fields and the card
 | 1 Only in the investigation | the app (F5) opens the phase | — |
 | 2 A witness only once named | `witnesses[].appears_in` | `give` is refused (`unavailable`) until a sheet or card of `appears_in` is held; one card per question, in order; then `nothing_to_add` |
 | 3 A confrontation hands out one card; a wrong one is charged | `requests.confrontation`, `cards[]` (`confrontation`, `failed`) | `give` with a card of that suspect, or `failed` (their `failed` card, else `wildcards.confrontation_failed`); the same card twice is `already_have` |
+| 3b Which card a confrontation opens | `cards[].opens_with` | `matchConfrontation(game, state, suspect, evidence)` gives `{card, candidates}`: the cards of the suspect with a rule that fits (`all` every one shown, `any` at least one, `none` none, `held` cards the team already holds); the highest `priority` wins and `card` is null when the best ones tie (the panel lists them and the director asks) or none fits (`failed`). Same as `opencase/confrontations.py` `match` |
 | 4 Procedures: no basis is free, "sin hallazgos" is charged, what they already have is free | `requests.procedure`, `procedures[].targets` (`special`) | `nothing_found` only where the result is `none` or `material`; `give` of a held sheet is `already_have`; `no_basis` is free |
 | 5 Asking if a place has a source is free | `free_source_procedures`, `locations[].sources` | `source` answers `yes` or `no` (the one the place suggests) without charging |
 | 6 Alibi tokens | `alibi_procedures`, `procedure_kinds[].locates` | an alibi token pays only a charged answer of a procedure in `alibi_procedures`; spare numbered tokens score `figures.score.spare_token`, alibi ones do not |
@@ -134,7 +135,7 @@ The module is pure (no DOM, no network) and reads only these fields and the card
 
 `tests/web/test_rules.py` runs `tests/web/rules.test.mjs` with node: the 100 % of the menu questions, follow-ups,
 witnesses, confrontations and procedure–target pairs of the Chupacabras give in JS the cards, sheets and cost that
-pytest works out from the loaded case (`requests` in `tests/web_expected/<case>.json`), and every kind of request
+pytest works out from the loaded case (`requests` in `tests/web_expected/<case>.json`), and `tests/web_expected/<case>-confrontations.json` (the old guide table written by hand: evidence → card) gives the same card in Python and in JS; every kind of request
 with every button is run against the balance (never below 0, spent + left = initial).
 
 ## `manifest.json`

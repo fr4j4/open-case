@@ -34,49 +34,105 @@ groups:
         type: confrontation
         question: '"Usted estuvo en Labranza esa noche."'
         answer: '"Ya, sí… fui. Quería hablar con él, pero no entré. Lo vi por la ventana de la caseta y me arrepentí. Me devolví."'
+        opens_with:
+        - all: [E14, E26-B]
+          priority: 1
+          shows: 'E14 y E26·B juntas (salió del edificio y estuvo en el poniente)'
+          note: '(nueva mentira: "no entré")'
       - code: B5a
         type: confrontation
         question: '"Su edificio registra que usted salió a las 22:31."'
         answer: '"Salí a dar una vuelta, me dio hambre. No dije que anduviera en Labranza. Después volví a dormir."'
+        opens_with:
+        - any: [E14]
+          shows: 'Solo E14 (el portón: salió a las 22:31)'
+          note: '(admite que salió, no dice adónde). La ficha se cobra.'
       - code: B6
         type: confrontation
         question: '"A las 23:10 llegó a El Arrayán un vehículo con un foco roto."'
         answer: '"…Llegué, hablamos dos minutos en el portón y me fui. Cuando me fui estaba vivo, se lo juro por mi mamá."'
+        opens_with:
+        - all: [E17-B]
+          any: [E08, E28]
+          shows: 'E08 o E28 junto con E17·B (el vehículo con un foco)'
+          note: '("estaba vivo cuando me fui")'
       - code: B7
         type: confrontation
         question: '"Matías le escribió que lo dejaba fuera, y usted lo llamó."'
         answer: '"Sí, me escribió eso. Y lo llamé para decirle lo que pensaba de él, ¿y qué? Los hermanos pelean. Eso no significa nada."'
+        opens_with:
+        - any: [E13d, E29-P, E29-B]
+          shows: 'E13d, E29·P o E29·B (el mensaje recuperado, o que Benjamín lo leyó a las 22:16 y llamó a las 22:17)'
       - code: B7a
         type: confrontation
         question: '"Usted dice que Matías lo llamó, pero fue usted quien lo llamó a las 22:17."'
         answer: '"…Ya, lo llamé yo, no me acordaba. Para pelear por plata, como siempre. Los hermanos se llaman, ¿o ahora es delito?"'
+        opens_with:
+        - all: [E13a]
+          shows: 'Solo la llamada de E13a (22:17, la hizo él)'
+          note: '(admite la llamada, no el motivo)'
       - code: B8
         type: confrontation
         question: '"Hay algo del Copec que lo compromete."'
         answer: '"¿Una boleta? Habré cargado de pasada, no me acuerdo de la hora. Hay miles de bolsas y boletas del Copec, detective."'
+        opens_with:
+        - all: [E28, E19-B]
+          none: [E17-B]
+          priority: 1
+          shows: 'E28 junto con la boleta del Copec de E19·B (sin E17·B)'
+          note: ', no B10: el vehículo sigue exigiendo E17·B'
+        - any: [E18, E19-B]
+          shows: 'E18 (la bolsa del Copec) o la boleta del Copec de las 22:52 en E19·B'
+          note: '. La boleta abre solo B8, no B6 ni B10: el camino del vehículo sigue exigiendo el foco de E17·B.'
       - code: B9
         type: confrontation
         question: '"Alguien borró el mensaje del grupo desde el teléfono de Matías a las 23:18."'
         answer: '"¿Y yo qué sé? Yo no tenía su teléfono. Ese mensaje… ni lo leí."'
+        opens_with:
+        - any: [E13b, E13a]
+          shows: 'E13b o E13a (el borrado o el desbloqueo de las 23:18)'
+          note: '("yo no tenía su teléfono")'
       - code: B10
         type: confrontation
         question: '"Su camioneta cargó en el Copec a las 22:52 y volvió a las 23:41."'
         answer: (Larga pausa.) "…Fui a hablar con él. Me quedé un rato estacionado en el camino, pensando si entrar o no. Discutimos en el portón y me fui. Cuando me fui, estaba vivo."
+        opens_with:
+        - all: [E28, E17-B]
+          priority: 1
+          shows: 'E28 junto con E17·B (la camioneta gris con un foco es la suya)'
+          note: '(admite que fue y discutieron)'
       - code: B11
         type: confrontation
         question: '"El martes usted estuvo solo en el galpón y vio algo."'
         answer: "(Se le endurece la cara.) \"Vi la horqueta afilada y entendí todo: los animales eran cosa de él, para bajar los precios. Le dije que estaba loco. Y no, no me la llevé… La dejé ahí.\""
+        opens_with:
+        - any: [T5]
+          priority: 1
+          shows: 'T5 (Toto dijo que el hermano estuvo solo en el galpón), sola o junto con E13b (el chat del galpón)'
+          note: '(vio la horqueta, dice que la dejó)'
       - code: B12
         type: confrontation
         question: '"A las 11:20 usted habló de un golpe. La autopsia fue a las 14:30."'
         answer: '"…¿Dije eso? No sé lo que dije, estaba destrozado. Todos hablaban de los hoyos en el cuello y yo… pensé en un golpe, ¿qué sé yo? Cualquiera piensa eso."'
+        opens_with:
+        - all: [DEC-B, E06]
+          shows: 'DEC·B junto con E06 (habló del golpe antes de la autopsia)'
       - code: B✕
         type: failed
         answer: '"Esa antena cubre medio Labranza, detective. Y el foco está roto desde el lunes, ahí está el presupuesto. ¿Alguien vio mi camioneta en El Arrayán? ¿No? Entonces no tienen nada."'
+        opens_with:
+        - any: [E26-B, E17-B]
+          none: [E08, E28]
+          shows: 'Solo E26·B, solo E17·B, o las dos sin E08 ni E28'
+          note: '(fallida, pero le dice al equipo qué le falta cruzar). La ficha se cobra.'
       - code: B13
         type: confrontation
         question: '"Hay pintura blanca en sus zapatos y buscó cómo sacar barro de una chaqueta."'
         answer: '"Barro hay en todo Temuco, detective. Y la chaqueta la lavo todos los sábados. ¿Ahora es delito googlear?"'
+        opens_with:
+        - any: [E19-B, E29-B]
+          shows: 'E19·B (la pintura blanca en las suelas) o E29·B (la búsqueda del barro)'
+          note: '. Con E19·B pueden señalar también la boleta: eso abre B8.'
       - code: B1+
         type: follow-up
         question: ¿A qué hora se durmió?
@@ -87,6 +143,10 @@ groups:
         question: ¿De qué plata peleaban?
         answer: '"De la plata del proyecto. Yo puse cuarenta millones hace un año y medio. Él decía que era un préstamo; yo digo que era mi parte."'
         guide_note: '[true] [key] Los $40 millones. Motivo.'
+        opens_with:
+        - any: [E15-B]
+          shows: 'E15·B (el crédito y la transferencia de 40 millones)'
+          note: '(admite que puso la plata; no dice nada de la venta). La ficha se cobra.'
 
   - title: Don Hernán Carrasco
     suspect: H
@@ -114,10 +174,16 @@ groups:
         type: confrontation
         question: '"Usted firmó una promesa de venta."'
         answer: '"…No le digan a la Elena. Ni a la Claudia. Me asusté con los ataques y él me ofreció noventa millones. Y ahora que se murió, ¿quién me paga? Si yo era el más interesado en que ese hombre siguiera vivo."'
+        opens_with:
+        - any: [E25, EL1]
+          shows: 'E25·b (promesa de venta) o EL1'
       - code: H6
         type: confrontation
         question: '"Usted quiso arrepentirse y le cobraban 20 millones."'
         answer: '"…Sí. Veinte millones que no tengo. Pero esa noche estuve en el hospital con la Elena, sentado en la sala de espera hasta las dos. Ahí está el papel."'
+        opens_with:
+        - any: [E13b, E25]
+          shows: 'E13b (el chat de la multa) o la cláusula 7 de E25'
       - code: H2+
         type: follow-up
         question: ¿Qué papeles le pidió devolver a Matías?
@@ -155,10 +221,17 @@ groups:
         type: confrontation
         question: '"Las dos huellas tienen la misma grieta."'
         answer: '"…Ya, es un molde de yeso. Lo compré por internet. Pero los animales muertos son reales, eso yo no lo inventé. Y el grito también lo escuché."'
+        opens_with:
+        - all: [E03]
+          any: [E02, E19-J, E15-J]
+          shows: 'E03 junto con E02 foto 4, E19·J o E15·J (el molde)'
       - code: J6
         type: confrontation
         question: '"Matías la vio poner la huella y la amenazó."'
         answer: '"Sí, me amenazó y me dio rabia. Pero yo estuve en vivo dos horas, sin moverme del cerco. Miles de personas me estaban mirando."'
+        opens_with:
+        - any: [E13c]
+          shows: 'E13c (Matías la vio poner la huella)'
       - code: J3+
         type: follow-up
         question: ¿Sabía quién era @vecino_asustado_lab?
@@ -191,10 +264,19 @@ groups:
         type: confrontation
         question: '"Usted estuvo en El Arrayán esa noche."'
         answer: '"Sí. Fui a las nueve a pedirle mis tres millones. Me dijo que volviera con él, le tiré un vaso y me fui llorando. Tomé el colectivo antes de las diez. Estaba vivo, gritando como siempre."'
+        opens_with:
+        - all: [E02]
+          any: [E16, E19-P]
+          shows: 'E02 foto 6 con E16 o E19·P (el aro)'
+        - any: [R2, CO1, F1, E26-P]
+          shows: 'R2, CO1, F1 o E26·P'
       - code: P6
         type: confrontation
         question: '"Usted leyó el mensaje del grupo a las 22:15."'
         answer: '"Sí. Nos dejó fuera a Benja y a mí. Le escribí a la Fer y me fui a cantar para no pensar. Y alguien lo borró después, mientras yo estaba en La Tarima. Yo no tenía su teléfono. ¿Quién lo tenía?"'
+        opens_with:
+        - any: [E29-P, E13d]
+          shows: 'E29·P o E13d (el mensaje del grupo)'
       - code: P2+
         type: follow-up
         question: ¿Por qué lo llamó a las 18:05 del viernes?
@@ -228,14 +310,25 @@ groups:
         type: confrontation
         question: '"Sabemos lo de los animales."'
         answer: (Llorando) "Don Matías, el jefe, me pagaba cincuenta lucas por salida. Hice la cuestión con una horqueta. Pero a él no lo toqué, se lo juro. El martes la herramienta desapareció. Ese día vino el hermano y estuvo harto rato solo en el galpón."
+        opens_with:
+        - any: [E11, E12, E15-M, E15-T, E19-T, E13b]
+          shows: 'E11, E12, E15·M, E15·T, E19·T o el chat del galpón de E13b (los animales)'
       - code: T6
         type: confrontation
         question: '"Usted lo amenazó con ir a la PDI." / "Sus huellas están en la horqueta."'
         answer: '"Sí, le escribí por la plata, me debía tres salidas. Y sí, la horqueta es mía, la usé pa'' los animales. Pero desde el martes que no la tenía. A las once yo estaba en la fiesta, pregúntenle a la Maca."'
+        opens_with:
+        - any: [Aviso 2, E13b]
+          shows: 'Aviso 2 (las huellas) o la amenaza de ir a la PDI (E13b)'
       - code: T7
         type: confrontation
         question: '"¿Qué era ''lo de hoy'' y qué le debía Matías?"'
         answer: '"Lo de hoy era la oveja del jueves, jefe. Esa la hice con dos clavos en una tabla, porque la horqueta ya no estaba. Me pagaba cincuenta lucas por salida y me debía tres, ciento cincuenta lucas. Por eso le escribí lo de la PDI. Pero el viernes yo estaba en la fiesta de la Maca, de un cuarto para las once hasta que me quedé dormido. Pregúntenle a ella."'
+        opens_with:
+        - any: [Aviso 2, E13b]
+          held: [T6]
+          priority: 1
+          shows: 'Aviso 2 o E13b, cuando ya tienen la T6'
       - code: T4+
         type: follow-up
         question: ¿Qué cosa se le perdió el martes?
@@ -270,11 +363,17 @@ groups:
         question: '"Usted sabía que no era un animal."'
         answer: '"…Iba a informar al SAG y él me pidió que no alarmara a la gente. Me pagó. Necesitaba la plata para la clínica. Aquí están mis notas originales."'
         attach: E11
+        opens_with:
+        - any: [E15-M, E15-C, E12]
+          shows: 'E15·M o E15·C (la transferencia) o E12 (el SAG la contradice)'
       - code: C6
         type: confrontation
         question: '"Matías la estaba chantajeando con los 800 mil."'
         answer: '"…Sí. Me tenía agarrada. Pero esa noche estaba operando a Canela, desde las once. Está la cámara de la clínica."'
         attach: E22
+        opens_with:
+        - any: [E13b]
+          shows: 'E13b (el chantaje de los 800 mil)'
       - code: C3+
         type: follow-up
         question: ¿Matías le pagó alguna vez por algo?

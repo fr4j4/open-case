@@ -118,6 +118,37 @@ export function acceptsAlibi(game, request) {
   return request.kind === 'procedure' && game.rules.alibi_procedures.includes(request.code);
 }
 
+// --- Which card a confrontation opens (opens_with of cards.yaml, confrontations.py) -------------------------------------
+
+/** The cards a confrontation can hand out for a suspect: the confrontation cards, and any follow-up that has rules of its own. */
+export function confrontationCards(game, suspect) {
+  if (!game.director) return [];
+  return game.director.cards.filter((c) => c.suspect === suspect
+    && (c.type === 'confrontation' || (c.type === 'follow-up' && (c.opens_with || []).length)));
+}
+
+const ruleFits = (rule, shown, state) => {
+  const seen = (x) => shown.some((y) => norm(y) === norm(x));
+  return rule.all.every(seen) && (!rule.any.length || rule.any.some(seen)) && !rule.none.some(seen)
+    && rule.held.every((x) => holdsCard(state, x));
+};
+
+/** The card the evidence a team shows opens: { card, candidates } (engine: confrontations.match). `card` is the one best
+ * card, or null when none fits or the best tie (then `candidates` lists them and the director asks what they point at).
+ * Cards without `opens_with` (a case that does not write them) are never chosen: the director picks by hand. */
+export function matchConfrontation(game, state, suspect, evidence) {
+  const shown = (evidence || []).map((e) => (Array.isArray(e) ? e[0] : e));
+  let best = null;
+  let names = [];
+  for (const c of confrontationCards(game, suspect)) {
+    const scores = (c.opens_with || []).filter((r) => ruleFits(r, shown, state)).map((r) => r.priority);
+    if (!scores.length) continue;
+    const score = Math.max(...scores);
+    if (best === null || score > best) { best = score; names = [c.code]; } else if (score === best) names.push(c.code);
+  }
+  return { card: names.length === 1 ? names[0] : null, candidates: names };
+}
+
 // --- What each answer hands out and whether it can be given -------------------------------------
 
 const out = (cards = [], sheets = []) => ({ cards: [...cards], sheets: [...sheets] });
@@ -169,7 +200,7 @@ function evaluate(game, state, request) {
   } else if (kind === 'confrontation') {
     if (!game.suspects.has(request.suspect)) return { error: 'unknown_suspect' };
     const c = request.card ? card(request.card) : null;
-    if (request.card && (!c || c.type !== 'confrontation' || c.suspect !== request.suspect)) return { error: 'unknown_card' };
+    if (request.card && (!c || !confrontationCards(game, request.suspect).includes(c))) return { error: 'unknown_card' };
     put('give', c ? out([c.code], c.attach) : out(), !c ? 'no_card' : (heldCard(c) ? 'already_have' : null));
     const failed = [...game.cards.values()].find((x) => x.type === 'failed' && x.suspect === request.suspect);
     put('failed', failed ? out([failed.code]) : out(wildcard(game, 'confrontation_failed')));

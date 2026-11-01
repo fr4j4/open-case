@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 
 from . import cards as C
-from . import documents, followups, printing, procedures, templates, witnesses
+from . import confrontations, documents, followups, printing, procedures, templates, witnesses
 from .components import Context
 from .loader import CaseError, as_list, card_kind, case_languages, display_code, iter_cards, load_case, read_yaml_file
 from .loader import read_yaml
@@ -35,7 +35,7 @@ from .markup import plain_text, use_strings
 from .i18n import Strings
 
 ROOT = Path(__file__).resolve().parent.parent
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 SCHEMA_DIR = ROOT / "docs" / "web-schema"
 
 # --- Names of files and of assets ---------------------------------------------------------------
@@ -287,6 +287,8 @@ def _card_entry(case, c, g, extra, file):
         "follow_up": [str(x) for x in as_list(c.get("follow_up"))],
         "unlocked_by": [display_code(case, x) for x in as_list(c.get("unlocked_by"))],
         "guide_note": _text(c.get("guide_note", "")),
+        "opens_with": [{"all": r["all"], "any": r["any"], "none": r["none"], "held": r["held"],
+                        "priority": r["priority"]} for r in confrontations.rules_of(case, c)],
     }
 
 

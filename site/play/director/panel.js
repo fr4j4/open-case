@@ -3,7 +3,7 @@
 // how it is answered is js/requests.js over js/rules.js. `ui` = { dgame, book, teamJson, log, choices, answer(rec, button, options), redraw() }.
 import { h } from '../js/dom.js';
 import { t, plural, language } from '../js/i18n.js';
-import { describe, suggest, matchWitness, medianSeconds, teamState } from '../js/requests.js';
+import { describe, suggest, matchWitness, medianSeconds, teamState, confrontationCards } from '../js/requests.js';
 import { acceptsAlibi, norm } from '../js/rules.js';
 
 const time = (ms) => new Date(ms).toLocaleTimeString(language(), { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -53,13 +53,19 @@ function choices(ui, rec, sg, c) {
   }
   if (q.kind === 'confrontation') {
     const state = teamState(ui.dgame, ui.book, rec.team, ui.log);
-    const cards = ui.dgame.director.cards.filter((x) => x.type === 'confrontation' && x.suspect === q.suspect);
+    const cards = confrontationCards(ui.dgame, q.suspect);
+    const ruled = cards.some((x) => (x.opens_with || []).length);
+    const m = sg.match;
+    const verdict = !ruled || !m ? null
+      : m.card ? t('confront.opens', { card: m.card })
+        : m.candidates.length ? t('confront.ask', { cards: m.candidates.join(', ') }) : t('confront.none');
     out.push(h('div', { class: 'oc-confront' },
       h('h4', {}, t('requests.panel.confront_cards')),
+      verdict ? h('p', { class: 'oc-muted', dataset: { match: m.card || '', candidates: m.candidates.join(',') } }, verdict) : null,
       cards.length ? cards.map((k) => {
         const had = state.held.cards.some((x) => norm(x) === norm(k.code));
         return h('label', { class: 'oc-sel', dataset: { card: k.code } },
-          h('input', { type: 'radio', name: `card-${rec.id}`, value: k.code, checked: c.card === k.code, 'data-choice': 'card', onchange: () => { c.card = k.code; c.keep = undefined; ui.redraw(); } }),
+          h('input', { type: 'radio', name: `card-${rec.id}`, value: k.code, checked: sg.request.card === k.code, 'data-choice': 'card', onchange: () => { c.card = k.code; c.keep = undefined; ui.redraw(); } }),
           h('span', {}, h('strong', {}, k.code), ' · ', k.question, had ? h('small', {}, ` · ${t('requests.panel.had')}`) : null, k.guide_note ? h('small', {}, ` · ${k.guide_note}`) : null));
       }) : h('p', { class: 'oc-muted' }, t('requests.panel.no_cards'))));
   }
