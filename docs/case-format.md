@@ -515,9 +515,10 @@ A message can also be written on one line, `{from: Rosa, time: "21:04", text: "S
 | Block | What it draws | Content |
 |---|---|---|
 | `control` | The director's control table: one column per team; with `procedures.yaml`, a table of the procedures (one row per sheet number: E15·B to E15·M in one) and one of the cards that hand out a sheet (`attach`, named by the sheet's `short`); then the notices, other questions, hints, tokens left and alibi tokens used | Nothing; a case without `procedures.yaml` writes `rows:`, a list of `[code, what it is, tokens]` |
-| `procedures` | The kit's menu of procedures, from `procedures.yaml`: code (dashed when `alibi: true`), label and cost | Nothing |
-| `procedure-answers` | The guide's table of procedures: each target and what to hand out, with the notes | Nothing |
-| `quick-procedures` | The same, short, for the quick sheet (inside a `columns` block) | Nothing |
+| `procedures` | The kit's menu of procedures, from `procedures.yaml`: code (dashed when `alibi: true`), label and cost, and the line that says a procedure that does not fit is answered "no procede" with no token spent | Nothing |
+| `procedure-answers` | The guide's table of procedures: each target and what to hand out as "name → sheet" pairs, with the notes | Nothing |
+| `quick-procedures` | The same, short, for the quick sheet (inside a `columns` block). With `skip_persons: true` inside the block, the procedures that are columns of `quick-persons` are left out | `skip_persons` |
+| `quick-persons` | The procedures on a person as one table for the quick sheet: a row per person (suspects in the order of `suspects.yaml`, then other people such as the victim) and a column per procedure with two or more suspects as targets; each cell is the sheet it hands out or "—". Built from the targets of `procedures.yaml` | Nothing |
 | `locations` | The guide's table of places: sources, procedures that reach them and what they hand out | Nothing |
 | `notices` | What the director reads for each notice and press card, with its suggested minute, from the cards of type `notice` and `press` | Nothing |
 | `hints` | The hints in order, with what each one costs, from the cards of type `hint` | Nothing |
