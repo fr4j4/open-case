@@ -237,6 +237,28 @@ def _derive(proc):
         r["also"] = r["shown"][1:]
 
 
+def person_matrix(case):
+    """The quick sheet's table of procedures on a person: one row per person, one column per procedure that has
+    at least two suspects as targets, in the order of the suspects. Each cell is the target's result or None.
+    Returns None when the case has no such procedure."""
+    cols = [p for p in case.procedures
+            if p["target"] == "person" and sum(1 for t in p["targets"] if t.get("suspect")) >= 2]
+    if not cols:
+        return None
+    order = [str(s.get("letter")) for s in case.suspects]
+    for p in cols:
+        for t in p["targets"]:
+            if t["key"] not in order and t["key"] != "other":
+                order.append(t["key"])
+    rows = []
+    for key in order:
+        cells = [next((t for t in p["targets"] if t["key"] == key), None) for p in cols]
+        if any(cells):
+            name = next(t["label"] for t in cells if t)
+            rows.append({"key": key, "name": name, "cells": cells})
+    return {"cols": cols, "rows": rows}
+
+
 def reachable(case):
     """Normalized codes of every dossier sheet a team can get: the envelopes, the procedures' results and the
     sheets the cards hand out (attach)."""

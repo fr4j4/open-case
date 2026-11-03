@@ -14,3 +14,6 @@
 Codes with a dashed border can also be paid with an alibi token.
 {.small}
 {% endif %}
+
+If a procedure does not fit, the director says "does not apply" and no token is spent.
+{.small}

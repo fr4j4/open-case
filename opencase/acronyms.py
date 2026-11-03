@@ -29,7 +29,7 @@ PROSE_BLOCKS = {"md", "table", "note", "note-ok", "note-warning", "meta", "field
                 "script", "steps", "work-table", "menu", "signature"}
 
 # Engine blocks that print the case's procedures and places (opencase/procedures.py).
-PROCEDURE_BLOCKS = {"procedures", "procedure-answers", "quick-procedures", "locations", "control"}
+PROCEDURE_BLOCKS = {"procedures", "procedure-answers", "quick-procedures", "quick-persons", "locations", "control"}
 
 COMMON = {"OK", "TV", "AM", "PM"}
 _ROMAN = re.compile(r"[IVXLCDM]+")

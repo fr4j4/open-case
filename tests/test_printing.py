@@ -55,8 +55,8 @@ def test_packages_follow_the_design(built):
 def test_evidence_is_ordered_by_code(built):
     case, docs, plan = built
     ids = printing.evidence_ids(case)
-    assert len(ids) == 51
-    assert ids[:4] == ["E08", "E09", "E10", "E11"] and ids[-1] == "E30"
+    assert len(ids) == 52
+    assert ids[:4] == ["E08", "E09", "E10", "E11"] and ids[-1] == "E31"
     assert ids.index("E13b") < ids.index("E13b-2") < ids.index("E13c")
     assert ids.index("E15-B") < ids.index("E15-C") < ids.index("E16")
     evidence = next(d for d in docs if d.key == "evidence").html

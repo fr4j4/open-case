@@ -28,9 +28,9 @@ procedures:
       (solo publicaciones públicas; las de Javiera están en E03 y su live no sale aquí: sale con J2 o con DG12).
       Las historias de Maca y de Pía no salen aquí: las entregan M1 y F1.
   DG8:
-    label: "Allanar la caseta de El Arrayán (indiquen: el escritorio o la caja fuerte)"
-    short: Caseta
-    targets: {desk: escritorio, safe: caja fuerte}
+    label: "Allanar la parcela El Arrayán (indiquen: el escritorio, la caja fuerte o el galpón)"
+    short: Parcela El Arrayán
+    targets: {desk: escritorio de la caseta, safe: caja fuerte de la caseta, shed: galpón}
   DG11:
     notes: {karaoke: "el local no tiene cámaras; las historias las tiene Fernanda, F1"}
   DG12:

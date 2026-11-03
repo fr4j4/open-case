@@ -14,3 +14,6 @@
 Los códigos con borde punteado también se pueden pagar con una ficha de coartada.
 {.small}
 {% endif %}
+
+Si una diligencia no corresponde, el director dice "no procede" y no se cobra la ficha.
+{.small}

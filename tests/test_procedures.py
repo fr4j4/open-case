@@ -94,9 +94,9 @@ def test_guide_tables(case_dir, lang):
     case, html = docs(root, lang)
     guide = html["guide"]
     es = lang == "es"
-    assert ("Antenas: Ana · otra persona" if es else "Phone towers: Ana · someone else") in guide
-    assert "E04·A · " + ('"Sin hallazgos"' if es else '"No findings"') in guide
-    assert ("caja fuerte (2 fichas)" if es else "safe (2 tokens)") in guide
+    assert ("Ana → E04·A · otra persona → " if es else "Ana → E04·A · someone else → ") in guide
+    assert "E04·A · " + ('otra persona → "Sin hallazgos"' if es else 'someone else → "No findings"') in guide
+    assert ("caja fuerte → E06 (2 fichas)" if es else "safe → E06 (2 tokens)") in guide
     assert ("(no tiene cámaras)" if es else "(it has no cameras)") in guide
     assert ("Almacén" if es else "Shop") in guide and ("cámara" if es else "camera") in guide
     assert ("Cierra a las 22" if es else "Closes at 22") in guide
@@ -223,3 +223,22 @@ def test_second_sheet_of_a_target_joins_the_card_row(case_dir):
     case, html = docs(case_dir)
     guide = html["guide"]
     assert guide.index("DG4 A → E06") < guide.index("Pruebas que entregan las tarjetas")
+
+
+def test_person_matrix_and_the_menu_note():
+    """The quick sheet's persons table is built from the targets (one row per person, one column per procedure
+    on a person) and the kit's menu says that what does not fit is answered 'no procede', with no token."""
+    from pathlib import Path
+    from opencase import procedures
+    root = Path(__file__).resolve().parent.parent / "cases" / "chupacabras-labranza"
+    case = load_case(root, "es")
+    matrix = procedures.person_matrix(case)
+    assert [p["code"] for p in matrix["cols"]] == ["DG3", "DG5", "DG7", "DG9", "DG12"]
+    assert [r["key"] for r in matrix["rows"]][:6] == ["B", "H", "J", "P", "T", "C"] and matrix["rows"][-1]["key"] == "M"
+    benjamin = matrix["rows"][0]
+    assert benjamin["name"] == "Benjamín" and [t["shown"][0] if t else None for t in benjamin["cells"]][:2] == ["E15·B", "E17·B"]
+    matias = matrix["rows"][-1]
+    assert matias["cells"][0]["shown"] == ["E15·M"] and matias["cells"][1] is None
+    use_strings(case.strings)
+    kit = {d.key: d.html for d in build_documents(case)}["kit"]
+    assert 'el director dice "no procede" y no se cobra la ficha' in kit

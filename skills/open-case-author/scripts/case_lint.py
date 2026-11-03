@@ -137,7 +137,7 @@ def main():
         for r in results:
             r = r.get("gives") if isinstance(r, dict) else r
             proc_sheets.update(norm(x) for x in (r if isinstance(r, list) else [r]) if x not in (None, "none", "material"))
-    if re.search(r"^`{3,}\s*(?:procedure-answers|quick-procedures|control)\b", guide_text, re.M):
+    if re.search(r"^`{3,}\s*(?:procedure-answers|quick-procedures|quick-persons|control)\b", guide_text, re.M):
         guide_text += "\n" + " ".join(sorted(proc_codes | proc_sheets))
     guide_norm = norm(guide_text).casefold()
     fixed = {"notice", "press", "hint", "closing", "wildcard"}

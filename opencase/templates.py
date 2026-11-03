@@ -171,6 +171,7 @@ def context(case, data=None):
         "locations": case.locations,
         "procedure_cards": procedures.card_rows(case),
         "procedure_also": procedures.also_rows(case),
+        "person_matrix": procedures.person_matrix(case),
         "case_title": case.title,
         "glossary": table_rows(case),
         "data": data if data is not None else {},
