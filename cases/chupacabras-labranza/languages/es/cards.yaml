@@ -148,7 +148,6 @@ groups:
           `@vecino_asustado_lab · 13/10: "Revisa la parcela de Carrasco." · 18/10: "Mañana pasa por Los Maitenes." · 29/10: "Mañana revisa El Arrayán. Algo pasó esta noche."`
         follow_up: J3+
       - code: J4
-        menu: true
         question: ¿Qué eran las luces en el cielo?
         answer: '"No sé. Mis seguidores dicen que es un ovni. Yo no afirmo nada, solo muestro."'
       - code: J5
@@ -288,7 +287,7 @@ groups:
       - code: R1
         who: Rosa Huenchumilla
         question: ¿Qué escuchó esa noche?
-        answer: '"A las nueve y media, balazos: era el vecino con los perros. A las once y diez, un auto. Después un portazo y los perros ladrando. Se fue antes de la lluvia, como a las once y media. Ah, y el Kevin, mi nieto, andaba con ese aparato volador que le regalaron."'
+        answer: '"A las nueve y media, balazos: era el vecino con los perros. A las once y diez, un auto. Después un portazo y los perros ladrando. Se fue antes de la lluvia, como a las once y media. Ah, y el Kevin, mi nieto, andaba con ese aparato volador, un dron con lucecitas, que le regalaron."'
         appears_in: [E01, E04]
       - code: R2
         who: Rosa Huenchumilla
