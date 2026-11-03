@@ -32,5 +32,7 @@ Gana el equipo con más puntos. Si empatan, gana el que gastó menos fichas; si 
 | **Total** |  |  |
 ```
 
+Si un equipo no presenta acusación, su hoja de acusación y su hoja de descarte valen 0 (no se corrigen y el −1 por inocente sin explicar no se aplica); solo cuentan las fichas que le sobren y las pistas pedidas siguen restando.
+
 Mientras un equipo expone, ve puntuando la hoja de otro. Si todos acusan a la persona equivocada, no hay ganador: lee igual el cierre.
 {.small}

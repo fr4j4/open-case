@@ -18,7 +18,7 @@ pages: 3
 | Pistas falsas | 1 c/u | Por cada pista falsa explicada con la prueba que la resuelve (tabla de abajo). |
 | Fichas | 0,25 c/u | Las que les sobren. |
 | Pistas pedidas | −1 c/u | Por cada pista que le diste al equipo; la tercera resta 2. |
-| Sin acusación | — | Los puntos de descartes y de pistas falsas solo se suman si el equipo entregó una acusación con nombre. |
+| Sin acusación | — | Hoja de acusación y de descarte valen 0 (no se corrigen; no aplica el −1 por inocente sin explicar). Solo suman las fichas que sobren; las pistas pedidas siguen restando. |
 | Acusar a otra persona | −5 | Y el equipo no puede ganar, aunque sume más puntos. Si los dos acusan mal, no hay ganador. |
 
 ### Hoja de descarte: qué prueba vale para cada inocente

@@ -23,7 +23,7 @@ title: Score
 | Each token left over{{ " (alibi tokens do not count)" if alibi else "" }} | {{ score.spare_token|num }} each |
 | Each hint asked of the director ({{ m.hint_costs(hint_groups) }}) | − |
 | Accusing the wrong person: the team cannot win (if everyone is wrong, there is no winner) | {{ score.wrong_accusation|num }} |
-| Accusing no one: only the tokens left over score | — |
+| Handing in no accusation: 0 on the accusation and discard sheets (neither up nor down); only the tokens left over score, hints asked still subtract and there is no −1 per unexplained innocent | — |
 ```
 
 The team with the most points wins. On a tie, the team that spent fewer tokens wins; if still tied, the one that presented the clearest theory.

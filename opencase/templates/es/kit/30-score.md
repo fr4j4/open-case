@@ -23,7 +23,7 @@ title: Puntaje
 | Cada ficha que les sobre{{ " (las de coartada no cuentan)" if alibi else "" }} | {{ score.spare_token|num }} c/u |
 | Cada pista pedida al director ({{ m.hint_costs(hint_groups) }}) | − |
 | Acusar a la persona equivocada: el equipo no puede ganar (si todos se equivocan, no hay ganador) | {{ score.wrong_accusation|num }} |
-| No acusar a nadie: solo suman las fichas que les sobren | — |
+| No presentar acusación: 0 en la hoja de acusación y en la de descarte (ni sube ni baja); solo suman las fichas que les sobren, las pistas pedidas siguen restando y no hay −1 por inocente sin explicar | — |
 ```
 
 Gana el equipo con más puntos. Si empatan, gana el que gastó menos fichas; si siguen empatados, el que expuso la teoría más clara.

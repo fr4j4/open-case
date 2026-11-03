@@ -32,5 +32,7 @@ The team with the most points wins. On a tie, the team that spent fewer tokens w
 | **Total** |  |  |
 ```
 
+If a team hands in no accusation, its accusation and discard sheets are worth 0 (they are not marked, and the −1 per unexplained innocent does not apply); only its leftover tokens count, and hints asked still subtract.
+
 While one team presents, keep scoring another's sheet. If everyone accuses the wrong person, there is no winner: read the closing anyway.
 {.small}
